@@ -1,2 +1,2 @@
 # ophelia
-We don't know where she is from, or even what strain she is.
+If not for her we wouldn't even be in this predicament. And now, this ridiculous plan.
