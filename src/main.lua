@@ -9,7 +9,6 @@ require("torch")
 require("sys")
 local tc = require("torchcraft")
 local macro = require("spaceboard.macro")
-local mecha = require("spaceboard.mecha")
 local micro = require("spaceboard.micro")
 
 -- Set default float tensor type
