@@ -9,9 +9,9 @@
 
 -- 2 Hatch Muta
 -- 3 Hatch Muta
--- 3 Hatch Lurkers
+-- Fake 3 Hatch Muta
 -- 3 Hatch Before Pool
 -- 3 Hatch Zergling
--- Fake 3 Hatch Muta (vs. Terran)
+-- 3 Hatch Lurkers
 -- 7 Pool
--- 13 Pool Muta
+-- 13 Pool Muta (vs. Terran)
