@@ -6,6 +6,13 @@ local tools = require("ophelia.tools")
 
 local macro = {}
 
+
+--
+-- Why don't we get all this from the blackboard?
+--
+-- In the context of what build order to execute next
+--
+
 local powering = true
 
 local spawning_overlord = false
