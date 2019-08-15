@@ -7,11 +7,11 @@
 -- 5 Pool
 -- 6 Hatch (vs. Protoss)
 
--- 13 Pool Muta
 -- 2 Hatch Muta
 -- 3 Hatch Muta
 -- 3 Hatch Lurkers
 -- 3 Hatch Before Pool
 -- 3 Hatch Zergling
--- 5 Pool
 -- Fake 3 Hatch Muta (vs. Terran)
+-- 7 Pool
+-- 13 Pool Muta
