@@ -9,7 +9,7 @@ source = {
 description = {
   summary = "I am so tired of her schemes. And now, this ridiculous plan.",
   detailed = "We don't know where she is from, or even what strain she is.",
-  homepage = "https://spacebeam.io",
+  homepage = "https://spacebeam.org",
   license = "AGPL 3"
 }
 
@@ -18,6 +18,7 @@ dependencies = {
   "argparse",
   "luasocket",
   "lzmq-ffi",
+  "moses",
   "uuid"
 }
 
