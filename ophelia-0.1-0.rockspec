@@ -17,14 +17,20 @@ dependencies = {
   "lua == 5.1",
   "argparse",
   "luasocket",
+  "lzmq-ffi",
   "uuid"
 }
 
 build = {
   type = 'builtin',
   modules = {
-    ['spaceboard.macro'] = "src/macro.lua",
-    ['spaceboard.micro'] = "src/micro.lua",
-    ['spaceboard.tools'] = "src/tools.lua"
+    ['ophelia.macro'] = "src/macro.lua",
+    ['ophelia.micro'] = "src/micro.lua",
+    ['ophelia.tools'] = "src/tools.lua"
+  },
+  install = {
+    bin = {
+      ['ophelia'] = "src/main.lua"
+    }
   }
 }

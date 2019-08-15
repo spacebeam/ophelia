@@ -8,8 +8,8 @@ local uuid = require("uuid")
 require("torch")
 require("sys")
 local tc = require("torchcraft")
-local macro = require("spaceboard.macro")
-local micro = require("spaceboard.micro")
+local macro = require("ophelia.macro")
+local micro = require("ophelia.micro")
 
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
