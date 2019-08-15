@@ -1,6 +1,7 @@
+-- I hear thunder but there's no rain
+
 package = "ophelia"
 version = "0.1-0"
-
 source = {
   url = "git://github.com/spacebeam/ophelia",
   tag = "0.1.0",
