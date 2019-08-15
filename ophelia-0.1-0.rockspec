@@ -25,9 +25,12 @@ dependencies = {
 build = {
   type = 'builtin',
   modules = {
+    ['ophelia.lib.yaml'] = "src/lib/YAMLParserLite.lua",
     ['ophelia.macro'] = "src/macro.lua",
     ['ophelia.micro'] = "src/micro.lua",
-    ['ophelia.scout'] = "src/scout.lua",
+    ['ophelia.openings'] = "src/openings.lua",
+    ['ophelia.scouting'] = "src/scouting.lua",
+    ['ophelia.tactics'] = "src/tactics.lua",
     ['ophelia.tools'] = "src/tools.lua",
     ['ophelia.zstreams'] = "src/zstreams.lua"
   },
