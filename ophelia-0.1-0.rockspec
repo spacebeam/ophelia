@@ -26,7 +26,9 @@ build = {
   modules = {
     ['ophelia.macro'] = "src/macro.lua",
     ['ophelia.micro'] = "src/micro.lua",
-    ['ophelia.tools'] = "src/tools.lua"
+    ['ophelia.scout'] = "src/scout.lua",
+    ['ophelia.tools'] = "src/tools.lua",
+    ['ophelia.zstreams'] = "src/zstreams.lua"
   },
   install = {
     bin = {
