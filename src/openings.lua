@@ -1,0 +1,6 @@
+-- 4-7 Pool
+-- 9 Pool
+-- Overpool
+-- 12 Pool
+-- 12 Hatch
+-- 3 Hatch before pool
