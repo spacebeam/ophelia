@@ -1,10 +1,5 @@
--- 3 Hatch Zergling
--- 3 Hatch Hydralisk
--- 3 Hatch Spire
--- 3 Hatch Lurkers
--- 4 Hatch before gas 
--- 3 Base Spire into 5 Hatch Hydra
--- 6 Hatch (vs. Protoss)
+-- 9734
+-- 3 Hatch Spire into 5 Hatch Hydra
 
 -- 2 Hatch Muta
 -- 3 Hatch Muta
