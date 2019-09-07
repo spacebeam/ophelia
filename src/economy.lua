@@ -100,7 +100,6 @@ function economy.manage_economy(actions, tc)
                     0, 0, 0, tc.unittypes.Zerg_Drone))
                 end
                 if spawning_overlord == true and is_spawning_overlord[#overlords+1] == nil then
-                    print('lol wtf')
                     is_spawning_overlord[#overlords+1] = true
                     table.insert(actions,
                     tc.command(tc.command_unit, uid, tc.cmd.Train,
