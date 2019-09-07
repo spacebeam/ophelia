@@ -2,6 +2,8 @@
 -- Ugly 9734 hack for now since we are just testing stuff
 -- it needs more than a couple of good'old clean, clean, clean.
 --
+
+local fun = require("moses")
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
 
@@ -23,9 +25,9 @@ local spire = 0
 
 local has_spawning_pool = false
 
-local has_hydralisk_den = false
-
 local has_evolution_chamber = false
+
+local has_hydralisk_den = false
 
 local has_spire = false
 
@@ -51,7 +53,7 @@ function economy.manage_economy(actions, tc)
     local drones = {}
     -- Spawn more overlords!
     local overlords = {}
-    -- swarm colonies 
+    -- Swarm colonies 
     local colonies = {}
     colonies[1] = 0
     colonies[2] = 0
@@ -66,7 +68,7 @@ function economy.manage_economy(actions, tc)
     colonies[11] = 0
     colonies[12] = 0
     colonies[13] = 0
-    -- swarm rallypoint
+    -- Swarm rallypoint
     local rallypoints = {}
     rallypoints[1] = 0
     rallypoints[2] = 0
@@ -89,8 +91,8 @@ function economy.manage_economy(actions, tc)
         if tc:isbuilding(ut.type) then
             -- tests stuff within buildings: train, upgrade, rally!
             if ut.type == tc.unittypes.Zerg_Spawning_Pool then
-                if has_spool == false then
-                    has_spool = true
+                if has_spawning_pool == false then
+                    has_spawning_pool = true
                 end
             end
             if ut.type == tc.unittypes.Zerg_Hatchery then
@@ -111,7 +113,7 @@ function economy.manage_economy(actions, tc)
             table.insert(overlords, uid)
         elseif tc:isworker(ut.type) then        
             table.insert(drones, uid)
-            if has_spool == false and tc.state.resources_myself.ore >= 200
+            if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
                 and tc.state.frame_from_bwapi - spawning_pool > 190 then
                 -- tests building        
                 spawning_pool = tc.state.frame_from_bwapi
@@ -336,8 +338,14 @@ function economy.manage_economy(actions, tc)
         end
     end
     -- 
+    
+    print(fun.size(is_spawning_overlord))
+    
+    for k, v in pairs(is_spawning_overlord) do
+        print(k, v)
+    end
 
-    if #drones == 9 and #overlords == 1 and spawning_overlord == false then
+    if #drones == 9 and #overlords == 1 and #is_spawning_overlord == 0 and spawning_overlord == false then
         spawning_overlord = true
     end
     
@@ -345,14 +353,17 @@ function economy.manage_economy(actions, tc)
         powering = true
     end
     
-    if #drones == 16 and #overlords == 2 and powering == true and spawning_overlord == false then
+    if #drones == 16 and #overlords == 2 and spawning_overlord == false then
         spawning_overlord = true
     end
     
     if #drones >= 19 then
         powering = false
     end
-
+    print(fun.size(drones))
+    print(fun.size(overlords))
+    print(spawning_overlord)
+    print(powering)
     -- So long and thanks for all the fish!
     return actions
 end
