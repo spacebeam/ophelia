@@ -1,17 +1,11 @@
 --
--- What macro means in the context of brood war?
+-- Ugly 9734 hack for now since we are just testing stuff
+-- it needs more than a couple of good'old clean, clean, clean.
 --
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
 
 local economy = {}
-
-
---
--- Why don't we get all this from the blackboard?
---
--- In the context of what build order to execute next
---
 
 local powering = true
 
@@ -23,29 +17,23 @@ local spawning_pool = 0
 
 local hydralisk_den = 0
 
-local queen_nest = 0
+local spire = 0
 
---
+local has_spool = false
+
+local has_hydraden = false
+
+local has_evochamber = false
+
+local has_spire = false
+
+-- Evolution chambers
 local evolution_chamber = 0
 --
 local chambers = {}
 chambers[1] = 0
 chambers[2] = 0
 chambers[3] = 0
---
---
-
-local spire = 0
-
-local has_spool = false
-
-local has_hden = false
-
-local has_qnest = false
-
-local has_echamber = false
-
-local has_spire = false
 
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
@@ -55,10 +43,6 @@ local middle_stage = false
 local late_stage = false
 -- Final, The watcher observes, the fog collapses an event resolves.
 local final_stage = false
-
-
--- ugly 9734 hack for now since we are just testing stuff
--- we will need more than a couple of good'old clean, clean, clean.
 
 function economy.manage_economy(actions, tc)
     -- What exactly is macro, anyway? 
@@ -371,14 +355,6 @@ function economy.manage_economy(actions, tc)
         powering = false
     end
 
-    print(#overlords)
-    print(#workers)
-    
-    print(powering)
-    print(spawning_overlord)
-    
-    print(#is_spawning_overlord)
-    --
     -- So long and thanks for all the fish!
     return actions
 end
