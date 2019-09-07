@@ -15,21 +15,20 @@ local is_spawning_overlord = {}
 
 local spawning_pool = 0
 
+local evolution_chamber = 0
+
 local hydralisk_den = 0
 
 local spire = 0
 
-local has_spool = false
+local has_spawning_pool = false
 
-local has_hydraden = false
+local has_hydralisk_den = false
 
-local has_evochamber = false
+local has_evolution_chamber = false
 
 local has_spire = false
 
--- Evolution chambers
-local evolution_chamber = 0
---
 local chambers = {}
 chambers[1] = 0
 chambers[2] = 0
@@ -49,7 +48,7 @@ function economy.manage_economy(actions, tc)
     -- this interpretation includes 'powering'.
     -- powering is when computer switch to primarily
     -- economics, making drones and new gas patches.
-    local workers = {}
+    local drones = {}
     -- Spawn more overlords!
     local overlords = {}
     -- swarm colonies 
@@ -77,9 +76,9 @@ function economy.manage_economy(actions, tc)
     rallypoints[6] = 0
     rallypoints[7] = 0
     rallypoints[8] = 0
-    -- Timing to expand is key and can be extracted
-    -- from datasets of competitive players.
+
     local buildings = {}
+    
     -- Set your units into 4 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
@@ -112,7 +111,7 @@ function economy.manage_economy(actions, tc)
         elseif ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
         elseif tc:isworker(ut.type) then        
-            table.insert(workers, uid)
+            table.insert(drones, uid)
             if has_spool == false and tc.state.resources_myself.ore >= 200
                 and tc.state.frame_from_bwapi - spawning_pool > 190 then
                 -- tests building        
@@ -339,19 +338,19 @@ function economy.manage_economy(actions, tc)
     end
     -- 
 
-    if #workers == 9 and #overlords == 1 and spawning_overlord == false then
+    if #drones == 9 and #overlords == 1 and spawning_overlord == false then
         spawning_overlord = true
     end
     
-    if #workers > 10 and #workers < 19 and powering == false then
+    if #drones > 10 and #drones < 19 and powering == false then
         powering = true
     end
     
-    if #workers == 16 and #overlords == 2 and powering == true and spawning_overlord == false then
+    if #drones == 16 and #overlords == 2 and powering == true and spawning_overlord == false then
         spawning_overlord = true
     end
     
-    if #workers >= 19 then
+    if #drones >= 19 then
         powering = false
     end
 
