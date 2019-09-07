@@ -1,6 +1,6 @@
 #!/usr/bin/env luajit
 --
--- Bridge between StarCraft 1.16.1 and TorchCraft 1.3
+-- We don't know where she is from, or even what strain she is. 
 --
 local argparse = require("argparse")
 local socket = require("socket")
@@ -8,23 +8,30 @@ local uuid = require("uuid")
 require("torch")
 require("sys")
 local tc = require("torchcraft")
-local macro = require("ophelia.macro")
-local micro = require("ophelia.micro")
+
+-- !
+local counters = require("ophelia.counters")
+local economy = require("ophelia.economy")
+local openings = require("ophelia.openings")
+local scouting = require("ophelia.scouting")
+local tactics = require("ophelia.tactics")
+local tools = require("ophelia.tools")
+local zstreams = require("ophelia.zstreams")
 
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
-tc.DEBUG = 0
+tc.DEBUG = 1
 -- Set random seed
 uuid.randomseed(socket.gettime()*10000)
--- Spawn UUID
+-- Session id
 local spawn_uuid = uuid()
-print("Starting bridge 1.3 " .. spawn_uuid)
+print("Ophelia's session " .. spawn_uuid)
 -- CLI argument parser
 local parser = argparse() {
-    name = "bridge",
-    description = "Bridge between StarCraft 1.16.1 and TorchCraft 1.3",
-    epilog = "(luajit prototype)"
+    name = "Ophelia",
+    description = "If not for her we wouldn't even be in this predicament.",
+    epilog = "And now, this ridiculous plan."
 }
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
@@ -66,7 +73,7 @@ while restarts < 0 do
         loops = loops + 1
         local actions = {}
         if tc.state.battle_frame_count % skip_frames == 0 then
-            actions = macro.manage_economy(actions, tc)
+            actions = economy.manage_economy(actions, tc)
         elseif tc.state.game_ended then
             break
         else
@@ -86,4 +93,3 @@ while restarts < 0 do
     print("So Long, and Thanks for All the Fish!")
     collectgarbage()
 end
-print("2 + 2 = 5")
