@@ -138,8 +138,6 @@ function economy.manage_economy(actions, tc)
     extractors[10] = 0
     extractors[11] = 0
     extractors[12] = 0
-    extractors[13] = 0
-    extractors[14] = 0
     
     -- Swarm rallypoints
     local rallypoints = {}
