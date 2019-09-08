@@ -15,13 +15,19 @@ local spawning_overlord = false
 
 local is_spawning_overlord = {} 
 
-local spawning_pool = 0
+local units = {}
 
-local evolution_chamber = 0
+local spawning_pool = 0 
+
+local evolution_chamber = 0 
 
 local hydralisk_den = 0
 
-local spire = 0
+local spire = 0 
+
+local queen_nest = 0 
+
+local defiler_mound = 0 
 
 local has_spawning_pool = false
 
@@ -31,12 +37,14 @@ local has_hydralisk_den = false
 
 local has_spire = false
 
-local units = {}
+local has_queen_nest = false
+
+local has_defiler_mound = false
 
 local chambers = {}
-chambers[1] = 0
-chambers[2] = 0
-chambers[3] = 0
+chambers[1] = nil
+chambers[2] = nil
+chambers[3] = nil
 
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
@@ -48,6 +56,7 @@ local late_stage = false
 local final_stage = false
 
 function economy.manage_economy(actions, tc)
+
     -- What exactly is macro, anyway? 
     -- this interpretation includes 'powering'.
     -- powering is when computer switch to primarily
@@ -58,6 +67,18 @@ function economy.manage_economy(actions, tc)
     local eggs = {}
 
     local drones = {}
+
+    local lings = {}
+
+    local hydras = {}
+
+    local mutas = {}
+
+    local lurkers = {}
+
+    local queens = {}
+
+    local defilers = {}
 
     local overlords = {}
 
@@ -77,7 +98,7 @@ function economy.manage_economy(actions, tc)
     colonies[12] = 0
     colonies[13] = 0
 
-    -- Swarm rallypoint
+    -- Swarm rallypoints
     local rallypoints = {}
     rallypoints[1] = 0
     rallypoints[2] = 0
@@ -100,6 +121,18 @@ function economy.manage_economy(actions, tc)
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
+        elseif ut.type == tc.unittypes.Zerg_Zergling then
+            table.insert(lings, uid)
+        elseif ut.type == tc.unittypes.Zerg_Hydralisk then
+            table.insert(hydras, uid)
+        elseif ut.type == tc.unittypes.Zerg_Mutalisk then
+            table.insert(mutas, uid)
+        elseif ut.type == tc.unittypes.Zerg_Lurker then
+            table.insert(lurkers, uid)
+        elseif ut.type == tc.unittypes.Zerg_Queen then
+            table.insert(queens, uid)
+        elseif ut.type == tc.unittypes.Zerg_Defiler then
+            table.insert(defilers, uid)
         elseif ut.type == tc.unittypes.Zerg_Egg then
             table.insert(eggs, uid)
         elseif ut.type == tc.unittypes.Zerg_Larva then
@@ -342,12 +375,9 @@ function economy.manage_economy(actions, tc)
                     is_spawning_overlord[3] = true
                 end
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
-                    -- check other thing
-                    print('help me out')
                     if fun.size(units["eggs"]) < 1 then
                         is_spawning_overlord[3] = nil
                     end
-                    print(fun.size(units["overlords"]))
                 end
                 if powering == true then
                     table.insert(actions,
@@ -366,25 +396,32 @@ function economy.manage_economy(actions, tc)
             end
         end
     end
-    -- 
+
+    -- !! 
+    
     units["larvae"] = larvae
     units["eggs"] = eggs
     units["drones"] = drones
     units["overlords"] = overlords
+    units["lings"] = lings
+    units["hydras"] = hydras
+    units["mutas"] = mutas
+    units["queens"] = queens
+    units["defilers"] = defilers
 
     for k, v in pairs(is_spawning_overlord) do
         print(k, v)
     end
 
-    if #drones == 9 and #overlords == 1 and #is_spawning_overlord == 0 and spawning_overlord == false then
+    if fun.size(drones) == 9 and fun.size(overlords) == 1 and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
         spawning_overlord = true
     end
     
-    if #drones == 17 and #overlords == 2 and spawning_overlord == false then
+    if fun.size(drones) == 17 and fun.size(overlords) == 2 and spawning_overlord == false then
         spawning_overlord = true
     end
     
-    if #drones >= 19 then
+    if fun.size(drones) >= 19 then
         powering = false
     else
         powering = true
@@ -396,6 +433,11 @@ function economy.manage_economy(actions, tc)
     print("eggs " .. fun.size(eggs))
     print("drones " .. fun.size(drones))
     print("overlords " .. fun.size(overlords))
+    print("lings " .. fun.size(lings))
+    print("hydras " .. fun.size(hydras))
+    print("mutas " .. fun.size(mutas))
+    print("queens " .. fun.size(queens))
+    print("defilers " .. fun.size(defilers))
     print(fun.size(is_spawning_overlord))
 
     -- So long and thanks for all the fish!
