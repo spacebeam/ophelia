@@ -31,6 +31,8 @@ local has_hydralisk_den = false
 
 local has_spire = false
 
+local units = {}
+
 local chambers = {}
 chambers[1] = 0
 chambers[2] = 0
@@ -50,9 +52,15 @@ function economy.manage_economy(actions, tc)
     -- this interpretation includes 'powering'.
     -- powering is when computer switch to primarily
     -- economics, making drones and new gas patches.
+ 
+    local larvae = {}
+
+    local eggs = {}
+
     local drones = {}
-    -- Spawn more overlords!
+
     local overlords = {}
+
     -- Swarm colonies 
     local colonies = {}
     colonies[1] = 0
@@ -68,6 +76,7 @@ function economy.manage_economy(actions, tc)
     colonies[11] = 0
     colonies[12] = 0
     colonies[13] = 0
+
     -- Swarm rallypoint
     local rallypoints = {}
     rallypoints[1] = 0
@@ -78,9 +87,10 @@ function economy.manage_economy(actions, tc)
     rallypoints[6] = 0
     rallypoints[7] = 0
     rallypoints[8] = 0
-
-    local buildings = {}
     
+    -- !
+    local buildings = {}
+
     -- Set your units into 4 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
@@ -88,29 +98,12 @@ function economy.manage_economy(actions, tc)
     local defence = {}
     
     for uid, ut in pairs(tc.state.units_myself) do
-        if tc:isbuilding(ut.type) then
-            -- tests stuff within buildings: train, upgrade, rally!
-            if ut.type == tc.unittypes.Zerg_Spawning_Pool then
-                if has_spawning_pool == false then
-                    has_spawning_pool = true
-                end
-            end
-            if ut.type == tc.unittypes.Zerg_Hatchery then
-                if powering == true then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
-                    0, 0, 0, tc.unittypes.Zerg_Drone))
-                end
-                if spawning_overlord == true and is_spawning_overlord[#overlords+1] == nil then
-                    is_spawning_overlord[#overlords+1] = true
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
-                    0, 0, 0, tc.unittypes.Zerg_Overlord))
-                    spawning_overlord = false
-                end
-            end
-        elseif ut.type == tc.unittypes.Zerg_Overlord then
+        if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
+        elseif ut.type == tc.unittypes.Zerg_Egg then
+            table.insert(eggs, uid)
+        elseif ut.type == tc.unittypes.Zerg_Larva then
+            table.insert(larvae, uid)
         elseif tc:isworker(ut.type) then        
             table.insert(drones, uid)
             if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
@@ -326,6 +319,42 @@ function economy.manage_economy(actions, tc)
                     end
                 end
             end
+        elseif tc:isbuilding(ut.type) then
+            -- tests stuff within buildings: train, upgrade, rally!
+            if ut.type == tc.unittypes.Zerg_Spawning_Pool then
+                if has_spawning_pool == false then
+                    has_spawning_pool = true
+                end
+            end
+            if ut.type == tc.unittypes.Zerg_Hatchery then
+                if spawning_overlord == true and fun.size(is_spawning_overlord) == 0 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, uid, tc.cmd.Train,
+                    0, 0, 0, tc.unittypes.Zerg_Overlord))
+                    spawning_overlord = false
+                    is_spawning_overlord[2] = true
+                end
+                if spawning_overlord == true and fun.size(is_spawning_overlord) == 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, uid, tc.cmd.Train,
+                    0, 0, 0, tc.unittypes.Zerg_Overlord))
+                    spawning_overlord = false
+                    is_spawning_overlord[3] = true
+                end
+                if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
+                    -- check other thing
+                    print('help me out')
+                    if fun.size(units["eggs"]) < 1 then
+                        is_spawning_overlord[3] = nil
+                    end
+                    print(fun.size(units["overlords"]))
+                end
+                if powering == true then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, uid, tc.cmd.Train,
+                    0, 0, 0, tc.unittypes.Zerg_Drone))
+                end
+            end
         else
             -- attacks closest
             local target = tools.get_closest(ut.position,
@@ -338,9 +367,11 @@ function economy.manage_economy(actions, tc)
         end
     end
     -- 
-    
-    print(fun.size(is_spawning_overlord))
-    
+    units["larvae"] = larvae
+    units["eggs"] = eggs
+    units["drones"] = drones
+    units["overlords"] = overlords
+
     for k, v in pairs(is_spawning_overlord) do
         print(k, v)
     end
@@ -349,21 +380,24 @@ function economy.manage_economy(actions, tc)
         spawning_overlord = true
     end
     
-    if #drones > 10 and #drones < 19 and powering == false then
-        powering = true
-    end
-    
-    if #drones == 16 and #overlords == 2 and spawning_overlord == false then
+    if #drones == 17 and #overlords == 2 and spawning_overlord == false then
         spawning_overlord = true
     end
     
     if #drones >= 19 then
         powering = false
+    else
+        powering = true
     end
-    print(fun.size(drones))
-    print(fun.size(overlords))
-    print(spawning_overlord)
+    
     print(powering)
+    print(spawning_overlord)
+    print("larvae ".. fun.size(larvae))
+    print("eggs " .. fun.size(eggs))
+    print("drones " .. fun.size(drones))
+    print("overlords " .. fun.size(overlords))
+    print(fun.size(is_spawning_overlord))
+
     -- So long and thanks for all the fish!
     return actions
 end
