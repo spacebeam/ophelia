@@ -9,6 +9,12 @@ local tools = require("ophelia.tools")
 
 local economy = {}
 
+local quadrants = {}
+quadransts["A"] = {}
+quadransts["B"] = {}
+quadransts["C"] = {}
+quadransts["D"] = {}
+
 local powering = true
 
 local spawning_overlord = false
@@ -18,6 +24,8 @@ local is_spawning_overlord = {}
 local units = {}
 
 local spawning_pool = 0 
+
+local extractor = 0
 
 local evolution_chamber = 0 
 
@@ -48,6 +56,7 @@ local has_defiler_mound = false
 local has_ultralisk_cavern = false
 
 local has_command_center = false
+
 
 local chambers = {}
 chambers[1] = nil
@@ -111,7 +120,27 @@ function economy.manage_economy(actions, tc)
     colonies[11] = 0
     colonies[12] = 0
     colonies[13] = 0
-
+    colonies[14] = 0
+    colonies[15] = 0
+    colonies[16] = 0
+    
+    -- Blueberry haze 
+    local extractors = {}
+    extractors[1] = 0
+    extractors[2] = 0
+    extractors[3] = 0
+    extractors[4] = 0
+    extractors[5] = 0
+    extractors[6] = 0
+    extractors[7] = 0
+    extractors[8] = 0
+    extractors[9] = 0
+    extractors[10] = 0
+    extractors[11] = 0
+    extractors[12] = 0
+    extractors[13] = 0
+    extractors[14] = 0
+    
     -- Swarm rallypoints
     local rallypoints = {}
     rallypoints[1] = 0
