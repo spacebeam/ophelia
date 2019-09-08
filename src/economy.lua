@@ -10,10 +10,10 @@ local tools = require("ophelia.tools")
 local economy = {}
 
 local quadrants = {}
-quadransts["A"] = {}
-quadransts["B"] = {}
-quadransts["C"] = {}
-quadransts["D"] = {}
+quadrants["A"] = {}
+quadrants["B"] = {}
+quadrants["C"] = {}
+quadrants["D"] = {}
 
 local powering = true
 
@@ -164,6 +164,17 @@ function economy.manage_economy(actions, tc)
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
+
+            -- init test with scouting quadrants
+            local _, pos = next(tc:filter_type(tc.state.units_myself, 
+                {tc.unittypes.Zerg_Hatchery}))
+
+            if pos ~= nil then pos = pos.position end
+
+            if pos ~= nil then 
+                print('starting location: x '..pos[1] .. ' y ' .. pos[2])
+            end
+
         elseif ut.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, uid)
         elseif ut.type == tc.unittypes.Zerg_Hydralisk then
@@ -190,7 +201,7 @@ function economy.manage_economy(actions, tc)
             table.insert(drones, uid)
             if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
                 and tc.state.frame_from_bwapi - spawning_pool > 190 then
-                -- tests building        
+                -- tests your spawning pool        
                 spawning_pool = tc.state.frame_from_bwapi
                 local _, pos = next(tc:filter_type(
                 tc.state.units_myself,
@@ -204,7 +215,6 @@ function economy.manage_economy(actions, tc)
                     tc.command(tc.command_unit, uid,
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
-                    print('starting location: x ' .. pos[1] .. ' y ' .. pos[2])
                 end
 
             elseif tc.state.resources_myself.ore >= 300 
