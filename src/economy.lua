@@ -29,6 +29,10 @@ local queen_nest = 0
 
 local defiler_mound = 0 
 
+local command_center = 0
+
+local ultralisk_cavern = 0
+
 local has_spawning_pool = false
 
 local has_evolution_chamber = false
@@ -40,6 +44,10 @@ local has_spire = false
 local has_queen_nest = false
 
 local has_defiler_mound = false
+
+local has_ultralisk_cavern = false
+
+local has_command_center = false
 
 local chambers = {}
 chambers[1] = nil
@@ -74,11 +82,17 @@ function economy.manage_economy(actions, tc)
 
     local mutas = {}
 
+    local scourges = {}
+
     local lurkers = {}
 
     local queens = {}
 
     local defilers = {}
+
+    local ultras = {}
+
+    local infesteds = {}
 
     local overlords = {}
 
@@ -137,6 +151,12 @@ function economy.manage_economy(actions, tc)
             table.insert(eggs, uid)
         elseif ut.type == tc.unittypes.Zerg_Larva then
             table.insert(larvae, uid)
+        elseif ut.type == tc.unittypes.Zerg_Scourge then
+            table.insert(scourges, uid)
+        elseif ut.type == tc.unittypes.Zerg_Ultralisk then
+            table.insert(ultras, uid)
+        elseif ut.type == tc.unittypes.Zerg_Infested_Terran then
+            table.insert(infesteds, uid)
         elseif tc:isworker(ut.type) then        
             table.insert(drones, uid)
             if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
@@ -408,6 +428,9 @@ function economy.manage_economy(actions, tc)
     units["mutas"] = mutas
     units["queens"] = queens
     units["defilers"] = defilers
+    units["scourges"] = scourges
+    units["ultras"] = ultras
+    units["infesteds"] = infesteds
 
     for k, v in pairs(is_spawning_overlord) do
         print(k, v)
@@ -435,9 +458,12 @@ function economy.manage_economy(actions, tc)
     print("overlords " .. fun.size(overlords))
     print("lings " .. fun.size(lings))
     print("hydras " .. fun.size(hydras))
+    print("lurkers " .. fun.size(lurkers))
     print("mutas " .. fun.size(mutas))
+    print("scourges " .. fun.size(scourges))
     print("queens " .. fun.size(queens))
     print("defilers " .. fun.size(defilers))
+    print("ultras " .. fun.size(ultras))
     print(fun.size(is_spawning_overlord))
 
     -- So long and thanks for all the fish!
