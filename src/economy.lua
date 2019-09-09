@@ -137,7 +137,15 @@ function economy.manage_economy(actions, tc)
     rallypoints[6] = 0
     rallypoints[7] = 0
     rallypoints[8] = 0
-    
+
+    -- the map is not the territory
+    -- since this is an ugly hack
+    -- we are handlings 512x512 for all the things.
+    quadrants["A"]["scout"] = {450,50}
+    quadrants["B"]["scout"] = {50,50}
+    quadrants["C"]["scout"] = {50,450}
+    quadrants["D"]["scout"] = {450,450}
+
     -- !
     local buildings = {}
 
