@@ -21,6 +21,8 @@ local spawning_overlord = false
 
 local is_spawning_overlord = {} 
 
+local is_drone_scouting = false
+
 local units = {}
 
 local spawning_pool = 0 
@@ -58,10 +60,15 @@ local has_ultralisk_cavern = false
 local has_command_center = false
 
 
+-- !!
+local scouting_drones = {}
+
+
 local chambers = {}
 chambers[1] = nil
 chambers[2] = nil
 chambers[3] = nil
+
 
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
@@ -146,13 +153,13 @@ function economy.manage_economy(actions, tc)
     rallypoints[7] = 0
     rallypoints[8] = 0
 
-    -- the map is not the territory
+    -- Map is not the territory
     -- since this is an ugly hack
     -- we are handlings 512x512 for all the things.
-    quadrants["A"]["scout"] = {450,50}
-    quadrants["B"]["scout"] = {50,50}
-    quadrants["C"]["scout"] = {50,450}
-    quadrants["D"]["scout"] = {450,450}
+    quadrants["A"]["scout"] = {["x"]=450, ["y"]=50}
+    quadrants["B"]["scout"] = {["x"]=50, ["y"]=50}
+    quadrants["C"]["scout"] = {["x"]=50, ["y"]=450}
+    quadrants["D"]["scout"] = {["x"]=450, ["y"]=450}
 
     -- !
     local buildings = {}
@@ -175,10 +182,54 @@ function economy.manage_economy(actions, tc)
 
             if pos ~= nil then 
                 print('starting location: x '..pos[1] .. ' y ' .. pos[2])
-                if pos[1] > 256 and pos[2] <= 256 then print('quadrant A')
-                elseif pos[1] <= 256 and pos[2] <= 256 then print('quadrant B')
-                elseif pos[1] <= 256 and pos[2] > 256 then print('quadrant C')
-                elseif pos[1] > 256 and pos[2] >= 256 then print('quadrant D')
+                if pos[1] > 256 and pos[2] <= 256 then
+                    print('quadrant A')
+                    -- send overlord to the oposite quadrant
+                    if not utils.is_in(ut.order,
+                        tc.command2order[tc.unitcommandtypes.Build])
+                        and not utils.is_in(ut.order,
+                        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+                        table.insert(actions,
+                        tc.command(tc.command_unit, uid,
+                        tc.cmd.Move, -1,
+                        quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
+                    end
+                elseif pos[1] <= 256 and pos[2] <= 256 then 
+                    print('quadrant B')
+                    -- send overlord to the oposite quadrant
+                    if not utils.is_in(ut.order,
+                        tc.command2order[tc.unitcommandtypes.Build])
+                        and not utils.is_in(ut.order,
+                        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+                        table.insert(actions,
+                        tc.command(tc.command_unit, uid,
+                        tc.cmd.Move, -1,
+                        quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
+                    end
+                elseif pos[1] <= 256 and pos[2] > 256 then 
+                    print('quadrant C')
+                    -- send overlord to the oposite quadrant
+                    if not utils.is_in(ut.order,
+                        tc.command2order[tc.unitcommandtypes.Build])
+                        and not utils.is_in(ut.order,
+                        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+                        table.insert(actions,
+                        tc.command(tc.command_unit, uid,
+                        tc.cmd.Move, -1,
+                        quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
+                    end
+                elseif pos[1] > 256 and pos[2] >= 256 then 
+                    print('quadrant D')
+                    -- send overlord to the oposite quadrant
+                    if not utils.is_in(ut.order,
+                        tc.command2order[tc.unitcommandtypes.Build])
+                        and not utils.is_in(ut.order,
+                        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+                        table.insert(actions,
+                        tc.command(tc.command_unit, uid,
+                        tc.cmd.Move, -1,
+                        quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
+                    end
                 else print('something is very, very wrong!') end
             end
 
@@ -223,6 +274,23 @@ function economy.manage_economy(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
+            
+
+            elseif is_drone_scouting and fun.size(scouting_drones) > 0 then
+
+                if scouting_drones[1]["uid"] == nil then scouting_drones[1] = {["uid"]=uid} end
+
+                if scouting_drones[1]["uid"] == uid and not utils.is_in(ut.order,
+                    tc.command2order[tc.unitcommandtypes.Build])
+                    and not utils.is_in(ut.order,
+                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, uid,
+                    tc.cmd.Move, -1,
+                    56, 152))
+                end
+
+                is_drone_scouting = false
 
             elseif tc.state.resources_myself.ore >= 300 
                 and tc.state.frame_from_bwapi - colonies[1] > 200 then
@@ -485,7 +553,12 @@ function economy.manage_economy(actions, tc)
     if fun.size(drones) == 9 and fun.size(overlords) == 1 and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
         spawning_overlord = true
     end
-    
+
+    if fun.size(drones) == 11 and scouting_drones[1] == nil then
+        scouting_drones[1] = {}
+        is_drone_scouting = true
+    end
+
     if fun.size(drones) == 17 and fun.size(overlords) == 2 and spawning_overlord == false then
         spawning_overlord = true
     end
