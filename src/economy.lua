@@ -115,14 +115,6 @@ function economy.manage_economy(actions, tc)
     colonies[6] = 0
     colonies[7] = 0
     colonies[8] = 0
-    colonies[9] = 0
-    colonies[10] = 0
-    colonies[11] = 0
-    colonies[12] = 0
-    colonies[13] = 0
-    colonies[14] = 0
-    colonies[15] = 0
-    colonies[16] = 0
     
     -- Blueberry haze 
     local extractors = {}
@@ -134,10 +126,6 @@ function economy.manage_economy(actions, tc)
     extractors[6] = 0
     extractors[7] = 0
     extractors[8] = 0
-    extractors[9] = 0
-    extractors[10] = 0
-    extractors[11] = 0
-    extractors[12] = 0
     
     -- Swarm rallypoints
     local rallypoints = {}
