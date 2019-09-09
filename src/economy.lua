@@ -115,6 +115,14 @@ function economy.manage_economy(actions, tc)
     colonies[6] = 0
     colonies[7] = 0
     colonies[8] = 0
+    colonies[9] = 0
+    colonies[10] = 0
+    colonies[11] = 0
+    colonies[12] = 0
+    colonies[13] = 0
+    colonies[14] = 0
+    colonies[15] = 0
+    colonies[16] = 0
     
     -- Blueberry haze 
     local extractors = {}
