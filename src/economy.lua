@@ -172,9 +172,9 @@ function economy.manage_economy(actions, tc)
             if pos ~= nil then 
                 print('starting location: x '..pos[1] .. ' y ' .. pos[2])
                 if pos[1] > 256 and pos[2] <= 256 then print('quadrant A')
-                elseif pos[1] <= 256 and pos[2] <= 256 then print('quadran B')
-                elseif pos[1] <= 256 and pos[2] > 256 then print('quadran C')
-                elseif pos[1] > 256 and pos[2] >= 256 then print('quadran D')
+                elseif pos[1] <= 256 and pos[2] <= 256 then print('quadrant B')
+                elseif pos[1] <= 256 and pos[2] > 256 then print('quadrant C')
+                elseif pos[1] > 256 and pos[2] >= 256 then print('quadrant D')
                 else print('something is very, very wrong!') end
             end
 
