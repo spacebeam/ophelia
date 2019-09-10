@@ -203,8 +203,6 @@ function economy.manage_economy(actions, tc)
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
 
-            -- !?
-
             elseif is_drone_scouting and fun.size(scouting_drones) > 0 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
                 actions = eleven["actions"]

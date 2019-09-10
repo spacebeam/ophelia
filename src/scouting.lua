@@ -25,7 +25,7 @@ function scouting.main_quadrant(pos)
             quadrant = "A"
         elseif pos[1] <= 256 and pos[2] <= 256 then
             quadrant = "B"
-        elseif post[1] <= 256 and pos[2] > 256 then
+        elseif pos[1] <= 256 and pos[2] > 256 then
             quadrant = "C"
         elseif pos[1] > 256 and pos[2] >= 256 then
             quadrant = "D"
@@ -90,6 +90,7 @@ function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
         tc.command(tc.command_unit, uid,
         tc.cmd.Move, -1,
         56, 152))
+    end
     return {["actions"]=actions,["scouting_drones"]=scouting_drones}
 end
 
