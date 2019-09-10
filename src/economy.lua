@@ -164,9 +164,9 @@ function economy.manage_economy(actions, tc)
             -- init test with scouting quadrants
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
                 {tc.unittypes.Zerg_Hatchery}))
-
+            
+            -- init clean, clean, clean at refactor scouting
             actions = scouting.first_overlord(pos, uid, ut, actions, tc)
-
 
         elseif ut.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, uid)

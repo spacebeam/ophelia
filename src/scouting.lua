@@ -15,7 +15,7 @@ quadrants["B"] = {["scout"]={["x"]=50,["y"]=50}}
 quadrants["C"] = {["scout"]={["x"]=50,["y"]=450}}
 quadrants["D"] = {["scout"]={["x"]=450,["y"]=450}}
 
--- 11 drone,
+-- one at 11 drone,
 -- two at 12 drone, 200 mineral.
 is_drone_scouting = false
 
@@ -36,18 +36,14 @@ function scouting.main_quadrant(pos)
         elseif pos[1] > 256 and pos[2] >= 256 then
             quadrant = "D"
         else
-            print("let it crash!")
+            print("let it crash")
         end
     end
     return quadrant
 end
 
 function scouting.first_overlord(pos, uid, ut, actions, tc)
-    -- init clean, clean, clean
     local quadrant = scouting.main_quadrant(pos)
-    
-    print(quadrant)
-    
     if quadrant == "A" then
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
@@ -59,7 +55,6 @@ function scouting.first_overlord(pos, uid, ut, actions, tc)
             quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
         end
     elseif quadrant == "B" then
-        --
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -70,7 +65,6 @@ function scouting.first_overlord(pos, uid, ut, actions, tc)
             quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
         end
     elseif quadrant == "C" then
-        --
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -81,7 +75,6 @@ function scouting.first_overlord(pos, uid, ut, actions, tc)
             quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
         end
     elseif quadrant == "D" then
-        --
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
