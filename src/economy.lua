@@ -54,10 +54,9 @@ local has_ultralisk_cavern = false
 
 local has_command_center = false
 
+local scouting_overlords = {}
 
--- !!
 local scouting_drones = {}
-
 
 local chambers = {}
 chambers[1] = nil
@@ -160,14 +159,9 @@ function economy.manage_economy(actions, tc)
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
-
-            -- init test with scouting quadrants
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
                 {tc.unittypes.Zerg_Hatchery}))
-            
-            -- init clean, clean, clean at refactor scouting
             actions = scouting.first_overlord(pos, uid, ut, actions, tc)
-
         elseif ut.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, uid)
         elseif ut.type == tc.unittypes.Zerg_Hydralisk then
@@ -215,7 +209,6 @@ function economy.manage_economy(actions, tc)
             elseif is_drone_scouting and fun.size(scouting_drones) > 0 then
 
                 if scouting_drones[1]["uid"] == nil then scouting_drones[1] = {["uid"]=uid} end
-
                 if scouting_drones[1]["uid"] == uid and not utils.is_in(ut.order,
                     tc.command2order[tc.unitcommandtypes.Build])
                     and not utils.is_in(ut.order,
@@ -225,7 +218,6 @@ function economy.manage_economy(actions, tc)
                     tc.cmd.Move, -1,
                     56, 152))
                 end
-
                 is_drone_scouting = false
 
             elseif tc.state.resources_myself.ore >= 300 
@@ -486,7 +478,8 @@ function economy.manage_economy(actions, tc)
         print(k, v)
     end
 
-    if fun.size(drones) == 9 and fun.size(overlords) == 1 and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
+    if fun.size(drones) == 9 and fun.size(overlords) == 1 
+        and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
         spawning_overlord = true
     end
 
@@ -495,15 +488,14 @@ function economy.manage_economy(actions, tc)
         is_drone_scouting = true
     end
 
-    if fun.size(drones) == 17 and fun.size(overlords) == 2 and spawning_overlord == false then
+    if fun.size(drones) == 17 and fun.size(overlords) == 2 
+        and spawning_overlord == false then
         spawning_overlord = true
     end
     
     if fun.size(drones) >= 19 then
         powering = false
-    else
-        powering = true
-    end
+    else powering = true end
     
     print(powering)
     print(spawning_overlord)
@@ -520,7 +512,6 @@ function economy.manage_economy(actions, tc)
     print("defilers " .. fun.size(defilers))
     print("ultras " .. fun.size(ultras))
     print(fun.size(is_spawning_overlord))
-
     -- So long and thanks for all the fish!
     return actions
 end
