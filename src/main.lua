@@ -8,8 +8,6 @@ local uuid = require("uuid")
 require("torch")
 require("sys")
 local tc = require("torchcraft")
-
--- !
 local counters = require("ophelia.counters")
 local economy = require("ophelia.economy")
 local openings = require("ophelia.openings")
@@ -17,7 +15,6 @@ local scouting = require("ophelia.scouting")
 local tactics = require("ophelia.tactics")
 local tools = require("ophelia.tools")
 local zstreams = require("ophelia.zstreams")
-
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
@@ -35,7 +32,6 @@ local parser = argparse() {
 }
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
-
 -- System variables
 local restarts = -1
 -- Skip bwapi frames
@@ -44,7 +40,6 @@ local skip_frames = 7
 local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port'] 
-
 -- Do your main loop 
 while restarts < 0 do
     restarts = restarts + 1
