@@ -17,6 +17,8 @@ quadrants["B"] = {["scout"]={["x"]=50,["y"]=50}}
 quadrants["C"] = {["scout"]={["x"]=50,["y"]=450}}
 quadrants["D"] = {["scout"]={["x"]=450,["y"]=450}}
 
+local quadrant = nil
+
 function scouting.main_quadrant(pos)
     if pos ~= nil then pos = pos.position end
     local quadrant = nil
@@ -37,7 +39,7 @@ function scouting.main_quadrant(pos)
 end
 
 function scouting.first_overlord(pos, uid, ut, actions, tc)
-    local quadrant = scouting.main_quadrant(pos)
+    quadrant = scouting.main_quadrant(pos)
     if quadrant == "A" then
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
@@ -86,10 +88,27 @@ function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
     if scouting_drones[1]["uid"] == nil then scouting_drones[1] = {["uid"]=uid} end
     if scouting_drones[1]["uid"] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-        table.insert(actions,
-        tc.command(tc.command_unit, uid,
-        tc.cmd.Move, -1,
-        56, 152))
+        if quadrant == 'A' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants['B']['scout']['x'], quadrants['B']['scout']['y']) )
+        elseif quadrant == 'B' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
+        elseif quadrant == 'C' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
+        elseif quadrant == 'D' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
+        else print("let this crash") end
     end
     return {["actions"]=actions,["scouting_drones"]=scouting_drones}
 end
