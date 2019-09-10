@@ -82,8 +82,15 @@ function scouting.first_overlord(pos, uid, ut, actions, tc)
     return actions
 end
 
-function scouting.eleven_drone_scout()
-    -- raining day
+function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
+    if scouting_drones[1]["uid"] == nil then scouting_drones[1] = {["uid"]=uid} end
+    if scouting_drones[1]["uid"] == uid and not utils.is_in(ut.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        table.insert(actions,
+        tc.command(tc.command_unit, uid,
+        tc.cmd.Move, -1,
+        56, 152))
+    return {["actions"]=actions,["scouting_drones"]=scouting_drones}
 end
 
 function scouting.twelve_drone_scout()

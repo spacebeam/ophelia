@@ -203,20 +203,12 @@ function economy.manage_economy(actions, tc)
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
 
-            -- !!
+            -- !?
 
             elseif is_drone_scouting and fun.size(scouting_drones) > 0 then
-
-                if scouting_drones[1]["uid"] == nil then scouting_drones[1] = {["uid"]=uid} end
-                if scouting_drones[1]["uid"] == uid and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    56, 152))
-                end
+                local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
+                actions = eleven["actions"]
+                scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
 
             elseif tc.state.resources_myself.ore >= 300 
