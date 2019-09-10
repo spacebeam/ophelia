@@ -6,14 +6,9 @@
 local fun = require("moses")
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
+local scouting = require("ophelia.scouting") 
 
 local economy = {}
-
-local quadrants = {}
-quadrants["A"] = {}
-quadrants["B"] = {}
-quadrants["C"] = {}
-quadrants["D"] = {}
 
 local powering = true
 
@@ -153,14 +148,6 @@ function economy.manage_economy(actions, tc)
     rallypoints[7] = 0
     rallypoints[8] = 0
 
-    -- Map is not the territory
-    -- since this is an ugly hack
-    -- we are handlings 512x512 for all the things.
-    quadrants["A"]["scout"] = {["x"]=450, ["y"]=50}
-    quadrants["B"]["scout"] = {["x"]=50, ["y"]=50}
-    quadrants["C"]["scout"] = {["x"]=50, ["y"]=450}
-    quadrants["D"]["scout"] = {["x"]=450, ["y"]=450}
-
     -- !
     local buildings = {}
 
@@ -178,60 +165,8 @@ function economy.manage_economy(actions, tc)
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
                 {tc.unittypes.Zerg_Hatchery}))
 
-            if pos ~= nil then pos = pos.position end
+            actions = scouting.first_overlord(pos, uid, ut, actions, tc)
 
-            if pos ~= nil then 
-                print('starting location: x '..pos[1] .. ' y ' .. pos[2])
-                if pos[1] > 256 and pos[2] <= 256 then
-                    print('quadrant A')
-                    -- send overlord to the oposite quadrant
-                    if not utils.is_in(ut.order,
-                        tc.command2order[tc.unitcommandtypes.Build])
-                        and not utils.is_in(ut.order,
-                        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                        table.insert(actions,
-                        tc.command(tc.command_unit, uid,
-                        tc.cmd.Move, -1,
-                        quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
-                    end
-                elseif pos[1] <= 256 and pos[2] <= 256 then 
-                    print('quadrant B')
-                    -- send overlord to the oposite quadrant
-                    if not utils.is_in(ut.order,
-                        tc.command2order[tc.unitcommandtypes.Build])
-                        and not utils.is_in(ut.order,
-                        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                        table.insert(actions,
-                        tc.command(tc.command_unit, uid,
-                        tc.cmd.Move, -1,
-                        quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
-                    end
-                elseif pos[1] <= 256 and pos[2] > 256 then 
-                    print('quadrant C')
-                    -- send overlord to the oposite quadrant
-                    if not utils.is_in(ut.order,
-                        tc.command2order[tc.unitcommandtypes.Build])
-                        and not utils.is_in(ut.order,
-                        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                        table.insert(actions,
-                        tc.command(tc.command_unit, uid,
-                        tc.cmd.Move, -1,
-                        quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
-                    end
-                elseif pos[1] > 256 and pos[2] >= 256 then 
-                    print('quadrant D')
-                    -- send overlord to the oposite quadrant
-                    if not utils.is_in(ut.order,
-                        tc.command2order[tc.unitcommandtypes.Build])
-                        and not utils.is_in(ut.order,
-                        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                        table.insert(actions,
-                        tc.command(tc.command_unit, uid,
-                        tc.cmd.Move, -1,
-                        quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
-                    end
-                else print('something is very, very wrong!') end
-            end
 
         elseif ut.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, uid)
