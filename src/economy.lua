@@ -63,7 +63,6 @@ chambers[1] = nil
 chambers[2] = nil
 chambers[3] = nil
 
-
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
 -- Middle, Core units, make/defend pressure & take a base.
@@ -204,7 +203,7 @@ function economy.manage_economy(actions, tc)
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
 
-            -- !!!
+            -- !!
 
             elseif is_drone_scouting and fun.size(scouting_drones) > 0 then
 
@@ -459,8 +458,6 @@ function economy.manage_economy(actions, tc)
         end
     end
 
-    -- !! 
-    
     units["larvae"] = larvae
     units["eggs"] = eggs
     units["drones"] = drones
