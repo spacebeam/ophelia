@@ -1,5 +1,5 @@
 --
--- Ugly 9734 hack for now since we are just testing stuff
+-- Ugly 9734 economy hack for now since we are just testing stuff
 -- it needs more than a couple of good'old clean, clean, clean.
 --
 
