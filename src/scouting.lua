@@ -86,4 +86,8 @@ function scouting.eleven_drone_scout()
     -- raining day
 end
 
+function scouting.twelve_drone_scout()
+    -- oh raining day
+end
+
 return scouting
