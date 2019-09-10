@@ -1,6 +1,7 @@
--- Live for the swarm!
--- scouting overlords,
+--
+-- Scouting overlords,
 -- scouting drones.
+--
 
 local fun = require("moses")
 local utils = require("torchcraft.utils")
@@ -108,13 +109,42 @@ function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
             tc.command(tc.command_unit, uid,
             tc.cmd.Move, -1,
             quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
-        else print("let this crash") end
+        else print("let it crash") end
     end
     return {["actions"]=actions,["scouting_drones"]=scouting_drones}
 end
 
-function scouting.twelve_drone_scout()
-    -- oh raining day
+function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
+    if scouting_drones[2]["uid"] == nil then scouting_drones[2] = {["uid"]=uid} end
+    if scouting_drones[2]["uid"] == uid and not utils.is_in(ut.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        if quadrant == 'A' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants['C']['scout']['x'], quadrants['C']['scout']['y']) )
+        elseif quadrant == 'B' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
+        elseif quadrant == 'C' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
+        elseif quadrant == 'D' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
+        else print("let it crash") end
+    end
+    return {["actions"]=actions,["scouting_drones"]=scouting_drones} 
+end
+
+function scouting.explore_territory()
+    -- Map is not territory, but...
 end
 
 return scouting
