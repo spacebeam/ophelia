@@ -126,7 +126,7 @@ function economy.manage_economy(actions, tc)
     colonies[15] = 0
     colonies[16] = 0
     
-    -- Blueberry haze 
+    -- Burning of the midnight extractor 
     local extractors = {}
     extractors[1] = 0
     extractors[2] = 0
@@ -209,7 +209,8 @@ function economy.manage_economy(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
-            
+
+            -- !!!
 
             elseif is_drone_scouting and fun.size(scouting_drones) > 0 then
 

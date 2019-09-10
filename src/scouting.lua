@@ -5,6 +5,8 @@
 local fun = require("moses")
 local utils = require("torchcraft.utils")
 
+-- one at 11 drone,
+-- two at 12 drone, 200 mineral.
 local scouting = {}
 
 -- Map is not territory, but
@@ -14,14 +16,6 @@ quadrants["A"] = {["scout"]={["x"]=450,["y"]=50}}
 quadrants["B"] = {["scout"]={["x"]=50,["y"]=50}}
 quadrants["C"] = {["scout"]={["x"]=50,["y"]=450}}
 quadrants["D"] = {["scout"]={["x"]=450,["y"]=450}}
-
--- one at 11 drone,
--- two at 12 drone, 200 mineral.
-is_drone_scouting = false
-
-local scouting_drones = {}
-
-local scouting_overlords = {}
 
 function scouting.main_quadrant(pos)
     if pos ~= nil then pos = pos.position end
@@ -86,6 +80,10 @@ function scouting.first_overlord(pos, uid, ut, actions, tc)
         end
     else print("let it crash") end
     return actions
+end
+
+function scouting.eleven_drone_scout()
+    -- raining day
 end
 
 return scouting
