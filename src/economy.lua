@@ -79,7 +79,7 @@ function economy.manage_economy(actions, tc)
     -- What exactly is macro, anyway? 
     -- this interpretation includes 'powering'.
     -- powering is when computer switch to primarily
-    -- economics, making drones and new gas patches.
+    -- economics, making drones and new extractors.
  
     local larvae = {}
 
