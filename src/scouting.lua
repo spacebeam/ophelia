@@ -5,6 +5,7 @@
 
 local fun = require("moses")
 local utils = require("torchcraft.utils")
+local tools = require("ophelia.tools") -- !??
 
 -- one at 11 drone,
 -- two at 12 drone, 200 mineral.
@@ -19,6 +20,26 @@ quadrants["C"] = {["scout"]={["x"]=50,["y"]=450}}
 quadrants["D"] = {["scout"]={["x"]=450,["y"]=450}}
 
 local quadrant = nil
+
+-- Map is not territory, but... 
+    
+local colonies = {}
+colonies[1] = 0
+colonies[2] = 0
+colonies[3] = 0
+colonies[4] = 0
+colonies[5] = 0
+colonies[6] = 0
+colonies[7] = 0
+colonies[8] = 0
+colonies[9] = 0
+colonies[10] = 0
+colonies[11] = 0
+colonies[12] = 0
+colonies[13] = 0
+colonies[14] = 0
+colonies[15] = 0
+colonies[16] = 0
 
 function scouting.main_quadrant(pos)
     if pos ~= nil then pos = pos.position end
@@ -143,28 +164,15 @@ function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
     return {["actions"]=actions,["scouting_drones"]=scouting_drones} 
 end
 
-function scouting.explore_territory()
-    
-    -- Map is not territory, but...
-    
-    local colonies = {}
-    colonies[1] = 0
-    colonies[2] = 0
-    colonies[3] = 0
-    colonies[4] = 0
-    colonies[5] = 0
-    colonies[6] = 0
-    colonies[7] = 0
-    colonies[8] = 0
-    colonies[9] = 0
-    colonies[10] = 0
-    colonies[11] = 0
-    colonies[12] = 0
-    colonies[13] = 0
-    colonies[14] = 0
-    colonies[15] = 0
-    colonies[16] = 0
-    
+function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
+
+    -- this is not really exploring all 16 sectors
+    -- it appears to send a drone to all bases on fs.
+
+    -- check if drone is busy!
+    -- check sectors!
+
+
     if tc.state.frame_from_bwapi - colonies[1] > 200 then
         colonies[1] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
@@ -252,7 +260,63 @@ function scouting.explore_territory()
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             35, 35))
         end
-
+    
+    elseif tc.state.frame_from_bwapi - colonies[9] > 200 then
+        colonies[9] = tc.state.frame_from_bwapi
+        if not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Build])
+            and not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            216, 20))
+        end
+    
+    elseif tc.state.frame_from_bwapi - colonies[10] > 200 then
+        colonies[10] = tc.state.frame_from_bwapi
+        if not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Build])
+            and not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            30, 290))
+        end
+    
+    elseif tc.state.frame_from_bwapi - colonies[11] > 200 then
+        colonies[11] = tc.state.frame_from_bwapi
+        if not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Build])
+            and not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            490, 220))
+        end
+    
+    elseif tc.state.frame_from_bwapi - colonies[12] > 200 then
+        colonies[12] = tc.state.frame_from_bwapi
+        if not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Build])
+            and not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            256, 256))
+        end
+    
+    elseif tc.state.frame_from_bwapi - colonies[13] > 200 then
+        colonies[13] = tc.state.frame_from_bwapi
+        if not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Build])
+            and not utils.is_in(ut.order,
+            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            315, 490))
+        end
+    else print("let it crash") end
+    return actions
 end
 
 return scouting
