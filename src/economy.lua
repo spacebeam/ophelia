@@ -107,14 +107,6 @@ function economy.manage_economy(actions, tc)
 
     -- Swarm colonies 
     local colonies = {}
-    colonies[1] = 0
-    colonies[2] = 0
-    colonies[3] = 0
-    colonies[4] = 0
-    colonies[5] = 0
-    colonies[6] = 0
-    colonies[7] = 0
-    colonies[8] = 0
     colonies[9] = 0
     colonies[10] = 0
     colonies[11] = 0
@@ -208,111 +200,14 @@ function economy.manage_economy(actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
-
-            elseif tc.state.resources_myself.ore >= 300 
-                and tc.state.frame_from_bwapi - colonies[1] > 200 then
-                colonies[1] = tc.state.frame_from_bwapi
-                if not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    56, 152))
-                end
-
-            elseif tc.state.resources_myself.ore >= 300 
-                and tc.state.frame_from_bwapi - colonies[2] > 200 then
-                colonies[2] = tc.state.frame_from_bwapi
-                if not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    36, 470))
-                end
-
-            elseif tc.state.resources_myself.ore >= 300 
-                and tc.state.frame_from_bwapi - colonies[3] > 200 then
-                colonies[3] = tc.state.frame_from_bwapi
-                if not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    476, 474))
-                end
-
-            elseif tc.state.resources_myself.ore >= 300 
-                and tc.state.frame_from_bwapi - colonies[4] > 200 then
-                colonies[4] = tc.state.frame_from_bwapi
-                if not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    476, 34))
-                end
-
-            elseif tc.state.resources_myself.ore >= 300 
-                and tc.state.frame_from_bwapi - colonies[5] > 200 then
-                colonies[5] = tc.state.frame_from_bwapi
-                if not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    156, 460))
-                end
-
-            elseif tc.state.resources_myself.ore >= 500 
-                and tc.state.frame_from_bwapi - colonies[6] > 200 then
-                colonies[6] = tc.state.frame_from_bwapi
-                if not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    456, 350))
-                end
-
-            elseif tc.state.resources_myself.ore >= 500 
-                and tc.state.frame_from_bwapi - colonies[7] > 200 then
-                colonies[7] = tc.state.frame_from_bwapi
-                if not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    350, 50))
-                end
             
-            elseif tc.state.resources_myself.ore >= 500 
-                and tc.state.frame_from_bwapi - colonies[8] > 200 then
-                colonies[8] = tc.state.frame_from_bwapi
-                if not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Move, -1,
-                    35, 35))
-                end
-            
+            elseif tc.state.resources_myself.ore >= 300 then
+                
+                -- explore all the sectors!
+                
+                scouting.explore_territory()
+
+
             elseif tc.state.resources_myself.ore >= 500 
                 and tc.state.frame_from_bwapi - colonies[9] > 200 then
                 colonies[9] = tc.state.frame_from_bwapi
