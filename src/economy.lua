@@ -170,7 +170,7 @@ function economy.manage_economy(actions, tc)
             
             elseif tc.state.resources_myself.ore >= 500 then
                 -- explore all sectors!
-                actions = scouting.explore_all_sectors(uid, ut, actions, tc)
+                actions = scouting.explore_all_sectors(scouting_drone, uid, ut, actions, tc)
                 print('explore all things!')
             
             else
