@@ -1,17 +1,12 @@
 -- 9734 (vs Protoss)
 -- 3 Hatch Hydra
--- 3 Hatch speedlings
+-- 3 Hatch Speedlings
 
--- 2 Hatch Muta
--- 3 Hatch Muta
--- Fake 3 Hatch Muta
--- 3 Hatch Zergling
--- 3 Hatch Lurkers
 -- 13 Pool Muta (vs. Terran)
--- still missing counter for mech play and cheese.
+-- 3 Hatch Speedlings 
+-- 3 Hatch Muta
 
 -- Mutaling (vs. Zerg)
---
 local counters = {}
 
 return counters
