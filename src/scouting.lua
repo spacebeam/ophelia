@@ -166,6 +166,14 @@ function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
     return {["actions"]=actions,["scouting_drones"]=scouting_drones} 
 end
 
+function scouting.base_quadrant()
+    -- return main quadrant
+end
+
+function scouting.all_quadrants()
+    -- return current information on all quadrants
+end
+
 function scouting.lings()
     -- extract timing from zero's guide
 end
