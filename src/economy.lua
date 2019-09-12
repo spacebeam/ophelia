@@ -74,17 +74,66 @@ local late_stage = false
 local final_stage = false
 
 
+-- Yo, there is no quadrant info on economy, are you sure this does go into scouting?
+-- Yo, that or write some return my quadrant and quadrants.
+
+
 function economy.take_natural(colonies, uid, ut, actions, tc)
     -- take your natural
+    if colonies[2]['sid'] == nil then colonies[2] = {["sid"]=uid} end
+    if colonies[2]['sid'] == uid and not utils.is_in(ut.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        if quadrant == 'A' then
+            --
+        elseif quadrant == 'B' then
+            --
+        elseif quadrant == 'C' then
+            --
+        elseif quadrant == 'D' then
+            --
+        else print('let it crash') end
+    end
+    return {["actions"]=actions,["colonies"]=colonies}
 end
 
 function economy.take_third(colonies, uid, ut, actions, tc)
     -- take 3th expansion
+    if colonies[3]['sid'] == nil then colonies[2] = {["sid"]=uid} end
+    if colonies[3]['sid'] == uid and not utils.is_in(ut.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        if quadrant == 'A' then
+            --
+        elseif quadrant == 'B' then
+            --
+        elseif quadrant == 'C' then
+            --
+        elseif quadrant == 'D' then
+            --
+        else print('let it crash') end
+    end
+    return {["actions"]=actions,["colonies"]=colonies}
 end
 
 function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
+    if colonies[4]['sid'] == nil then colonies[2] = {["sid"]=uid} end
+    if colonies[4]['sid'] == uid and not utils.is_in(ut.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        if quadrant == 'A' then
+            --
+        elseif quadrant == 'B' then
+            --
+        elseif quadrant == 'C' then
+            --
+        elseif quadrant == 'D' then
+            --
+        else print('let it crash') end
+    end
+    return {["actions"]=actions,["colonies"]=colonies}
 end
+
+
+-- !(?)
 
 function economy.take_fifth()
     -- take 5th expansion
@@ -105,6 +154,8 @@ end
 function economy.take_all()
     -- take it all
 end
+
+-- !(?)
 
 
 function economy.manage_economy(actions, tc)
