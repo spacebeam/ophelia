@@ -50,6 +50,8 @@ local has_hydralisk_den = false
 
 local has_spire = false
 
+local has_greater_spire = false
+
 local has_queen_nest = false
 
 local has_defiler_mound = false
@@ -71,6 +73,11 @@ local late_stage = false
 -- Final, The watcher observes, the fog collapses an event resolves.
 local final_stage = false
 
+
+function economy.take_natural()
+    -- take your natural
+end
+
 function economy.manage_economy(actions, tc)
 
     -- What exactly is macro, anyway? 
@@ -78,6 +85,8 @@ function economy.manage_economy(actions, tc)
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
  
+    local overlords = {}
+    
     local larvae = {}
 
     local eggs = {}
@@ -100,9 +109,9 @@ function economy.manage_economy(actions, tc)
 
     local ultras = {}
 
-    local infesteds = {}
+    local guardians = {}
 
-    local overlords = {}
+    local infesteds = {}
 
     -- Set your units into 4 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
@@ -139,6 +148,8 @@ function economy.manage_economy(actions, tc)
             table.insert(scourges, uid)
         elseif ut.type == tc.unittypes.Zerg_Ultralisk then
             table.insert(ultras, uid)
+        elseif ut.type == tc.unittypes.Zerg_Guardian then
+            table.insert(guardians, uid)
         elseif ut.type == tc.unittypes.Zerg_Infested_Terran then
             table.insert(infesteds, uid)
         elseif tc:isworker(ut.type) then        
@@ -160,26 +171,24 @@ function economy.manage_economy(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
-            
+   
             elseif is_drone_scouting and fun.size(scouting_drones) == 1 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
-            
+
             elseif is_drone_scouting and scouting_drones[1]['uid'] ~= uid then
                 local twelve = scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
-           
-            
+
             elseif is_drone_expanding and fun.size(colonies) == 1 then
                 local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
-
 
             elseif tc.state.resources_myself.ore >= 1600 then
                 -- explore all sectors!
@@ -267,6 +276,7 @@ function economy.manage_economy(actions, tc)
     units["defilers"] = defilers
     units["scourges"] = scourges
     units["ultras"] = ultras
+    units["guardians"] = guardians
     units["infesteds"] = infesteds
 
     if fun.size(drones) == 9 and fun.size(overlords) == 1 
@@ -311,6 +321,7 @@ function economy.manage_economy(actions, tc)
     print("queens " .. fun.size(queens))
     print("defilers " .. fun.size(defilers))
     print("ultras " .. fun.size(ultras))
+    print("guardians " .. fun.size(guardians))
     
     -- So long and thanks for all the fish!
     return actions
