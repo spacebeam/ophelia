@@ -74,15 +74,15 @@ local late_stage = false
 local final_stage = false
 
 
-function economy.take_natural()
+function economy.take_natural(colonies, uid, ut, actions, tc)
     -- take your natural
 end
 
-function economy.take_third()
+function economy.take_third(colonies, uid, ut, actions, tc)
     -- take 3th expansion
 end
 
-function economy.take_fourth()
+function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
 end
 
