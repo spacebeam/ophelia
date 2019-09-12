@@ -272,10 +272,6 @@ function economy.manage_economy(actions, tc)
     units["ultras"] = ultras
     units["infesteds"] = infesteds
 
-    for k, v in pairs(is_spawning_overlord) do
-        print(k, v)
-    end
-
     if fun.size(drones) == 9 and fun.size(overlords) == 1 
         and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
         spawning_overlord = true
