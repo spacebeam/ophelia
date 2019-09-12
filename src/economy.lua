@@ -104,9 +104,6 @@ function economy.manage_economy(actions, tc)
 
     local overlords = {}
 
-    -- !
-    local buildings = {}
-
     -- Set your units into 4 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
