@@ -58,11 +58,6 @@ local scouting_overlords = {}
 
 local scouting_drones = {}
 
-local chambers = {}
-chambers[1] = nil
-chambers[2] = nil
-chambers[3] = nil
-
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
 -- Middle, Core units, make/defend pressure & take a base.
@@ -161,17 +156,24 @@ function economy.manage_economy(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
-
-            elseif is_drone_scouting and fun.size(scouting_drones) > 0 then
+            
+            elseif is_drone_scouting and fun.size(scouting_drones) == 1 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
+                print('eleven drone scouting ' .. uid)
             
-            elseif tc.state.resources_myself.ore >= 500 then
+            elseif is_drone_scouting and scouting_drones[1]['uid'] ~= uid then
+                local twelve = scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
+                actions = twelve["actions"]
+                scouting_drones = twelve["scouting_drones"]
+                is_drone_scouting = false
+                print('twelve drone scouting ' .. uid)
+            
+            elseif tc.state.resources_myself.ore >= 1200 then
                 -- explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drone, uid, ut, actions, tc)
-                print('explore all things!')
             
             else
                 -- tests gathering
@@ -270,8 +272,13 @@ function economy.manage_economy(actions, tc)
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-
-    if fun.size(drones) == 17 and fun.size(overlords) == 2 
+    
+    if fun.size(drones) == 12 and scouting_drones[2] == nil then
+        scouting_drones[2] = {}
+        is_drone_scouting = true
+    end
+    
+    if fun.size(drones) == 16 and fun.size(overlords) == 2 
         and spawning_overlord == false then
         spawning_overlord = true
     end

@@ -136,7 +136,8 @@ function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
 end
 
 function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
-    if scouting_drones[2]["uid"] == nil then scouting_drones[2] = {["uid"]=uid} end
+    if scouting_drones[2]["uid"] == nil and scouting_drones[1] ~= uid then 
+        scouting_drones[2] = {["uid"]=uid} end
     if scouting_drones[2]["uid"] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
