@@ -168,10 +168,12 @@ end
 
 function scouting.base_quadrant()
     -- return main quadrant
+    return quadrant
 end
 
 function scouting.all_quadrants()
     -- return current information on all quadrants
+    return quadrants
 end
 
 function scouting.lings()
