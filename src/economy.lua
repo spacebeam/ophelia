@@ -78,6 +78,35 @@ function economy.take_natural()
     -- take your natural
 end
 
+function economy.take_third()
+    -- take 3th expansion
+end
+
+function economy.take_fourth()
+    -- take 4th expansion
+end
+
+function economy.take_fifth()
+    -- take 5th expansion
+end
+
+function economy.take_sixth()
+    -- take 6th expansion
+end
+
+function economy.take_seventh()
+    -- take 7th expansion
+end
+
+function economy.take_eighth()
+    -- take 8th expansion
+end
+
+function economy.take_all()
+    -- take it all
+end
+
+
 function economy.manage_economy(actions, tc)
 
     -- What exactly is macro, anyway? 
