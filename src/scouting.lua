@@ -1,6 +1,8 @@
 --
 -- Scouting overlords,
--- scouting drones.
+-- scouting drones,
+-- scouting lings,
+-- scouting scourges.
 --
 
 local fun = require("moses")
@@ -11,7 +13,7 @@ local tools = require("ophelia.tools") -- !??
 -- two at 12 drone, 200 mineral.
 local scouting = {}
 
--- Map is not territory, but
+-- Map is not territory, but...
 -- since handling 512x512 for all things.
 local quadrants = {}
 quadrants["A"] = {["scout"]={["x"]=450,["y"]=50}}
@@ -21,8 +23,7 @@ quadrants["D"] = {["scout"]={["x"]=450,["y"]=450}}
 
 local quadrant = nil
 
--- Map is not territory, but... 
-    
+-- Swarm colonies
 local colonies = {}
 colonies[1] = 0
 colonies[2] = 0
@@ -175,6 +176,14 @@ end
 
 function scouting.overlord_sacrifice()
     -- hell yeah
+end
+
+function scouting.scourge_sacrifice()
+    -- 9=
+end
+
+function scouting.ling_sacrifice()
+    -- D=
 end
 
 function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)

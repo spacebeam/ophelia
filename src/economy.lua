@@ -115,6 +115,9 @@ function economy.manage_economy(actions, tc)
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
                 {tc.unittypes.Zerg_Hatchery}))
             actions = scouting.first_overlord(pos, uid, ut, actions, tc)
+
+            -- missing filter by overlord uid
+
         elseif ut.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, uid)
         elseif ut.type == tc.unittypes.Zerg_Hydralisk then
@@ -162,16 +165,14 @@ function economy.manage_economy(actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
-                print('eleven drone scouting ' .. uid)
             
             elseif is_drone_scouting and scouting_drones[1]['uid'] ~= uid then
                 local twelve = scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
-                print('twelve drone scouting ' .. uid)
             
-            elseif tc.state.resources_myself.ore >= 1200 then
+            elseif tc.state.resources_myself.ore >= 1600 then
                 -- explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drone, uid, ut, actions, tc)
             
@@ -235,7 +236,7 @@ function economy.manage_economy(actions, tc)
                 end
             end
         else
-            -- attacks closest
+            -- dumb ai attacks closest
             local target = tools.get_closest(ut.position,
                                        tc.state.units_enemy)
             if target ~= nil then
@@ -278,6 +279,8 @@ function economy.manage_economy(actions, tc)
         is_drone_scouting = true
     end
     
+
+
     if fun.size(drones) == 16 and fun.size(overlords) == 2 
         and spawning_overlord == false then
         spawning_overlord = true
