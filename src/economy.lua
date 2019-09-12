@@ -30,7 +30,7 @@ local hydralisk_den = 0
 
 local spire = 0 
 
-local queen_nest = 0 
+local queens_nest = 0 
 
 local defiler_mound = 0 
 

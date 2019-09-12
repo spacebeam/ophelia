@@ -165,6 +165,14 @@ function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
     return {["actions"]=actions,["scouting_drones"]=scouting_drones} 
 end
 
+function scouting.lings()
+    -- extract timing from zero's guide
+end
+
+function scouting.overlords()
+    -- extract timing from zero's guide
+end
+
 function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
 
     -- this is not really exploring all 16 sectors
