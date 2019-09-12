@@ -302,12 +302,10 @@ function economy.manage_economy(actions, tc)
         powering = false
     else powering = true end
     
-    print(powering)
-    print(spawning_overlord)
+    print("overlords " .. fun.size(overlords))
     print("larvae ".. fun.size(larvae))
     print("eggs " .. fun.size(eggs))
     print("drones " .. fun.size(drones))
-    print("overlords " .. fun.size(overlords))
     print("lings " .. fun.size(lings))
     print("hydras " .. fun.size(hydras))
     print("lurkers " .. fun.size(lurkers))
@@ -316,7 +314,7 @@ function economy.manage_economy(actions, tc)
     print("queens " .. fun.size(queens))
     print("defilers " .. fun.size(defilers))
     print("ultras " .. fun.size(ultras))
-    print(fun.size(is_spawning_overlord))
+    
     -- So long and thanks for all the fish!
     return actions
 end
