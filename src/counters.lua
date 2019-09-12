@@ -2,7 +2,7 @@
 -- 3 Hatch Hydra
 -- 3 Hatch Speedlings
 
--- 13 Pool Muta (vs. Terran)
+-- 2 Hatch Muta (vs. Terran)
 -- 3 Hatch Speedlings 
 -- 3 Hatch Muta
 
