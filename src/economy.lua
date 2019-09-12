@@ -10,6 +10,8 @@ local scouting = require("ophelia.scouting")
 
 local economy = {}
 
+local colonies = {}
+
 local powering = true
 
 local spawning_overlord = false
@@ -17,6 +19,8 @@ local spawning_overlord = false
 local is_spawning_overlord = {} 
 
 local is_drone_scouting = false
+
+local is_drone_expanding = false
 
 local units = {}
 
@@ -279,7 +283,11 @@ function economy.manage_economy(actions, tc)
         is_drone_scouting = true
     end
     
-
+    if fun.size(drones) == 12 and scouting_drones[2] ~= nil 
+        and colonies[1] == nil then
+        colonies[1] = {}
+        is_drone_expanding = true
+    end
 
     if fun.size(drones) == 16 and fun.size(overlords) == 2 
         and spawning_overlord == false then
