@@ -78,8 +78,8 @@ function economy.take_natural(colonies, uid, ut, actions, tc)
     -- take your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if colonies[2]['sid'] == nil then colonies[2] = {["sid"]=uid} end
-    if colonies[2]['sid'] == uid and not utils.is_in(ut.order,
+    if colonies[1]['sid'] == nil then colonies[1] = {["sid"]=uid} end
+    if colonies[1]['sid'] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             --
