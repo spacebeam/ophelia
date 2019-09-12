@@ -175,7 +175,15 @@ function economy.manage_economy(actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
+           
             
+            elseif is_drone_expanding and fun.size(colonies) == 1 then
+                local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
+                actions = expansion["actions"]
+                colonies = expansion["colonies"]
+                is_drone_expanding = false
+
+
             elseif tc.state.resources_myself.ore >= 1600 then
                 -- explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drone, uid, ut, actions, tc)
