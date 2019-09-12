@@ -173,6 +173,10 @@ function scouting.overlords()
     -- extract timing from zero's guide
 end
 
+function scouting.overlord_sacrifice()
+    -- hell yeah
+end
+
 function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
 
     -- this is not really exploring all 16 sectors
