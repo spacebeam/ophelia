@@ -75,6 +75,7 @@ function scouting.pos_on_quad(pos)
         else print("let it crash") end
     end
     return quad
+end
 
 function scouting.first_overlord(pos, uid, ut, actions, tc)
     quadrant = scouting.main_quadrant(pos)
