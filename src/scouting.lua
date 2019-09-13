@@ -64,7 +64,7 @@ end
 function scouting.pos_on_quad(pos)
     local quad = nil
     if pos ~= nil then
-        if pos[1] > 356 and pos[2] <= 256 then
+        if pos[1] > 256 and pos[2] <= 256 then
             quad = "A"
         elseif pos[1] <= 256 and pos[2] <= 256 then
             quad = "B"
@@ -230,7 +230,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             56, 152))
-            print(scouting.pos_on_quad({[1]=56,[2]=152}))
+            print(scouting.pos_on_quad({56,152}))
         end
 
     elseif tc.state.frame_from_bwapi - colonies[2] > 200 then
@@ -242,7 +242,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             36, 470))
-            print(scouting.pos_on_quad({[1]=36,[2]=470}))
+            print(scouting.pos_on_quad({36,470}))
         end
     
     elseif tc.state.frame_from_bwapi - colonies[3] > 200 then
@@ -254,7 +254,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             476, 474))
-            print(scouting.pos_on_quad({[1]=476,[2]=474}))
+            print(scouting.pos_on_quad({476,474}))
         end
 
     elseif tc.state.frame_from_bwapi - colonies[4] > 200 then
@@ -266,7 +266,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             476, 34))
-            print(scouting.pos_on_quad({[1]=476,[2]=34}))
+            print(scouting.pos_on_quad({476,34}))
         end
     
     elseif tc.state.frame_from_bwapi - colonies[5] > 200 then
@@ -278,7 +278,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             156, 460))
-            print(scouting.pos_on_quad({[1]=156,[2]=460}))
+            print(scouting.pos_on_quad({156,460}))
         end
 
     elseif tc.state.frame_from_bwapi - colonies[6] > 200 then
@@ -290,7 +290,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             456, 350))
-            print(scouting.pos_on_quad({[1]=456,[2]=350}))
+            print(scouting.pos_on_quad({456,350}))
         end
 
     elseif tc.state.frame_from_bwapi - colonies[7] > 200 then
@@ -302,7 +302,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             350, 50))
-            print(scouting.pos_on_quad({[1]=350,[2]=50}))
+            print(scouting.pos_on_quad({350,50}))
         end
 
     elseif tc.state.frame_from_bwapi - colonies[8] > 200 then
@@ -314,7 +314,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             35, 35))
-            print(scouting.pos_on_quad({[1]=35,[2]=35}))
+            print(scouting.pos_on_quad({35,35}))
         end
     
     elseif tc.state.frame_from_bwapi - colonies[9] > 200 then
@@ -326,7 +326,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             216, 20))
-            print(scouting.pos_on_quad({[1]=216,[2]=20}))
+            print(scouting.pos_on_quad({216,20}))
         end
     
     elseif tc.state.frame_from_bwapi - colonies[10] > 200 then
