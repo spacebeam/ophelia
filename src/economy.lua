@@ -10,8 +10,6 @@ local scouting = require("ophelia.scouting")
 
 local economy = {}
 
-local colonies = {}
-
 local powering = true
 
 local spawning_overlord = false
@@ -23,6 +21,8 @@ local is_drone_scouting = false
 local is_drone_expanding = false
 
 local units = {}
+
+local colonies = {}
 
 local spawning_pool = 0 
 
@@ -52,7 +52,7 @@ local has_spire = false
 
 local has_greater_spire = false
 
-local has_queen_nest = false
+local has_queens_nest = false
 
 local has_defiler_mound = false
 
@@ -275,12 +275,12 @@ function economy.manage_economy(actions, tc)
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
 
-            elseif tc.state.resources_myself.ore >= 1600 then
+            elseif tc.state.resources_myself.ore >= 800 then
                 -- explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drone, uid, ut, actions, tc)
             
             else
-                -- tests gathering
+                -- tests gathering, where is my missing gas?
                 if not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Gather])
                       and not utils.is_in(ut.order,
