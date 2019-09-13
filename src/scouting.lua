@@ -338,6 +338,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             30, 290))
+            print(scouting.pos_on_quad({30,290}))
         end
     
     elseif tc.state.frame_from_bwapi - colonies[11] > 200 then
@@ -349,6 +350,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             490, 220))
+            print(scouting.pos_on_quad({490,220}))
         end
     
     elseif tc.state.frame_from_bwapi - colonies[12] > 200 then
@@ -360,6 +362,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             256, 256))
+            print(scouting.pos_on_quad({256,256}))
         end
     
     elseif tc.state.frame_from_bwapi - colonies[13] > 200 then
@@ -371,6 +374,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             315, 490))
+            print(scouting.pos_on_quad({315,490}))
         end
     else print("let it crash") end
     return actions
