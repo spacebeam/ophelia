@@ -100,6 +100,8 @@ end
 
 function economy.take_third(colonies, uid, ut, actions, tc)
     -- take 3th expansion
+    -- NOTE, you can't place this without scouting your enemy's position!
+    
     if colonies[3]['sid'] == nil then colonies[2] = {["sid"]=uid} end
     if colonies[3]['sid'] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
@@ -118,6 +120,7 @@ end
 
 function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
+    -- NOTE, location of 4th base depends on 3th.
     if colonies[4]['sid'] == nil then colonies[2] = {["sid"]=uid} end
     if colonies[4]['sid'] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
