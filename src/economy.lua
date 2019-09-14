@@ -276,9 +276,8 @@ function economy.manage_economy(actions, tc)
                 is_drone_expanding = false
 
             elseif tc.state.resources_myself.ore >= 800 then
-                -- explore all sectors!
+                -- drones explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drone, uid, ut, actions, tc)
-            
             else
                 -- tests gathering, where is my missing gas?
                 if not utils.is_in(ut.order,
@@ -288,8 +287,8 @@ function economy.manage_economy(actions, tc)
                       and not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     -- avoid spamming the order is the unit is already
-                    -- following the right order or building!
-                    -- currently we need to learn how to get vespene gas
+                    -- following the right order or building.
+                    -- currently we still need to learn how to get vespene gas!
                     local target = tools.get_closest(ut.position,
                         tc:filter_type(tc.state.units_neutral,
                             {tc.unittypes.Resource_Mineral_Field,
@@ -306,7 +305,7 @@ function economy.manage_economy(actions, tc)
                 end
             end
         elseif tc:isbuilding(ut.type) then
-            -- tests stuff within buildings: train, upgrade, rally!
+            -- test commands within buildings: train, upgrade, rally!
             if ut.type == tc.unittypes.Zerg_Spawning_Pool then
                 if has_spawning_pool == false then
                     has_spawning_pool = true
