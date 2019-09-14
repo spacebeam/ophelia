@@ -82,17 +82,25 @@ function economy.take_natural(colonies, uid, ut, actions, tc)
     if colonies[1]['sid'] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
-            --
-            print(quadrant)
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
+            quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'B' then
-            --
-            print(quadrant)
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
+            quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'C' then
-            --
-            print(quadrant)
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
+            quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'D' then
-            --
-            print(quadrant)
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
+            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
         else print('let it crash') end
     end
     return {["actions"]=actions,["colonies"]=colonies}
