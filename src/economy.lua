@@ -73,7 +73,6 @@ local late_stage = false
 -- Final, The watcher observes, the fog collapses an event resolves.
 local final_stage = false
 
-
 function economy.take_natural(colonies, uid, ut, actions, tc)
     -- Machine take your natural
     local quadrant = scouting.base_quadrant()
@@ -84,24 +83,24 @@ function economy.take_natural(colonies, uid, ut, actions, tc)
         if quadrant == 'A' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
-            tc.cmd.Build, -1,
-            quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+            tc.cmd.Move, -1,
+            quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"]))
         elseif quadrant == 'B' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
-            tc.cmd.Build, -1,
-            quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+            tc.cmd.Move, -1,
+            quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"]))
         elseif quadrant == 'C' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
-            tc.cmd.Build, -1,
+            tc.cmd.Move, -1,
             quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'D' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
-            tc.cmd.Build, -1,
+            tc.cmd.Move, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
-        else print('let it crash') end
+        else print('economy.take_natural crash') end
     end
     return {["actions"]=actions,["colonies"]=colonies}
 end
@@ -277,7 +276,8 @@ function economy.manage_economy(actions, tc)
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
 
-            elseif is_drone_expanding and fun.size(colonies) == 1 then
+            elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
+                print(ut)
                 local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
