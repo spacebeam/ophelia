@@ -75,7 +75,7 @@ local final_stage = false
 
 
 function economy.take_natural(colonies, uid, ut, actions, tc)
-    -- take your natural
+    -- Machine take your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if colonies[1]['sid'] == nil then colonies[1] = {["sid"]=uid} end
