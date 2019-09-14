@@ -128,6 +128,11 @@ function scouting.first_overlord(pos, uid, ut, actions, tc)
     return actions
 end
 
+function scouting.second_overlord(ps, uid, ut, actions, tc)
+    -- 2th overlord scout go to enemy's natural expansion.
+    return actions
+end
+
 function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
     if scouting_drones[1]["uid"] == nil then scouting_drones[1] = {["uid"]=uid} end
     if scouting_drones[1]["uid"] == uid and not utils.is_in(ut.order,
