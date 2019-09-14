@@ -16,16 +16,36 @@ local scouting = {}
 -- Map is not territory, but...
 -- since handling 512x512 for all things.
 local quadrants = {}
-quadrants["A"] = {["scout"]={["x"]=450,["y"]=50}}
-quadrants["B"] = {["scout"]={["x"]=50,["y"]=50}}
-quadrants["C"] = {["scout"]={["x"]=50,["y"]=450}}
-quadrants["D"] = {["scout"]={["x"]=450,["y"]=450}}
+quadrants["A"] = {
+    ["scout"] = {["x"]=450,["y"]=50},
+    ["main"] = {["x"]=476,["y"]=34},
+    ["natural"] = {["x"]=350,["y"]=50}
+    ["second"] = {["x"]=490,["y"]=220}
+    ["center"] = nil,
+}
+quadrants["B"] = {
+    ["scout"] = {["x"]=50,["y"]=50},
+    ["main"] = {["x"]=35,["y"]=35},
+    ["natural"] = {["x"]=56,["y"]=152},
+    ["second"] = {["x"]=216,["y"]=20},
+    ["center"] = {["x"]=256,["y"]=256},
+}
+quadrants["C"] = {
+    ["scout"] = {["x"]=50,["y"]=450},
+    ["main"] = {["x"]=36,["y"]=470},
+    ["natural"] = {["x"]=156,["y"]=460}
+    ["second"] = {["x"]=30,["y"]=290}
+    ["center"] = nil,
+}
+quadrants["D"] = {
+    ["scout"] = {["x"]=450,["y"]=450},
+    ["main"] = {["x"]=476,["y"]=474},
+    ["natural"] = {["x"]=456,["y"]=350}
+    ["second"] = {["x"]=315,["y"]=490}
+    ["center"] = nil,
+}
 
 local quadrant = nil
-
-
--- eye roll on this for now!
-local test_all_regions = {"B", "C", "D", "A", "C", "D", "A", "B", "B", "C", "A", "B", "D"}
 
 
 -- Swarm colonies
@@ -60,7 +80,7 @@ function scouting.main_quadrant(pos)
         elseif pos[1] > 256 and pos[2] >= 256 then
             quadrant = "D"
         else
-            print("let it crash")
+            print("scouting.main_quadrant crash")
         end
     end
     return quadrant
@@ -77,7 +97,7 @@ function scouting.pos_on_quad(pos)
             quad = "C"
         elseif pos[1] > 256 and pos[2] >= 256 then
             quad = "D"
-        else print("let it crash") end
+        else print("scouting.pos_on_quad crash") end
     end
     return quad
 end
@@ -124,7 +144,7 @@ function scouting.first_overlord(pos, uid, ut, actions, tc)
             tc.cmd.Move, -1,
             quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
         end
-    else print("let it crash") end
+    else print("scouting.first_overlord crash") end
     return actions
 end
 
@@ -157,7 +177,7 @@ function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
             tc.command(tc.command_unit, uid,
             tc.cmd.Move, -1,
             quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
-        else print("let it crash") end
+        else print("scouting.eleven_drone_scout crash") end
     end
     return {["actions"]=actions,["scouting_drones"]=scouting_drones}
 end
@@ -187,7 +207,7 @@ function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
             tc.command(tc.command_unit, uid,
             tc.cmd.Move, -1,
             quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
-        else print("let it crash") end
+        else print("scouting.twelve_drone_scout crash") end
     end
     return {["actions"]=actions,["scouting_drones"]=scouting_drones} 
 end
@@ -239,7 +259,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             56, 152))
-            print("B's natural " .. scouting.pos_on_quad({56,152})==test_all_regions[1])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[2] > 200 then
@@ -251,7 +270,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             36, 470))
-            print("C's main " .. scouting.pos_on_quad({36,470})==test_all_regions[2])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[3] > 200 then
@@ -263,7 +281,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             476, 474))
-            print("D's main " .. scouting.pos_on_quad({476,474})==test_all_regions[3])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[4] > 200 then
@@ -275,7 +292,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             476, 34))
-            print("A's main " .. scouting.pos_on_quad({476,34})==test_all_regions[4])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[5] > 200 then
@@ -287,7 +303,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             156, 460))
-            print("C's natural " .. scouting.pos_on_quad({156,460})==test_all_regions[5])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[6] > 200 then
@@ -299,7 +314,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             456, 350))
-            print("D's natural " .. scouting.pos_on_quad({456,350})==test_all_regions[6])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[7] > 200 then
@@ -311,7 +325,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             350, 50))
-            print("A's natural " .. scouting.pos_on_quad({350,50})==test_all_regions[7])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[8] > 200 then
@@ -323,7 +336,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             35, 35))
-            print("B's main " .. scouting.pos_on_quad({35,35})==test_all_regions[8])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[9] > 200 then
@@ -335,7 +347,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             216, 20))
-            print("B's 2th expansion " .. scouting.pos_on_quad({216,20})==test_all_regions[9])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[10] > 200 then
@@ -347,7 +358,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             30, 290))
-            print("C's 2th expansion " .. scouting.pos_on_quad({30,290})==test_all_regions[10])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[11] > 200 then
@@ -359,7 +369,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             490, 220))
-            print("A's 2th expansion " .. scouting.pos_on_quad({490,220})==test_all_regions[11])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[12] > 200 then
@@ -371,7 +380,6 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             256, 256))
-            print("B in the center " .. scouting.pos_on_quad({256,256})==test_all_regions[12])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[13] > 200 then
@@ -383,9 +391,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             315, 490))
-            print("D's 2th expansion " .. scouting.pos_on_quad({315,490})==test_all_regions[13])
         end
-    else print("let it crash") end
+    else print("scouting.explore_all_sectors crash") end
     return actions
 end
 
