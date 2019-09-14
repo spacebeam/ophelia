@@ -239,7 +239,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             56, 152))
-            print(scouting.pos_on_quad({56,152})==test_all_regions[1])
+            print("B's natural " .. scouting.pos_on_quad({56,152})==test_all_regions[1])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[2] > 200 then
@@ -251,7 +251,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             36, 470))
-            print(scouting.pos_on_quad({36,470})==test_all_regions[2])
+            print("C's main " .. scouting.pos_on_quad({36,470})==test_all_regions[2])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[3] > 200 then
@@ -263,7 +263,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             476, 474))
-            print(scouting.pos_on_quad({476,474})==test_all_regions[3])
+            print("D's main " .. scouting.pos_on_quad({476,474})==test_all_regions[3])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[4] > 200 then
@@ -275,7 +275,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             476, 34))
-            print(scouting.pos_on_quad({476,34})==test_all_regions[4])
+            print("A's main " .. scouting.pos_on_quad({476,34})==test_all_regions[4])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[5] > 200 then
@@ -287,7 +287,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             156, 460))
-            print(scouting.pos_on_quad({156,460})==test_all_regions[5])
+            print("C's natural " .. scouting.pos_on_quad({156,460})==test_all_regions[5])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[6] > 200 then
@@ -299,7 +299,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             456, 350))
-            print(scouting.pos_on_quad({456,350})==test_all_regions[6])
+            print("D's natural " .. scouting.pos_on_quad({456,350})==test_all_regions[6])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[7] > 200 then
@@ -311,7 +311,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             350, 50))
-            print(scouting.pos_on_quad({350,50})==test_all_regions[7])
+            print("A's natural " .. scouting.pos_on_quad({350,50})==test_all_regions[7])
         end
 
     elseif tc.state.frame_from_bwapi - colonies[8] > 200 then
@@ -323,7 +323,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             35, 35))
-            print(scouting.pos_on_quad({35,35})==test_all_regions[8])
+            print("B's main " .. scouting.pos_on_quad({35,35})==test_all_regions[8])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[9] > 200 then
@@ -335,7 +335,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             216, 20))
-            print(scouting.pos_on_quad({216,20})==test_all_regions[9])
+            print("B's 2th expansion " .. scouting.pos_on_quad({216,20})==test_all_regions[9])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[10] > 200 then
@@ -347,7 +347,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             30, 290))
-            print(scouting.pos_on_quad({30,290})==test_all_regions[10])
+            print("C's 2th expansion " .. scouting.pos_on_quad({30,290})==test_all_regions[10])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[11] > 200 then
@@ -359,7 +359,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             490, 220))
-            print(scouting.pos_on_quad({490,220})==test_all_regions[11])
+            print("A's 2th expansion " .. scouting.pos_on_quad({490,220})==test_all_regions[11])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[12] > 200 then
@@ -371,7 +371,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             256, 256))
-            print(scouting.pos_on_quad({256,256})==test_all_regions[12])
+            print("B in the center " .. scouting.pos_on_quad({256,256})==test_all_regions[12])
         end
     
     elseif tc.state.frame_from_bwapi - colonies[13] > 200 then
@@ -383,7 +383,7 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
             315, 490))
-            print(scouting.pos_on_quad({315,490})==test_all_regions[13])
+            print("D's 2th expansion " .. scouting.pos_on_quad({315,490})==test_all_regions[13])
         end
     else print("let it crash") end
     return actions
