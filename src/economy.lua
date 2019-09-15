@@ -73,6 +73,20 @@ local late_stage = false
 -- Final, The watcher observes, the fog collapses an event resolves.
 local final_stage = false
 
+function economy.check_workers(units, colonies, scouting_drones)
+    local busy = {}
+    for _, v in ipairs(colonies) do
+        if v['sid'] ~= nil then table.insert(busy, v['sid']) end
+    end
+    for _, v in ipairs(scouting_drones) do
+        if v['uid'] ~= nil then table.insert(busy, v['uid']) end
+    end
+
+    units['busy'] = busy
+    
+    return units
+end
+
 function economy.take_natural(colonies, uid, ut, actions, tc)
     -- Machine take your natural
     local quadrant = scouting.base_quadrant()
@@ -107,6 +121,7 @@ end
 
 
 -- !(?)
+
 
 function economy.take_third(colonies, uid, ut, actions, tc)
     -- take 3th expansion
@@ -256,12 +271,10 @@ function economy.manage_economy(actions, tc)
 
             elseif tc.state.resources_myself.ore >= 800 then
                 -- drones explore all sectors!
-                actions = scouting.explore_all_sectors(scouting_drone, uid, ut, actions, tc)
+                actions = scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             else
                 -- tests gathering, where is my missing gas?
-                if scouting_drones[1]['uid'] ~= uid 
-                    and scouting_drones[2]['uid'] ~= uid 
-                    and colonies[1]['sid'] ~= uid and not utils.is_in(ut.order,
+                if fun.find(units['busy'], uid) == nil and not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Gather])
                       and not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Build])
@@ -343,6 +356,8 @@ function economy.manage_economy(actions, tc)
     units["ultras"] = ultras
     units["guardians"] = guardians
     units["infesteds"] = infesteds
+
+    units = economy.check_workers(units, colonies, scouting_drones)
 
     if fun.size(drones) == 9 and fun.size(overlords) == 1 
         and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
