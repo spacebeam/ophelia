@@ -20,7 +20,7 @@ local is_drone_scouting = false
 
 local is_drone_expanding = false
 
-local units = {}
+local units = {["busy"]={},["idle"]={}}
 
 local colonies = {}
 
@@ -108,40 +108,11 @@ end
 function economy.take_third(colonies, uid, ut, actions, tc)
     -- take 3th expansion
     -- NOTE, you can't place this without scouting your enemy's position!
-    
-    if colonies[3]['sid'] == nil then colonies[2] = {["sid"]=uid} end
-    if colonies[3]['sid'] == uid and not utils.is_in(ut.order,
-        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-        if quadrant == 'A' then
-            --
-        elseif quadrant == 'B' then
-            --
-        elseif quadrant == 'C' then
-            --
-        elseif quadrant == 'D' then
-            --
-        else print('economy.take_third crash') end
-    end
-    return {["actions"]=actions,["colonies"]=colonies}
 end
 
 function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
     -- NOTE, location of 4th base depends on 3th.
-    if colonies[4]['sid'] == nil then colonies[2] = {["sid"]=uid} end
-    if colonies[4]['sid'] == uid and not utils.is_in(ut.order,
-        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-        if quadrant == 'A' then
-            --
-        elseif quadrant == 'B' then
-            --
-        elseif quadrant == 'C' then
-            --
-        elseif quadrant == 'D' then
-            --
-        else print('economy.take_fourth crash') end
-    end
-    return {["actions"]=actions,["colonies"]=colonies}
 end
 
 
@@ -290,7 +261,7 @@ function economy.manage_economy(actions, tc)
                 -- tests gathering, where is my missing gas?
                 if scouting_drones[1]['uid'] ~= uid 
                     and scouting_drones[2]['uid'] ~= uid 
-                    and colonies[1]['sid'] ~= uid not utils.is_in(ut.order,
+                    and colonies[1]['sid'] ~= uid and not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Gather])
                       and not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Build])
