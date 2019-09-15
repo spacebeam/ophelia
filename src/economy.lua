@@ -105,6 +105,8 @@ function economy.take_natural(colonies, uid, ut, actions, tc)
     return {["actions"]=actions,["colonies"]=colonies}
 end
 
+-- !(?)
+
 function economy.take_third(colonies, uid, ut, actions, tc)
     -- take 3th expansion
     -- NOTE, you can't place this without scouting your enemy's position!
@@ -114,9 +116,6 @@ function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
     -- NOTE, location of 4th base depends on 3th.
 end
-
-
--- !(?)
 
 function economy.take_fifth()
     -- take 5th expansion
