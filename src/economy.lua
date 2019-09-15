@@ -105,6 +105,7 @@ function economy.take_natural(colonies, uid, ut, actions, tc)
     return {["actions"]=actions,["colonies"]=colonies}
 end
 
+
 -- !(?)
 
 function economy.take_third(colonies, uid, ut, actions, tc)
