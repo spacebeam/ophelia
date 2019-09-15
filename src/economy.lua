@@ -120,7 +120,7 @@ function economy.take_third(colonies, uid, ut, actions, tc)
             --
         elseif quadrant == 'D' then
             --
-        else print('let it crash') end
+        else print('economy.take_third crash') end
     end
     return {["actions"]=actions,["colonies"]=colonies}
 end
@@ -139,7 +139,7 @@ function economy.take_fourth(colonies, uid, ut, actions, tc)
             --
         elseif quadrant == 'D' then
             --
-        else print('let it crash') end
+        else print('economy.take_fourth crash') end
     end
     return {["actions"]=actions,["colonies"]=colonies}
 end

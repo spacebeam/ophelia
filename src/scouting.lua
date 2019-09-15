@@ -47,7 +47,6 @@ quadrants["D"] = {
 
 local quadrant = nil
 
-
 -- Swarm colonies
 local colonies = {}
 colonies[1] = 0
@@ -218,7 +217,7 @@ function scouting.base_quadrant()
 end
 
 function scouting.all_quadrants()
-    -- return current information on all quadrants
+    -- return current data on all quadrants
     return quadrants
 end
 
