@@ -288,7 +288,9 @@ function economy.manage_economy(actions, tc)
                 actions = scouting.explore_all_sectors(scouting_drone, uid, ut, actions, tc)
             else
                 -- tests gathering, where is my missing gas?
-                if not utils.is_in(ut.order,
+                if scouting_drones[1]['uid'] ~= uid 
+                    and scouting_drones[2]['uid'] ~= uid 
+                    and colonies[1]['sid'] ~= uid not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Gather])
                       and not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Build])
