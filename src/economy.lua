@@ -94,12 +94,12 @@ function economy.take_natural(colonies, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid,
             tc.cmd.Move, -1,
-            quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+            quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"]))
         elseif quadrant == 'D' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
             tc.cmd.Move, -1,
-            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
         else print('economy.take_natural crash') end
     end
     return {["actions"]=actions,["colonies"]=colonies}
