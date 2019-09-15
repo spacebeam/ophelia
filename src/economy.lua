@@ -276,8 +276,8 @@ function economy.manage_economy(actions, tc)
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
 
-            elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
-                print(ut)
+            elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid 
+                and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
                 local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
