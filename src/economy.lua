@@ -14,7 +14,15 @@ local powering = true
 
 local spawning_overlord = false
 
-local is_spawning_overlord = {} 
+local spawning_lings = false
+
+local spawning_hydras = false
+
+local is_spawning_overlord = {}
+
+local is_spawning_lings = {}
+
+local is_spawning_hydras = {}
 
 local is_drone_scouting = false
 
@@ -307,12 +315,6 @@ function economy.manage_economy(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
-            
-            elseif fun.size(colonies) == 1 and colonies[1]['sid'] == uid 
-                and tc.state.resources_myself.ore >= 300 then
-                local expansion = economy.build_natural(colonies, uid, ut, actions, tc)
-                actions = expansion["actions"]
-                colonies = expansion["colonies"]
 
             elseif is_drone_scouting and fun.size(scouting_drones) == 1 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
@@ -333,6 +335,12 @@ function economy.manage_economy(actions, tc)
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
 
+            elseif fun.size(colonies) == 1 and colonies[1]['sid'] == uid 
+                and tc.state.resources_myself.ore >= 200 then
+                local expansion = economy.build_natural(colonies, uid, ut, actions, tc)
+                actions = expansion["actions"]
+                colonies = expansion["colonies"]
+
             elseif is_drone_expanding and scouting_drones[2]['uid'] == uid and fun.size(colonies) == 2 then
                 local expansion = economy.take_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
@@ -342,6 +350,7 @@ function economy.manage_economy(actions, tc)
             elseif tc.state.resources_myself.ore >= 1800 then
                 -- drones explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
+    
             else
                 -- tests gathering, where is my missing gas?
                 if fun.find(units['busy'], uid) == nil and not utils.is_in(ut.order,
@@ -395,6 +404,25 @@ function economy.manage_economy(actions, tc)
                         is_spawning_overlord[3] = nil
                     end
                 end
+    
+                -- init test on spawning lings!
+                if spawning_lings == true and fun.size(is_spawning_lings) == 0 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, uid, tc.cmd.Train,
+                    0, 0, 0, tc.unittypes.Zerg_Zergling))
+                    spawning_lings = false
+                    is_spawning_lings[2] = true
+                end
+
+                -- init test on spawning hydras! 
+                if spawning_hydras == true and fun.size(is_spawning_hydras) == 0 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, uid, tc.cmd.Train,
+                    0, 0, 0, tc.unittypes.Zerg_Hydralisk))
+                    spawning_hydras = false
+                    is_spawning_hydras[1] = true
+                end 
+                
                 if powering == true then
                     table.insert(actions,
                     tc.command(tc.command_unit, uid, tc.cmd.Train,
@@ -450,6 +478,11 @@ function economy.manage_economy(actions, tc)
         is_drone_expanding = true
     end
 
+    if fun.size(drones) == 12 and fun.size(lings) == 0 
+        and fun.size(is_spawning_lings) == 0 and spawning_lings == false then
+        spawning_lings = true
+    end
+
     if fun.size(drones) == 13 and scouting_drones[2] ~= nil 
         and colonies[2] == nil then
         colonies[2] = {}
@@ -464,7 +497,11 @@ function economy.manage_economy(actions, tc)
     if fun.size(drones) >= 19 then
         powering = false
     else powering = true end
-    
+
+    if fun.size(drones) >= 12 then
+        powering = false
+    else powering = true end
+
     print("overlords " .. fun.size(overlords))
     print("larvae ".. fun.size(larvae))
     print("eggs " .. fun.size(eggs))
