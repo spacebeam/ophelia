@@ -19,7 +19,7 @@ local quadrants = {}
 quadrants["A"] = {
     ["scout"] = {["x"]=450,["y"]=50},
     ["main"] = {["x"]=476,["y"]=34},
-    ["natural"] = {["x"]=350,["y"]=50},
+    ["natural"] = {["x"]=360,["y"]=60},
     ["second"] = {["x"]=490,["y"]=220},
     ["center"] = nil,
 }
@@ -33,14 +33,14 @@ quadrants["B"] = {
 quadrants["C"] = {
     ["scout"] = {["x"]=50,["y"]=450},
     ["main"] = {["x"]=36,["y"]=470},
-    ["natural"] = {["x"]=156,["y"]=460},
+    ["natural"] = {["x"]=146,["y"]=448},
     ["second"] = {["x"]=30,["y"]=290},
     ["center"] = nil,
 }
 quadrants["D"] = {
     ["scout"] = {["x"]=450,["y"]=450},
     ["main"] = {["x"]=476,["y"]=474},
-    ["natural"] = {["x"]=456,["y"]=350},
+    ["natural"] = {["x"]=442,["y"]=356},
     ["second"] = {["x"]=315,["y"]=490},
     ["center"] = nil,
 }

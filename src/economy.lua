@@ -81,14 +81,12 @@ function economy.check_workers(units, colonies, scouting_drones)
     for _, v in ipairs(scouting_drones) do
         if v['uid'] ~= nil then table.insert(busy, v['uid']) end
     end
-
     units['busy'] = busy
-    
     return units
 end
 
-function economy.take_natural(colonies, uid, ut, actions, tc)
-    -- Machine take your natural
+function economy.goto_natural(colonies, uid, ut, actions, tc)
+    -- Machine goto your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if colonies[1]['sid'] == nil then colonies[1] = {["sid"]=uid} end
@@ -114,11 +112,42 @@ function economy.take_natural(colonies, uid, ut, actions, tc)
             tc.command(tc.command_unit, uid,
             tc.cmd.Move, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
-        else print('economy.take_natural crash') end
+        else print('economy.goto_natural crash') end
     end
     return {["actions"]=actions,["colonies"]=colonies}
 end
 
+function economy.build_natural(colonies, uid, ut, actions, tc)
+    print('trying wut?')
+    -- Machine build your natural
+    local quadrant = scouting.base_quadrant()
+    local quadrants = scouting.all_quadrants()
+    if not utils.is_in(ut.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        if quadrant == 'A' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
+            quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+        elseif quadrant == 'B' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
+            quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+        elseif quadrant == 'C' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
+            quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+        elseif quadrant == 'D' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
+            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+        else print('economy.build_natural crash') end
+    end
+    return {["actions"]=actions,["colonies"]=colonies}
+end
 
 -- !(?)
 
@@ -249,7 +278,13 @@ function economy.manage_economy(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
-   
+            
+            elseif fun.size(colonies) == 1 and colonies[1]['sid'] == uid and tc.state.resources_myself.ore >= 300 then
+                print('So your drone '.. uid .. ' is about to do what?')
+                local expansion = economy.build_natural(colonies, uid, ut, actions, tc)
+                actions = expansion["actions"]
+                colonies = expansion["colonies"]
+
             elseif is_drone_scouting and fun.size(scouting_drones) == 1 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
                 actions = eleven["actions"]
@@ -264,7 +299,7 @@ function economy.manage_economy(actions, tc)
 
             elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid 
                 and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
-                local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
+                local expansion = economy.goto_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
