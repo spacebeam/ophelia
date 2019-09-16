@@ -13,6 +13,7 @@ local tools = require("ophelia.tools") -- !??
 -- two at 12 drone, 200 mineral.
 local scouting = {}
 
+local quadrant = nil
 -- Map is not territory, but...
 -- since handling 512x512 for all things.
 local quadrants = {}
@@ -44,27 +45,22 @@ quadrants["D"] = {
     ["second"] = {["x"]=315,["y"]=490},
     ["center"] = nil,
 }
-
-local quadrant = nil
-
--- Swarm colonies
-local colonies = {}
-colonies[1] = 0
-colonies[2] = 0
-colonies[3] = 0
-colonies[4] = 0
-colonies[5] = 0
-colonies[6] = 0
-colonies[7] = 0
-colonies[8] = 0
-colonies[9] = 0
-colonies[10] = 0
-colonies[11] = 0
-colonies[12] = 0
-colonies[13] = 0
-colonies[14] = 0
-colonies[15] = 0
-colonies[16] = 0
+quadrants["A"][1] = 0
+quadrants["A"][2] = 0
+quadrants["A"][3] = 0
+quadrants["A"][4] = 0
+quadrants["B"][5] = 0
+quadrants["B"][6] = 0
+quadrants["B"][7] = 0
+quadrants["B"][8] = 0
+quadrants["C"][9] = 0
+quadrants["C"][10] = 0
+quadrants["C"][11] = 0
+quadrants["C"][12] = 0
+quadrants["D"][13] = 0
+quadrants["D"][14] = 0
+quadrants["D"][15] = 0
+quadrants["D"][16] = 0
 
 function scouting.main_quadrant(pos)
     if pos ~= nil then pos = pos.position end
@@ -249,8 +245,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
     -- check if drone is busy!
     -- check sectors!
 
-    if tc.state.frame_from_bwapi - colonies[1] > 200 then
-        colonies[1] = tc.state.frame_from_bwapi
+    if tc.state.frame_from_bwapi - quadrants["A"][1] > 200 then
+        quadrants["A"][1] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
