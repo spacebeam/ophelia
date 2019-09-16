@@ -64,6 +64,8 @@ local scouting_overlords = {}
 
 local scouting_drones = {}
 
+local scouting_lings = {}
+
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
 -- Middle, Core units, make/defend pressure & take a base.
@@ -85,8 +87,8 @@ function economy.check_workers(units, colonies, scouting_drones)
     return units
 end
 
-function economy.goto_natural(colonies, uid, ut, actions, tc)
-    -- Machine goto your natural
+function economy.take_natural(colonies, uid, ut, actions, tc)
+    -- Machine take your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if colonies[1]['sid'] == nil then colonies[1] = {["sid"]=uid} end
@@ -112,7 +114,7 @@ function economy.goto_natural(colonies, uid, ut, actions, tc)
             tc.command(tc.command_unit, uid,
             tc.cmd.Move, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
-        else print('economy.goto_natural crash') end
+        else print('economy.take_natural crash') end
     end
     return {["actions"]=actions,["colonies"]=colonies}
 end
@@ -148,13 +150,41 @@ function economy.build_natural(colonies, uid, ut, actions, tc)
     return {["actions"]=actions,["colonies"]=colonies}
 end
 
--- !(?)
-
-
 function economy.take_third(colonies, uid, ut, actions, tc)
     -- take 3th expansion
-    -- NOTE, you can't place this without scouting your enemy's position!
+    -- NOTE; you can't place this without scouting your enemy's position!
+    local quadrant = scouting.base_quadrant()
+    local quadrants = scouting.all_quadrants()
+    if colonies[2]['sid'] == nil then colonies[2] = {["sid"]=uid} end
+    if colonies[2]['sid'] == uid and not utils.is_in(ut.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        if quadrant == 'A' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"]))
+        elseif quadrant == 'B' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"]))
+        elseif quadrant == 'C' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
+        elseif quadrant == 'D' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            tc.cmd.Move, -1,
+            quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"]))
+        else print('economy.take_third crash') end
+    end
+    return {["actions"]=actions,["colonies"]=colonies}
 end
+
+
+-- !(?)
 
 function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
@@ -298,12 +328,18 @@ function economy.manage_economy(actions, tc)
 
             elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid 
                 and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
-                local expansion = economy.goto_natural(colonies, uid, ut, actions, tc)
+                local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
 
-            elseif tc.state.resources_myself.ore >= 800 then
+            elseif is_drone_expanding and scouting_drones[2]['uid'] == uid and fun.size(colonies) == 2 then
+                local expansion = economy.take_third(colonies, uid, ut, actions, tc)
+                actions = expansion["actions"]
+                colonies = expansion["colonies"]
+                is_drone_expanding = false
+
+            elseif tc.state.resources_myself.ore >= 1800 then
                 -- drones explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             else
@@ -411,6 +447,12 @@ function economy.manage_economy(actions, tc)
     if fun.size(drones) == 12 and scouting_drones[2] ~= nil 
         and colonies[1] == nil then
         colonies[1] = {}
+        is_drone_expanding = true
+    end
+
+    if fun.size(drones) == 13 and scouting_drones[2] ~= nil 
+        and colonies[2] == nil then
+        colonies[2] = {}
         is_drone_expanding = true
     end
 
