@@ -256,8 +256,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             56, 152))
         end
 
-    elseif tc.state.frame_from_bwapi - colonies[2] > 200 then
-        colonies[2] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["A"][2] > 200 then
+        quadrants["A"][2] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -267,8 +267,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             36, 470))
         end
     
-    elseif tc.state.frame_from_bwapi - colonies[3] > 200 then
-        colonies[3] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["A"][3] > 200 then
+        quadrants["A"][3] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -278,8 +278,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             476, 474))
         end
 
-    elseif tc.state.frame_from_bwapi - colonies[4] > 200 then
-        colonies[4] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["A"][4] > 200 then
+        quadrants["A"][4] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -289,8 +289,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             476, 34))
         end
     
-    elseif tc.state.frame_from_bwapi - colonies[5] > 200 then
-        colonies[5] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["B"][5] > 200 then
+        quadrants["B"][5] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -300,8 +300,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             156, 460))
         end
 
-    elseif tc.state.frame_from_bwapi - colonies[6] > 200 then
-        colonies[6] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["B"][6] > 200 then
+        quadrants["B"][6] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -311,8 +311,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             456, 350))
         end
 
-    elseif tc.state.frame_from_bwapi - colonies[7] > 200 then
-        colonies[7] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["B"][7] > 200 then
+        quadrants["B"][7] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -322,8 +322,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             350, 50))
         end
 
-    elseif tc.state.frame_from_bwapi - colonies[8] > 200 then
-        colonies[8] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["B"][8] > 200 then
+        quadrants["B"][8] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -333,8 +333,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             35, 35))
         end
     
-    elseif tc.state.frame_from_bwapi - colonies[9] > 200 then
-        colonies[9] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["C"][9] > 200 then
+        quadrants["C"][9] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -344,8 +344,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             216, 20))
         end
     
-    elseif tc.state.frame_from_bwapi - colonies[10] > 200 then
-        colonies[10] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["C"][10] > 200 then
+        quadrants["C"][10] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -355,8 +355,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             30, 290))
         end
     
-    elseif tc.state.frame_from_bwapi - colonies[11] > 200 then
-        colonies[11] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["C"][11] > 200 then
+        quadrants["C"][11] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -366,8 +366,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             490, 220))
         end
     
-    elseif tc.state.frame_from_bwapi - colonies[12] > 200 then
-        colonies[12] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["C"][12] > 200 then
+        quadrants["C"][12] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
@@ -377,8 +377,8 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             256, 256))
         end
     
-    elseif tc.state.frame_from_bwapi - colonies[13] > 200 then
-        colonies[13] = tc.state.frame_from_bwapi
+    elseif tc.state.frame_from_bwapi - quadrants["D"][13] > 200 then
+        quadrants["D"][13] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(ut.order,
