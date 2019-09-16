@@ -118,7 +118,6 @@ function economy.goto_natural(colonies, uid, ut, actions, tc)
 end
 
 function economy.build_natural(colonies, uid, ut, actions, tc)
-    print('trying wut?')
     -- Machine build your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
@@ -279,8 +278,8 @@ function economy.manage_economy(actions, tc)
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
             
-            elseif fun.size(colonies) == 1 and colonies[1]['sid'] == uid and tc.state.resources_myself.ore >= 300 then
-                print('So your drone '.. uid .. ' is about to do what?')
+            elseif fun.size(colonies) == 1 and colonies[1]['sid'] == uid 
+                and tc.state.resources_myself.ore >= 300 then
                 local expansion = economy.build_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
