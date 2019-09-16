@@ -18,7 +18,7 @@ local zstreams = require("ophelia.zstreams")
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
-tc.DEBUG = 1
+tc.DEBUG = 0 
 -- Set random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Session id

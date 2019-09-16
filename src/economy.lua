@@ -262,7 +262,13 @@ function economy.manage_economy(actions, tc)
     local offence = {}
     -- Defense powerful but immobile, offence mobile but weak
     local defence = {}
-    
+
+
+    for uid, ut in pairs(tc.state.units_enemy) do
+        scouting.identify_enemy_race(uid, ut, tc)
+    end
+
+
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)

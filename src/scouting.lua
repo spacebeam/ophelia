@@ -62,6 +62,39 @@ quadrants["D"][14] = 0
 quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
+
+function scouting.identify_enemy_race(uid, ut, tc)
+    if ut.type == tc.unittypes.Zerg_Overlord then
+        print("I see an overlord!")
+    elseif ut.type == tc.unittypes.Zerg_Drone then
+        print("I see a drone!")
+    elseif ut.type == tc.unittypes.Zerg_Hatchery then
+        print("I see a hatchery!")
+    elseif ut.type == tc.unittypes.Protoss_Nexus then
+        print("See a nexus!")
+    elseif ut.type == tc.unittypes.Protoss_Probe then
+        print("See a probe!")
+    elseif ut.type == tc.unittypes.Protoss_Pylon then
+        print("See a pylon!")
+    elseif ut.type == tc.unittypes.Protoss_Forge then
+        print("See a forge!")
+    elseif ut.type == tc.unittypes.Protoss_Gateway then
+        print("See a gateway")
+    elseif ut.type == tc.unittypes.Terran_SCV then
+        print("See a SCV")
+    elseif ut.type == tc.unittypes.Terran_Command_Center then
+        print("See a command center")
+    elseif ut.type == tc.unittypes.Terran_Supply_Depot then
+        print("See a supply depot!")
+    elseif ut.type == tc.unittypes.Terran_Barracks then
+        print("See a barracks!")
+    elseif ut.type == tc.unittypes.Terran_Marine then
+        print("See a marine!")
+    elseif ut.type == tc.unittypes.Terran_Bunker then
+        print("See a bunker")
+    end
+end
+
 function scouting.main_quadrant(pos)
     if pos ~= nil then pos = pos.position end
     local quadrant = nil
