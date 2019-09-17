@@ -62,7 +62,6 @@ quadrants["D"][14] = 0
 quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
-
 function scouting.identify_enemy_units(uid, ut, tc)
     if ut.type == tc.unittypes.Zerg_Overlord then
         print("I see an overlord!")
