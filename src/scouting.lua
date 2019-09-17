@@ -92,18 +92,30 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("See a gateway")
     elseif ut.type == tc.unittypes.Protoss_Assimilator then
         print("See a assimilator")
+    elseif ut.type == tc.unittypes.Protoss_Cybernetics_Core then
+        print("See a cybernetics core")
     elseif ut.type == tc.unittypes.Terran_SCV then
         print("See a SCV")
     elseif ut.type == tc.unittypes.Terran_Command_Center then
         print("See a command center")
     elseif ut.type == tc.unittypes.Terran_Supply_Depot then
         print("See a supply depot!")
+    elseif ut.type == tc.unittypes.Terran_Refinery then
+        print("See a refinery!")
     elseif ut.type == tc.unittypes.Terran_Barracks then
         print("See a barracks!")
-    elseif ut.type == tc.unittypes.Terran_Marine then
-        print("See a marine!")
+    elseif ut.type == tc.unittypes.Terran_Factory then
+        print("See a factory!")
+    elseif ut.type == tc.unittypes.Terran_Starport then
+        print("See a starport!")
     elseif ut.type == tc.unittypes.Terran_Bunker then
         print("See a bunker")
+    elseif ut.type == tc.unittypes.Terran_Marine then
+        print("See a marine!")
+    elseif ut.type == tc.unittypes.Terran_Vulture then
+        print("See a vulture!")
+    elseif ut.type == tc.unittypes.Terran_Wraith then
+        print("See a wraith!")
     end
 end
 
