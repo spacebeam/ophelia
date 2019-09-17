@@ -70,6 +70,8 @@ function scouting.identify_enemy_race(uid, ut, tc)
         print("I see a drone!")
     elseif ut.type == tc.unittypes.Zerg_Hatchery then
         print("I see a hatchery!")
+    elseif ut.type == tc.unittypes.Zerg_Extractor then
+        print("I see a extractor")
     elseif ut.type == tc.unittypes.Protoss_Nexus then
         print("See a nexus!")
     elseif ut.type == tc.unittypes.Protoss_Probe then
@@ -80,6 +82,8 @@ function scouting.identify_enemy_race(uid, ut, tc)
         print("See a forge!")
     elseif ut.type == tc.unittypes.Protoss_Gateway then
         print("See a gateway")
+    elseif ut.type == tc.unittypes.Protoss_Assimilator then
+        print("See a assimilator")
     elseif ut.type == tc.unittypes.Terran_SCV then
         print("See a SCV")
     elseif ut.type == tc.unittypes.Terran_Command_Center then
