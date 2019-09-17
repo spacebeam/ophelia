@@ -68,6 +68,12 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("I see an overlord!")
     elseif ut.type == tc.unittypes.Zerg_Drone then
         print("I see a drone!")
+    elseif ut.type == tc.unittypes.Zerg_Zergling then
+        print("I see a zergling!")
+    elseif ut.type == tc.unittypes.Zerg_Mutalisk then
+        print("I see a mutalisk!")
+    elseif ut.type == tc.unittypes.Zerg_Scourge then
+        print("I see a scourge!")
     elseif ut.type == tc.unittypes.Zerg_Hatchery then
         print("I see a hatchery!")
     elseif ut.type == tc.unittypes.Zerg_Extractor then
@@ -84,16 +90,28 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("See a nexus!")
     elseif ut.type == tc.unittypes.Protoss_Probe then
         print("See a probe!")
+    elseif ut.type == tc.unittypes.Protoss_Zealot then
+        print("See a zealot!")
+    elseif ut.type == tc.unittypes.Protoss_Dragoon then
+        print("See a goon!")
     elseif ut.type == tc.unittypes.Protoss_Pylon then
         print("See a pylon!")
     elseif ut.type == tc.unittypes.Protoss_Forge then
         print("See a forge!")
+    elseif ut.type == tc.unittypes.Protoss_Photon_Cannon then
+        print("See a cannon!")
     elseif ut.type == tc.unittypes.Protoss_Gateway then
         print("See a gateway")
     elseif ut.type == tc.unittypes.Protoss_Assimilator then
         print("See a assimilator")
     elseif ut.type == tc.unittypes.Protoss_Cybernetics_Core then
         print("See a cybernetics core")
+    elseif ut.type == tc.unittypes.Protoss_Citadel_of_Adun then
+        print("See a citadel")
+    elseif ut.type == tc.unittypes.Protoss_Robotics_Facility then
+        print("See a robotics")
+    elseif ut.type == tc.unittypes.Protoss_Stargate then
+        print("See a stargate")
     elseif ut.type == tc.unittypes.Terran_SCV then
         print("See a SCV")
     elseif ut.type == tc.unittypes.Terran_Command_Center then
@@ -114,6 +132,8 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("See a marine!")
     elseif ut.type == tc.unittypes.Terran_Vulture then
         print("See a vulture!")
+    elseif ut.type == tc.unittypes.Terran_Vulture_Spider_Mine then
+        print("See a mine!")
     elseif ut.type == tc.unittypes.Terran_Wraith then
         print("See a wraith!")
     end
