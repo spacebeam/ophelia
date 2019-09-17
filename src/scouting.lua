@@ -63,7 +63,7 @@ quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
 
-function scouting.identify_enemy_race(uid, ut, tc)
+function scouting.identify_enemy_units(uid, ut, tc)
     if ut.type == tc.unittypes.Zerg_Overlord then
         print("I see an overlord!")
     elseif ut.type == tc.unittypes.Zerg_Drone then
@@ -72,6 +72,14 @@ function scouting.identify_enemy_race(uid, ut, tc)
         print("I see a hatchery!")
     elseif ut.type == tc.unittypes.Zerg_Extractor then
         print("I see a extractor")
+    elseif ut.type == tc.unittypes.Zerg_Spawning_Pool then
+        print("See a spawning pool")
+    elseif ut.type == tc.unittypes.Zerg_Evolution_Chamber then
+        print("See an evolution chamber")
+    elseif ut.type == tc.unittypes.Zerg_Lair then
+        print("See a lair")
+    elseif ut.type == tc.unittypes.Zerg_Spire then
+        print("See a spire")
     elseif ut.type == tc.unittypes.Protoss_Nexus then
         print("See a nexus!")
     elseif ut.type == tc.unittypes.Protoss_Probe then

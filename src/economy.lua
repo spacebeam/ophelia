@@ -265,7 +265,7 @@ function economy.manage_economy(actions, tc)
 
 
     for uid, ut in pairs(tc.state.units_enemy) do
-        scouting.identify_enemy_race(uid, ut, tc)
+        scouting.identify_enemy_units(uid, ut, tc)
     end
 
 
