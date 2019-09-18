@@ -87,14 +87,32 @@ function scouting.identify_enemy_units(uid, ut, tc)
     elseif ut.type == tc.unittypes.Zerg_Spire then
         print("See a spire")
     -- Why give my life for Aiur?
-    elseif ut.type == tc.unittypes.Protoss_Nexus then
-        print("See a nexus!")
     elseif ut.type == tc.unittypes.Protoss_Probe then
         print("See a probe!")
     elseif ut.type == tc.unittypes.Protoss_Zealot then
         print("See a zealot!")
     elseif ut.type == tc.unittypes.Protoss_Dragoon then
         print("See a goon!")
+    elseif ut.type == tc.unittypes.Protoss_Archon then
+        print("See an archon!")
+    elseif ut.type == tc.unittypes.Protoss_Dark_Archon then
+        print("See a dark archon!")
+    elseif ut.type == tc.unittypes.Protoss_Dark_Templar then
+        print("See a dark templar!")
+    elseif ut.type == tc.unittypes.Protoss_High_Templar then
+        print("See a high templar!")
+    elseif ut.type == tc.unittypes.Protoss_Reaver then
+        print("See a reaver")
+    elseif ut.type == tc.unittypes.Protoss_Scarab then
+        print("See a scarab")
+    elseif ut.type == tc.unittypes.Protoss_Nexus then
+        print("See a nexus!")
+    elseif ut.type == tc.unittypes.Protoss_Observatory then
+        print("See an observatory")
+    elseif ut.type == tc.unittypes.Protoss_Robotics_Facility then
+        print("See a robotics facility")
+    elseif ut.type == tc.unittypes.Protoss_Robotics_Support_Bay then
+        print("See a robotics support bay")
     elseif ut.type == tc.unittypes.Protoss_Pylon then
         print("See a pylon!")
     elseif ut.type == tc.unittypes.Protoss_Forge then
@@ -109,10 +127,10 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("See a cybernetics core")
     elseif ut.type == tc.unittypes.Protoss_Citadel_of_Adun then
         print("See a citadel")
-    elseif ut.type == tc.unittypes.Protoss_Robotics_Facility then
-        print("See a robotics")
     elseif ut.type == tc.unittypes.Protoss_Stargate then
         print("See a stargate")
+    elseif ut.type == tc.unittypes.Protoss_Templar_Archives then
+        print("See a templar archives")
     -- God bless terran rednecks
     elseif ut.type == tc.unittypes.Terran_SCV then
         print("See a SCV")
