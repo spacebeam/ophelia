@@ -13,6 +13,11 @@ local tools = require("ophelia.tools") -- !??
 -- two at 12 drone, 200 mineral.
 local scouting = {}
 
+local enemy = {}
+enemy["P"] = {}
+enemy["Z"] = {}
+enemy["T"] = {}
+
 local quadrant = nil
 -- Map is not territory, but...
 -- since handling 512x512 for all things.
