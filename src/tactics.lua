@@ -11,3 +11,33 @@
 --
 
 local tactics = {}
+
+function tactics.six_lings_harass()
+    --
+end
+
+function tactics.twelve_lings_harass()
+    --
+end
+
+function tactics.twelve_hydras_harass()
+    --
+end
+
+function tactics.control_groups()
+    --
+end
+
+function tactics.split_hydras_attack()
+    --
+end
+
+function tactics.five_muta_sniping()
+    --
+end
+
+function tactics.swarm_attack()
+    --
+end
+
+return tactics
