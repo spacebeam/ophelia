@@ -347,7 +347,7 @@ function scouting.lings()
 end
 
 function scouting.overlords()
-    -- extract timing from zero's guide
+    -- Split overlords after speed upgrade 
 end
 
 function scouting.overlord_sacrifice()
@@ -359,7 +359,7 @@ function scouting.scourge_sacrifice()
 end
 
 function scouting.ling_sacrifice()
-    -- D=
+    -- Live for the Swarm! 
 end
 
 function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
