@@ -325,7 +325,7 @@ function scouting.all_quadrants()
 end
 
 function scouting.lings()
-    -- extract timing from zero's guide
+    -- O=
 end
 
 function scouting.overlords()
@@ -333,11 +333,11 @@ function scouting.overlords()
 end
 
 function scouting.overlord_sacrifice()
-    -- hell yeah
+    -- How many gates? is there a robotics? 
 end
 
 function scouting.scourge_sacrifice()
-    -- 9=
+    -- How many gates? is there a robotics?
 end
 
 function scouting.ling_sacrifice()
