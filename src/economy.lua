@@ -192,18 +192,18 @@ function economy.take_third(colonies, uid, ut, actions, tc)
 end
 
 
-
 function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
     -- NOTE, location of 4th base depends on 3th.
 end
 
+
+-- !(?)
+
 function economy.take_fifth()
     -- take 5th expansion
     -- NOTE, wait until you have darkswarm!
 end
-
--- !(?)
 
 function economy.take_sixth()
     -- take 6th expansion
