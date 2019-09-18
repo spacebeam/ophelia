@@ -14,9 +14,9 @@ local tools = require("ophelia.tools") -- !??
 local scouting = {}
 
 local enemy = {}
-enemy["P"] = {}
-enemy["Z"] = {}
-enemy["T"] = {}
+enemy["P"] = {["units"]={},["race"]="Protoss"}
+enemy["Z"] = {["units"]={},["race"]="Zerg"}
+enemy["T"] = {["units"]={},["race"]="Terran"}
 
 local quadrant = nil
 -- Map is not territory, but...
@@ -26,28 +26,28 @@ quadrants["A"] = {
     ["scout"] = {["x"]=450,["y"]=50},
     ["main"] = {["x"]=476,["y"]=34},
     ["natural"] = {["x"]=360,["y"]=60},
-    ["second"] = {["x"]=490,["y"]=220},
+    ["third"] = {["x"]=490,["y"]=220},
     ["center"] = nil,
 }
 quadrants["B"] = {
     ["scout"] = {["x"]=50,["y"]=50},
     ["main"] = {["x"]=35,["y"]=35},
     ["natural"] = {["x"]=56,["y"]=152},
-    ["second"] = {["x"]=216,["y"]=20},
+    ["third"] = {["x"]=216,["y"]=20},
     ["center"] = {["x"]=256,["y"]=256},
 }
 quadrants["C"] = {
     ["scout"] = {["x"]=50,["y"]=450},
     ["main"] = {["x"]=36,["y"]=470},
     ["natural"] = {["x"]=146,["y"]=448},
-    ["second"] = {["x"]=30,["y"]=290},
+    ["third"] = {["x"]=30,["y"]=290},
     ["center"] = nil,
 }
 quadrants["D"] = {
     ["scout"] = {["x"]=450,["y"]=450},
     ["main"] = {["x"]=476,["y"]=474},
     ["natural"] = {["x"]=442,["y"]=356},
-    ["second"] = {["x"]=315,["y"]=490},
+    ["third"] = {["x"]=315,["y"]=490},
     ["center"] = nil,
 }
 quadrants["A"][1] = 0
@@ -68,6 +68,36 @@ quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
 function scouting.identify_enemy_units(uid, ut, tc)
+    -- Zerg things
+    local overlords = {}
+    local drones = {}
+    local lings = {}
+    local mutas = {}
+    local scourges = {}
+    local hacheries = {}
+    local extractors = {}
+    local spawning_pool = {}
+    local evolution_chamber = {}
+    local lair = {}
+    local spire = {}
+    -- Protoss stuff
+    local probes = {}
+    local zealots = {}
+    local dragoons = {}
+    local archons = {}
+    local darchons = {}
+    local dtemplars = {}
+    local htemplars = {}
+    local reavers = {}
+    local scarabs = {}
+    local corsairs = {}
+    local observers = {}
+    local scouts = {}
+    local shuttles = {}
+    local nexus = {}
+    local observatory = {}
+    -- Terran reasons
+    
     -- Awaken my child, and embrace the glory that is your birthright.
     if ut.type == tc.unittypes.Zerg_Overlord then
         print("I see an overlord!")
