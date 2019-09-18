@@ -105,6 +105,14 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("See a reaver")
     elseif ut.type == tc.unittypes.Protoss_Scarab then
         print("See a scarab")
+    elseif ut.type == tc.unittypes.Protoss_Corsair then
+        print("See a corsair")
+    elseif ut.type == tc.unittypes.Protoss_Observer then
+        print("See a observer")
+    elseif ut.type == tc.unittypes.Protoss_Scout then
+        print("See a scout")
+    elseif ut.type == tc.unittypes.Protoss_Shuttle then
+        print("See a schuttle")
     elseif ut.type == tc.unittypes.Protoss_Nexus then
         print("See a nexus!")
     elseif ut.type == tc.unittypes.Protoss_Observatory then
