@@ -63,6 +63,7 @@ quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
 function scouting.identify_enemy_units(uid, ut, tc)
+    -- Awaken my child, and embrace the glory that is your birthright.
     if ut.type == tc.unittypes.Zerg_Overlord then
         print("I see an overlord!")
     elseif ut.type == tc.unittypes.Zerg_Drone then
@@ -85,6 +86,7 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("See a lair")
     elseif ut.type == tc.unittypes.Zerg_Spire then
         print("See a spire")
+    -- Why give my life for Aiur?
     elseif ut.type == tc.unittypes.Protoss_Nexus then
         print("See a nexus!")
     elseif ut.type == tc.unittypes.Protoss_Probe then
@@ -111,6 +113,7 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("See a robotics")
     elseif ut.type == tc.unittypes.Protoss_Stargate then
         print("See a stargate")
+    -- God bless terran rednecks
     elseif ut.type == tc.unittypes.Terran_SCV then
         print("See a SCV")
     elseif ut.type == tc.unittypes.Terran_Command_Center then
@@ -121,18 +124,46 @@ function scouting.identify_enemy_units(uid, ut, tc)
         print("See a refinery!")
     elseif ut.type == tc.unittypes.Terran_Barracks then
         print("See a barracks!")
+    elseif ut.type == tc.unittypes.Terran_Engineering_Bay then
+        print("See a engineering bay!")
+    elseif ut.type == tc.unittypes.Terran_Missile_Turret then
+        print("See a missile turret")
+    elseif ut.type == tc.unittypes.Terran_Academy then
+        print("See an academy")
+    elseif ut.type == tc.unittypes.Terran_Armory then
+        print("See an armory")
     elseif ut.type == tc.unittypes.Terran_Factory then
         print("See a factory!")
+    elseif ut.type == tc.unittypes.Terran_Science_Facility then
+        print("See a science facility")
     elseif ut.type == tc.unittypes.Terran_Starport then
         print("See a starport!")
     elseif ut.type == tc.unittypes.Terran_Bunker then
         print("See a bunker")
+    elseif ut.type == tc.unittypes.Terran_Firebat then
+        print("See a firebat!")
+    elseif ut.type == tc.unittypes.Terran_Goliath then
+        print("See a goliath")
     elseif ut.type == tc.unittypes.Terran_Marine then
         print("See a marine!")
+    elseif ut.type == tc.unittypes.Terran_Medic then
+        print("See a medic!")
+    elseif ut.type == tc.unittypes.Terran_Siege_Tank_Siege_Mode then
+        print("See a siege tank!")
+    elseif ut.type == tc.unittypes.Terran_Siege_Tank_Tank_Mode then
+        print("See a tank!")
     elseif ut.type == tc.unittypes.Terran_Vulture then
         print("See a vulture!")
     elseif ut.type == tc.unittypes.Terran_Vulture_Spider_Mine then
         print("See a mine!")
+    elseif ut.type == tc.unittypes.Terran_Battlecruiser then
+        print("See a battlecruiser")
+    elseif ut.type == tc.unittypes.Terran_Dropship then
+        print("See a dropship")
+    elseif ut.type == tc.unittypes.Terran_Science_Vessel then
+        print("See a science vessel")
+    elseif ut.type == tc.unittypes.Terran_Valkyrie then
+        print("See a valkyrie!")
     elseif ut.type == tc.unittypes.Terran_Wraith then
         print("See a wraith!")
     end
