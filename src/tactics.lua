@@ -28,6 +28,10 @@ function tactics.control_groups()
     --
 end
 
+function tactitcs.seven_hydras_preassure()
+    --
+end
+
 function tactics.split_hydras_attack()
     --
 end
