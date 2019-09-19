@@ -28,7 +28,7 @@ function tactics.control_groups()
     --
 end
 
-function tactitcs.seven_hydras_preassure()
+function tactics.seven_hydras_preassure()
     --
 end
 
