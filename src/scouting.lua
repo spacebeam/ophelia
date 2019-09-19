@@ -67,7 +67,7 @@ quadrants["D"][14] = 0
 quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
-function scouting.identify_enemy_units(uid, ut, tc)
+function scouting.identify_enemy_units(enemy, tc)
     -- Zerg things
     local overlords = {}
     local drones = {}
@@ -133,136 +133,146 @@ function scouting.identify_enemy_units(uid, ut, tc)
     local science_vessels = {}
     local valkyries = {}
     local wraiths = {}
-    -- Awaken my child, and embrace the glory that is your birthright.
-    if ut.type == tc.unittypes.Zerg_Overlord then
-        table.insert(overlords, uid)
-    elseif ut.type == tc.unittypes.Zerg_Drone then
-        table.insert(drones, uid)
-    elseif ut.type == tc.unittypes.Zerg_Zergling then
-        table.insert(lings, uid)
-    elseif ut.type == tc.unittypes.Zerg_Mutalisk then
-        table.insert(mutas, uid)
-    elseif ut.type == tc.unittypes.Zerg_Scourge then
-        table.insert(scourges, uid)
-    elseif ut.type == tc.unittypes.Zerg_Hatchery then
-        table.insert(hatcheries, uid)
-    elseif ut.type == tc.unittypes.Zerg_Extractor then
-        table.insert(extractors, uid)
-    elseif ut.type == tc.unittypes.Zerg_Spawning_Pool then
-        table.insert(spawning_pool, uid)
-    elseif ut.type == tc.unittypes.Zerg_Evolution_Chamber then
-        table.insert(evolution_chamber, uid)
-    elseif ut.type == tc.unittypes.Zerg_Lair then
-        table.insert(lair, uid)
-    elseif ut.type == tc.unittypes.Zerg_Spire then
-        table.insert(spire, uid)
-    -- Why give my life for Aiur?
-    elseif ut.type == tc.unittypes.Protoss_Probe then
-        table.insert(probes, uid)
-    elseif ut.type == tc.unittypes.Protoss_Zealot then
-        table.insert(zealots, uid)
-    elseif ut.type == tc.unittypes.Protoss_Dragoon then
-        table.insert(dragoons, uid)
-    elseif ut.type == tc.unittypes.Protoss_Archon then
-        table.insert(archons, uid)
-    elseif ut.type == tc.unittypes.Protoss_Dark_Archon then
-        table.insert(dark_archons, uid)
-    elseif ut.type == tc.unittypes.Protoss_Dark_Templar then
-        table.insert(dark_templars, uid)
-    elseif ut.type == tc.unittypes.Protoss_High_Templar then
-        table.insert(high_templars, uid)
-    elseif ut.type == tc.unittypes.Protoss_Reaver then
-        table.insert(reavers, uid)
-    elseif ut.type == tc.unittypes.Protoss_Scarab then
-        table.insert(scarabs, uid)
-    elseif ut.type == tc.unittypes.Protoss_Corsair then
-        table.insert(corsairs, uid)
-    elseif ut.type == tc.unittypes.Protoss_Observer then
-        table.insert(observers, uid)
-    elseif ut.type == tc.unittypes.Protoss_Scout then
-        table.insert(scouts, uid)
-    elseif ut.type == tc.unittypes.Protoss_Shuttle then
-        table.insert(shuttles, uid)
-    elseif ut.type == tc.unittypes.Protoss_Nexus then
-        table.insert(nexus, uid)
-    elseif ut.type == tc.unittypes.Protoss_Observatory then
-        table.insert(observatory, uid)
-    elseif ut.type == tc.unittypes.Protoss_Robotics_Facility then
-        table.insert(robotics_facility, uid)
-    elseif ut.type == tc.unittypes.Protoss_Robotics_Support_Bay then
-        table.insert(robotics_support_bay, uid)
-    elseif ut.type == tc.unittypes.Protoss_Pylon then
-        table.insert(pylons, uid)
-    elseif ut.type == tc.unittypes.Protoss_Forge then
-        table.insert(forge, uid)
-    elseif ut.type == tc.unittypes.Protoss_Photon_Cannon then
-        table.insert(cannons, uid)
-    elseif ut.type == tc.unittypes.Protoss_Gateway then
-        table.insert(gateways, uid)
-    elseif ut.type == tc.unittypes.Protoss_Assimilator then
-        table.insert(assimilators, uid)
-    elseif ut.type == tc.unittypes.Protoss_Cybernetics_Core then
-        table.insert(cybernetics_core, uid)
-    elseif ut.type == tc.unittypes.Protoss_Citadel_of_Adun then
-        table.insert(citadel_of_adun, uid)
-    elseif ut.type == tc.unittypes.Protoss_Stargate then
-        table.insert(stargates, uid)
-    elseif ut.type == tc.unittypes.Protoss_Templar_Archives then
-        table.insert(templar_archives, uid)
-    -- God bless terran rednecks
-    elseif ut.type == tc.unittypes.Terran_SCV then
-        table.insert(scvs, uid)
-    elseif ut.type == tc.unittypes.Terran_Command_Center then
-        table.insert(command_centers, uid)
-    elseif ut.type == tc.unittypes.Terran_Supply_Depot then
-        table.insert(supply_depots, uid)
-    elseif ut.type == tc.unittypes.Terran_Refinery then
-        table.insert(refineries, uid)
-    elseif ut.type == tc.unittypes.Terran_Barracks then
-        table.insert(barracks, uid)
-    elseif ut.type == tc.unittypes.Terran_Engineering_Bay then
-        table.insert(engineering_bay, uid)
-    elseif ut.type == tc.unittypes.Terran_Missile_Turret then
-        table.insert(missile_turrets, uid)
-    elseif ut.type == tc.unittypes.Terran_Academy then
-        table.insert(academy, uid)
-    elseif ut.type == tc.unittypes.Terran_Armory then
-        table.insert(armory, uid)
-    elseif ut.type == tc.unittypes.Terran_Factory then
-        table.insert(factories, uid)
-    elseif ut.type == tc.unittypes.Terran_Science_Facility then
-        table.insert(science_facility, uid)
-    elseif ut.type == tc.unittypes.Terran_Starport then
-        table.insert(starports, uid)
-    elseif ut.type == tc.unittypes.Terran_Bunker then
-        table.insert(bunkers, uid)
-    elseif ut.type == tc.unittypes.Terran_Firebat then
-        table.insert(firebats, uid)
-    elseif ut.type == tc.unittypes.Terran_Goliath then
-        table.insert(goliaths, uid)
-    elseif ut.type == tc.unittypes.Terran_Marine then
-        table.insert(marines, uid)
-    elseif ut.type == tc.unittypes.Terran_Medic then
-        table.insert(medics, uid)
-    elseif ut.type == tc.unittypes.Terran_Siege_Tank_Siege_Mode then
-        table.insert(siege_tanks, uid)
-    elseif ut.type == tc.unittypes.Terran_Siege_Tank_Tank_Mode then
-        table.insert(tanks, uid)
-    elseif ut.type == tc.unittypes.Terran_Vulture then
-        table.insert(vultures, uid)
-    elseif ut.type == tc.unittypes.Terran_Vulture_Spider_Mine then
-        table.insert(spider_mines, uid)
-    elseif ut.type == tc.unittypes.Terran_Battlecruiser then
-        table.insert(battlecruisers, uid)
-    elseif ut.type == tc.unittypes.Terran_Dropship then
-        table.insert(dropships, uid)
-    elseif ut.type == tc.unittypes.Terran_Science_Vessel then
-        table.insert(science_vessels, uid)
-    elseif ut.type == tc.unittypes.Terran_Valkyrie then
-        table.insert(valkyries, uid)
-    elseif ut.type == tc.unittypes.Terran_Wraith then
-        table.insert(wraiths, uid)
-    else print("scouting.identify_enemy_units crash") end
+
+    for uid, ut in pairs(enemy) do
+        -- Awaken my child, and embrace the glory that is your birthright.
+        if ut.type == tc.unittypes.Zerg_Overlord then
+            table.insert(overlords, uid)
+        elseif ut.type == tc.unittypes.Zerg_Drone then
+            table.insert(drones, uid)
+        elseif ut.type == tc.unittypes.Zerg_Zergling then
+            table.insert(lings, uid)
+        elseif ut.type == tc.unittypes.Zerg_Mutalisk then
+            table.insert(mutas, uid)
+        elseif ut.type == tc.unittypes.Zerg_Scourge then
+            table.insert(scourges, uid)
+        elseif ut.type == tc.unittypes.Zerg_Hatchery then
+            table.insert(hatcheries, uid)
+        elseif ut.type == tc.unittypes.Zerg_Extractor then
+            table.insert(extractors, uid)
+        elseif ut.type == tc.unittypes.Zerg_Spawning_Pool then
+            table.insert(spawning_pool, uid)
+        elseif ut.type == tc.unittypes.Zerg_Evolution_Chamber then
+            table.insert(evolution_chamber, uid)
+        elseif ut.type == tc.unittypes.Zerg_Lair then
+            table.insert(lair, uid)
+        elseif ut.type == tc.unittypes.Zerg_Spire then
+            table.insert(spire, uid)
+        -- Why give my life for Aiur?
+        elseif ut.type == tc.unittypes.Protoss_Probe then
+            table.insert(probes, uid)
+        elseif ut.type == tc.unittypes.Protoss_Zealot then
+            table.insert(zealots, uid)
+        elseif ut.type == tc.unittypes.Protoss_Dragoon then
+            table.insert(dragoons, uid)
+        elseif ut.type == tc.unittypes.Protoss_Archon then
+            table.insert(archons, uid)
+        elseif ut.type == tc.unittypes.Protoss_Dark_Archon then
+            table.insert(dark_archons, uid)
+        elseif ut.type == tc.unittypes.Protoss_Dark_Templar then
+            table.insert(dark_templars, uid)
+        elseif ut.type == tc.unittypes.Protoss_High_Templar then
+            table.insert(high_templars, uid)
+        elseif ut.type == tc.unittypes.Protoss_Reaver then
+            table.insert(reavers, uid)
+        elseif ut.type == tc.unittypes.Protoss_Scarab then
+            table.insert(scarabs, uid)
+        elseif ut.type == tc.unittypes.Protoss_Corsair then
+            table.insert(corsairs, uid)
+        elseif ut.type == tc.unittypes.Protoss_Observer then
+            table.insert(observers, uid)
+        elseif ut.type == tc.unittypes.Protoss_Scout then
+            table.insert(scouts, uid)
+        elseif ut.type == tc.unittypes.Protoss_Shuttle then
+            table.insert(shuttles, uid)
+        elseif ut.type == tc.unittypes.Protoss_Nexus then
+            table.insert(nexus, uid)
+        elseif ut.type == tc.unittypes.Protoss_Observatory then
+            table.insert(observatory, uid)
+        elseif ut.type == tc.unittypes.Protoss_Robotics_Facility then
+            table.insert(robotics_facility, uid)
+        elseif ut.type == tc.unittypes.Protoss_Robotics_Support_Bay then
+            table.insert(robotics_support_bay, uid)
+        elseif ut.type == tc.unittypes.Protoss_Pylon then
+            table.insert(pylons, uid)
+        elseif ut.type == tc.unittypes.Protoss_Forge then
+            table.insert(forge, uid)
+        elseif ut.type == tc.unittypes.Protoss_Photon_Cannon then
+            table.insert(cannons, uid)
+        elseif ut.type == tc.unittypes.Protoss_Gateway then
+            table.insert(gateways, uid)
+        elseif ut.type == tc.unittypes.Protoss_Assimilator then
+            table.insert(assimilators, uid)
+        elseif ut.type == tc.unittypes.Protoss_Cybernetics_Core then
+            table.insert(cybernetics_core, uid)
+        elseif ut.type == tc.unittypes.Protoss_Citadel_of_Adun then
+            table.insert(citadel_of_adun, uid)
+        elseif ut.type == tc.unittypes.Protoss_Stargate then
+            table.insert(stargates, uid)
+        elseif ut.type == tc.unittypes.Protoss_Templar_Archives then
+            table.insert(templar_archives, uid)
+        -- God bless terran rednecks
+        elseif ut.type == tc.unittypes.Terran_SCV then
+            table.insert(scvs, uid)
+        elseif ut.type == tc.unittypes.Terran_Command_Center then
+            table.insert(command_centers, uid)
+        elseif ut.type == tc.unittypes.Terran_Supply_Depot then
+            table.insert(supply_depots, uid)
+        elseif ut.type == tc.unittypes.Terran_Refinery then
+            table.insert(refineries, uid)
+        elseif ut.type == tc.unittypes.Terran_Barracks then
+            table.insert(barracks, uid)
+        elseif ut.type == tc.unittypes.Terran_Engineering_Bay then
+            table.insert(engineering_bay, uid)
+        elseif ut.type == tc.unittypes.Terran_Missile_Turret then
+            table.insert(missile_turrets, uid)
+        elseif ut.type == tc.unittypes.Terran_Academy then
+            table.insert(academy, uid)
+        elseif ut.type == tc.unittypes.Terran_Armory then
+            table.insert(armory, uid)
+        elseif ut.type == tc.unittypes.Terran_Factory then
+            table.insert(factories, uid)
+        elseif ut.type == tc.unittypes.Terran_Science_Facility then
+            table.insert(science_facility, uid)
+        elseif ut.type == tc.unittypes.Terran_Starport then
+            table.insert(starports, uid)
+        elseif ut.type == tc.unittypes.Terran_Bunker then
+            table.insert(bunkers, uid)
+        elseif ut.type == tc.unittypes.Terran_Firebat then
+            table.insert(firebats, uid)
+        elseif ut.type == tc.unittypes.Terran_Goliath then
+            table.insert(goliaths, uid)
+        elseif ut.type == tc.unittypes.Terran_Marine then
+            table.insert(marines, uid)
+        elseif ut.type == tc.unittypes.Terran_Medic then
+            table.insert(medics, uid)
+        elseif ut.type == tc.unittypes.Terran_Siege_Tank_Siege_Mode then
+            table.insert(siege_tanks, uid)
+        elseif ut.type == tc.unittypes.Terran_Siege_Tank_Tank_Mode then
+            table.insert(tanks, uid)
+        elseif ut.type == tc.unittypes.Terran_Vulture then
+            table.insert(vultures, uid)
+        elseif ut.type == tc.unittypes.Terran_Vulture_Spider_Mine then
+            table.insert(spider_mines, uid)
+        elseif ut.type == tc.unittypes.Terran_Battlecruiser then
+            table.insert(battlecruisers, uid)
+        elseif ut.type == tc.unittypes.Terran_Dropship then
+            table.insert(dropships, uid)
+        elseif ut.type == tc.unittypes.Terran_Science_Vessel then
+            table.insert(science_vessels, uid)
+        elseif ut.type == tc.unittypes.Terran_Valkyrie then
+            table.insert(valkyries, uid)
+        elseif ut.type == tc.unittypes.Terran_Wraith then
+            table.insert(wraiths, uid)
+        else print("scouting.identify_enemy_units crash") end
+    end
+    
+    enemy["Z"]["units"]["drones"] = drones
+    enemy["P"]["units"]["probes"] = probes
+    enemy["T"]["units"]["scvs"] = scvs
+
+    return enemy
+
 end
 
 function scouting.main_quadrant(pos)
@@ -301,7 +311,6 @@ function scouting.pos_on_quad(pos)
 end
 
 function scouting.first_overlord(pos, uid, ut, actions, tc)
-    -- Where is the first zealot going?
     quadrant = scouting.main_quadrant(pos)
     if quadrant == "A" then
         if not utils.is_in(ut.order,
@@ -349,6 +358,7 @@ end
 
 function scouting.second_overlord(ps, uid, ut, actions, tc)
     -- 2th overlord scout go to enemy's natural expansion.
+    -- Where is the first zealot going?
     return actions
 end
 
