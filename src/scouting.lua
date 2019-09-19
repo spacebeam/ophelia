@@ -14,9 +14,9 @@ local tools = require("ophelia.tools") -- !??
 local scouting = {}
 
 local enemy = {}
-enemy["P"] = {["units"]={},["race"]="Protoss"}
-enemy["Z"] = {["units"]={},["race"]="Zerg"}
-enemy["T"] = {["units"]={},["race"]="Terran"}
+enemy["P"] = {["units"]={},["race"]="Protoss",["against"]=false}
+enemy["Z"] = {["units"]={},["race"]="Zerg",["against"]=false}
+enemy["T"] = {["units"]={},["race"]="Terran",["against"]=false}
 
 local quadrant = nil
 -- Map is not territory, but...
@@ -135,27 +135,27 @@ function scouting.identify_enemy_units(uid, ut, tc)
     local wraiths = {}
     -- Awaken my child, and embrace the glory that is your birthright.
     if ut.type == tc.unittypes.Zerg_Overlord then
-        print("I see an overlord!")
+        table.insert(overlords, uid)
     elseif ut.type == tc.unittypes.Zerg_Drone then
-        print("I see a drone!")
+        table.insert(drones, uid)
     elseif ut.type == tc.unittypes.Zerg_Zergling then
-        print("I see a zergling!")
+        table.insert(lings, uid)
     elseif ut.type == tc.unittypes.Zerg_Mutalisk then
-        print("I see a mutalisk!")
+        table.insert(mutas, uid)
     elseif ut.type == tc.unittypes.Zerg_Scourge then
-        print("I see a scourge!")
+        table.insert(scourges, uid)
     elseif ut.type == tc.unittypes.Zerg_Hatchery then
-        print("I see a hatchery!")
+        table.insert(hatcheries, uid)
     elseif ut.type == tc.unittypes.Zerg_Extractor then
-        print("I see a extractor")
+        table.insert(extractors, uid)
     elseif ut.type == tc.unittypes.Zerg_Spawning_Pool then
-        print("See a spawning pool")
+        table.insert(spawning_pool, uid)
     elseif ut.type == tc.unittypes.Zerg_Evolution_Chamber then
-        print("See an evolution chamber")
+        table.insert(evolution_chamber, uid)
     elseif ut.type == tc.unittypes.Zerg_Lair then
-        print("See a lair")
+        table.insert(lair, uid)
     elseif ut.type == tc.unittypes.Zerg_Spire then
-        print("See a spire")
+        table.insert(spire, uid)
     -- Why give my life for Aiur?
     elseif ut.type == tc.unittypes.Protoss_Probe then
         print("See a probe!")
