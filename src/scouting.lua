@@ -80,7 +80,7 @@ function scouting.identify_enemy_units(uid, ut, tc)
     local evolution_chamber = {}
     local lair = {}
     local spire = {}
-    -- Protoss stuff
+    -- Protoss stuffs
     local probes = {}
     local zealots = {}
     local dragoons = {}
@@ -262,7 +262,7 @@ function scouting.identify_enemy_units(uid, ut, tc)
         table.insert(valkyries, uid)
     elseif ut.type == tc.unittypes.Terran_Wraith then
         table.insert(wraiths, uid)
-    end
+    else print("scouting.identify_enemy_units crash") end
 end
 
 function scouting.main_quadrant(pos)
