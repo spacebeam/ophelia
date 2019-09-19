@@ -85,9 +85,9 @@ function scouting.identify_enemy_units(uid, ut, tc)
     local zealots = {}
     local dragoons = {}
     local archons = {}
-    local darchons = {}
-    local dtemplars = {}
-    local htemplars = {}
+    local dark_archons = {}
+    local dark_templars = {}
+    local high_templars = {}
     local reavers = {}
     local scarabs = {}
     local corsairs = {}
@@ -96,8 +96,43 @@ function scouting.identify_enemy_units(uid, ut, tc)
     local shuttles = {}
     local nexus = {}
     local observatory = {}
+    local robotics_facility = {}
+    local robotics_support_bay = {}
+    local pylons = {}
+    local forge = {}
+    local gateways = {}
+    local assimilators = {}
+    local cybernetics_core = {}
+    local citadel_of_adun = {}
+    local stargates = {}
+    local templar_archives = {}
     -- Terran reasons
-    
+    local scvs = {}
+    local command_centers = {}
+    local supply_depots = {}
+    local refinery = {}
+    local barracks = {}
+    local engineering_bay = {}
+    local missile_turret = {}
+    local academy = {}
+    local armory = {}
+    local factories = {}
+    local science_facility = {}
+    local starports = {}
+    local bunkers = {}
+    local firebats = {}
+    local goliaths = {}
+    local marines = {}
+    local medics = {}
+    local siege_tanks = {}
+    local tanks = {}
+    local vultures = {}
+    local spider_mines = {}
+    local battlecruisers = {}
+    local dropships = {}
+    local science_vessels = {}
+    local valkyries = {}
+    local wraiths = {}
     -- Awaken my child, and embrace the glory that is your birthright.
     if ut.type == tc.unittypes.Zerg_Overlord then
         print("I see an overlord!")
