@@ -12,6 +12,12 @@ local economy = {}
 
 local powering = true
 
+local vs_zerg = false
+
+local vs_protoss = false
+
+local vs_terran = false
+
 local spawning_overlord = false
 
 local spawning_lings = false
@@ -250,6 +256,12 @@ function economy.manage_economy(actions, tc)
 
     local infesteds = {}
 
+    local zerg_units = 0
+    
+    local protoss_units = 0
+    
+    local terran_units = 0
+
     -- Set your units into 4 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
@@ -485,9 +497,41 @@ function economy.manage_economy(actions, tc)
         powering = false
     else powering = true end
 
-    print(fun.size(enemy["Z"]["units"])
-    print(fun.size(enemy["P"]["units"])
-    print(fun.size(enemy["T"]["units"])
+    for k, v in pairs(enemy["Z"]["units"]) do
+        zerg_units = zerg_units + fun.size(enemy["Z"]["units"][k])
+    end
+   
+    for k, v in pairs(enemy["P"]["units"]) do
+        protoss_units = protoss_units + fun.size(enemy["P"]["units"][k])
+    end
+    
+    for k, v in pairs(enemy["T"]["units"]) do
+        terran_units = terran_units + fun.size(enemy["T"]["units"][k])
+    end
+    
+    if zerg_units >= 1 then
+        vs_zerg = true 
+    end
+
+    if protoss_units >= 1 then
+        vs_protoss = true 
+    end
+
+    if terran_units >= 1 then
+        vs_terran = true 
+    end
+
+    if vs_zerg then
+        print("Ophelia vs Zerg")
+    end
+
+    if vs_protoss then
+        print("Ophelia vs Protoss")
+    end
+    
+    if vs_terran then
+        print("Ophelia vs Terran")
+    end
     
     print("overlords " .. fun.size(overlords))
     print("larvae ".. fun.size(larvae))
