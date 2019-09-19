@@ -201,27 +201,15 @@ function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- NOTE, location of 4th base depends on 3th.
 end
 
-
--- !(?)
-
 function economy.take_fifth()
     -- take 5th expansion
     -- NOTE, wait until you have darkswarm!
 end
 
-function economy.take_sixth()
-    -- take 6th expansion
-end
 
-function economy.take_seventh()
-    -- take 7th expansion
-end
+-- !(?)
 
-function economy.take_eighth()
-    -- take 8th expansion
-end
-
-function economy.take_all()
+function economy.take_it_all()
     -- take it all
 end
 
@@ -279,9 +267,6 @@ function economy.manage_economy(actions, tc)
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
                 {tc.unittypes.Zerg_Hatchery}))
             actions = scouting.first_overlord(pos, uid, ut, actions, tc)
-
-            -- missing filter by overlord uid
-
         elseif ut.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, uid)
         elseif ut.type == tc.unittypes.Zerg_Hydralisk then
@@ -351,7 +336,8 @@ function economy.manage_economy(actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
 
-            elseif is_drone_expanding and scouting_drones[2]['uid'] == uid and fun.size(colonies) == 2 then
+            elseif is_drone_expanding and scouting_drones[2]['uid'] == uid 
+                and fun.size(colonies) == 2 then
                 local expansion = economy.take_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
