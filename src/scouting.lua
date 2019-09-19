@@ -110,7 +110,7 @@ function scouting.identify_enemy_units(uid, ut, tc)
     local scvs = {}
     local command_centers = {}
     local supply_depots = {}
-    local refinery = {}
+    local refineries = {}
     local barracks = {}
     local engineering_bay = {}
     local missile_turret = {}
@@ -211,57 +211,57 @@ function scouting.identify_enemy_units(uid, ut, tc)
         table.insert(templar_archives, uid)
     -- God bless terran rednecks
     elseif ut.type == tc.unittypes.Terran_SCV then
-        print("See a SCV")
+        table.insert(scvs, uid)
     elseif ut.type == tc.unittypes.Terran_Command_Center then
-        print("See a command center")
+        table.insert(command_centers, uid)
     elseif ut.type == tc.unittypes.Terran_Supply_Depot then
-        print("See a supply depot!")
+        table.insert(supply_depots, uid)
     elseif ut.type == tc.unittypes.Terran_Refinery then
-        print("See a refinery!")
+        table.insert(refineries, uid)
     elseif ut.type == tc.unittypes.Terran_Barracks then
-        print("See a barracks!")
+        table.insert(barracks, uid)
     elseif ut.type == tc.unittypes.Terran_Engineering_Bay then
-        print("See a engineering bay!")
+        table.insert(engineering_bay, uid)
     elseif ut.type == tc.unittypes.Terran_Missile_Turret then
-        print("See a missile turret")
+        table.insert(missile_turrets, uid)
     elseif ut.type == tc.unittypes.Terran_Academy then
-        print("See an academy")
+        table.insert(academy, uid)
     elseif ut.type == tc.unittypes.Terran_Armory then
-        print("See an armory")
+        table.insert(armory, uid)
     elseif ut.type == tc.unittypes.Terran_Factory then
-        print("See a factory!")
+        table.insert(factories, uid)
     elseif ut.type == tc.unittypes.Terran_Science_Facility then
-        print("See a science facility")
+        table.insert(science_facility, uid)
     elseif ut.type == tc.unittypes.Terran_Starport then
-        print("See a starport!")
+        table.insert(starports, uid)
     elseif ut.type == tc.unittypes.Terran_Bunker then
-        print("See a bunker")
+        table.insert(bunkers, uid)
     elseif ut.type == tc.unittypes.Terran_Firebat then
-        print("See a firebat!")
+        table.insert(firebats, uid)
     elseif ut.type == tc.unittypes.Terran_Goliath then
-        print("See a goliath")
+        table.insert(goliaths, uid)
     elseif ut.type == tc.unittypes.Terran_Marine then
-        print("See a marine!")
+        table.insert(marines, uid)
     elseif ut.type == tc.unittypes.Terran_Medic then
-        print("See a medic!")
+        table.insert(medics, uid)
     elseif ut.type == tc.unittypes.Terran_Siege_Tank_Siege_Mode then
-        print("See a siege tank!")
+        table.insert(siege_tanks, uid)
     elseif ut.type == tc.unittypes.Terran_Siege_Tank_Tank_Mode then
-        print("See a tank!")
+        table.insert(tanks, uid)
     elseif ut.type == tc.unittypes.Terran_Vulture then
-        print("See a vulture!")
+        table.insert(vultures, uid)
     elseif ut.type == tc.unittypes.Terran_Vulture_Spider_Mine then
-        print("See a mine!")
+        table.insert(spider_mines, uid)
     elseif ut.type == tc.unittypes.Terran_Battlecruiser then
-        print("See a battlecruiser")
+        table.insert(battlecruisers, uid)
     elseif ut.type == tc.unittypes.Terran_Dropship then
-        print("See a dropship")
+        table.insert(dropships, uid)
     elseif ut.type == tc.unittypes.Terran_Science_Vessel then
-        print("See a science vessel")
+        table.insert(science_vessels, uid)
     elseif ut.type == tc.unittypes.Terran_Valkyrie then
-        print("See a valkyrie!")
+        table.insert(valkyries, uid)
     elseif ut.type == tc.unittypes.Terran_Wraith then
-        print("See a wraith!")
+        table.insert(wraiths, uid)
     end
 end
 
