@@ -485,6 +485,10 @@ function economy.manage_economy(actions, tc)
         powering = false
     else powering = true end
 
+    print(fun.size(enemy["Z"]["units"])
+    print(fun.size(enemy["P"]["units"])
+    print(fun.size(enemy["T"]["units"])
+    
     print("overlords " .. fun.size(overlords))
     print("larvae ".. fun.size(larvae))
     print("eggs " .. fun.size(eggs))
