@@ -297,6 +297,31 @@ function scouting.identify_enemy_units(enemy_units, tc)
     enemy["P"]["units"]["stargates"] = stargates
     enemy["P"]["units"]["templar_archives"] = templar_archives
     enemy["T"]["units"]["scvs"] = scvs
+    enemy["T"]["units"]["command_centers"] = command_centers 
+    enemy["T"]["units"]["supply_depots"] = supply_depots
+    enemy["T"]["units"]["refineries"] = refineries
+    enemy["T"]["units"]["barracks"] = barracks
+    enemy["T"]["units"]["engineering_bay"] = engineering_bay
+    enemy["T"]["units"]["missile_turrets"] = missile_turrets
+    enemy["T"]["units"]["academy"] = academy
+    enemy["T"]["units"]["armory"] = armory
+    enemy["T"]["units"]["factories"] = factories
+    enemy["T"]["units"]["science_facility"] = science_facility
+    enemy["T"]["units"]["starports"] = starports
+    enemy["T"]["units"]["bunkers"] = bunkers
+    enemy["T"]["units"]["firebats"] = firebats
+    enemy["T"]["units"]["goliaths"] = goliaths
+    enemy["T"]["units"]["marines"] = marines
+    enemy["T"]["units"]["medics"] = medics
+    enemy["T"]["units"]["siege_tanks"] = siege_tanks
+    enemy["T"]["units"]["tanks"] = tanks
+    enemy["T"]["units"]["vultures"] = vultures 
+    enemy["T"]["units"]["spider_mines"] = spider_mines
+    enemy["T"]["units"]["battlecruisers"] = battlecruisers
+    enemy["T"]["units"]["dropships"] = dropships
+    enemy["T"]["units"]["science_vessels"] = science_vessels
+    enemy["T"]["units"]["valkyries"] = valkyries
+    enemy["T"]["units"]["wraiths"] = wraiths
     return enemy
 end
 
