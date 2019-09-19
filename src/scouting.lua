@@ -158,57 +158,57 @@ function scouting.identify_enemy_units(uid, ut, tc)
         table.insert(spire, uid)
     -- Why give my life for Aiur?
     elseif ut.type == tc.unittypes.Protoss_Probe then
-        print("See a probe!")
+        table.insert(probes, uid)
     elseif ut.type == tc.unittypes.Protoss_Zealot then
-        print("See a zealot!")
+        table.insert(zealots, uid)
     elseif ut.type == tc.unittypes.Protoss_Dragoon then
-        print("See a goon!")
+        table.insert(dragoons, uid)
     elseif ut.type == tc.unittypes.Protoss_Archon then
-        print("See an archon!")
+        table.insert(archons, uid)
     elseif ut.type == tc.unittypes.Protoss_Dark_Archon then
-        print("See a dark archon!")
+        table.insert(dark_archons, uid)
     elseif ut.type == tc.unittypes.Protoss_Dark_Templar then
-        print("See a dark templar!")
+        table.insert(dark_templars, uid)
     elseif ut.type == tc.unittypes.Protoss_High_Templar then
-        print("See a high templar!")
+        table.insert(high_templars, uid)
     elseif ut.type == tc.unittypes.Protoss_Reaver then
-        print("See a reaver")
+        table.insert(reavers, uid)
     elseif ut.type == tc.unittypes.Protoss_Scarab then
-        print("See a scarab")
+        table.insert(scarabs, uid)
     elseif ut.type == tc.unittypes.Protoss_Corsair then
-        print("See a corsair")
+        table.insert(corsairs, uid)
     elseif ut.type == tc.unittypes.Protoss_Observer then
-        print("See a observer")
+        table.insert(observers, uid)
     elseif ut.type == tc.unittypes.Protoss_Scout then
-        print("See a scout")
+        table.insert(scouts, uid)
     elseif ut.type == tc.unittypes.Protoss_Shuttle then
-        print("See a schuttle")
+        table.insert(shuttles, uid)
     elseif ut.type == tc.unittypes.Protoss_Nexus then
-        print("See a nexus!")
+        table.insert(nexus, uid)
     elseif ut.type == tc.unittypes.Protoss_Observatory then
-        print("See an observatory")
+        table.insert(observatory, uid)
     elseif ut.type == tc.unittypes.Protoss_Robotics_Facility then
-        print("See a robotics facility")
+        table.insert(robotics_facility, uid)
     elseif ut.type == tc.unittypes.Protoss_Robotics_Support_Bay then
-        print("See a robotics support bay")
+        table.insert(robotics_support_bay, uid)
     elseif ut.type == tc.unittypes.Protoss_Pylon then
-        print("See a pylon!")
+        table.insert(pylons, uid)
     elseif ut.type == tc.unittypes.Protoss_Forge then
-        print("See a forge!")
+        table.insert(forge, uid)
     elseif ut.type == tc.unittypes.Protoss_Photon_Cannon then
-        print("See a cannon!")
+        table.insert(cannons, uid)
     elseif ut.type == tc.unittypes.Protoss_Gateway then
-        print("See a gateway")
+        table.insert(gateways, uid)
     elseif ut.type == tc.unittypes.Protoss_Assimilator then
-        print("See a assimilator")
+        table.insert(assimilators, uid)
     elseif ut.type == tc.unittypes.Protoss_Cybernetics_Core then
-        print("See a cybernetics core")
+        table.insert(cybernetics_core, uid)
     elseif ut.type == tc.unittypes.Protoss_Citadel_of_Adun then
-        print("See a citadel")
+        table.insert(citadel_of_adun, uid)
     elseif ut.type == tc.unittypes.Protoss_Stargate then
-        print("See a stargate")
+        table.insert(stargates, uid)
     elseif ut.type == tc.unittypes.Protoss_Templar_Archives then
-        print("See a templar archives")
+        table.insert(templar_archives, uid)
     -- God bless terran rednecks
     elseif ut.type == tc.unittypes.Terran_SCV then
         print("See a SCV")
