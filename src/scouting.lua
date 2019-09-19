@@ -67,8 +67,7 @@ quadrants["D"][14] = 0
 quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
-function scouting.identify_enemy_units(enemy, tc)
-    -- Zerg things
+function scouting.identify_enemy_units(enemy_units, tc)
     local overlords = {}
     local drones = {}
     local lings = {}
@@ -80,7 +79,6 @@ function scouting.identify_enemy_units(enemy, tc)
     local evolution_chamber = {}
     local lair = {}
     local spire = {}
-    -- Protoss stuffs
     local probes = {}
     local zealots = {}
     local dragoons = {}
@@ -106,7 +104,6 @@ function scouting.identify_enemy_units(enemy, tc)
     local citadel_of_adun = {}
     local stargates = {}
     local templar_archives = {}
-    -- Terran reasons
     local scvs = {}
     local command_centers = {}
     local supply_depots = {}
@@ -133,9 +130,7 @@ function scouting.identify_enemy_units(enemy, tc)
     local science_vessels = {}
     local valkyries = {}
     local wraiths = {}
-
-    for uid, ut in pairs(enemy) do
-        -- Awaken my child, and embrace the glory that is your birthright.
+    for uid, ut in pairs(enemy_units) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
         elseif ut.type == tc.unittypes.Zerg_Drone then
@@ -158,7 +153,6 @@ function scouting.identify_enemy_units(enemy, tc)
             table.insert(lair, uid)
         elseif ut.type == tc.unittypes.Zerg_Spire then
             table.insert(spire, uid)
-        -- Why give my life for Aiur?
         elseif ut.type == tc.unittypes.Protoss_Probe then
             table.insert(probes, uid)
         elseif ut.type == tc.unittypes.Protoss_Zealot then
@@ -211,7 +205,6 @@ function scouting.identify_enemy_units(enemy, tc)
             table.insert(stargates, uid)
         elseif ut.type == tc.unittypes.Protoss_Templar_Archives then
             table.insert(templar_archives, uid)
-        -- God bless terran rednecks
         elseif ut.type == tc.unittypes.Terran_SCV then
             table.insert(scvs, uid)
         elseif ut.type == tc.unittypes.Terran_Command_Center then
@@ -266,13 +259,33 @@ function scouting.identify_enemy_units(enemy, tc)
             table.insert(wraiths, uid)
         else print("scouting.identify_enemy_units crash") end
     end
-    
+    enemy["Z"]["units"]["overlords"] = overlords 
     enemy["Z"]["units"]["drones"] = drones
-    enemy["P"]["units"]["probes"] = probes
-    enemy["T"]["units"]["scvs"] = scvs
-
+    enemy["Z"]["units"]["lings"] = lings 
+    enemy["Z"]["units"]["hydras"] = hydras
+    enemy["Z"]["units"]["mutas"] = mutas
+    enemy["Z"]["units"]["scourges"] = scourges
+    enemy["Z"]["units"]["hatcheries"] = hatcheries
+    enemy["Z"]["units"]["extractors"] = extractors
+    enemy["Z"]["units"]["spawning_pool"] = spawning_pool
+    enemy["Z"]["units"]["evolution_chamber"] = evolution_chamber
+    enemy["Z"]["units"]["lair"] = lair
+    enemy["Z"]["units"]["spire"] = spire
+    enemy["P"]["units"]["probes"] = probes 
+    enemy["P"]["units"]["zealots"] = zealots
+    enemy["P"]["units"]["dragoons"] = dragoons
+    enemy["P"]["units"]["archons"] = archons
+    enemy["P"]["units"]["dark_archons"] = dark_archons
+    enemy["P"]["units"]["dark_templars"] = dark_templars
+    enemy["P"]["units"]["high_templars"] = high_templars
+    enemy["P"]["units"]["reavers"] = reavers
+    enemy["P"]["units"]["scarabs"] = scarabs
+    enemy["P"]["units"]["corsairs"] = corsairs
+    enemy["P"]["units"]["observers"] = observers
+    enemy["P"]["units"]["scouts"] = scouts
+    enemy["P"]["units"]["shuttles"] = shuttles
+    enemy["P"]["units"]["nexus"] = nexus
     return enemy
-
 end
 
 function scouting.main_quadrant(pos)
