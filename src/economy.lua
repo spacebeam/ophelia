@@ -137,22 +137,26 @@ function economy.build_natural(colonies, uid, ut, actions, tc)
             table.insert(actions,
             tc.command(tc.command_unit, uid,
             tc.cmd.Build, -1,
-            quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+            quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"],
+            tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'B' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
             tc.cmd.Build, -1,
-            quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+            quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"],
+            tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'C' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
             tc.cmd.Build, -1,
-            quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+            quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"],
+            tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'D' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
             tc.cmd.Build, -1,
-            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"], tc.unittypes.Zerg_Hatchery))
+            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"],
+            tc.unittypes.Zerg_Hatchery))
         else print('economy.build_natural crash') end
     end
     return {["actions"]=actions,["colonies"]=colonies}
