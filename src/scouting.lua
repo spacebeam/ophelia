@@ -262,7 +262,6 @@ function scouting.identify_enemy_units(enemy_units, tc)
     enemy["Z"]["units"]["overlords"] = overlords 
     enemy["Z"]["units"]["drones"] = drones
     enemy["Z"]["units"]["lings"] = lings 
-    enemy["Z"]["units"]["hydras"] = hydras
     enemy["Z"]["units"]["mutas"] = mutas
     enemy["Z"]["units"]["scourges"] = scourges
     enemy["Z"]["units"]["hatcheries"] = hatcheries
@@ -285,6 +284,19 @@ function scouting.identify_enemy_units(enemy_units, tc)
     enemy["P"]["units"]["scouts"] = scouts
     enemy["P"]["units"]["shuttles"] = shuttles
     enemy["P"]["units"]["nexus"] = nexus
+    enemy["P"]["units"]["observatory"] = observatory
+    enemy["P"]["units"]["robotics_facility"] = robotics_facility
+    enemy["P"]["units"]["robotics_support_bay"] = robotics_support_bay
+    enemy["P"]["units"]["pylons"] = pylons
+    enemy["P"]["units"]["forge"] = forge
+    enemy["P"]["units"]["cannons"] = cannons
+    enemy["P"]["units"]["gateways"] = gateways
+    enemy["P"]["units"]["assmilators"] = assimilators
+    enemy["P"]["units"]["cybernetics_core"] = cybernetics_core
+    enemy["P"]["units"]["citadel_of_adun"] = citadel_of_adun
+    enemy["P"]["units"]["stargates"] = stargates
+    enemy["P"]["units"]["templar_archives"] = templar_archives
+    enemy["T"]["units"]["scvs"] = scvs
     return enemy
 end
 
