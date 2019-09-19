@@ -195,7 +195,6 @@ function economy.take_third(colonies, uid, ut, actions, tc)
     return {["actions"]=actions,["colonies"]=colonies}
 end
 
-
 function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
     -- NOTE, location of 4th base depends on 3th.
@@ -310,43 +309,36 @@ function economy.manage_economy(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
-
             elseif is_drone_scouting and fun.size(scouting_drones) == 1 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
-
             elseif is_drone_scouting and scouting_drones[1]['uid'] ~= uid then
                 local twelve = scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
-
             elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid 
                 and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
                 local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
-
             elseif fun.size(colonies) == 1 and colonies[1]['sid'] == uid 
                 and tc.state.resources_myself.ore >= 200 then
                 local expansion = economy.build_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
-
             elseif is_drone_expanding and scouting_drones[2]['uid'] == uid 
                 and fun.size(colonies) == 2 then
                 local expansion = economy.take_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
-
             elseif tc.state.resources_myself.ore >= 1800 then
                 -- drones explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
-    
             else
                 -- tests gathering, where is my missing gas?
                 if fun.find(units['busy'], uid) == nil and not utils.is_in(ut.order,
@@ -400,7 +392,6 @@ function economy.manage_economy(actions, tc)
                         is_spawning_overlord[3] = nil
                     end
                 end
-    
                 -- init test on spawning lings!
                 if spawning_lings == true and fun.size(is_spawning_lings) == 0 then
                     table.insert(actions,
@@ -409,7 +400,6 @@ function economy.manage_economy(actions, tc)
                     spawning_lings = false
                     is_spawning_lings[2] = true
                 end
-
                 -- init test on spawning hydras! 
                 if spawning_hydras == true and fun.size(is_spawning_hydras) == 0 then
                     table.insert(actions,
@@ -418,7 +408,6 @@ function economy.manage_economy(actions, tc)
                     spawning_hydras = false
                     is_spawning_hydras[1] = true
                 end 
-                
                 if powering == true then
                     table.insert(actions,
                     tc.command(tc.command_unit, uid, tc.cmd.Train,
