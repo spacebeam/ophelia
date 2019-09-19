@@ -301,6 +301,7 @@ function scouting.pos_on_quad(pos)
 end
 
 function scouting.first_overlord(pos, uid, ut, actions, tc)
+    -- Where is the first zealot going?
     quadrant = scouting.main_quadrant(pos)
     if quadrant == "A" then
         if not utils.is_in(ut.order,
