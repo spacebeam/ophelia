@@ -201,6 +201,25 @@ function economy.take_third(colonies, uid, ut, actions, tc)
     return {["actions"]=actions,["colonies"]=colonies}
 end
 
+function economy.build_third(colonies, uid, ut, actions, tc)
+    -- Water machine build your third base
+    local quadrant
+    local quadrants
+    if not utils.is_in(ut.order,
+        tc.commad2order[tc.unitcommandtypes.Right_Click_Position]) then
+        if quadrant == 'A' then
+            --
+        elseif quadrant = 'B' then
+            --
+        elseif quadrant = 'C' then
+            --
+        elseif quadrant = 'D' then
+            --
+        else print('economy.build_third crash') end
+    end
+    return {["actions"]=actions,["colonies"]=colonies}
+end
+
 function economy.take_fourth(colonies, uid, ut, actions, tc)
     -- take 4th expansion
     -- NOTE, location of 4th base depends on 3th.
@@ -340,12 +359,28 @@ function economy.manage_economy(actions, tc)
                 local expansion = economy.build_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
+
+
+            -- !!
+
+
             elseif is_drone_expanding and scouting_drones[2]['uid'] == uid 
                 and fun.size(colonies) == 2 then
                 local expansion = economy.take_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
+            
+            elseif fun.size(colonies) == 2 and colonies[2]['sid'] == uid 
+                and tc.state.resources_myself.ore >= 300 then
+                local expansion = economy.build_third(colonies, uid, ut, actions, tc)
+                actions = expansion["actions"]
+                colonies = expansion["colonies"]
+ 
+
+            -- !!
+
+
             elseif tc.state.resources_myself.ore >= 1800 then
                 -- drones explore all sectors!
                 actions = scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
