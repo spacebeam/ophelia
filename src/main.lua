@@ -2,6 +2,8 @@
 --
 -- We don't know where she is from, or even what strain she is. 
 --
+--
+
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
@@ -15,6 +17,7 @@ local scouting = require("ophelia.scouting")
 local tactics = require("ophelia.tactics")
 local tools = require("ophelia.tools")
 local zstreams = require("ophelia.zstreams")
+
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
@@ -32,6 +35,7 @@ local parser = argparse() {
 }
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
+
 -- System variables
 local restarts = -1
 -- Skip bwapi frames
@@ -40,6 +44,7 @@ local skip_frames = 7
 local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port'] 
+
 -- Do your main loop 
 while restarts < 0 do
     restarts = restarts + 1
@@ -65,32 +70,40 @@ while restarts < 0 do
     
     
     while not tc.state.game_ended do
+        local actions = {}
         tm:reset()
         -- receive update from game engine
         update = tc:receive()
+
+        -- How can re enable debug in a way that fit this crafting style?
         if tc.DEBUG > 1 then
             print('Received update: ', update)
         end
+        
         loops = loops + 1
-        local actions = {}
         if tc.state.battle_frame_count % skip_frames == 0 then
+            -- you are already inside your main game loop, but...
+            -- here is exactly where actions start to execute
             actions = economy.manage_economy(actions, tc)
         elseif tc.state.game_ended then
             break
         else
             -- skip frame do nothing
         end
+        
         -- testing timer
         --print('Time elapsed ' .. tm:time().real .. ' seconds')
+        
         -- if debug make some noise!
         if tc.DEBUG > 1 then
             print("Sending actions: " .. actions)
         end
+        
         tc:send({table.concat(actions, ':')})
     end
     tc:close()
     collectgarbage()
-    sys.sleep(0.5)
+    sys.sleep(0.042)
     print("So Long, and Thanks for All the Fish!")
     collectgarbage()
 end
