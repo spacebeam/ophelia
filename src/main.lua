@@ -58,6 +58,12 @@ while restarts < 0 do
     -- measure execution timer 
     local tm = torch.Timer()
     -- game loop
+
+    
+    -- if this is your main game loop
+    -- please don't put all things inside economy.manage_economy()!
+    
+    
     while not tc.state.game_ended do
         tm:reset()
         -- receive update from game engine
