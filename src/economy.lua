@@ -292,9 +292,6 @@ function economy.manage_economy(actions, tc)
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
-            local _, pos = next(tc:filter_type(tc.state.units_myself, 
-                {tc.unittypes.Zerg_Hatchery}))
-            actions = scouting.first_overlord(pos, uid, ut, actions, tc)
         elseif ut.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, uid)
         elseif ut.type == tc.unittypes.Zerg_Hydralisk then

@@ -361,9 +361,11 @@ function scouting.pos_on_quad(pos)
     return quad
 end
 
-
 function scouting.first_overlord(actions, tc)
-    -- ?
+    --
+    -- first overlord goes to ours enemy's base
+    -- ! missing 12 hatch opening things since depends of 1th overlord (!)
+    --
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             local _, pos = next(tc.filter_type(tc.state.units_myself, 
@@ -413,57 +415,10 @@ function scouting.first_overlord(actions, tc)
                     quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
                 end
             else print("scouting.first_overlord crash") end
+        end
     end
     return actions
 end
-
-
-function scouting.old_first_overlord(pos, uid, ut, actions, tc)
-    quadrant = scouting.main_quadrant(pos)
-    if quadrant == "A" then
-        if not utils.is_in(ut.order,
-            tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
-            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-            table.insert(actions,
-            tc.command(tc.command_unit, uid,
-            tc.cmd.Move, -1,
-            quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
-        end
-    elseif quadrant == "B" then
-        if not utils.is_in(ut.order,
-            tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
-            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-            table.insert(actions,
-            tc.command(tc.command_unit, uid,
-            tc.cmd.Move, -1,
-            quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
-        end
-    elseif quadrant == "C" then
-        if not utils.is_in(ut.order,
-            tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
-            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-            table.insert(actions,
-            tc.command(tc.command_unit, uid,
-            tc.cmd.Move, -1,
-            quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
-        end
-    elseif quadrant == "D" then
-        if not utils.is_in(ut.order,
-            tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
-            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-            table.insert(actions,
-            tc.command(tc.command_unit, uid,
-            tc.cmd.Move, -1,
-            quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
-        end
-    else print("scouting.first_overlord crash") end
-    return actions
-end
-
 
 function scouting.second_overlord(ps, uid, ut, actions, tc)
     -- 2th overlord scout go to enemy's natural expansion.
