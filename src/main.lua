@@ -98,7 +98,7 @@ while restarts < 0 do
     end
     tc:close()
     collectgarbage()
-    sys.sleep(0.042)
+    sys.sleep(0.0042)
     print("So Long, and Thanks for All the Fish!")
     collectgarbage()
 end

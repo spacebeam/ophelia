@@ -203,21 +203,21 @@ end
 
 function economy.build_third(colonies, uid, ut, actions, tc)
     -- Water machine build your third base
-    local quadrant
-    local quadrants
-    if not utils.is_in(ut.order,
-        tc.commad2order[tc.unitcommandtypes.Right_Click_Position]) then
-        if quadrant == 'A' then
-            --
-        elseif quadrant = 'B' then
-            --
-        elseif quadrant = 'C' then
-            --
-        elseif quadrant = 'D' then
-            --
-        else print('economy.build_third crash') end
-    end
-    return {["actions"]=actions,["colonies"]=colonies}
+    --local quadrant
+    --local quadrants
+    --if not utils.is_in(ut.order,
+    --    tc.commad2order[tc.unitcommandtypes.Right_Click_Position]) then
+    --    if quadrant == 'A' then
+    --        --
+    --    elseif quadrant = 'B' then
+    --        --
+    --    elseif quadrant = 'C' then
+    --        --
+    --    elseif quadrant = 'D' then
+    --        --
+    --    else print('economy.build_third crash') end
+    --end
+    --return {["actions"]=actions,["colonies"]=colonies}
 end
 
 function economy.take_fourth(colonies, uid, ut, actions, tc)

@@ -368,7 +368,7 @@ function scouting.first_overlord(actions, tc)
     --
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
-            local _, pos = next(tc.filter_type(tc.state.units_myself, 
+            local _, pos = next(tc:filter_type(tc.state.units_myself, 
                 {tc.unittypes.Zerg_Hatchery}))
             quadrant = scouting.main_quadrant(pos)
             if quadrant == "A" then
