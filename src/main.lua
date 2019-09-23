@@ -2,8 +2,6 @@
 --
 -- We don't know where she is from, or even what strain she is. 
 --
---
-
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
@@ -17,7 +15,6 @@ local scouting = require("ophelia.scouting")
 local tactics = require("ophelia.tactics")
 local tools = require("ophelia.tools")
 local zstreams = require("ophelia.zstreams")
-
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
@@ -35,17 +32,13 @@ local parser = argparse() {
 }
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
-
--- System variables
-local restarts = -1
--- Skip bwapi frames
-local skip_frames = 7
 -- Parse your arguments
 local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port'] 
-
--- Do your main loop 
+-- Skip BWAPI frames
+local skip_frames = 7
+local restarts = -1
 while restarts < 0 do
     restarts = restarts + 1
     tc:init(hostname, port)
@@ -60,11 +53,11 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
+
     -- measure execution timer 
     local tm = torch.Timer()
-    -- game loop
+   
 
-    
     -- if this is your main game loop
     -- please don't put all things inside economy.manage_economy()!
     
@@ -82,9 +75,18 @@ while restarts < 0 do
         
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
+
+
             -- you are already inside your main game loop, but...
             -- here is exactly where actions start to execute
+            
+            actions = scouting.first_overlord(actions, tc)
+            
             actions = economy.manage_economy(actions, tc)
+            
+            actions = scouting.identify_enemy_units(actions, tc)
+
+
         elseif tc.state.game_ended then
             break
         else
@@ -92,7 +94,7 @@ while restarts < 0 do
         end
         
         -- testing timer
-        --print('Time elapsed ' .. tm:time().real .. ' seconds')
+        print('Time elapsed ' .. tm:time().real .. ' seconds')
         
         -- if debug make some noise!
         if tc.DEBUG > 1 then
