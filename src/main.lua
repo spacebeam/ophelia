@@ -80,14 +80,13 @@ while restarts < 0 do
             -- can't do much if don't know what you are against
             enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
 
-
         elseif tc.state.game_ended then
             break
         else
             -- skip frame do nothing
         end
         
-        print('Time elapsed ' .. tm:time().real .. ' seconds')
+        print('Frame ' .. tc.state.battle_frame_count .. ' consume ' .. tm:time().real .. ' seconds ')
         
         -- if debug make some noise!
         if tc.DEBUG > 1 then
