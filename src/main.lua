@@ -53,7 +53,7 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-    -- measure execution timer 
+    -- Measure execution time
     local tm = torch.Timer()
 
     while not tc.state.game_ended do
@@ -62,7 +62,7 @@ while restarts < 0 do
         -- receive update from game engine
         update = tc:receive()
 
-        -- How can re enable debug in a way that fit this crafting style?
+        -- How enable debug in a way that fit this "crafting" style?
         if tc.DEBUG > 1 then
             print('Received update: ', update)
         end
@@ -71,7 +71,6 @@ while restarts < 0 do
         if tc.state.battle_frame_count % skip_frames == 0 then
 
 
-            -- you are already inside your main game loop, but...
             -- here is exactly where actions start to execute
             
             actions = scouting.first_overlord(actions, tc)
