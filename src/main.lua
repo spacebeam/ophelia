@@ -80,6 +80,10 @@ while restarts < 0 do
             -- can't do much if don't know what you are against
             enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
 
+            if scouting.identify_enemy_race() then
+                print("Ophelia vs " .. scouting.identify_enemy_race())
+            end
+
         elseif tc.state.game_ended then
             break
         else

@@ -13,6 +13,12 @@ local tools = require("ophelia.tools") -- !??
 -- two at 12 drone, 200 mineral.
 local scouting = {}
 
+local vs_zerg = false
+
+local vs_protoss = false
+
+local vs_terran = false
+
 local enemy = {}
 enemy["P"] = {["units"]={},["race"]="Protoss",["against"]=false}
 enemy["Z"] = {["units"]={},["race"]="Zerg",["against"]=false}
@@ -66,6 +72,35 @@ quadrants["D"][13] = 0
 quadrants["D"][14] = 0
 quadrants["D"][15] = 0
 quadrants["D"][16] = 0
+
+function scouting.identify_enemy_race()
+    local race = nil
+    local zerg_units = 0
+    local protoss_units = 0
+    local terran_units = 0 
+    for k,v in pairs(enemy["Z"]["units"]) do
+        zerg_units = zerg_units + fun.size(enemy["Z"]["units"][k])
+    end
+    for k,v in pairs(enemy["P"]["units"]) do
+        protoss_units = protoss_units + fun.size(enemy["P"]["units"][k])
+    end
+    for k,v in pairs(enemy["T"]["units"]) do
+        terran_units = terran_units + fun.size(enemy["T"]["units"][k])
+    end
+    if zerg_units >= 1 then
+        vs_zerg = true
+        race = 'Zerg'
+    end
+    if protoss_units >= 1 then
+        vs_protoss = true
+        race = 'Protoss' 
+    end
+    if terran_units >= 1 then
+        vs_terran = true
+        race = 'Terran'
+    end
+     return race
+end
 
 function scouting.identify_enemy_units(enemy_units, tc)
     -- What you know can't really hurt you!
