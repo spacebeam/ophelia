@@ -53,6 +53,7 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
+
     -- Measure execution time
     local tm = torch.Timer()
 
@@ -70,14 +71,14 @@ while restarts < 0 do
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
 
-
             -- here is exactly where actions start to execute
-            
+            actions = economy.manage_economy(actions, tc)
+           
+            -- sometimes the first overlord defines what opening!
             actions = scouting.first_overlord(actions, tc)
             
-            actions = economy.manage_economy(actions, tc)
-            
-            actions = scouting.identify_enemy_units(actions, tc)
+            -- can't do much if don't know what you are against
+            enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
 
 
         elseif tc.state.game_ended then
@@ -86,7 +87,6 @@ while restarts < 0 do
             -- skip frame do nothing
         end
         
-        -- testing timer
         print('Time elapsed ' .. tm:time().real .. ' seconds')
         
         -- if debug make some noise!
