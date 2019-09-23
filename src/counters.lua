@@ -1,6 +1,7 @@
--- 9734 is not 'standard' play, where is your standard play?
--- 3 Hatch Hydra
+-- 2 Hatch Muta (vs. Protoss)
 -- 3 Hatch Speedlings
+-- 3 BS into 5 HH
+-- 9734 
 
 -- 2 Hatch Muta (vs. Terran)
 -- 3 Hatch Speedlings 
