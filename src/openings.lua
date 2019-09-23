@@ -7,15 +7,15 @@
 local openings = {}
 
 function openings.ninepool()
-    -- O= 
+    -- Standard ZvZ 
 end
 
 function openings.overpool()
-    -- 9=
+    -- Safe standard opening
 end
 
 function openings.twelve_hatch()
-    -- (=
+    -- Greed economic opening
 end
 
 return openings

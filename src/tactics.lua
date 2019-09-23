@@ -40,6 +40,10 @@ function tactics.five_muta_sniping()
     --
 end
 
+function tactics.eleven_muta_sniping()
+    --
+end
+
 function tactics.swarm_attack()
     --
 end

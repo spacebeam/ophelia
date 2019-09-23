@@ -68,6 +68,7 @@ quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
 function scouting.identify_enemy_units(enemy_units, tc)
+    -- What you know can't really hurt you!
     local overlords = {}
     local drones = {}
     local lings = {}
@@ -482,7 +483,8 @@ function scouting.all_quadrants()
 end
 
 function scouting.lings()
-    -- O=
+    -- Kill worker scouts and preassure... 
+    -- could result in enemy's ore spend on additional defences.
 end
 
 function scouting.overlords()
