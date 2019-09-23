@@ -2,11 +2,11 @@
 --
 -- We don't know where she is from, or even what strain she is. 
 --
+require("sys")
+require("torch")
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
-require("torch")
-require("sys")
 local tc = require("torchcraft")
 local counters = require("ophelia.counters")
 local economy = require("ophelia.economy")
@@ -53,15 +53,9 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-
     -- measure execution timer 
     local tm = torch.Timer()
-   
 
-    -- if this is your main game loop
-    -- please don't put all things inside economy.manage_economy()!
-    
-    
     while not tc.state.game_ended do
         local actions = {}
         tm:reset()
