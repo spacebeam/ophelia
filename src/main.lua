@@ -74,7 +74,7 @@ while restarts < 0 do
             -- here is exactly where actions start to execute
             actions = economy.manage_economy(actions, tc)
            
-            -- sometimes the first overlord defines what opening!
+            -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, tc)
             
             -- can't do much if don't know what you are against
