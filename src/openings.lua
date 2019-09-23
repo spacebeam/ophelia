@@ -1,5 +1,4 @@
 --
--- 7 Pool
 -- 9 Pool
 -- Overpool
 -- 12 Hatch
@@ -7,12 +6,8 @@
 
 local openings = {}
 
-function openings.sevenpool()
-    -- all-in with backup
-end
-
 function openings.ninepool()
-    -- Standard ZvZ
+    -- O= 
 end
 
 function openings.overpool()
