@@ -358,6 +358,8 @@ function economy.manage_economy(actions, tc)
             
             elseif fun.size(colonies) == 2 and colonies[2]['sid'] == uid 
                 and tc.state.resources_myself.ore >= 300 then
+                
+                -- Where is my third base? and more important where do we put it???
                 local expansion = economy.build_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
