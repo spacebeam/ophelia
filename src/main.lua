@@ -90,10 +90,10 @@ while restarts < 0 do
             -- skip frame do nothing
         end
         
-        print('Frame ' .. tc.state.battle_frame_count .. ' consume ' .. tm:time().real .. ' seconds ')
-        
         -- if debug make some noise!
         if tc.DEBUG > 1 then
+            print('Frame ' .. tc.state.battle_frame_count  
+            .. ' consume ' .. tm:time().real .. ' seconds')
             print("Sending actions: " .. actions)
         end
         
