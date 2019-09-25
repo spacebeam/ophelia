@@ -1,4 +1,4 @@
---
+
 -- Scouting overlords,
 -- scouting drones,
 -- scouting lings,
@@ -293,7 +293,9 @@ function scouting.identify_enemy_units(enemy_units, tc)
             table.insert(valkyries, uid)
         elseif ut.type == tc.unittypes.Terran_Wraith then
             table.insert(wraiths, uid)
-        else print("scouting.identify_enemy_units crash") end
+        else 
+            -- do nothing, ignoring unfiltered unit types..
+        end
     end
     enemy["Z"]["units"]["overlords"] = overlords 
     enemy["Z"]["units"]["drones"] = drones

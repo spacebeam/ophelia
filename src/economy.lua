@@ -196,43 +196,45 @@ function economy.take_third(colonies, uid, ut, actions, tc)
 end
 
 function economy.build_third(colonies, uid, ut, actions, tc)
+   
+    -- WHAT COLONIES?
+    
     -- Water machine build your third base
     
     -- this is the third hatch, its placement depends mostly on scouting!!!
     --
     --  The question is what do we have, and what is missing? from scouting
 
-    -- !!!
-    
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     
     --local enemy = ? 
     -- where is enemy's start location?
-
-
-    -- what colonies?
     
     if not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
             quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'B' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
             quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'C' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'D' then
             table.insert(actions,
             tc.command(tc.command_unit, uid,
+            tc.cmd.Build, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         else print('economy.build_third crash') end
@@ -385,10 +387,10 @@ function economy.manage_economy(actions, tc)
             
             elseif fun.size(colonies) == 2 and colonies[2]['sid'] == uid 
                 and tc.state.resources_myself.ore >= 300 then
-                print('Where is my third base? and more important where do we put it???')
                 local expansion = economy.build_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
+                print('after economy.build_third ?')
 
             -- !!
 
