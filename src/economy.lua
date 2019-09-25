@@ -197,21 +197,47 @@ end
 
 function economy.build_third(colonies, uid, ut, actions, tc)
     -- Water machine build your third base
-    --local quadrant
-    --local quadrants
-    --if not utils.is_in(ut.order,
-    --    tc.commad2order[tc.unitcommandtypes.Right_Click_Position]) then
-    --    if quadrant == 'A' then
-    --        --
-    --    elseif quadrant = 'B' then
-    --        --
-    --    elseif quadrant = 'C' then
-    --        --
-    --    elseif quadrant = 'D' then
-    --        --
-    --    else print('economy.build_third crash') end
-    --end
-    --return {["actions"]=actions,["colonies"]=colonies}
+    
+    -- this is the third hatch, its placement depends mostly on scouting!!!
+    --
+    --  The question is what do we have, and what is missing? from scouting
+
+    -- !!!
+    
+    local quadrant = scouting.base_quadrant()
+    local quadrants = scouting.all_quadrants()
+    
+    --local enemy = ? 
+    -- where is enemy's start location?
+
+
+    -- what colonies?
+    
+    if not utils.is_in(ut.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        if quadrant == 'A' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"],
+            tc.unittypes.Zerg_Hatchery))
+        elseif quadrant == 'B' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"],
+            tc.unittypes.Zerg_Hatchery))
+        elseif quadrant == 'C' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"],
+            tc.unittypes.Zerg_Hatchery))
+        elseif quadrant == 'D' then
+            table.insert(actions,
+            tc.command(tc.command_unit, uid,
+            quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"],
+            tc.unittypes.Zerg_Hatchery))
+        else print('economy.build_third crash') end
+    end
+    return {["actions"]=actions,["colonies"]=colonies}
 end
 
 function economy.take_fourth(colonies, uid, ut, actions, tc)
@@ -333,6 +359,9 @@ function economy.manage_economy(actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
+            
+            -- successful drone expanding
+
             elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid 
                 and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
                 local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
@@ -345,10 +374,8 @@ function economy.manage_economy(actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
 
-
-            -- !!
-
-
+            -- !
+    
             elseif is_drone_expanding and scouting_drones[2]['uid'] == uid 
                 and fun.size(colonies) == 2 then
                 local expansion = economy.take_third(colonies, uid, ut, actions, tc)
@@ -358,12 +385,10 @@ function economy.manage_economy(actions, tc)
             
             elseif fun.size(colonies) == 2 and colonies[2]['sid'] == uid 
                 and tc.state.resources_myself.ore >= 300 then
-                
-                -- Where is my third base? and more important where do we put it???
+                print('Where is my third base? and more important where do we put it???')
                 local expansion = economy.build_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
- 
 
             -- !!
 

@@ -109,7 +109,7 @@ function scouting.identify_enemy_units(enemy_units, tc)
     local lings = {}
     local mutas = {}
     local scourges = {}
-    local hacheries = {}
+    local hatcheries = {}
     local extractors = {}
     local spawning_pool = {}
     local evolution_chamber = {}
