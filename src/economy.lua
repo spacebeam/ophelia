@@ -30,7 +30,7 @@ local is_drone_expanding = false
 
 local units = {["busy"]={},["idle"]={}}
 
-local colonies = {}
+local hatcheries = {}
 
 local spawning_pool = 0 
 
@@ -83,9 +83,9 @@ local late_stage = false
 -- Final, The watcher observes, the fog collapses an event resolves.
 local final_stage = false
 
-function economy.check_workers(units, colonies, scouting_drones)
+function economy.check_workers(units, hatcheries, scouting_drones)
     local busy = {}
-    for _, v in ipairs(colonies) do
+    for _, v in ipairs(hatcheries) do
         if v['sid'] ~= nil then table.insert(busy, v['sid']) end
     end
     for _, v in ipairs(scouting_drones) do
@@ -166,12 +166,12 @@ function economy.check_my_units(units, tc)
     return units
 end
 
-function economy.take_natural(colonies, uid, ut, actions, tc)
+function economy.take_natural(hatcheries, uid, ut, actions, tc)
     -- Machine take your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if colonies[1]['sid'] == nil then colonies[1] = {["sid"]=uid} end
-    if colonies[1]['sid'] == uid and not utils.is_in(ut.order,
+    if hatcheries[1]['sid'] == nil then hatcheries[1] = {["sid"]=uid} end
+    if hatcheries[1]['sid'] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
@@ -195,10 +195,10 @@ function economy.take_natural(colonies, uid, ut, actions, tc)
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
         else print('economy.take_natural crash') end
     end
-    return {["actions"]=actions,["colonies"]=colonies}
+    return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.build_natural(colonies, uid, ut, actions, tc)
+function economy.build_natural(hatcheries, uid, ut, actions, tc)
     -- Machine build your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
@@ -230,15 +230,15 @@ function economy.build_natural(colonies, uid, ut, actions, tc)
             tc.unittypes.Zerg_Hatchery))
         else print('economy.build_natural crash') end
     end
-    return {["actions"]=actions,["colonies"]=colonies}
+    return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.take_third(colonies, uid, ut, actions, tc)
+function economy.take_third(hatcheries, uid, ut, actions, tc)
     -- NOTE; you can't place this without scouting your enemy's position!
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if colonies[2]['sid'] == nil then colonies[2] = {["sid"]=uid} end
-    if colonies[2]['sid'] == uid and not utils.is_in(ut.order,
+    if hatcheries[2]['sid'] == nil then hatcheries[2] = {["sid"]=uid} end
+    if hatcheries[2]['sid'] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
@@ -262,10 +262,10 @@ function economy.take_third(colonies, uid, ut, actions, tc)
             quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"]))
         else print('economy.take_third crash') end
     end
-    return {["actions"]=actions,["colonies"]=colonies}
+    return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.build_third(colonies, uid, ut, actions, tc)
+function economy.build_third(hatcheries, uid, ut, actions, tc)
    
     -- WHAT COLONIES?
     
@@ -305,10 +305,10 @@ function economy.build_third(colonies, uid, ut, actions, tc)
             tc.unittypes.Zerg_Hatchery))
         else print('economy.build_third crash') end
     end
-    return {["actions"]=actions,["colonies"]=colonies}
+    return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.take_fourth(colonies, uid, ut, actions, tc)
+function economy.take_fourth(hatcheries, uid, ut, actions, tc)
     -- take 4th expansion
     -- NOTE, location of 4th base depends on 3th.
 end
@@ -328,7 +328,7 @@ end
 -- !(?)
 
 
-function economy.manage_economy(actions, tc)
+function economy.manage_9734_economy(actions, tc)
 
     -- What exactly is macro, anyway? 
     -- this interpretation includes 'powering'.
@@ -375,28 +375,28 @@ function economy.manage_economy(actions, tc)
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
             elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid 
-                and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
-                local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
+                and scouting_drones[2]['uid'] ~= uid and fun.size(hatcheries) == 1 then
+                local expansion = economy.take_natural(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
-                colonies = expansion["colonies"]
+                hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
-            elseif fun.size(colonies) == 1 and colonies[1]['sid'] == uid 
+            elseif fun.size(hatcheries) == 1 and hatcheries[1]['sid'] == uid 
                 and tc.state.resources_myself.ore >= 200 then
-                local expansion = economy.build_natural(colonies, uid, ut, actions, tc)
+                local expansion = economy.build_natural(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
-                colonies = expansion["colonies"]
+                hatcheries = expansion["hatcheries"]
             elseif is_drone_expanding and scouting_drones[2]['uid'] == uid 
-                and fun.size(colonies) == 2 then
-                local expansion = economy.take_third(colonies, uid, ut, actions, tc)
+                and fun.size(hatcheries) == 2 then
+                local expansion = economy.take_third(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
-                colonies = expansion["colonies"]
+                hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
                 print('move ' .. uid)
-            elseif fun.size(colonies) == 2 and colonies[2]['sid'] == uid 
+            elseif fun.size(hatcheries) == 2 and hatcheries[2]['sid'] == uid 
                 and tc.state.resources_myself.ore >= 300 then
-                local expansion = economy.build_third(colonies, uid, ut, actions, tc)
+                local expansion = economy.build_third(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
-                colonies = expansion["colonies"]
+                hatcheries = expansion["hatcheries"]
                 print('after economy.build_third ?')
 
                 -- !?
@@ -485,7 +485,7 @@ function economy.manage_economy(actions, tc)
         end
     end
 
-    units = economy.check_workers(units, colonies, scouting_drones)
+    units = economy.check_workers(units, hatcheries, scouting_drones)
 
     if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1 
         and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
@@ -503,8 +503,8 @@ function economy.manage_economy(actions, tc)
     end
     
     if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil 
-        and colonies[1] == nil then
-        colonies[1] = {}
+        and hatcheries[1] == nil then
+        hatcheries[1] = {}
         is_drone_expanding = true
     end
 
@@ -514,8 +514,8 @@ function economy.manage_economy(actions, tc)
     end
 
     if fun.size(units['drones']) == 13 and scouting_drones[2] ~= nil 
-        and colonies[2] == nil then
-        colonies[2] = {}
+        and hatcheries[2] == nil then
+        hatcheries[2] = {}
         is_drone_expanding = true
     end
 

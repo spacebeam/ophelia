@@ -21,7 +21,7 @@ torch.setdefaulttensortype('torch.FloatTensor')
 tc.DEBUG = 0 
 -- Set random seed
 uuid.randomseed(socket.gettime()*10000)
--- Session id
+-- Spawn session id
 local spawn_uuid = uuid()
 print("Ophelia's session " .. spawn_uuid)
 -- CLI argument parser
@@ -72,7 +72,8 @@ while restarts < 0 do
         if tc.state.battle_frame_count % skip_frames == 0 then
 
             -- here is exactly where actions start to execute
-            actions = economy.manage_economy(actions, tc)
+            -- 9734 is not ZvP standard play but this is just a 9734 hack for now. (=
+            actions = economy.manage_9734_economy(actions, tc)
            
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, tc)
