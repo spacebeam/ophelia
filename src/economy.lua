@@ -95,6 +95,77 @@ function economy.check_workers(units, colonies, scouting_drones)
     return units
 end
 
+function economy.check_my_units(units, tc)
+    --
+    -- return my current units instead of the current spaguetti inside manage_economy()
+    --
+    local overlords = {}
+    local larvae = {}
+    local eggs = {}
+    local drones = {}
+    local lings = {}
+    local hydras = {}
+    local mutas = {}
+    local scourges = {}
+    local lurkers = {}
+    local queens = {}
+    local defilers = {}
+    local ultras = {}
+    local guardians = {}
+    local infesteds = {}
+    for uid, ut in pairs(tc.state.units_myself) do
+        if ut.type == tc.unittypes.Zerg_Overlord then
+            table.insert(overlords, uid)
+        elseif ut.type == tc.unittypes.Zerg_Zergling then
+            table.insert(lings, uid)
+        elseif ut.type == tc.unittypes.Zerg_Drone then
+            table.insert(drones, uid)
+        elseif ut.type == tc.unittypes.Zerg_Larva then
+            table.insert(larvae, uid)
+        elseif ut.type == tc.unittypes.Zerg_Egg then
+            table.insert(eggs, uid)
+        elseif ut.type == tc.unittypes.Zerg_Hydralisk then
+            table.insert(hydras, uid)
+        elseif ut.type == tc.unittypes.Zerg_Mutalisk then
+            table.insert(mutas, uid)
+        elseif ut.type == tc.unittypes.Zerg_Scourge then
+            table.insert(scourges, uid)
+        elseif ut.type == tc.unittypes.Zerg_Lurker then
+            table.insert(lurkers, uid)
+        elseif ut.type == tc.unittypes.Zerg_Queen then
+            table.insert(queens, uid)
+        elseif ut.type == tc.unittypes.Zerg_Defiler then
+            table.insert(defilers, uid)
+        elseif ut.type == tc.unittypes.Zerg_Ultralisk then
+            table.insert(ultras, uid)
+        elseif ut.type == tc.unittypes.Zerg_Guardian then
+            table.insert(guardians, uid)
+        elseif ut.type == tc.unittypes.Zerg_Infested_Terran then
+            table.insert(infesteds, uid)
+        else
+            -- do nothing, ignore unit type
+        end
+    end
+    units["overlords"] = overlords
+    units["larvae"] = larvae
+    units["eggs"] = eggs
+    units["drones"] = drones
+    units["lings"] = lings
+    units["hydras"] = hydras
+    units["mutas"] = mutas 
+    units["scourges"] = scourges
+    units["lurkers"] = lurkers
+    units["queens"] = queens
+    units["defilers"] = defilers
+    units["ultras"] = ultras
+    units["guardians"] = guardians
+    units["infesteds"] = infesteds
+    --
+    -- where are and how are we handling buildings???
+    --
+    return units
+end
+
 function economy.take_natural(colonies, uid, ut, actions, tc)
     -- Machine take your natural
     local quadrant = scouting.base_quadrant()
@@ -264,71 +335,22 @@ function economy.manage_economy(actions, tc)
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
  
-    local overlords = {}
     
-    local larvae = {}
+    --local units = economy.check_my_units(units, tc)
 
-    local eggs = {}
 
-    local drones = {}
-
-    local lings = {}
-
-    local hydras = {}
-
-    local mutas = {}
-
-    local scourges = {}
-
-    local lurkers = {}
-
-    local queens = {}
-
-    local defilers = {}
-
-    local ultras = {}
-
-    local guardians = {}
-
-    local infesteds = {}
-    
-    -- Set your units into 4 groups, collapse each on
+    -- Set your units into 3 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
     -- Defense powerful but immobile, offence mobile but weak
     local defence = {}
 
+    
     local enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
 
+    
     for uid, ut in pairs(tc.state.units_myself) do
-        if ut.type == tc.unittypes.Zerg_Overlord then
-            table.insert(overlords, uid)
-        elseif ut.type == tc.unittypes.Zerg_Zergling then
-            table.insert(lings, uid)
-        elseif ut.type == tc.unittypes.Zerg_Hydralisk then
-            table.insert(hydras, uid)
-        elseif ut.type == tc.unittypes.Zerg_Mutalisk then
-            table.insert(mutas, uid)
-        elseif ut.type == tc.unittypes.Zerg_Lurker then
-            table.insert(lurkers, uid)
-        elseif ut.type == tc.unittypes.Zerg_Queen then
-            table.insert(queens, uid)
-        elseif ut.type == tc.unittypes.Zerg_Defiler then
-            table.insert(defilers, uid)
-        elseif ut.type == tc.unittypes.Zerg_Egg then
-            table.insert(eggs, uid)
-        elseif ut.type == tc.unittypes.Zerg_Larva then
-            table.insert(larvae, uid)
-        elseif ut.type == tc.unittypes.Zerg_Scourge then
-            table.insert(scourges, uid)
-        elseif ut.type == tc.unittypes.Zerg_Ultralisk then
-            table.insert(ultras, uid)
-        elseif ut.type == tc.unittypes.Zerg_Guardian then
-            table.insert(guardians, uid)
-        elseif ut.type == tc.unittypes.Zerg_Infested_Terran then
-            table.insert(infesteds, uid)
-        elseif tc:isworker(ut.type) then        
-            table.insert(drones, uid)
+        if tc:isworker(ut.type) then        
             if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
                 and tc.state.frame_from_bwapi - spawning_pool > 190 then
                 -- tests your spawning pool        
@@ -371,7 +393,7 @@ function economy.manage_economy(actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
 
-            -- !
+            -- !! clear your filters with the drones )=
     
             elseif is_drone_expanding and scouting_drones[2]['uid'] == uid 
                 and fun.size(colonies) == 2 then
@@ -379,9 +401,10 @@ function economy.manage_economy(actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
+                print('move ' .. uid)
             
             elseif fun.size(colonies) == 2 and colonies[2]['sid'] == uid 
-                and tc.state.resources_myself.ore >= 156 then
+                and tc.state.resources_myself.ore >= 300 then
                 local expansion = economy.build_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
@@ -401,17 +424,12 @@ function economy.manage_economy(actions, tc)
                       tc.command2order[tc.unitcommandtypes.Build])
                       and not utils.is_in(ut.order,
                       tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    -- avoid spamming the order is the unit is already
-                    -- following the right order or building.
                     -- currently we still need to learn how to get vespene gas!
                     local target = tools.get_closest(ut.position,
                         tc:filter_type(tc.state.units_neutral,
                             {tc.unittypes.Resource_Mineral_Field,
-                             tc.unittypes.Resource_Mineral_Field_Type_1,
                              tc.unittypes.Resource_Mineral_Field_Type_3,
-                             tc.unittypes.Resource_Mineral_Field_Type_2,
-                             tc.unittypes.Resorce_Mineral_Field_Type_5,
-                             tc.unittypes.Resorce_Mineral_Field_Type_4,}))
+                             tc.unittypes.Resource_Mineral_Field_Type_2,}))
                     if target ~= nil then
                         table.insert(actions,
                         tc.command(tc.command_unit_protected, uid,
@@ -479,20 +497,6 @@ function economy.manage_economy(actions, tc)
             end
         end
     end
-
-    units["larvae"] = larvae
-    units["eggs"] = eggs
-    units["drones"] = drones
-    units["overlords"] = overlords
-    units["lings"] = lings
-    units["hydras"] = hydras
-    units["mutas"] = mutas
-    units["queens"] = queens
-    units["defilers"] = defilers
-    units["scourges"] = scourges
-    units["ultras"] = ultras
-    units["guardians"] = guardians
-    units["infesteds"] = infesteds
 
     units = economy.check_workers(units, colonies, scouting_drones)
 
