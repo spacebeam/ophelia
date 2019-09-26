@@ -12,6 +12,10 @@ local economy = {}
 
 local powering = true
 
+local units = {["busy"]={},["idle"]={}}
+
+local hatcheries = {}
+
 local spawning_overlord = false
 
 local spawning_lings = false
@@ -27,10 +31,6 @@ local is_spawning_hydras = {}
 local is_drone_scouting = false
 
 local is_drone_expanding = false
-
-local units = {["busy"]={},["idle"]={}}
-
-local hatcheries = {}
 
 local spawning_pool = 0 
 
@@ -96,9 +96,6 @@ function economy.check_workers(units, hatcheries, scouting_drones)
 end
 
 function economy.check_my_units(units, tc)
-    --
-    -- return my current units instead of the current spaguetti inside manage_economy()
-    --
     local overlords = {}
     local larvae = {}
     local eggs = {}
@@ -160,9 +157,6 @@ function economy.check_my_units(units, tc)
     units["ultras"] = ultras
     units["guardians"] = guardians
     units["infesteds"] = infesteds
-    --
-    -- where are and how are we handling buildings???
-    --
     return units
 end
 
@@ -267,14 +261,11 @@ end
 
 function economy.build_third(hatcheries, uid, ut, actions, tc)
    
-    -- WHAT COLONIES?
-    
     -- Water machine build your third base
 
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     
-    --local enemy = ? 
     -- where is enemy's start location?
     
     if not utils.is_in(ut.order,
@@ -309,12 +300,10 @@ function economy.build_third(hatcheries, uid, ut, actions, tc)
 end
 
 function economy.take_fourth(hatcheries, uid, ut, actions, tc)
-    -- take 4th expansion
     -- NOTE, location of 4th base depends on 3th.
 end
 
 function economy.take_fifth()
-    -- take 5th expansion
     -- NOTE, wait until you have darkswarm!
 end
 
