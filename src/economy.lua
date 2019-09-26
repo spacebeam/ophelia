@@ -335,9 +335,7 @@ function economy.manage_economy(actions, tc)
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
  
-    
-    --local units = economy.check_my_units(units, tc)
-
+    local units = economy.check_my_units(units, tc)
 
     -- Set your units into 3 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
@@ -345,10 +343,8 @@ function economy.manage_economy(actions, tc)
     -- Defense powerful but immobile, offence mobile but weak
     local defence = {}
 
-    
     local enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
 
-    
     for uid, ut in pairs(tc.state.units_myself) do
         if tc:isworker(ut.type) then        
             if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
@@ -378,9 +374,6 @@ function economy.manage_economy(actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
-            
-            -- successful drone expanding
-
             elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid 
                 and scouting_drones[2]['uid'] ~= uid and fun.size(colonies) == 1 then
                 local expansion = economy.take_natural(colonies, uid, ut, actions, tc)
@@ -392,9 +385,6 @@ function economy.manage_economy(actions, tc)
                 local expansion = economy.build_natural(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
-
-            -- !! clear your filters with the drones )=
-    
             elseif is_drone_expanding and scouting_drones[2]['uid'] == uid 
                 and fun.size(colonies) == 2 then
                 local expansion = economy.take_third(colonies, uid, ut, actions, tc)
@@ -402,7 +392,6 @@ function economy.manage_economy(actions, tc)
                 colonies = expansion["colonies"]
                 is_drone_expanding = false
                 print('move ' .. uid)
-            
             elseif fun.size(colonies) == 2 and colonies[2]['sid'] == uid 
                 and tc.state.resources_myself.ore >= 300 then
                 local expansion = economy.build_third(colonies, uid, ut, actions, tc)
@@ -410,8 +399,7 @@ function economy.manage_economy(actions, tc)
                 colonies = expansion["colonies"]
                 print('after economy.build_third ?')
 
-            -- !!
-
+                -- !?
 
             elseif tc.state.resources_myself.ore >= 1800 then
                 -- drones explore all sectors!
@@ -438,7 +426,6 @@ function economy.manage_economy(actions, tc)
                 end
             end
         elseif tc:isbuilding(ut.type) then
-            -- test commands within buildings: train, upgrade, rally!
             if ut.type == tc.unittypes.Zerg_Spawning_Pool then
                 if has_spawning_pool == false then
                     has_spawning_pool = true
@@ -500,64 +487,64 @@ function economy.manage_economy(actions, tc)
 
     units = economy.check_workers(units, colonies, scouting_drones)
 
-    if fun.size(drones) == 9 and fun.size(overlords) == 1 
+    if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1 
         and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
         spawning_overlord = true
     end
 
-    if fun.size(drones) == 11 and scouting_drones[1] == nil then
+    if fun.size(units['drones']) == 11 and scouting_drones[1] == nil then
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
     
-    if fun.size(drones) == 12 and scouting_drones[2] == nil then
+    if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
         scouting_drones[2] = {}
         is_drone_scouting = true
     end
     
-    if fun.size(drones) == 12 and scouting_drones[2] ~= nil 
+    if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil 
         and colonies[1] == nil then
         colonies[1] = {}
         is_drone_expanding = true
     end
 
-    if fun.size(drones) == 12 and fun.size(lings) == 0 
+    if fun.size(units['drones']) == 12 and fun.size(units['lings']) == 0 
         and fun.size(is_spawning_lings) == 0 and spawning_lings == false then
         spawning_lings = true
     end
 
-    if fun.size(drones) == 13 and scouting_drones[2] ~= nil 
+    if fun.size(units['drones']) == 13 and scouting_drones[2] ~= nil 
         and colonies[2] == nil then
         colonies[2] = {}
         is_drone_expanding = true
     end
 
-    if fun.size(drones) == 16 and fun.size(overlords) == 2 
+    if fun.size(units['drones']) == 16 and fun.size(units['overlords']) == 2 
         and spawning_overlord == false then
         spawning_overlord = true
     end
     
-    if fun.size(drones) >= 19 then
+    if fun.size(units['drones']) >= 19 then
         powering = false
     else powering = true end
 
-    if fun.size(drones) >= 12 then
+    if fun.size(units['drones']) >= 12 then
         powering = false
     else powering = true end
 
-    print("overlords " .. fun.size(overlords))
-    print("larvae ".. fun.size(larvae))
-    print("eggs " .. fun.size(eggs))
-    print("drones " .. fun.size(drones))
-    print("lings " .. fun.size(lings))
-    print("hydras " .. fun.size(hydras))
-    print("lurkers " .. fun.size(lurkers))
-    print("mutas " .. fun.size(mutas))
-    print("scourges " .. fun.size(scourges))
-    print("queens " .. fun.size(queens))
-    print("defilers " .. fun.size(defilers))
-    print("ultras " .. fun.size(ultras))
-    print("guardians " .. fun.size(guardians))
+    print("overlords " .. fun.size(units['overlords']))
+    print("larvae ".. fun.size(units['larvae']))
+    print("eggs " .. fun.size(units['eggs']))
+    print("drones " .. fun.size(units['drones']))
+    print("lings " .. fun.size(units['lings']))
+    print("hydras " .. fun.size(units['hydras']))
+    print("lurkers " .. fun.size(units['lurkers']))
+    print("mutas " .. fun.size(units['mutas']))
+    print("scourges " .. fun.size(units['scourges']))
+    print("queens " .. fun.size(units['queens']))
+    print("defilers " .. fun.size(units['defilers']))
+    print("ultras " .. fun.size(units['ultras']))
+    print("guardians " .. fun.size(units['guardians']))
     
     -- So long and thanks for all the fish!
     return actions
