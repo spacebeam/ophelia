@@ -163,7 +163,6 @@ function economy.build_natural(colonies, uid, ut, actions, tc)
 end
 
 function economy.take_third(colonies, uid, ut, actions, tc)
-    -- take 3th expansion
     -- NOTE; you can't place this without scouting your enemy's position!
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
@@ -200,10 +199,6 @@ function economy.build_third(colonies, uid, ut, actions, tc)
     -- WHAT COLONIES?
     
     -- Water machine build your third base
-    
-    -- this is the third hatch, its placement depends mostly on scouting!!!
-    --
-    --  The question is what do we have, and what is missing? from scouting
 
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
@@ -386,7 +381,7 @@ function economy.manage_economy(actions, tc)
                 is_drone_expanding = false
             
             elseif fun.size(colonies) == 2 and colonies[2]['sid'] == uid 
-                and tc.state.resources_myself.ore >= 300 then
+                and tc.state.resources_myself.ore >= 156 then
                 local expansion = economy.build_third(colonies, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 colonies = expansion["colonies"]
