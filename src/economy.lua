@@ -319,7 +319,7 @@ end
 
 
 function economy.manage_9734_workers(actions, tc)
-    -- 9734 worker managment
+    -- 9734 worker management 
 end
 
 
