@@ -68,6 +68,8 @@ local has_ultralisk_cavern = false
 
 local has_command_center = false
 
+-- !?, !?, !?
+
 local scouting_overlords = {}
 
 local scouting_drones = {}
@@ -161,7 +163,6 @@ function economy.check_my_units(units, tc)
 end
 
 function economy.take_natural(hatcheries, uid, ut, actions, tc)
-    -- Machine take your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if hatcheries[1]['sid'] == nil then hatcheries[1] = {["sid"]=uid} end
@@ -193,7 +194,6 @@ function economy.take_natural(hatcheries, uid, ut, actions, tc)
 end
 
 function economy.build_natural(hatcheries, uid, ut, actions, tc)
-    -- Machine build your natural
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if not utils.is_in(ut.order,
@@ -315,6 +315,15 @@ function economy.take_it_all()
 end
 
 -- !(?)
+
+
+
+function economy.manage_9734_workers(actions, tc)
+    -- 9734 worker managment
+end
+
+
+-- O=
 
 
 function economy.manage_9734_economy(actions, tc)
