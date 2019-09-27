@@ -7,7 +7,7 @@ local utils = require("torchcraft.utils")
 local tools = {}
 
 function tools.this_is()
-    print("this is only a test")
+    print("only a test")
 end
 
 function tools.get_closest(position, units)

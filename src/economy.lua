@@ -16,6 +16,10 @@ local units = {["busy"]={},["idle"]={}}
 
 local hatcheries = {}
 
+local is_drone_scouting = false
+
+local is_drone_expanding = false
+
 local spawning_overlord = false
 
 local spawning_lings = false
@@ -27,10 +31,6 @@ local is_spawning_overlord = {}
 local is_spawning_lings = {}
 
 local is_spawning_hydras = {}
-
-local is_drone_scouting = false
-
-local is_drone_expanding = false
 
 local spawning_pool = 0 
 
