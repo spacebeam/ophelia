@@ -4,9 +4,11 @@
 --
 require("sys")
 require("torch")
+local inspect = require("inspect")
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
+local fun = require("moses")
 local tc = require("torchcraft")
 local counters = require("ophelia.counters")
 local economy = require("ophelia.economy")
@@ -54,6 +56,10 @@ while restarts < 0 do
     }
     tc:send({table.concat(setup, ':')})
 
+    local ophelia = {}
+    local units = {}
+    local resources = {}
+
     -- Measure execution time
     local tm = torch.Timer()
 
@@ -67,6 +73,53 @@ while restarts < 0 do
         if tc.DEBUG > 1 then
             print('Received update: ', update)
         end
+        -- O=
+        for k, v in pairs(tc.state.player_info) do
+            if v['name'] == "Ophelia" then
+                ophelia = v
+            end
+        end
+
+        -- !!
+
+        --print(tc.state.map_name)
+        
+        --print(tc.state.ground_height_data)
+
+        --print(tc.state.buildable_data)
+        
+        --for k,v in pairs(tc.state.units_myself) do
+        --    for f,e in pairs(v) do
+        --        --print(v[f])
+        --        print(v['hp'])
+        --        print(v['position'][1])
+        --        print(v['position'][2])
+        --        --print(v['remainingBuildTrainTime'])
+        --    end
+        --end
+
+        --for k,v in pairs(tc.state.start_locations) do
+        --    print(k)
+        --    for a,b in pairs(tc.state.start_locations[k]) do
+        --        print(a)
+        --        print(b)
+        --    end
+        --    print(v)
+        --end
+        --
+
+        -- !?
+        
+        --print(inspect(getmetatable(tc.state.frame)))
+
+        --print(inspect(tc.state.frame["toTable"](tc.state.frame)))
+
+        --units = tc.state.frame["getUnits"](tc.state.frame, ophelia['id'])
+        --resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
+        
+        --print(inspect(units))
+
+        -- ?!
         
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then

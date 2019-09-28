@@ -20,6 +20,7 @@ dependencies = {
   "luasocket",
   "lzmq-ffi",
   "moses",
+  "inspect",
   "uuid"
 }
 
