@@ -358,6 +358,9 @@ function economy.manage_9734_simcity(actions, tc)
                 local expansion = economy.build_third(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
+            else
+                -- ignore?
+            end
         elseif tc:isbuilding(ut.type) then
             if ut.type == tc.unittypes.Zerg_Spawning_Pool then
                 if has_spawning_pool == false then has_spawning_pool = true end
@@ -462,7 +465,7 @@ function economy.manage_9734_workers(actions, tc)
     
     if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil
         and hatcheries[1] == nil then
-        -- WTF
+        -- WTF ?
         hatcheries[1] = {}
         is_drone_expanding = true
     end
@@ -489,7 +492,6 @@ function economy.manage_9734_workers(actions, tc)
     return actions
 end
 
-
 function economy.manage_9734_economy(actions, tc)
 
     -- What exactly is macro, anyway? 
@@ -507,196 +509,10 @@ function economy.manage_9734_economy(actions, tc)
 
     local enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
 
-    
-    -- !!!!
+    -- And Now For Something Completly Different 
 
-
-    for uid, ut in pairs(tc.state.units_myself) do
-        if tc:isworker(ut.type) then        
-            if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
-                and tc.state.frame_from_bwapi - spawning_pool > 190 then
-                -- tests your spawning pool        
-                spawning_pool = tc.state.frame_from_bwapi
-                local _, pos = next(tc:filter_type(
-                tc.state.units_myself,
-                {tc.unittypes.Zerg_Hatchery}))
-                if pos ~= nil then pos = pos.position end
-                if pos ~= nil and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Build, -1,
-                    pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
-                end
-            elseif is_drone_scouting and fun.size(scouting_drones) == 1 then
-                local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
-                actions = eleven["actions"]
-                scouting_drones = eleven["scouting_drones"]
-                is_drone_scouting = false
-            elseif is_drone_scouting and scouting_drones[1]['uid'] ~= uid then
-                local twelve = scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
-                actions = twelve["actions"]
-                scouting_drones = twelve["scouting_drones"]
-                is_drone_scouting = false
-            elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid 
-                and scouting_drones[2]['uid'] ~= uid and fun.size(hatcheries) == 1 then
-                local expansion = economy.take_natural(hatcheries, uid, ut, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
-                is_drone_expanding = false
-            elseif fun.size(hatcheries) == 1 and hatcheries[1]['sid'] == uid 
-                and tc.state.resources_myself.ore >= 200 then
-                local expansion = economy.build_natural(hatcheries, uid, ut, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
-            elseif is_drone_expanding and scouting_drones[2]['uid'] == uid 
-                and fun.size(hatcheries) == 2 then
-                local expansion = economy.take_third(hatcheries, uid, ut, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
-                is_drone_expanding = false
-                print('move ' .. uid)
-            elseif fun.size(hatcheries) == 2 and hatcheries[2]['sid'] == uid 
-                and tc.state.resources_myself.ore >= 300 then
-                local expansion = economy.build_third(hatcheries, uid, ut, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
-                print('after economy.build_third ?')
-
-                -- !?
-
-            elseif tc.state.resources_myself.ore >= 1800 then
-                -- drones explore all sectors!
-                actions = scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
-            else
-                -- tests gathering, where is my missing gas?
-                if fun.find(units['busy'], uid) == nil and not utils.is_in(ut.order,
-                      tc.command2order[tc.unitcommandtypes.Gather])
-                      and not utils.is_in(ut.order,
-                      tc.command2order[tc.unitcommandtypes.Build])
-                      and not utils.is_in(ut.order,
-                      tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    -- currently we still need to learn how to get vespene gas!
-                    local target = tools.get_closest(ut.position,
-                        tc:filter_type(tc.state.units_neutral,
-                            {tc.unittypes.Resource_Mineral_Field,
-                             tc.unittypes.Resource_Mineral_Field_Type_3,
-                             tc.unittypes.Resource_Mineral_Field_Type_2,}))
-                    if target ~= nil then
-                        table.insert(actions,
-                        tc.command(tc.command_unit_protected, uid,
-                        tc.cmd.Right_Click_Unit, target))
-                    end
-                end
-            end
-        elseif tc:isbuilding(ut.type) then
-            if ut.type == tc.unittypes.Zerg_Spawning_Pool then
-                if has_spawning_pool == false then
-                    has_spawning_pool = true
-                end
-            end
-            if ut.type == tc.unittypes.Zerg_Hatchery then
-                if spawning_overlord == true and fun.size(is_spawning_overlord) == 0 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
-                    0, 0, 0, tc.unittypes.Zerg_Overlord))
-                    spawning_overlord = false
-                    is_spawning_overlord[2] = true
-                end
-                if spawning_overlord == true and fun.size(is_spawning_overlord) == 1 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
-                    0, 0, 0, tc.unittypes.Zerg_Overlord))
-                    spawning_overlord = false
-                    is_spawning_overlord[3] = true
-                end
-                if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
-                    if fun.size(units["eggs"]) < 1 then
-                        is_spawning_overlord[3] = nil
-                    end
-                end
-                -- init test on spawning lings!
-                if spawning_lings == true and fun.size(is_spawning_lings) == 0 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
-                    0, 0, 0, tc.unittypes.Zerg_Zergling))
-                    spawning_lings = false
-                    is_spawning_lings[2] = true
-                end
-                -- init test on spawning hydras! 
-                if spawning_hydras == true and fun.size(is_spawning_hydras) == 0 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
-                    0, 0, 0, tc.unittypes.Zerg_Hydralisk))
-                    spawning_hydras = false
-                    is_spawning_hydras[1] = true
-                end 
-                if powering == true then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
-                    0, 0, 0, tc.unittypes.Zerg_Drone))
-                end
-            end
-        else
-            -- dumb ai attacks closest
-            local target = tools.get_closest(ut.position,
-                                       tc.state.units_enemy)
-            if target ~= nil then
-                table.insert(actions,
-                tc.command(tc.command_unit_protected, uid,
-                tc.cmd.Attack_Unit, target))
-            end
-        end
-    end
-
-    units = economy.check_workers(units, hatcheries, scouting_drones)
-
-    if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1 
-        and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
-        spawning_overlord = true
-    end
-
-    if fun.size(units['drones']) == 11 and scouting_drones[1] == nil then
-        scouting_drones[1] = {}
-        is_drone_scouting = true
-    end
-    
-    if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
-        scouting_drones[2] = {}
-        is_drone_scouting = true
-    end
-    
-    if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil 
-        and hatcheries[1] == nil then
-        hatcheries[1] = {}
-        is_drone_expanding = true
-    end
-
-    if fun.size(units['drones']) == 12 and fun.size(units['lings']) == 0 
-        and fun.size(is_spawning_lings) == 0 and spawning_lings == false then
-        spawning_lings = true
-    end
-
-    if fun.size(units['drones']) == 13 and scouting_drones[2] ~= nil 
-        and hatcheries[2] == nil then
-        hatcheries[2] = {}
-        is_drone_expanding = true
-    end
-
-    if fun.size(units['drones']) == 16 and fun.size(units['overlords']) == 2 
-        and spawning_overlord == false then
-        spawning_overlord = true
-    end
-    
-    if fun.size(units['drones']) >= 19 then
-        powering = false
-    else powering = true end
-
-    if fun.size(units['drones']) >= 12 then
-        powering = false
-    else powering = true end
+    actions = economy.manage_9734_simcity(actions, tc)
+    actions = economy.manage_9734_workers(actions, tc)
 
     print("overlords " .. fun.size(units['overlords']))
     print("larvae ".. fun.size(units['larvae']))
