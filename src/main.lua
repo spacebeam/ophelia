@@ -4,7 +4,6 @@
 --
 require("sys")
 require("torch")
-local inspect = require("inspect")
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
@@ -55,81 +54,33 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-
-    local ophelia = {}
+    -- GL HF
+	local ophelia = {}
     local units = {}
     local resources = {}
-
     -- Measure execution time
     local tm = torch.Timer()
-
     while not tc.state.game_ended do
         local actions = {}
         tm:reset()
-        -- receive update from game engine
+        -- Update received from game engine
         update = tc:receive()
-
         -- How enable debug in a way that fit this "crafting" style?
         if tc.DEBUG > 1 then
             print('Received update: ', update)
         end
-        -- O=
+        -- Ophelia's player info
         for k, v in pairs(tc.state.player_info) do
             if v['name'] == "Ophelia" then
                 ophelia = v
             end
         end
-
-        -- !!
-
-        --print(tc.state.map_name)
-        
-        --print(tc.state.ground_height_data)
-
-        --print(tc.state.buildable_data)
-        
-        --for k,v in pairs(tc.state.units_myself) do
-        --    for f,e in pairs(v) do
-        --        --print(v[f])
-        --        print(v['hp'])
-        --        print(v['position'][1])
-        --        print(v['position'][2])
-        --        --print(v['remainingBuildTrainTime'])
-        --    end
-        --end
-
-        --for k,v in pairs(tc.state.start_locations) do
-        --    print(k)
-        --    for a,b in pairs(tc.state.start_locations[k]) do
-        --        print(a)
-        --        print(b)
-        --    end
-        --    print(v)
-        --end
-        --
-
-        -- !?
-        
-        --print(inspect(getmetatable(tc.state.frame)))
-
-        --print(inspect(tc.state.frame["toTable"](tc.state.frame)))
-
-        units = tc.state.frame["getUnits"](tc.state.frame, ophelia['id'])
-        
-        for k,v in pairs(units) do
-            if v['remainingBuildTrainTime'] then print(v['remainingBuildTrainTime']) end
-        end
-        
-        --resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
-        
-        --print(inspect(units))
-
-        -- ?!
-        
+        -- Dealing with fruits
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
 
             -- here is exactly where actions start to execute
+
             -- 9734 is not ZvP standard play but this is just a 9734 hack for now. (=
             actions = economy.manage_9734_economy(actions, tc)
            
