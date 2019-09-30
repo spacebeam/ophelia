@@ -256,14 +256,10 @@ function economy.take_third(hatcheries, uid, ut, actions, tc)
 end
 
 function economy.build_third(hatcheries, uid, ut, actions, tc)
-   
     -- Water machine build your third base
-
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    
     -- where is enemy's start location?
-    
     if not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
@@ -303,16 +299,6 @@ function economy.take_fifth()
     -- NOTE, wait until you have darkswarm!
 end
 
-
--- !(?)
-
-function economy.take_it_all()
-    -- take it all
-end
-
--- !(?)
-
-
 function economy.manage_9734_simcity(actions, tc)
     --
     -- 9734 simcity management
@@ -342,7 +328,7 @@ function economy.manage_9734_simcity(actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
             else
-                -- ignore?
+                -- ignore
             end
         elseif tc:isbuilding(ut.type) then
             if ut.type == tc.unittypes.Zerg_Hatchery then
@@ -426,74 +412,70 @@ function economy.manage_9734_workers(actions, tc)
             end
         end
     end
-
     units = economy.check_workers(units, hatcheries, scouting_drones)
-
+    -- 
     if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1
         and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
         spawning_overlord = true
     end
-
+    -- 
     if fun.size(units['drones']) == 11 and scouting_drones[1] == nil then
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-    
+    -- 
     if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
         scouting_drones[2] = {}
         is_drone_scouting = true
     end
-    
+    -- 
     if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil
         and hatcheries[1] == nil then
         -- WTF ?
         hatcheries[1] = {}
         is_drone_expanding = true
     end
-
+    -- 
     if fun.size(units['drones']) == 13 and scouting_drones[2] ~= nil
         and hatcheries[2] == nil then
         hatcheries[2] = {}
         is_drone_expanding = true
     end
-
+    -- 
     if fun.size(units['drones']) == 16 and fun.size(units['overlords']) == 2
         and spawning_overlord == false then
         spawning_overlord = true
     end
-
+    -- 
     if fun.size(units['drones']) >= 19 then
         powering = false
     else powering = true end
-
+    -- 
     if fun.size(units['drones']) >= 12 then
         powering = false
     else powering = true end
-
+    -- 
     return actions
 end
 
 function economy.manage_9734_economy(actions, tc)
-
+    --
     -- What exactly is macro, anyway? 
     -- this interpretation includes 'powering'.
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
- 
+    --
     local units = economy.check_my_units(units, tc)
-
     -- Set your units into 3 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
     -- Defense powerful but immobile, offence mobile but weak
     local defence = {}
-
+    -- Scout identify enemy units
     local enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
-
     -- And Now For Something Completely Different
     actions = economy.manage_9734_simcity(actions, tc)
     actions = economy.manage_9734_workers(actions, tc)
-
     print("overlords " .. fun.size(units['overlords']))
     print("larvae ".. fun.size(units['larvae']))
     print("eggs " .. fun.size(units['eggs']))
@@ -507,7 +489,6 @@ function economy.manage_9734_economy(actions, tc)
     print("defilers " .. fun.size(units['defilers']))
     print("ultras " .. fun.size(units['ultras']))
     print("guardians " .. fun.size(units['guardians']))
-    
     -- So long and thanks for all the fish!
     return actions
 end
