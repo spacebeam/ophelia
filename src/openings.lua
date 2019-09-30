@@ -4,6 +4,9 @@
 -- 12 Hatch
 --
 
+local fun = require("moses")
+local utils = require("torchcraft.utils")
+
 local openings = {}
 
 local has_spawning_pool = false
@@ -34,6 +37,7 @@ function openings.overpool(actions, tc)
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
+            end
         elseif tc:isbuilding(ut.type) then
             if ut.type == tc.unittypes.Zerg_Spawning_Pool then
                 if has_spawning_pool == false then has_spawning_pool = true end
