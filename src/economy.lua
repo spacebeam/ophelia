@@ -509,8 +509,7 @@ function economy.manage_9734_economy(actions, tc)
 
     local enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
 
-    -- And Now For Something Completly Different 
-
+    -- And Now For Something Completely Different
     actions = economy.manage_9734_simcity(actions, tc)
     actions = economy.manage_9734_workers(actions, tc)
 
