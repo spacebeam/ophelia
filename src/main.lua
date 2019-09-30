@@ -83,7 +83,10 @@ while restarts < 0 do
 
             -- 9734 is not ZvP standard play but this is just a 9734 hack for now. (=
             actions = economy.manage_9734_economy(actions, tc)
-           
+         
+            -- init test, test, test on dynamic openings
+            actions = openings.overpool(actions, tc)
+
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, tc)
             

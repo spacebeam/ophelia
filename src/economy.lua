@@ -32,7 +32,7 @@ local is_spawning_lings = {}
 
 local is_spawning_hydras = {}
 
-local spawning_pool = 0 
+--local spawning_pool = 0 
 
 local extractor = 0
 
@@ -50,7 +50,7 @@ local command_center = 0
 
 local ultralisk_cavern = 0
 
-local has_spawning_pool = false
+--local has_spawning_pool = false
 
 local has_evolution_chamber = false
 
@@ -323,20 +323,23 @@ function economy.manage_9734_simcity(actions, tc)
     --
     for uid, ut in pairs(tc.state.units_myself) do
         if tc:isworker(ut.type) then
-            if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
-                and tc.state.frame_from_bwapi - spawning_pool > 190 then
-                -- why are we testing spawning pool?
-                spawning_pool = tc.state.frame_from_bwapi
-                local _, pos = next(tc:filter_type(tc.state.units_myself, {tc.unittypes.Zerg_Hatchery}))
-                if pos ~= nil then pos = pos.position end
-                if pos ~= nil and not utils.is_in(ut.order, 
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, uid,
-                    tc.cmd.Build, -1,
-                    pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
-                end
-            elseif is_drone_expanding and scouting_drones[1]['uid'] ~= uid
+            
+            
+            --if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
+            --    and tc.state.frame_from_bwapi - spawning_pool > 190 then
+            --    -- why are we testing spawning pool?
+            --    spawning_pool = tc.state.frame_from_bwapi
+            --    local _, pos = next(tc:filter_type(tc.state.units_myself, {tc.unittypes.Zerg_Hatchery}))
+            --    if pos ~= nil then pos = pos.position end
+            --    if pos ~= nil and not utils.is_in(ut.order, 
+            --        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+            --        table.insert(actions,
+            --        tc.command(tc.command_unit, uid,
+            --        tc.cmd.Build, -1,
+            --        pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
+            --    end
+            
+            if is_drone_expanding and scouting_drones[1]['uid'] ~= uid
                 and scouting_drones[2]['uid'] ~= uid and fun.size(hatcheries) == 1 then
                 local expansion = economy.take_natural(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
@@ -362,9 +365,9 @@ function economy.manage_9734_simcity(actions, tc)
                 -- ignore?
             end
         elseif tc:isbuilding(ut.type) then
-            if ut.type == tc.unittypes.Zerg_Spawning_Pool then
-                if has_spawning_pool == false then has_spawning_pool = true end
-            elseif ut.type == tc.unittypes.Zerg_Hatchery then
+            --if ut.type == tc.unittypes.Zerg_Spawning_Pool then
+            --    if has_spawning_pool == false then has_spawning_pool = true end
+            if ut.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning ophelia's second overlord 
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 0 then
                     table.insert(actions,
