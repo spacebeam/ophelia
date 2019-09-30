@@ -82,6 +82,9 @@ local late_stage = false
 local final_stage = false
 
 function economy.check_workers(units, hatcheries, scouting_drones)
+    --
+    --
+    --
     local busy = {}
     for _, v in ipairs(hatcheries) do
         if v['sid'] ~= nil then table.insert(busy, v['sid']) end
@@ -94,6 +97,9 @@ function economy.check_workers(units, hatcheries, scouting_drones)
 end
 
 function economy.check_my_units(units, tc)
+    --
+    --
+    --
     local overlords = {}
     local larvae = {}
     local eggs = {}
@@ -159,6 +165,9 @@ function economy.check_my_units(units, tc)
 end
 
 function economy.take_natural(hatcheries, uid, ut, actions, tc)
+    --
+    --
+    --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if hatcheries[1]['sid'] == nil then hatcheries[1] = {["sid"]=uid} end
@@ -190,6 +199,9 @@ function economy.take_natural(hatcheries, uid, ut, actions, tc)
 end
 
 function economy.build_natural(hatcheries, uid, ut, actions, tc)
+    --
+    --
+    --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if not utils.is_in(ut.order,
@@ -413,48 +425,48 @@ function economy.manage_9734_workers(actions, tc)
         end
     end
     units = economy.check_workers(units, hatcheries, scouting_drones)
-    -- 
+    -- First created overlord, second in total.. this is the 'overpool' overlord.
     if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1
         and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
         spawning_overlord = true
     end
-    -- 
+    -- Scouting at 11 
     if fun.size(units['drones']) == 11 and scouting_drones[1] == nil then
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-    -- 
+    -- Scouting at 12 
     if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
         scouting_drones[2] = {}
         is_drone_scouting = true
     end
-    -- 
+    -- at 12 taking natural after 'overpool'
     if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil
         and hatcheries[1] == nil then
         -- WTF ?
         hatcheries[1] = {}
         is_drone_expanding = true
     end
-    -- 
+    -- at 13 taking another natural
     if fun.size(units['drones']) == 13 and scouting_drones[2] ~= nil
         and hatcheries[2] == nil then
         hatcheries[2] = {}
         is_drone_expanding = true
     end
-    -- 
+    -- at 16 building the third overlord
     if fun.size(units['drones']) == 16 and fun.size(units['overlords']) == 2
         and spawning_overlord == false then
         spawning_overlord = true
     end
-    -- 
+    -- init 9734 test workers
     if fun.size(units['drones']) >= 19 then
         powering = false
     else powering = true end
-    -- 
+    -- stop drone powering at 12 focus change to 3th expansion and gas
     if fun.size(units['drones']) >= 12 then
         powering = false
     else powering = true end
-    -- 
+    -- gg 
     return actions
 end
 
