@@ -372,10 +372,11 @@ function economy.manage_9734_simcity(actions, tc)
                     spawning_overlord = false
                     is_spawning_overlord[3] = true
                 end
-                -- Old eggs count base style
-                if spawning_overlord == true and fun.size(is_spawning_overlord) == 1 then
+                -- Old count eggs base style
+                if spawning_overlord == false and fun.size(is_spawning_overlord) == 1 then
                     if fun.size(units["eggs"]) < 1 then
-                        is_spawning_overlord[2] = nil
+                        is_spawning_overlord = {}
+                        spawning_overlord = true
                     end
                 end
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
