@@ -75,41 +75,34 @@ while restarts < 0 do
                 ophelia = v
             end
         end
-        -- Dealing with fruits
+        -- Better than dealing with fruits
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
-
+            --
             -- here is exactly where actions start to execute
-
-            -- 9734 is not ZvP standard play but this is just a 9734 hack for now. (=
+            --
+            -- 9734 is not ZvP standard play just a 9734 hack for now. (=
             actions = economy.manage_9734_economy(actions, tc)
-         
             -- sometimes the first overlord defines our opening!
-            actions = scouting.first_overlord(actions, tc)
-            
-            -- init test, test, test on dynamic openings
+            actions = scouting.first_overlord(actions, tc) 
+            -- init test on dynamic openings
             actions = openings.overpool(actions, tc)
-
-            -- can't do much if don't know what you are against
+            -- computer identify enemy units
             enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
-
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
-
         elseif tc.state.game_ended then
             break
         else
             -- skip frame do nothing
         end
-        
         -- if debug make some noise!
         if tc.DEBUG > 1 then
             print('Frame ' .. tc.state.battle_frame_count  
             .. ' consume ' .. tm:time().real .. ' seconds')
             print("Sending actions: " .. actions)
         end
-        
         tc:send({table.concat(actions, ':')})
     end
     tc:close()

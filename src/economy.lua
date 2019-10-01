@@ -12,7 +12,7 @@ local economy = {}
 
 local powering = true
 
-local units = {["busy"]={},["idle"]={}}
+local units = {["busy"]={}, ["idle"]={}}
 
 local hatcheries = {}
 
@@ -26,11 +26,15 @@ local spawning_lings = false
 
 local spawning_hydras = false
 
+local spawning_mutas = false
+
 local is_spawning_overlord = {}
 
 local is_spawning_lings = {}
 
 local is_spawning_hydras = {}
+
+local is_spawning_mutas = {}
 
 local extractor = 0
 
@@ -64,8 +68,7 @@ local has_ultralisk_cavern = false
 
 local has_command_center = false
 
--- !?, !?, !?, !?
-
+-- What you know can't really hurt in this information game. 
 local scouting_overlords = {}
 
 local scouting_drones = {}
@@ -83,7 +86,7 @@ local final_stage = false
 
 function economy.check_workers(units, hatcheries, scouting_drones)
     --
-    --
+    -- check workers
     --
     local busy = {}
     for _, v in ipairs(hatcheries) do
@@ -98,7 +101,7 @@ end
 
 function economy.check_my_units(units, tc)
     --
-    --
+    -- check my units
     --
     local overlords = {}
     local larvae = {}
@@ -114,6 +117,7 @@ function economy.check_my_units(units, tc)
     local ultras = {}
     local guardians = {}
     local infesteds = {}
+    -- and know something different
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
@@ -166,7 +170,7 @@ end
 
 function economy.take_natural(hatcheries, uid, ut, actions, tc)
     --
-    --
+    -- take natural expansion
     --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
@@ -200,7 +204,7 @@ end
 
 function economy.build_natural(hatcheries, uid, ut, actions, tc)
     --
-    --
+    -- build natural expansion
     --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
@@ -236,7 +240,9 @@ function economy.build_natural(hatcheries, uid, ut, actions, tc)
 end
 
 function economy.take_third(hatcheries, uid, ut, actions, tc)
+    --
     -- NOTE; you can't place this without scouting your enemy's position!
+    --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if hatcheries[2]['sid'] == nil then hatcheries[2] = {["sid"]=uid} end
@@ -268,7 +274,9 @@ function economy.take_third(hatcheries, uid, ut, actions, tc)
 end
 
 function economy.build_third(hatcheries, uid, ut, actions, tc)
+    --
     -- Water machine build your third base
+    --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     -- where is enemy's start location?
@@ -304,11 +312,15 @@ function economy.build_third(hatcheries, uid, ut, actions, tc)
 end
 
 function economy.take_fourth(hatcheries, uid, ut, actions, tc)
+    --
     -- NOTE, location of 4th base depends on 3th.
+    --
 end
 
 function economy.take_fifth()
+    --
     -- NOTE, wait until you have darkswarm!
+    --
 end
 
 function economy.manage_9734_simcity(actions, tc)
@@ -361,12 +373,17 @@ function economy.manage_9734_simcity(actions, tc)
                     is_spawning_overlord[3] = true
                 end
                 -- Old eggs count base style
+                if spawning_overlord == true and fun.size(is_spawning_overlord) == 1 then
+                    if fun.size(units["eggs"]) < 1 then
+                        is_spawning_overlord[2] = nil
+                    end
+                end
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
                     if fun.size(units["eggs"]) < 1 then
                         is_spawning_overlord[3] = nil
                     end
                 end
-                -- powering == droneing up!
+                -- powering == drone up!
                 if powering == true then
                     table.insert(actions,
                     tc.command(tc.command_unit, uid, tc.cmd.Train,

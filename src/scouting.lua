@@ -74,6 +74,7 @@ quadrants["D"][15] = 0
 quadrants["D"][16] = 0
 
 function scouting.identify_enemy_race()
+    --
     local race = nil
     local zerg_units = 0
     local protoss_units = 0
@@ -364,6 +365,7 @@ function scouting.identify_enemy_units(enemy_units, tc)
 end
 
 function scouting.main_quadrant(pos)
+    --
     if pos ~= nil then pos = pos.position end
     local quadrant = nil
     if pos ~= nil then
@@ -383,6 +385,7 @@ function scouting.main_quadrant(pos)
 end
 
 function scouting.pos_on_quad(pos)
+    --
     local quad = nil
     if pos ~= nil then
         if pos[1] > 256 and pos[2] <= 256 then
@@ -401,8 +404,9 @@ end
 function scouting.first_overlord(actions, tc)
     --
     -- first overlord goes to ours enemy's base
-    -- ! missing 12 hatch opening things since depends of 1th overlord (!)
+    -- missing 12 hatch opening things since depends of 1th overlord (!)
     --
+    
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
