@@ -14,7 +14,9 @@ local has_spawning_pool = false
 local spawning_pool = 0
 
 function openings.ninepool()
+    --
     -- Standard ZvZ 
+    --
 end
 
 function openings.overpool(actions, tc)
@@ -24,9 +26,7 @@ function openings.overpool(actions, tc)
     for uid, ut in pairs(tc.state.units_myself) do
         if tc:isworker(ut.type) then
             if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
-                -- just wtf are we doing here?
                 and tc.state.frame_from_bwapi - spawning_pool > 190 then
-                -- why we keep testing spawning pool?
                 spawning_pool = tc.state.frame_from_bwapi
                 local _, pos = next(tc:filter_type(tc.state.units_myself, {tc.unittypes.Zerg_Hatchery}))
                 if pos ~= nil then pos = pos.position end
