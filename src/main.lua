@@ -54,8 +54,8 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-    -- GL HF
-	local ophelia = {}
+    -- Good luck, have fun 
+    local ophelia = {}
     local units = {}
     local resources = {}
     -- Measure execution time

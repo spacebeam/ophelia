@@ -70,7 +70,7 @@ function economy.check_my_units(units, tc)
     local ultras = {}
     local guardians = {}
     local infesteds = {}
-    -- and know something different
+    -- and now for something completely different 
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, uid)
