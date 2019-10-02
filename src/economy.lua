@@ -288,24 +288,24 @@ function economy.manage_9734_simcity(actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
+            elseif fun.size(hatcheries) == 1 and hatcheries[1]['sid'] == uid
+                and tc.state.resources_myself.ore >= 200 then
+                local expansion = economy.build_natural(hatcheries, uid, ut, actions, tc)
+                actions = expansion["actions"]
+                hatcheries = expansion["hatcheries"]
             elseif is_drone_expanding and scouting_drones[2]['uid'] ~= uid
                 and fun.size(hatcheries) == 2 then
                 local expansion = economy.take_third(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
-            elseif fun.size(hatcheries) == 1 and hatcheries[1]['sid'] == uid
-                and tc.state.resources_myself.ore >= 200 then
-                local expansion = economy.build_natural(hatcheries, uid, ut, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
             elseif fun.size(hatcheries) == 2 and hatcheries[2]['sid'] == uid
                 and tc.state.resources_myself.ore >= 300 then
                 local expansion = economy.build_third(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
             else
-                -- ignore
+                -- ignore, ignore wut? S=
             end
         elseif tc:isbuilding(ut.type) then
             if ut.type == tc.unittypes.Zerg_Hatchery then
