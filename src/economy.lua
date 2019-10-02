@@ -16,64 +16,17 @@ local units = {["busy"]={}, ["idle"]={}}
 
 local hatcheries = {}
 
-local is_drone_scouting = false
-
-local is_drone_expanding = false
-
 local spawning_overlord = false
 
-local spawning_lings = false
-
-local spawning_hydras = false
-
-local spawning_mutas = false
-
-local is_spawning_overlord = {}
-
-local is_spawning_lings = {}
-
-local is_spawning_hydras = {}
-
-local is_spawning_mutas = {}
-
-local extractor = 0
-
-local evolution_chamber = 0 
-
-local hydralisk_den = 0
-
-local spire = 0 
-
-local queens_nest = 0 
-
-local defiler_mound = 0 
-
-local command_center = 0
-
-local ultralisk_cavern = 0
-
-local has_evolution_chamber = false
-
-local has_hydralisk_den = false
-
-local has_spire = false
-
-local has_greater_spire = false
-
-local has_queens_nest = false
-
-local has_defiler_mound = false
-
-local has_ultralisk_cavern = false
-
-local has_command_center = false
-
--- What you know can't really hurt in this information game. 
 local scouting_overlords = {}
 
 local scouting_drones = {}
 
-local scouting_lings = {}
+local is_spawning_overlord = {}
+
+local is_drone_scouting = false
+
+local is_drone_expanding = false
 
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true

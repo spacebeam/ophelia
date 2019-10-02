@@ -7,7 +7,7 @@
 
 local fun = require("moses")
 local utils = require("torchcraft.utils")
-local tools = require("ophelia.tools") -- !??
+local tools = require("ophelia.tools")
 
 -- one at 11 drone,
 -- two at 12 drone, 200 mineral.
@@ -75,6 +75,8 @@ quadrants["D"][16] = 0
 
 function scouting.identify_enemy_race()
     --
+    -- identify enemy race
+    --
     local race = nil
     local zerg_units = 0
     local protoss_units = 0
@@ -104,7 +106,9 @@ function scouting.identify_enemy_race()
 end
 
 function scouting.identify_enemy_units(enemy_units, tc)
+    --
     -- What you know can't really hurt you!
+    --
     local overlords = {}
     local drones = {}
     local lings = {}
@@ -366,6 +370,8 @@ end
 
 function scouting.main_quadrant(pos)
     --
+    -- main quadrant
+    --
     if pos ~= nil then pos = pos.position end
     local quadrant = nil
     if pos ~= nil then
@@ -385,6 +391,8 @@ function scouting.main_quadrant(pos)
 end
 
 function scouting.pos_on_quad(pos)
+    --
+    -- position on quadrant
     --
     local quad = nil
     if pos ~= nil then
@@ -406,7 +414,6 @@ function scouting.first_overlord(actions, tc)
     -- first overlord goes to ours enemy's base
     -- missing 12 hatch opening things since depends of 1th overlord (!)
     --
-    
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
@@ -462,12 +469,17 @@ function scouting.first_overlord(actions, tc)
 end
 
 function scouting.second_overlord(ps, uid, ut, actions, tc)
+    --
     -- 2th overlord scout go to enemy's natural expansion.
     -- Where is the first zealot going?
+    --
     return actions
 end
 
 function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
+    --
+    -- eleven drone scout
+    --
     if scouting_drones[1]["uid"] == nil then scouting_drones[1] = {["uid"]=uid} end
     if scouting_drones[1]["uid"] == uid and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
@@ -497,6 +509,9 @@ function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
 end
 
 function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
+    --
+    -- twelve drone scout
+    --
     if scouting_drones[2]["uid"] == nil and scouting_drones[1] ~= uid then 
         scouting_drones[2] = {["uid"]=uid} end
     if scouting_drones[2]["uid"] == uid and not utils.is_in(ut.order,
@@ -527,44 +542,58 @@ function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
 end
 
 function scouting.base_quadrant()
+    --
     -- return main quadrant
+    -- 
     return quadrant
 end
 
 function scouting.all_quadrants()
+    --
     -- return current data on all quadrants
+    --
     return quadrants
 end
 
 function scouting.lings()
+    --
     -- Kill worker scouts and preassure... 
     -- could result in enemy's ore spend on additional defences.
+    --
 end
 
 function scouting.overlords()
+    --
     -- Split overlords after speed upgrade 
+    --
 end
 
 function scouting.overlord_sacrifice()
+    --
     -- How many gates? is there a robotics? 
+    --
 end
 
 function scouting.scourge_sacrifice()
+    --
     -- How many gates? is there a robotics?
+    --
 end
 
 function scouting.ling_sacrifice()
+    --
     -- Live for the Swarm! 
+    --
 end
 
 function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
-
+    --
     -- this is not really exploring all 16 sectors
     -- it appears to send a drone to all bases on fs.
-
+    --
     -- check if drone is busy!
     -- check sectors!
-
+    --
     if tc.state.frame_from_bwapi - quadrants["A"][1] > 200 then
         quadrants["A"][1] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
