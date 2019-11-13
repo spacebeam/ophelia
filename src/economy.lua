@@ -284,12 +284,14 @@ function economy.manage_9734_simcity(actions, tc)
         if tc:isworker(ut.type) then
             if is_drone_expanding and scouting_drones[1]['uid'] ~= uid
                 and scouting_drones[2]['uid'] ~= uid and fun.size(hatcheries) == 1 then
+                print('how are you ' .. uid .. '?') 
                 local expansion = economy.take_natural(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
             elseif fun.size(hatcheries) == 1 and hatcheries[1]['sid'] == uid
                 and tc.state.resources_myself.ore >= 200 then
+                print('how are you ' .. uid .. '?') 
                 local expansion = economy.build_natural(hatcheries, uid, ut, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]

@@ -10,6 +10,10 @@
 -- Another part of micro is knowing what these best positions are.
 --
 
+-- NOTE: 2,6,12,18,24,36 = 3 control groups
+-- 4,5,6,7,8,9 = 6 hatcheries and later bases.
+
+
 local tactics = {}
 
 function tactics.six_lings_harass()

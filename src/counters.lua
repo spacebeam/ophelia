@@ -1,13 +1,11 @@
 -- 2 Hatch Muta (vs. Protoss)
--- 3 Hatch Speedlings
--- 3 BS into 5 HH
 -- 973(4)
 
 -- 2 Hatch Muta (vs. Terran)
--- 3 Hatch Speedlings 
--- 3 Hatch Muta                  <---    YOU ARE HERE!
+-- 3 Hatch Lurkers 
 
--- Mutaling (vs. Zerg)
+-- 9 Pool (vs. Zerg)
+-- 12 Hatch
 
 local counters = {}
 
