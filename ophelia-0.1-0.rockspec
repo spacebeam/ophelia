@@ -30,7 +30,6 @@ build = {
     ['ophelia.lib.json'] = "src/lib/json.lua",
     ['ophelia.lib.star'] = "src/lib/lua-star.lua",
     ['ophelia.lib.yaml'] = "src/lib/YAMLParserLite.lua",
-    ['ophelia.counters'] = "src/counters.lua",
     ['ophelia.economy'] = "src/economy.lua",
     ['ophelia.openings'] = "src/openings.lua",
     ['ophelia.scouting'] = "src/scouting.lua",
