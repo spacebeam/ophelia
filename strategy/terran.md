@@ -1,5 +1,3 @@
-basic rule: one mineral patch per drone,
-
 ## 3HL
 M&M is crazy strong, you can fight it with mutalisk or block it with lurkers, starting out as a Zerg you don't need mutalisk.
 
@@ -22,11 +20,4 @@ if its 2rax academy M&M Push around 6:00,
 6:30 is around when Terran scan if zerg is going muta or not vs old standard 3HM,
 
 
-
-
-
-
 ## 2HM
-
-
-
