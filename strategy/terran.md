@@ -31,7 +31,7 @@ get a second evolution chamber, adrenals and ultralisk cavern,
 
 get nydus canal with hive and sunkens on your bases,
 
-get armor upgrade for ultralisk
+get armor upgrade for ultralisk,
 
 by now you have 1 group of lurkers and scourges defending for dropships,
 
@@ -44,4 +44,6 @@ focus on getting vessels with your scourge, keep getting ultras, lings and the o
 this build order is aiming for 2,1 upgrades check out your evolution chambers.
 
 ## 2HM
-s
+notes: usually when terran go 8rax they double scout, 
+
+12 hatch, 
