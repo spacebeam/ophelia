@@ -39,7 +39,9 @@ with your larva just get ultras,
 
 get speed upgrade with ultra, don't mind if the lurker die, they are just for the contain,
 
-focus on getting vessels with your scourge, keep getting ultras, lings and the ocational pair of scourges.
+focus on getting vessels with your scourge, keep getting ultras, lings and the ocational pair of scourges,
 
+this build order is aiming for 2,1 upgrades check out your evolution chambers.
 
 ## 2HM
+s
