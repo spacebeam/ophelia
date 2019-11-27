@@ -76,10 +76,38 @@ at 5:30 you can't rule out a vulture drop yet,
 
 spreed your overlords, and you are going to scout with your first mutas know, you need to confirm whatever it is the enemy's plan with your own eyes,
 
+if goliath mech play, get 1+ caparace, clean vultures outside your base and take a 3th expansion,
 
+preassure terran natural with your mutalisk but be carefull with the muta, don't over do it,
 
+keep scouting with the muta to make sure you know what you are against,
 
+if terran is going upgrade mech you can't not go muta only, get hydra den and evolution chamber and change your composition depending on the situation,
 
+vs goliat, vulture, tank you can go only muta, only muta is very strong and easy to use, spawn mutas and drones,
 
+when the goliaths are about to push make another sunken in your natural and backstab with the mutalisk,
 
+you must adapt to the right situation, but hopefully the 1+ caparace it's about to complete and your 3th base is up,
 
+make 2 control groups of mutalisk and just fight with it, 
+
+get +2 caparace armor, keep making muta, powering and get the 4th base,
+
+we keep making muta until the enemy make its starport, if they don't make the starport we keep making muta,
+
+switch you composition to hydra as soon as you see the starport and focus on attack upgrade for hydra on the 1th evolution chamber,
+
+you stop making mutalisk, and play with what you have continue backstabing on all oportunity,
+
+get overlord speed, keep backstabing and making hydras, if they attack mix your mutalisk and hydras and defend if you need too,
+
+focus on attack upgrade on hydra and caparace on mutalisk,
+
+when you have overlord speed, spread them around and watch for dropships,
+
+following this build order hive is a way to preassure terran, a tool but not a goal.
+
+don't fight the terran directly, move your units around and backstab when you can, keep your initial mutalisk alive to put preassure and backstab,
+
+if you get hive don't build lings until addrenals and speed, following this you can play on your tempo.
