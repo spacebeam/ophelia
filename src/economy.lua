@@ -196,6 +196,9 @@ function economy.take_third(hatcheries, uid, ut, actions, tc)
     --
     -- NOTE; you can't place this without scouting your enemy's position!
     --
+    
+    -- Send a drone to the main base opposite to your enemy's expand path.
+    
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if hatcheries[2]['sid'] == nil then hatcheries[2] = {["sid"]=uid} end
