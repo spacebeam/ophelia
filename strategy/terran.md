@@ -62,4 +62,24 @@ if by 3:30 there is a CC is a factory build, later than that be alert may be fas
 
 notes: the sunken in your natural must be build with the 2th drone spawned from that hatchery,
 
+put the spire near the sunken building a wall with your 2th and 3th hatch, sometimes you can complete the wall with hydra den but if the environment don't let you add 6 lings,
+
+notes: learn to wall against speed vulture or die, 
+
+keep powering and get 2th gas at your natural, 
+
+be carefull of the 5:10 terran timing it may be speed vulture preassure, 
+
+notes: your 1th scouting overlord is in the terran natural, he see all type of movement to catch out speed vultures,
+
+at 5:30 you can't rule out a vulture drop yet,
+
+spreed your overlords, and you are going to scout with your first mutas know, you need to confirm whatever it is the enemy's plan with your own eyes,
+
+
+
+
+
+
+
 
