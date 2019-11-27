@@ -46,4 +46,20 @@ this build order is aiming for 2,1 upgrades check out your evolution chambers.
 ## 2HM
 notes: usually when terran go 8rax they double scout, 
 
-12 hatch, 
+in the past 3HM was very popular but terran now can got fast expand, 2port opener, 1:1:1, or all mech, because of tthat 2HM is standard play now.
+
+2HM can match anything that terran is doing while going mutalisk, this enable Zerg to play acordingly to what they see,
+
+Given those advantages, you can scout and match your oponent more adjusting to what the enemy is doing, lots of routes open for your swarm,
+
+12 hatch, 11 drone scout, 11 pool, 10 gas,
+
+at 2:30 minute mark if you don't notice double scout, or 8rax bunker rush, continue powering and make that 13/17 drone, if 8rax save the larva and defend with 8 drones while spawning 8 lings, 
+
+if by 3:00 there is no CC is a factory base build build, you must build a sunken,
+
+if by 3:30 there is a CC is a factory build, later than that be alert may be fast port,
+
+notes: the sunken in your natural must be build with the 2th drone spawned from that hatchery,
+
+
