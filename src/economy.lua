@@ -374,7 +374,7 @@ function economy.manage_9734_workers(actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
-            elseif tc.state.resources_myself.ore >= 1200 then
+            elseif tc.state.resources_myself.ore >= 2000 then
                 -- drones explore all the things!
                 actions = scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
             else
