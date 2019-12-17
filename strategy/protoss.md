@@ -1,3 +1,23 @@
+
+## 973!
+
+notes: only drone scout in 4th player maps, place the 1th extractor right after the 3th hatch,
+
+17 supply make hydralisk den!, at your main 16 overlord, and send 2 drones from main to natural,
+
+important note: only make overlords from main hatchery, (since you have already 9 mining drones in main); 
+make drones from natural, wanna fast mine? only make drones from the other expansions, where the available spots are.
+
+as soon as the hydralisk den complete, get hydra speed.
+
+24 overlord (in main), at 3th make +1 drone, at 25 you have 19 drones on minerals, 3 mining gas and 6 lings;
+
+still missing the ling timings lol, when we make the first 2 and 4 lings again?
+
+Until here we are ready for the old standard hydra bust, if followed we have a perfect 973;
+9 drones on main, 7 on natural and 3 on 3th, plus 3 drones on gas at natural and 6 lings guarding protoss base entrance.
+
+
 ## 973(4)
 
 notes: after overpool if protoss scout you first < 2 minute mark, you must go zerglings.

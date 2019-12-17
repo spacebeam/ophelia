@@ -413,6 +413,11 @@ function scouting.first_overlord(actions, tc)
     -- first overlord goes to ours enemy's base
     -- missing 12 hatch opening things since depends of 1th overlord (!)
     --
+    
+    --
+    -- If 12 hatch opening, please scout with this overlord is cross position.
+    --
+
     for uid, ut in pairs(tc.state.units_myself) do
         if ut.type == tc.unittypes.Zerg_Overlord then
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
