@@ -4,6 +4,7 @@
 --
 
 local fun = require("moses")
+local inspect = require("inspect")
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
 local scouting = require("ophelia.scouting") 
@@ -56,6 +57,15 @@ function economy.check_my_units(units, tc)
     --
     -- check my units
     --
+    --
+    -- !? what are u planing?
+    -- 
+    
+    for k, v in pairs(tc.state.units_myself) do
+        print(v['flags']['completed'])
+    end
+
+    
     local larvae = {}
     local eggs = {}
     local overlords = {}
@@ -447,7 +457,7 @@ function economy.manage_9734_workers(actions, tc)
     return actions
 end
 
-function economy.manage_9734_economy(actions, units, resources, tc)
+function economy.manage_9734_economy(actions, tc)
     --
     -- What exactly is macro, anyway? 
     -- this interpretation includes 'powering'.

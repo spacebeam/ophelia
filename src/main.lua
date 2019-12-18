@@ -2,6 +2,7 @@
 --
 -- We don't know where she is from, or even what strain she is. 
 --
+
 require("sys")
 require("torch")
 local argparse = require("argparse")
@@ -9,12 +10,14 @@ local socket = require("socket")
 local uuid = require("uuid")
 local fun = require("moses")
 local tc = require("torchcraft")
+local inspect = require("inspect")
 local openings = require("ophelia.openings")
 local scouting = require("ophelia.scouting")
 local economy = require("ophelia.economy")
 local tactics = require("ophelia.tactics")
 local tools = require("ophelia.tools")
 local zstreams = require("ophelia.zstreams")
+
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
@@ -55,7 +58,6 @@ while restarts < 0 do
     tc:send({table.concat(setup, ':')})
     -- Good luck, have fun 
     local ophelia = {}
-    local units = {}
     local resources = {}
     
     -- Full with fighting spirit, get a map
@@ -78,21 +80,22 @@ while restarts < 0 do
                 ophelia = v
             end
         end
-        units = tc.state.frame["getUnits"](tc.state.frame, ophelia['id'])
-        resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
+        -- resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
+        --print(inspect(resources))
+        --
         -- Better than dealing with fruits
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
             
             -- TODO: manage more than just a 973 economy.
 
-            actions = economy.manage_9734_economy(actions, units, resources, tc)
+            actions = economy.manage_9734_economy(actions, tc)
             
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, tc) 
             
             -- init test on dynamic openings
-            --actions = openings.twelve_hatch(actions, tc)
+            actions = openings.twelve_hatch(actions, tc)
             
             actions = openings.overpool(actions, tc)
             
