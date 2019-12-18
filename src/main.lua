@@ -58,11 +58,13 @@ while restarts < 0 do
     tc:send({table.concat(setup, ':')})
     -- Good luck, have fun 
     local ophelia = {}
+    
+    -- TODO: extract  and measure resource data
     local resources = {}
     
     -- Full with fighting spirit, get a map
     -- tc.state.map_name
-
+    tools.check_supported_maps(tc.state.map_name)
     -- Measure execution time
     local tm = torch.Timer()
     while not tc.state.game_ended do

@@ -4,6 +4,9 @@
 -- 12 Hatch
 --
 
+-- add/remove if needed
+local inspect = require("inspect")
+
 local fun = require("moses")
 local utils = require("torchcraft.utils")
 
@@ -13,10 +16,11 @@ local has_spawning_pool = false
 
 local spawning_pool = 0
 
-function openings.ninepool()
+function openings.ninepool(actions, tc)
     --
     -- Standard ZvZ 
     --
+    return actions
 end
 
 function openings.overpool(actions, tc)

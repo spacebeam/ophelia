@@ -27,6 +27,7 @@ enemy["T"] = {["units"]={},["race"]="Terran",["against"]=false}
 local quadrant = nil
 -- Map is not territory, but...
 -- since handling 512x512 for all things.
+-- Kill the One-Trick Pony! TODO: return all hardcoded location data from tools.check_supported_maps
 local quadrants = {}
 quadrants["A"] = {
     ["scout"] = {["x"]=450,["y"]=50},
