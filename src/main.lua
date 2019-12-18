@@ -98,7 +98,7 @@ while restarts < 0 do
             
             -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
-            
+            -- this switch is enable by data scouted by the 1th overlord in cross position, be safe.
             actions = openings.overpool(actions, tc)
             
             -- computer identify enemy units
