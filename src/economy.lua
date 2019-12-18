@@ -13,6 +13,8 @@ local economy = {}
 
 local powering = true
 
+local colonies = {}
+
 local units = {["busy"]={}, ["idle"]={}}
 
 local hatcheries = {}
@@ -500,6 +502,8 @@ function economy.manage_9734_economy(actions, tc)
     print("defilers " .. fun.size(units['defilers']))
     print("ultras " .. fun.size(units['ultras']))
     print("guardians " .. fun.size(units['guardians']))
+    print("devourers " .. fun.size(units['devourers']))
+    print("infesteds " .. fun.size(units['infesteds']))
     -- So long and thanks for all the fish!
     return actions
 end
