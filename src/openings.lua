@@ -49,11 +49,13 @@ function openings.overpool(actions, tc)
     return actions
 end
 
-function openings.twelve_hatch()
+function openings.twelve_hatch(actions, tc)
     --
     -- Greed economic opening
     --
     -- NOTE: If you are doing 12th hatch, scouting 1th overlord in cross position.
+    --
+    return actions
 end
 
 return openings

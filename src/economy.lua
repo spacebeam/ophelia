@@ -57,15 +57,13 @@ function economy.check_my_units(units, tc)
     --
     -- check my units
     --
-    --
-    -- !? what are u planing?
-    -- 
     
     for k, v in pairs(tc.state.units_myself) do
         print(v['flags']['completed'])
     end
 
-    
+    print(inspect(tc.state.neutral_units))
+
     local larvae = {}
     local eggs = {}
     local overlords = {}
@@ -83,7 +81,7 @@ function economy.check_my_units(units, tc)
     local infesteds = {}
     -- and now for something completely different 
     for uid, ut in pairs(tc.state.units_myself) do
-        if ut.type == tc.unittypes.Zerg_Overlord then
+        if ut.type == tc.unittypes.Zerg_Overlord and ut.flags.completed == true then
             table.insert(overlords, uid)
         elseif ut.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, uid)
