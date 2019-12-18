@@ -57,6 +57,10 @@ while restarts < 0 do
     local ophelia = {}
     local units = {}
     local resources = {}
+    
+    -- Full with fighting spirit, get a map
+    -- tc.state.map_name
+
     -- Measure execution time
     local tm = torch.Timer()
     while not tc.state.game_ended do
@@ -74,17 +78,23 @@ while restarts < 0 do
                 ophelia = v
             end
         end
+        units = tc.state.frame["getUnits"](tc.state.frame, ophelia['id'])
+        resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
         -- Better than dealing with fruits
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
-            --
-            -- here is exactly where actions start to execute
-            --
-            -- 9734 is not ZvP standard play just a 9734 hack for now. (=
+            
+            -- TODO: manage things not just a 973 economy.
+
+            -- actions = economy.manage_economy(actions, units, resources, tc)
+
             actions = economy.manage_9734_economy(actions, tc)
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, tc) 
             -- init test on dynamic openings
+            
+            --actions = openings.twelve_hatch(actions, tc)
+            
             actions = openings.overpool(actions, tc)
             -- computer identify enemy units
             enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
@@ -107,6 +117,6 @@ while restarts < 0 do
     tc:close()
     collectgarbage()
     sys.sleep(0.0042)
-    print("So Long, and Thanks for All the Fish!")
+    print("So Long, and Thanks for All the Lings!")
     collectgarbage()
 end
