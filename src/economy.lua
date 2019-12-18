@@ -56,9 +56,9 @@ function economy.check_my_units(units, tc)
     --
     -- check my units
     --
-    local overlords = {}
     local larvae = {}
     local eggs = {}
+    local overlords = {}
     local drones = {}
     local lings = {}
     local hydras = {}
@@ -69,6 +69,7 @@ function economy.check_my_units(units, tc)
     local defilers = {}
     local ultras = {}
     local guardians = {}
+    local devourers = {}
     local infesteds = {}
     -- and now for something completely different 
     for uid, ut in pairs(tc.state.units_myself) do
@@ -446,7 +447,7 @@ function economy.manage_9734_workers(actions, tc)
     return actions
 end
 
-function economy.manage_9734_economy(actions, tc)
+function economy.manage_9734_economy(actions, units, resources, tc)
     --
     -- What exactly is macro, anyway? 
     -- this interpretation includes 'powering'.

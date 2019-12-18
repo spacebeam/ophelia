@@ -84,18 +84,18 @@ while restarts < 0 do
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
             
-            -- TODO: manage things not just a 973 economy.
+            -- TODO: manage more than just a 973 economy.
 
-            -- actions = economy.manage_economy(actions, units, resources, tc)
-
-            actions = economy.manage_9734_economy(actions, tc)
+            actions = economy.manage_9734_economy(actions, units, resources, tc)
+            
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, tc) 
-            -- init test on dynamic openings
             
+            -- init test on dynamic openings
             --actions = openings.twelve_hatch(actions, tc)
             
             actions = openings.overpool(actions, tc)
+            
             -- computer identify enemy units
             enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
             if scouting.identify_enemy_race() then
