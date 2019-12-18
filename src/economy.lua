@@ -53,17 +53,25 @@ function economy.check_workers(units, hatcheries, scouting_drones)
     return units
 end
 
+function economy.check_my_geysers(tc)
+    --
+    -- check my geysers
+    --
+    local geysers = {}
+    for id, u in pairs(tc.state.units_neutral) do
+        if u.type == tc.unittypes.Resource_Vespene_Geyser then
+            table.insert(geysers, id)
+        else
+            -- do something else
+        end
+    end
+    return geysers
+end
+
 function economy.check_my_units(units, tc)
     --
     -- check my units
     --
-    
-    for k, v in pairs(tc.state.units_myself) do
-        print(v['flags']['completed'])
-    end
-
-    print(inspect(tc.state.neutral_units))
-
     local larvae = {}
     local eggs = {}
     local overlords = {}
@@ -79,36 +87,37 @@ function economy.check_my_units(units, tc)
     local guardians = {}
     local devourers = {}
     local infesteds = {}
-    -- and now for something completely different 
-    for uid, ut in pairs(tc.state.units_myself) do
-        if ut.type == tc.unittypes.Zerg_Overlord and ut.flags.completed == true then
-            table.insert(overlords, uid)
-        elseif ut.type == tc.unittypes.Zerg_Zergling then
-            table.insert(lings, uid)
-        elseif ut.type == tc.unittypes.Zerg_Drone then
-            table.insert(drones, uid)
-        elseif ut.type == tc.unittypes.Zerg_Larva then
-            table.insert(larvae, uid)
-        elseif ut.type == tc.unittypes.Zerg_Egg then
-            table.insert(eggs, uid)
-        elseif ut.type == tc.unittypes.Zerg_Hydralisk then
-            table.insert(hydras, uid)
-        elseif ut.type == tc.unittypes.Zerg_Mutalisk then
-            table.insert(mutas, uid)
-        elseif ut.type == tc.unittypes.Zerg_Scourge then
-            table.insert(scourges, uid)
-        elseif ut.type == tc.unittypes.Zerg_Lurker then
-            table.insert(lurkers, uid)
-        elseif ut.type == tc.unittypes.Zerg_Queen then
-            table.insert(queens, uid)
-        elseif ut.type == tc.unittypes.Zerg_Defiler then
-            table.insert(defilers, uid)
-        elseif ut.type == tc.unittypes.Zerg_Ultralisk then
-            table.insert(ultras, uid)
-        elseif ut.type == tc.unittypes.Zerg_Guardian then
-            table.insert(guardians, uid)
-        elseif ut.type == tc.unittypes.Zerg_Infested_Terran then
-            table.insert(infesteds, uid)
+    for id, u in pairs(tc.state.units_myself) do
+        if u.type == tc.unittypes.Zerg_Overlord and u.flags.completed == true then
+            table.insert(overlords, id)
+        elseif u.type == tc.unittypes.Zerg_Zergling and u.flags.completed == true then
+            table.insert(lings, id)
+        elseif u.type == tc.unittypes.Zerg_Drone and u.flags.completed == true then
+            table.insert(drones, id)
+        elseif u.type == tc.unittypes.Zerg_Larva then
+            table.insert(larvae, id)
+        elseif u.type == tc.unittypes.Zerg_Egg then
+            table.insert(eggs, id)
+        elseif u.type == tc.unittypes.Zerg_Hydralisk and u.flags.completed == true then
+            table.insert(hydras, id)
+        elseif u.type == tc.unittypes.Zerg_Mutalisk and u.flags.completed == true then
+            table.insert(mutas, id)
+        elseif u.type == tc.unittypes.Zerg_Scourge and u.flags.completed == true then
+            table.insert(scourges, id)
+        elseif u.type == tc.unittypes.Zerg_Lurker and u.flags.completed == true then
+            table.insert(lurkers, id)
+        elseif u.type == tc.unittypes.Zerg_Queen and u.flags.completed == true then
+            table.insert(queens, id)
+        elseif u.type == tc.unittypes.Zerg_Defiler and u.flags.completed == true then
+            table.insert(defilers, id)
+        elseif u.type == tc.unittypes.Zerg_Ultralisk and u.flags.completed == true then
+            table.insert(ultras, id)
+        elseif u.type == tc.unittypes.Zerg_Guardian and u.flags.completed == true then
+            table.insert(guardians, id)
+        elseif u.type == tc.unittypes.Zerg_Devourer and u.flags.completed == true then
+            table.insert(devourers, id)
+        elseif u.type == tc.unittypes.Zerg_Infested_Terran and u.flags.completed == true then
+            table.insert(infesteds, id)
         else
             -- do nothing, ignore unit type
         end
@@ -126,6 +135,7 @@ function economy.check_my_units(units, tc)
     units["defilers"] = defilers
     units["ultras"] = ultras
     units["guardians"] = guardians
+    units["devourers"] = devourers
     units["infesteds"] = infesteds
     return units
 end
@@ -463,6 +473,10 @@ function economy.manage_9734_economy(actions, tc)
     -- economics, making drones and new extractors.
     --
     local units = economy.check_my_units(units, tc)
+
+    -- check my geysers !?
+    local geysers = economy.check_my_geysers(tc)
+    
     -- Set your units into 3 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
