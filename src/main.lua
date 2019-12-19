@@ -64,7 +64,6 @@ while restarts < 0 do
     local resources = {}
     
     -- Full with fighting spirit, get a map
-    -- tc.state.map_name
     tools.check_supported_maps(tc.state.map_name)
     -- Measure execution time
     local tm = torch.Timer()
@@ -85,7 +84,7 @@ while restarts < 0 do
         end
         -- resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
         --print(inspect(resources))
-        --
+
         -- Better than dealing with fruits
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
