@@ -45,11 +45,11 @@ function economy.check_workers(units, hatcheries, scouting_drones)
     -- check workers
     --
     local busy = {}
-    for _, v in ipairs(hatcheries) do
-        if v['sid'] ~= nil then table.insert(busy, v['sid']) end
+    for _, h in ipairs(hatcheries) do
+        if h['id'] ~= nil then table.insert(busy, h['id']) end
     end
-    for _, v in ipairs(scouting_drones) do
-        if v['uid'] ~= nil then table.insert(busy, v['uid']) end
+    for _, h in ipairs(scouting_drones) do
+        if h['id'] ~= nil then table.insert(busy, h['id']) end
     end
     units['busy'] = busy
     return units
@@ -306,7 +306,7 @@ function economy.manage_9734_simcity(actions, tc)
     --
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(ut.type) then
-            if is_drone_expanding and scouting_drones[1]['uid'] ~= id
+            if is_drone_expanding and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id and fun.size(hatcheries) == 1 then
                 print('how are you ' .. id .. '?') 
                 local expansion = economy.take_natural(hatcheries, id, u, actions, tc)
@@ -390,7 +390,7 @@ function economy.manage_9734_workers(actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
-            elseif is_drone_scouting and scouting_drones[1]['uid'] ~= id then
+            elseif is_drone_scouting and scouting_drones[1]['id'] ~= id then
                 local twelve = scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]

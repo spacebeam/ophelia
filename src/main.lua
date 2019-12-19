@@ -91,7 +91,6 @@ while restarts < 0 do
         if tc.state.battle_frame_count % skip_frames == 0 then
             
             -- TODO: manage more than just a 973 economy.
-
             actions = economy.manage_9734_economy(actions, tc)
             
             -- sometimes the first overlord defines our opening!
