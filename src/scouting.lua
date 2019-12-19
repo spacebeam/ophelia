@@ -450,7 +450,7 @@ function scouting.first_overlord(actions, tc)
                 --
                 if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
-                    and not utils.is_in(ut.order,
+                    and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, 
@@ -461,7 +461,7 @@ function scouting.first_overlord(actions, tc)
                 --
                 if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
-                    and not utils.is_in(ut.order,
+                    and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, 
@@ -520,7 +520,7 @@ function scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
     --
     if scouting_drones[2]["id"] == nil and scouting_drones[1] ~= id then 
         scouting_drones[2] = {["id"]=id} end
-    if scouting_drones[2]["id"] == id and not utils.is_in(ut.order,
+    if scouting_drones[2]["id"] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
@@ -613,7 +613,7 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
 
     elseif tc.state.frame_from_bwapi - quadrants["A"][2] > 200 then
         quadrants["A"][2] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
             and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then

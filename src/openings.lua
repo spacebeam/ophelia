@@ -34,7 +34,7 @@ function openings.overpool(actions, tc)
                 spawning_pool = tc.state.frame_from_bwapi
                 local _, pos = next(tc:filter_type(tc.state.units_myself, {tc.unittypes.Zerg_Hatchery}))
                 if pos ~= nil then pos = pos.position end
-                if pos ~= nil and not utils.is_in(ut.order,
+                if pos ~= nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
                     tc.command(tc.command_unit, id,
