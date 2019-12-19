@@ -18,29 +18,36 @@ function tools.check_supported_maps(name)
     -- also a good place to move/add/return;
     -- start_locations, previous map analysis, etc.
     --
+    local map = {}
     if string.match(name, "Fighting Spirit") then
-        print("Fighting Spirit")
+        map['bases'] = 4
     elseif string.match(name, "CircuitBreakers") then
-        print("CircuitBreakers")
+        map['bases'] = 4
     elseif string.match(name, "Gladiator") then
-        print("Gladiator")
+        map['bases'] = 4
     elseif string.match(name, "Sparkle") then
-        print("Sparkle")
+        map['bases'] = 4
     elseif string.match(name, "Power Bond") then
         print("Power Bond")
+        map['bases'] = 3 
     elseif string.match(name, "Neo Aztec") then
         print("Neo Aztec")
+        map['bases'] = 3 
     elseif string.match(name, "Gold Rush") then
         print("Gold Rush")
+        map['bases'] = 3 
     elseif string.match(name, "Overwatch") then
         print("Overwatch")
+        map['bases'] = 2 
     elseif string.match(name, "Heartbreak Ridge") then
         print("Heartbreak Ridge")
+        map['bases'] = 2 
     elseif string.match(name, "Blue Storm") then
-        print("Blue Storm")
+        map['bases'] = 2 
     else
         print("crash something else")
     end
+    return map
 end
 
 function tools.get_closest(position, units)

@@ -410,7 +410,7 @@ function scouting.pos_on_quad(pos)
     return quad
 end
 
-function scouting.first_overlord(actions, tc)
+function scouting.first_overlord(actions, map, tc)
     --
     -- first overlord goes to ours enemy's base
     -- missing 12 hatch opening things since depends of 1th overlord (!)
@@ -419,6 +419,13 @@ function scouting.first_overlord(actions, tc)
     --
     -- If 12 hatch opening, please scout with this overlord is cross position.
     --
+    
+    if map.bases == 4 then
+        sp = math.random(1,2)
+    else
+        -- do nothing
+        sp = nil
+    end
 
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord then
@@ -430,43 +437,68 @@ function scouting.first_overlord(actions, tc)
                     tc.command2order[tc.unitcommandtypes.Build]) 
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, 
-                    tc.cmd.Move, -1,
-                    quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
+                    if sp == 2 then
+                        table.insert(actions,
+                        tc.command(tc.command_unit, id, 
+                        tc.cmd.Move, -1,
+                        quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
+                    else
+                        table.insert(actions,
+                        tc.command(tc.command_unit, id, 
+                        tc.cmd.Move, -1,
+                        quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
+                    end
                 end
             elseif quadrant == "B" then
-                --
                 if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, 
-                    tc.cmd.Move, -1,
-                    quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
+                    if sp == 2 then
+                        table.insert(actions,
+                        tc.command(tc.command_unit, id, 
+                        tc.cmd.Move, -1,
+                        quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
+                    else
+                        table.insert(actions,
+                        tc.command(tc.command_unit, id, 
+                        tc.cmd.Move, -1,
+                        quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
+                    end
                 end
             elseif quadrant == "C" then
-                --
                 if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, 
-                    tc.cmd.Move, -1,
-                    quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
+                    if sp == 2 then
+                        table.insert(actions,
+                        tc.command(tc.command_unit, id, 
+                        tc.cmd.Move, -1,
+                        quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
+                    else
+                        table.insert(actions,
+                        tc.command(tc.command_unit, id, 
+                        tc.cmd.Move, -1,
+                        quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
+                    end 
                 end
             elseif quadrant == "D" then
-                --
                 if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, 
-                    tc.cmd.Move, -1,
-                    quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
+                    if sp == 2 then
+                        table.insert(actions,
+                        tc.command(tc.command_unit, id, 
+                        tc.cmd.Move, -1,
+                        quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
+                    else
+                        table.insert(actions,
+                        tc.command(tc.command_unit, id, 
+                        tc.cmd.Move, -1,
+                        quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
+                    end
                 end
             else print("scouting.first_overlord crash") end
         end

@@ -64,7 +64,7 @@ while restarts < 0 do
     local resources = {}
     
     -- Full with fighting spirit, get a map
-    tools.check_supported_maps(tc.state.map_name)
+    local map = tools.check_supported_maps(tc.state.map_name)
     -- Measure execution time
     local tm = torch.Timer()
     while not tc.state.game_ended do
@@ -92,7 +92,7 @@ while restarts < 0 do
             -- TODO: manage more than just a 973 economy.
             actions = economy.manage_9734_economy(actions, tc)
             -- sometimes the first overlord defines our opening!
-            actions = scouting.first_overlord(actions, tc) 
+            actions = scouting.first_overlord(actions, map, tc) 
             -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
             -- this switch is enable by data scouted by the 1th overlord in cross position, be safe.
