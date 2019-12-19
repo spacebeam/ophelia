@@ -305,7 +305,7 @@ function economy.manage_9734_simcity(actions, tc)
     -- 9734 simcity management
     --
     for id, u in pairs(tc.state.units_myself) do
-        if tc:isworker(ut.type) then
+        if tc:isworker(u.type) then
             if is_drone_expanding and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id and fun.size(hatcheries) == 1 then
                 print('how are you ' .. id .. '?') 
@@ -334,7 +334,7 @@ function economy.manage_9734_simcity(actions, tc)
                 -- ignore, ignore wut? S=
             end
         elseif tc:isbuilding(u.type) then
-            if ut.type == tc.unittypes.Zerg_Hatchery then
+            if u.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning ophelia's second overlord 
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 0 then
                     table.insert(actions,
