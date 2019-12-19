@@ -222,8 +222,8 @@ function economy.take_third(hatcheries, id, u, actions, tc)
     
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if hatcheries[2]['sid'] == nil then hatcheries[2] = {["sid"]=id} end
-    if hatcheries[2]['sid'] == id and not utils.is_in(u.order,
+    if hatcheries[2]['id'] == nil then hatcheries[2] = {["id"]=id} end
+    if hatcheries[2]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
