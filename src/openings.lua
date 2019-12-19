@@ -27,8 +27,8 @@ function openings.overpool(actions, tc)
     --
     -- Safe standard opening
     --
-    for uid, ut in pairs(tc.state.units_myself) do
-        if tc:isworker(ut.type) then
+    for id, u in pairs(tc.state.units_myself) do
+        if tc:isworker(u.type) then
             if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
                 and tc.state.frame_from_bwapi - spawning_pool > 190 then
                 spawning_pool = tc.state.frame_from_bwapi
@@ -37,13 +37,13 @@ function openings.overpool(actions, tc)
                 if pos ~= nil and not utils.is_in(ut.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
-                    tc.command(tc.command_unit, uid,
+                    tc.command(tc.command_unit, id,
                     tc.cmd.Build, -1,
                     pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
             end
-        elseif tc:isbuilding(ut.type) then
-            if ut.type == tc.unittypes.Zerg_Spawning_Pool then
+        elseif tc:isbuilding(u.type) then
+            if u.type == tc.unittypes.Zerg_Spawning_Pool then
                 if has_spawning_pool == false then has_spawning_pool = true end
             end
         else

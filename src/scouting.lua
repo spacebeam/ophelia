@@ -172,133 +172,133 @@ function scouting.identify_enemy_units(enemy_units, tc)
     local science_vessels = {}
     local valkyries = {}
     local wraiths = {}
-    for uid, ut in pairs(enemy_units) do
-        if ut.type == tc.unittypes.Zerg_Overlord then
-            table.insert(overlords, uid)
-        elseif ut.type == tc.unittypes.Zerg_Drone then
-            table.insert(drones, uid)
-        elseif ut.type == tc.unittypes.Zerg_Zergling then
-            table.insert(lings, uid)
-        elseif ut.type == tc.unittypes.Zerg_Mutalisk then
-            table.insert(mutas, uid)
-        elseif ut.type == tc.unittypes.Zerg_Scourge then
-            table.insert(scourges, uid)
-        elseif ut.type == tc.unittypes.Zerg_Hatchery then
-            table.insert(hatcheries, uid)
-        elseif ut.type == tc.unittypes.Zerg_Extractor then
-            table.insert(extractors, uid)
-        elseif ut.type == tc.unittypes.Zerg_Spawning_Pool then
-            table.insert(spawning_pool, uid)
-        elseif ut.type == tc.unittypes.Zerg_Evolution_Chamber then
-            table.insert(evolution_chamber, uid)
-        elseif ut.type == tc.unittypes.Zerg_Lair then
-            table.insert(lair, uid)
-        elseif ut.type == tc.unittypes.Zerg_Spire then
-            table.insert(spire, uid)
-        elseif ut.type == tc.unittypes.Protoss_Probe then
-            table.insert(probes, uid)
-        elseif ut.type == tc.unittypes.Protoss_Zealot then
-            table.insert(zealots, uid)
-        elseif ut.type == tc.unittypes.Protoss_Dragoon then
-            table.insert(dragoons, uid)
-        elseif ut.type == tc.unittypes.Protoss_Archon then
-            table.insert(archons, uid)
-        elseif ut.type == tc.unittypes.Protoss_Dark_Archon then
-            table.insert(dark_archons, uid)
-        elseif ut.type == tc.unittypes.Protoss_Dark_Templar then
-            table.insert(dark_templars, uid)
-        elseif ut.type == tc.unittypes.Protoss_High_Templar then
-            table.insert(high_templars, uid)
-        elseif ut.type == tc.unittypes.Protoss_Reaver then
-            table.insert(reavers, uid)
-        elseif ut.type == tc.unittypes.Protoss_Scarab then
-            table.insert(scarabs, uid)
-        elseif ut.type == tc.unittypes.Protoss_Corsair then
-            table.insert(corsairs, uid)
-        elseif ut.type == tc.unittypes.Protoss_Observer then
-            table.insert(observers, uid)
-        elseif ut.type == tc.unittypes.Protoss_Scout then
-            table.insert(scouts, uid)
-        elseif ut.type == tc.unittypes.Protoss_Shuttle then
-            table.insert(shuttles, uid)
-        elseif ut.type == tc.unittypes.Protoss_Nexus then
-            table.insert(nexus, uid)
-        elseif ut.type == tc.unittypes.Protoss_Observatory then
-            table.insert(observatory, uid)
-        elseif ut.type == tc.unittypes.Protoss_Robotics_Facility then
-            table.insert(robotics_facility, uid)
-        elseif ut.type == tc.unittypes.Protoss_Robotics_Support_Bay then
-            table.insert(robotics_support_bay, uid)
-        elseif ut.type == tc.unittypes.Protoss_Pylon then
-            table.insert(pylons, uid)
-        elseif ut.type == tc.unittypes.Protoss_Forge then
-            table.insert(forge, uid)
-        elseif ut.type == tc.unittypes.Protoss_Photon_Cannon then
-            table.insert(cannons, uid)
-        elseif ut.type == tc.unittypes.Protoss_Gateway then
-            table.insert(gateways, uid)
-        elseif ut.type == tc.unittypes.Protoss_Assimilator then
-            table.insert(assimilators, uid)
-        elseif ut.type == tc.unittypes.Protoss_Cybernetics_Core then
-            table.insert(cybernetics_core, uid)
-        elseif ut.type == tc.unittypes.Protoss_Citadel_of_Adun then
-            table.insert(citadel_of_adun, uid)
-        elseif ut.type == tc.unittypes.Protoss_Stargate then
-            table.insert(stargates, uid)
-        elseif ut.type == tc.unittypes.Protoss_Templar_Archives then
-            table.insert(templar_archives, uid)
-        elseif ut.type == tc.unittypes.Terran_SCV then
-            table.insert(scvs, uid)
-        elseif ut.type == tc.unittypes.Terran_Command_Center then
-            table.insert(command_centers, uid)
-        elseif ut.type == tc.unittypes.Terran_Supply_Depot then
-            table.insert(supply_depots, uid)
-        elseif ut.type == tc.unittypes.Terran_Refinery then
-            table.insert(refineries, uid)
-        elseif ut.type == tc.unittypes.Terran_Barracks then
-            table.insert(barracks, uid)
-        elseif ut.type == tc.unittypes.Terran_Engineering_Bay then
-            table.insert(engineering_bay, uid)
-        elseif ut.type == tc.unittypes.Terran_Missile_Turret then
-            table.insert(missile_turrets, uid)
-        elseif ut.type == tc.unittypes.Terran_Academy then
-            table.insert(academy, uid)
-        elseif ut.type == tc.unittypes.Terran_Armory then
-            table.insert(armory, uid)
-        elseif ut.type == tc.unittypes.Terran_Factory then
-            table.insert(factories, uid)
-        elseif ut.type == tc.unittypes.Terran_Science_Facility then
-            table.insert(science_facility, uid)
-        elseif ut.type == tc.unittypes.Terran_Starport then
-            table.insert(starports, uid)
-        elseif ut.type == tc.unittypes.Terran_Bunker then
-            table.insert(bunkers, uid)
-        elseif ut.type == tc.unittypes.Terran_Firebat then
-            table.insert(firebats, uid)
-        elseif ut.type == tc.unittypes.Terran_Goliath then
-            table.insert(goliaths, uid)
-        elseif ut.type == tc.unittypes.Terran_Marine then
-            table.insert(marines, uid)
-        elseif ut.type == tc.unittypes.Terran_Medic then
-            table.insert(medics, uid)
-        elseif ut.type == tc.unittypes.Terran_Siege_Tank_Siege_Mode then
-            table.insert(siege_tanks, uid)
-        elseif ut.type == tc.unittypes.Terran_Siege_Tank_Tank_Mode then
-            table.insert(tanks, uid)
-        elseif ut.type == tc.unittypes.Terran_Vulture then
-            table.insert(vultures, uid)
-        elseif ut.type == tc.unittypes.Terran_Vulture_Spider_Mine then
-            table.insert(spider_mines, uid)
-        elseif ut.type == tc.unittypes.Terran_Battlecruiser then
-            table.insert(battlecruisers, uid)
-        elseif ut.type == tc.unittypes.Terran_Dropship then
-            table.insert(dropships, uid)
-        elseif ut.type == tc.unittypes.Terran_Science_Vessel then
-            table.insert(science_vessels, uid)
-        elseif ut.type == tc.unittypes.Terran_Valkyrie then
-            table.insert(valkyries, uid)
-        elseif ut.type == tc.unittypes.Terran_Wraith then
-            table.insert(wraiths, uid)
+    for id, u in pairs(enemy_units) do
+        if u.type == tc.unittypes.Zerg_Overlord then
+            table.insert(overlords, id)
+        elseif u.type == tc.unittypes.Zerg_Drone then
+            table.insert(drones, id)
+        elseif u.type == tc.unittypes.Zerg_Zergling then
+            table.insert(lings, id)
+        elseif u.type == tc.unittypes.Zerg_Mutalisk then
+            table.insert(mutas, id)
+        elseif u.type == tc.unittypes.Zerg_Scourge then
+            table.insert(scourges, id)
+        elseif u.type == tc.unittypes.Zerg_Hatchery then
+            table.insert(hatcheries, id)
+        elseif u.type == tc.unittypes.Zerg_Extractor then
+            table.insert(extractors, id)
+        elseif u.type == tc.unittypes.Zerg_Spawning_Pool then
+            table.insert(spawning_pool, id)
+        elseif u.type == tc.unittypes.Zerg_Evolution_Chamber then
+            table.insert(evolution_chamber, id)
+        elseif u.type == tc.unittypes.Zerg_Lair then
+            table.insert(lair, id)
+        elseif u.type == tc.unittypes.Zerg_Spire then
+            table.insert(spire, id)
+        elseif u.type == tc.unittypes.Protoss_Probe then
+            table.insert(probes, id)
+        elseif u.type == tc.unittypes.Protoss_Zealot then
+            table.insert(zealots, id)
+        elseif u.type == tc.unittypes.Protoss_Dragoon then
+            table.insert(dragoons, id)
+        elseif u.type == tc.unittypes.Protoss_Archon then
+            table.insert(archons, id)
+        elseif u.type == tc.unittypes.Protoss_Dark_Archon then
+            table.insert(dark_archons, id)
+        elseif u.type == tc.unittypes.Protoss_Dark_Templar then
+            table.insert(dark_templars, id)
+        elseif u.type == tc.unittypes.Protoss_High_Templar then
+            table.insert(high_templars, id)
+        elseif u.type == tc.unittypes.Protoss_Reaver then
+            table.insert(reavers, id)
+        elseif u.type == tc.unittypes.Protoss_Scarab then
+            table.insert(scarabs, id)
+        elseif u.type == tc.unittypes.Protoss_Corsair then
+            table.insert(corsairs, id)
+        elseif u.type == tc.unittypes.Protoss_Observer then
+            table.insert(observers, id)
+        elseif u.type == tc.unittypes.Protoss_Scout then
+            table.insert(scouts, id)
+        elseif u.type == tc.unittypes.Protoss_Shuttle then
+            table.insert(shuttles, id)
+        elseif u.type == tc.unittypes.Protoss_Nexus then
+            table.insert(nexus, id)
+        elseif u.type == tc.unittypes.Protoss_Observatory then
+            table.insert(observatory, id)
+        elseif u.type == tc.unittypes.Protoss_Robotics_Facility then
+            table.insert(robotics_facility, id)
+        elseif u.type == tc.unittypes.Protoss_Robotics_Support_Bay then
+            table.insert(robotics_support_bay, id)
+        elseif u.type == tc.unittypes.Protoss_Pylon then
+            table.insert(pylons, id)
+        elseif u.type == tc.unittypes.Protoss_Forge then
+            table.insert(forge, id)
+        elseif u.type == tc.unittypes.Protoss_Photon_Cannon then
+            table.insert(cannons, id)
+        elseif u.type == tc.unittypes.Protoss_Gateway then
+            table.insert(gateways, id)
+        elseif u.type == tc.unittypes.Protoss_Assimilator then
+            table.insert(assimilators, id)
+        elseif u.type == tc.unittypes.Protoss_Cybernetics_Core then
+            table.insert(cybernetics_core, id)
+        elseif u.type == tc.unittypes.Protoss_Citadel_of_Adun then
+            table.insert(citadel_of_adun, id)
+        elseif u.type == tc.unittypes.Protoss_Stargate then
+            table.insert(stargates, id)
+        elseif u.type == tc.unittypes.Protoss_Templar_Archives then
+            table.insert(templar_archives, id)
+        elseif u.type == tc.unittypes.Terran_SCV then
+            table.insert(scvs, id)
+        elseif u.type == tc.unittypes.Terran_Command_Center then
+            table.insert(command_centers, id)
+        elseif u.type == tc.unittypes.Terran_Supply_Depot then
+            table.insert(supply_depots, id)
+        elseif u.type == tc.unittypes.Terran_Refinery then
+            table.insert(refineries, id)
+        elseif u.type == tc.unittypes.Terran_Barracks then
+            table.insert(barracks, id)
+        elseif u.type == tc.unittypes.Terran_Engineering_Bay then
+            table.insert(engineering_bay, id)
+        elseif u.type == tc.unittypes.Terran_Missile_Turret then
+            table.insert(missile_turrets, id)
+        elseif u.type == tc.unittypes.Terran_Academy then
+            table.insert(academy, id)
+        elseif u.type == tc.unittypes.Terran_Armory then
+            table.insert(armory, id)
+        elseif u.type == tc.unittypes.Terran_Factory then
+            table.insert(factories, id)
+        elseif u.type == tc.unittypes.Terran_Science_Facility then
+            table.insert(science_facility, id)
+        elseif u.type == tc.unittypes.Terran_Starport then
+            table.insert(starports, id)
+        elseif u.type == tc.unittypes.Terran_Bunker then
+            table.insert(bunkers, id)
+        elseif u.type == tc.unittypes.Terran_Firebat then
+            table.insert(firebats, id)
+        elseif u.type == tc.unittypes.Terran_Goliath then
+            table.insert(goliaths, id)
+        elseif u.type == tc.unittypes.Terran_Marine then
+            table.insert(marines, id)
+        elseif u.type == tc.unittypes.Terran_Medic then
+            table.insert(medics, id)
+        elseif u.type == tc.unittypes.Terran_Siege_Tank_Siege_Mode then
+            table.insert(siege_tanks, id)
+        elseif u.type == tc.unittypes.Terran_Siege_Tank_Tank_Mode then
+            table.insert(tanks, id)
+        elseif u.type == tc.unittypes.Terran_Vulture then
+            table.insert(vultures, id)
+        elseif u.type == tc.unittypes.Terran_Vulture_Spider_Mine then
+            table.insert(spider_mines, id)
+        elseif u.type == tc.unittypes.Terran_Battlecruiser then
+            table.insert(battlecruisers, id)
+        elseif u.type == tc.unittypes.Terran_Dropship then
+            table.insert(dropships, id)
+        elseif u.type == tc.unittypes.Terran_Science_Vessel then
+            table.insert(science_vessels, id)
+        elseif u.type == tc.unittypes.Terran_Valkyrie then
+            table.insert(valkyries, id)
+        elseif u.type == tc.unittypes.Terran_Wraith then
+            table.insert(wraiths, id)
         else 
             -- do nothing, ignoring unfiltered unit types..
         end
@@ -420,51 +420,51 @@ function scouting.first_overlord(actions, tc)
     -- If 12 hatch opening, please scout with this overlord is cross position.
     --
 
-    for uid, ut in pairs(tc.state.units_myself) do
-        if ut.type == tc.unittypes.Zerg_Overlord then
+    for id, u in pairs(tc.state.units_myself) do
+        if u.type == tc.unittypes.Zerg_Overlord then
             local _, pos = next(tc:filter_type(tc.state.units_myself, 
                 {tc.unittypes.Zerg_Hatchery}))
             quadrant = scouting.main_quadrant(pos)
             if quadrant == "A" then
-                if not utils.is_in(ut.order,
+                if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
-                    and not utils.is_in(ut.order,
+                    and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
-                    tc.command(tc.command_unit, uid, 
+                    tc.command(tc.command_unit, id, 
                     tc.cmd.Move, -1,
                     quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
                 end
             elseif quadrant == "B" then
                 --
-                if not utils.is_in(ut.order,
+                if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
-                    and not utils.is_in(ut.order,
+                    and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
-                    tc.command(tc.command_unit, uid, 
+                    tc.command(tc.command_unit, id, 
                     tc.cmd.Move, -1,
                     quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
                 end
             elseif quadrant == "C" then
                 --
-                if not utils.is_in(ut.order,
+                if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
                     and not utils.is_in(ut.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
-                    tc.command(tc.command_unit, uid, 
+                    tc.command(tc.command_unit, id, 
                     tc.cmd.Move, -1,
                     quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
                 end
             elseif quadrant == "D" then
                 --
-                if not utils.is_in(ut.order,
+                if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
                     and not utils.is_in(ut.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
-                    tc.command(tc.command_unit, uid, 
+                    tc.command(tc.command_unit, id, 
                     tc.cmd.Move, -1,
                     quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
                 end
@@ -474,7 +474,7 @@ function scouting.first_overlord(actions, tc)
     return actions
 end
 
-function scouting.second_overlord(ps, uid, ut, actions, tc)
+function scouting.second_overlord(id, u, actions, tc)
     --
     -- 2th overlord scout go to enemy's natural expansion.
     -- Where is the first zealot going?
@@ -482,31 +482,31 @@ function scouting.second_overlord(ps, uid, ut, actions, tc)
     return actions
 end
 
-function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
+function scouting.eleven_drone_scout(scouting_drones, id, u, actions, tc)
     --
     -- eleven drone scout
     --
-    if scouting_drones[1]["uid"] == nil then scouting_drones[1] = {["uid"]=uid} end
-    if scouting_drones[1]["uid"] == uid and not utils.is_in(ut.order,
+    if scouting_drones[1]["id"] == nil then scouting_drones[1] = {["id"]=id} end
+    if scouting_drones[1]["id"] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants['B']['scout']['x'], quadrants['B']['scout']['y']) )
         elseif quadrant == 'B' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
         elseif quadrant == 'C' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
         elseif quadrant == 'D' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
         else print("scouting.eleven_drone_scout crash") end
@@ -514,32 +514,32 @@ function scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
     return {["actions"]=actions,["scouting_drones"]=scouting_drones}
 end
 
-function scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
+function scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
     --
     -- twelve drone scout
     --
-    if scouting_drones[2]["uid"] == nil and scouting_drones[1] ~= uid then 
-        scouting_drones[2] = {["uid"]=uid} end
-    if scouting_drones[2]["uid"] == uid and not utils.is_in(ut.order,
+    if scouting_drones[2]["id"] == nil and scouting_drones[1] ~= id then 
+        scouting_drones[2] = {["id"]=id} end
+    if scouting_drones[2]["id"] == id and not utils.is_in(ut.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants['C']['scout']['x'], quadrants['C']['scout']['y']) )
         elseif quadrant == 'B' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
         elseif quadrant == 'C' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
         elseif quadrant == 'D' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
         else print("scouting.twelve_drone_scout crash") end
@@ -592,7 +592,7 @@ function scouting.ling_sacrifice()
     --
 end
 
-function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
+function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
     --
     -- this is not really exploring all 16 sectors
     -- it appears to send a drone to all bases on fs.
@@ -602,12 +602,12 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
     --
     if tc.state.frame_from_bwapi - quadrants["A"][1] > 200 then
         quadrants["A"][1] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             56, 152))
         end
 
@@ -615,131 +615,131 @@ function scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
         quadrants["A"][2] = tc.state.frame_from_bwapi
         if not utils.is_in(ut.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             36, 470))
         end
     
     elseif tc.state.frame_from_bwapi - quadrants["A"][3] > 200 then
         quadrants["A"][3] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             476, 474))
         end
 
     elseif tc.state.frame_from_bwapi - quadrants["A"][4] > 200 then
         quadrants["A"][4] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             476, 34))
         end
     
     elseif tc.state.frame_from_bwapi - quadrants["B"][5] > 200 then
         quadrants["B"][5] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             156, 460))
         end
 
     elseif tc.state.frame_from_bwapi - quadrants["B"][6] > 200 then
         quadrants["B"][6] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             456, 350))
         end
 
     elseif tc.state.frame_from_bwapi - quadrants["B"][7] > 200 then
         quadrants["B"][7] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             350, 50))
         end
 
     elseif tc.state.frame_from_bwapi - quadrants["B"][8] > 200 then
         quadrants["B"][8] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             35, 35))
         end
     
     elseif tc.state.frame_from_bwapi - quadrants["C"][9] > 200 then
         quadrants["C"][9] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             216, 20))
         end
     
     elseif tc.state.frame_from_bwapi - quadrants["C"][10] > 200 then
         quadrants["C"][10] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             30, 290))
         end
     
     elseif tc.state.frame_from_bwapi - quadrants["C"][11] > 200 then
         quadrants["C"][11] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             490, 220))
         end
     
     elseif tc.state.frame_from_bwapi - quadrants["C"][12] > 200 then
         quadrants["C"][12] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             256, 256))
         end
     
     elseif tc.state.frame_from_bwapi - quadrants["D"][13] > 200 then
         quadrants["D"][13] = tc.state.frame_from_bwapi
-        if not utils.is_in(ut.order,
+        if not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Build])
-            and not utils.is_in(ut.order,
+            and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
-            tc.command(tc.command_unit, uid, tc.cmd.Move, -1,
+            tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             315, 490))
         end
     else print("scouting.explore_all_sectors crash") end

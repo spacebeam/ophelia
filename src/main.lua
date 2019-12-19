@@ -56,6 +56,7 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
+
     -- Good luck, have fun 
     local ophelia = {}
     

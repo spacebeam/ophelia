@@ -142,33 +142,33 @@ function economy.check_my_units(units, tc)
     return units
 end
 
-function economy.take_natural(hatcheries, uid, ut, actions, tc)
+function economy.take_natural(hatcheries, id, u, actions, tc)
     --
     -- take natural expansion
     --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if hatcheries[1]['sid'] == nil then hatcheries[1] = {["sid"]=uid} end
-    if hatcheries[1]['sid'] == uid and not utils.is_in(ut.order,
+    if hatcheries[1]['id'] == nil then hatcheries[1] = {["id"]=id} end
+    if hatcheries[1]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"]))
         elseif quadrant == 'B' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"]))
         elseif quadrant == 'C' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"]))
         elseif quadrant == 'D' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
         else print('economy.take_natural crash') end
@@ -176,35 +176,35 @@ function economy.take_natural(hatcheries, uid, ut, actions, tc)
     return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.build_natural(hatcheries, uid, ut, actions, tc)
+function economy.build_natural(hatcheries, id, u, actions, tc)
     --
     -- build natural expansion
     --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if not utils.is_in(ut.order,
+    if not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'B' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'C' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'D' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
@@ -213,7 +213,7 @@ function economy.build_natural(hatcheries, uid, ut, actions, tc)
     return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.take_third(hatcheries, uid, ut, actions, tc)
+function economy.take_third(hatcheries, id, u, actions, tc)
     --
     -- NOTE; you can't place this without scouting your enemy's position!
     --
@@ -222,27 +222,27 @@ function economy.take_third(hatcheries, uid, ut, actions, tc)
     
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if hatcheries[2]['sid'] == nil then hatcheries[2] = {["sid"]=uid} end
-    if hatcheries[2]['sid'] == uid and not utils.is_in(ut.order,
+    if hatcheries[2]['sid'] == nil then hatcheries[2] = {["sid"]=id} end
+    if hatcheries[2]['sid'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"]))
         elseif quadrant == 'B' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"]))
         elseif quadrant == 'C' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
         elseif quadrant == 'D' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Move, -1,
             quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"]))
         else print('economy.take_third crash') end
@@ -250,36 +250,36 @@ function economy.take_third(hatcheries, uid, ut, actions, tc)
     return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.build_third(hatcheries, uid, ut, actions, tc)
+function economy.build_third(hatcheries, id, u, actions, tc)
     --
     -- Water machine build your third base
     --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     -- where is enemy's start location?
-    if not utils.is_in(ut.order,
+    if not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             quadrants["B"]["natural"]["x"], quadrants["B"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'B' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             quadrants["A"]["natural"]["x"], quadrants["A"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'C' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
         elseif quadrant == 'D' then
             table.insert(actions,
-            tc.command(tc.command_unit, uid,
+            tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"],
             tc.unittypes.Zerg_Hatchery))
@@ -288,7 +288,7 @@ function economy.build_third(hatcheries, uid, ut, actions, tc)
     return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.take_fourth(hatcheries, uid, ut, actions, tc)
+function economy.take_fourth(hatcheries, id, u, actions, tc)
     --
     -- NOTE, location of 4th base depends on 3th.
     --
@@ -304,41 +304,41 @@ function economy.manage_9734_simcity(actions, tc)
     --
     -- 9734 simcity management
     --
-    for uid, ut in pairs(tc.state.units_myself) do
+    for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(ut.type) then
-            if is_drone_expanding and scouting_drones[1]['uid'] ~= uid
-                and scouting_drones[2]['uid'] ~= uid and fun.size(hatcheries) == 1 then
-                print('how are you ' .. uid .. '?') 
-                local expansion = economy.take_natural(hatcheries, uid, ut, actions, tc)
+            if is_drone_expanding and scouting_drones[1]['uid'] ~= id
+                and scouting_drones[2]['id'] ~= id and fun.size(hatcheries) == 1 then
+                print('how are you ' .. id .. '?') 
+                local expansion = economy.take_natural(hatcheries, id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
-            elseif fun.size(hatcheries) == 1 and hatcheries[1]['sid'] == uid
+            elseif fun.size(hatcheries) == 1 and hatcheries[1]['id'] == id
                 and tc.state.resources_myself.ore >= 200 then
-                print('how are you ' .. uid .. '?') 
-                local expansion = economy.build_natural(hatcheries, uid, ut, actions, tc)
+                print('how are you ' .. id .. '?') 
+                local expansion = economy.build_natural(hatcheries, id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
-            elseif is_drone_expanding and scouting_drones[2]['uid'] ~= uid
+            elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
                 and fun.size(hatcheries) == 2 then
-                local expansion = economy.take_third(hatcheries, uid, ut, actions, tc)
+                local expansion = economy.take_third(hatcheries, id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
-            elseif fun.size(hatcheries) == 2 and hatcheries[2]['sid'] == uid
+            elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] == id
                 and tc.state.resources_myself.ore >= 300 then
-                local expansion = economy.build_third(hatcheries, uid, ut, actions, tc)
+                local expansion = economy.build_third(hatcheries, id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
             else
                 -- ignore, ignore wut? S=
             end
-        elseif tc:isbuilding(ut.type) then
+        elseif tc:isbuilding(u.type) then
             if ut.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning ophelia's second overlord 
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 0 then
                     table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Overlord))
                     spawning_overlord = false
                     is_spawning_overlord[2] = true
@@ -346,7 +346,7 @@ function economy.manage_9734_simcity(actions, tc)
                 -- Same for third overlord
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 1 then
                     table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Overlord))
                     spawning_overlord = false
                     is_spawning_overlord[3] = true
@@ -366,7 +366,7 @@ function economy.manage_9734_simcity(actions, tc)
                 -- powering == drone up!
                 if powering == true then
                     table.insert(actions,
-                    tc.command(tc.command_unit, uid, tc.cmd.Train,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0,tc.unittypes.Zerg_Drone))
                 end
             else
@@ -383,38 +383,38 @@ function economy.manage_9734_workers(actions, tc)
     --
     -- 9734 worker management
     --
-    for uid, ut in pairs(tc.state.units_myself) do
-        if tc:isworker(ut.type) then
+    for id, u in pairs(tc.state.units_myself) do
+        if tc:isworker(u.type) then
             if is_drone_scouting and fun.size(scouting_drones) == 1 then
-                local eleven = scouting.eleven_drone_scout(scouting_drones, uid, ut, actions, tc)
+                local eleven = scouting.eleven_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
-            elseif is_drone_scouting and scouting_drones[1]['uid'] ~= uid then
-                local twelve = scouting.twelve_drone_scout(scouting_drones, uid, ut, actions, tc)
+            elseif is_drone_scouting and scouting_drones[1]['uid'] ~= id then
+                local twelve = scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
             elseif tc.state.resources_myself.ore >= 2000 then
                 -- drones explore all the things!
-                actions = scouting.explore_all_sectors(scouting_drones, uid, ut, actions, tc)
+                actions = scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             else
                 -- We Require More Vespene Gas!
-                if fun.find(units['busy'], uid) == nil and not utils.is_in(ut.order,
+                if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Gather])
-                    and not utils.is_in(ut.order,
+                    and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build])
-                    and not utils.is_in(ut.order,
+                    and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     -- still missing gas!
-                    local target = tools.get_closest(ut.position,
+                    local target = tools.get_closest(u.position,
                         tc:filter_type(tc.state.units_neutral,
                         {tc.unittypes.Resource_Mineral_Field,
                          tc.unittypes.Resource_Mineral_Field_Type_2,
                          tc.unittypes.Resource_Mineral_Field_Type_3}))
                     if target ~= nil then
                         table.insert(actions,
-                        tc.command(tc.command_unit_protected, uid,
+                        tc.command(tc.command_unit_protected, id,
                         tc.cmd.Right_Click_Unit, target))
                     end
                 end
