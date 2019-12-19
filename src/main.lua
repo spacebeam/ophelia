@@ -60,7 +60,7 @@ while restarts < 0 do
     -- Good luck, have fun 
     local ophelia = {}
     
-    -- TODO: extract  and measure resource data
+    -- TODO: extract and measure resource data
     local resources = {}
     
     -- Full with fighting spirit, get a map
@@ -92,10 +92,8 @@ while restarts < 0 do
             
             -- TODO: manage more than just a 973 economy.
             actions = economy.manage_9734_economy(actions, tc)
-            
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, tc) 
-            
             -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
             -- this switch is enable by data scouted by the 1th overlord in cross position, be safe.
