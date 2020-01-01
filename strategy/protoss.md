@@ -12,11 +12,8 @@ as soon as the hydralisk den complete, get hydra speed.
 
 24 overlord (in main), at 3th make +1 drone, at 25 you have 19 drones on minerals, 3 mining gas and 6 lings;
 
-still missing the ling timings lol, when we make the first 2 and 4 lings again?
-
 Until here we are ready for the old standard hydra bust, if followed we have a perfect 973;
 9 drones on main, 7 on natural and 3 on 3th, plus 3 drones on gas at natural and 6 lings guarding protoss base entrance.
-
 
 ## 973(4)
 
@@ -26,7 +23,7 @@ notes: after overpool if protoss scout you first < 2 minute mark, you must go ze
 
 11 3th hatch at new expansion,
 
-if they scout you first < 2 minute mark, spawn 6 lings,
+if they scout you first < 2 minute mark; spawn 6 lings else spawn 2 lings,
 
 after the 3th hatch, create 1th gas extractor at main,
 
@@ -35,6 +32,8 @@ with the first 50 gas build a hydralisk den,
 notes: following this playstyle don't waste the first lings trying to get them inside protoss main.
 
 as soon as the hydralisk den is done get speed, and move your focus to powering,
+
+as soon as the 3th overlord is complete build 4 zerlings in your main, at that time the 1th zealot is spawned,
 
 if fast adun be aware of where is the first zealot.
 
