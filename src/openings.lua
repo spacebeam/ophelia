@@ -40,14 +40,14 @@ function openings.overpool(actions, tc)
             if has_spawning_pool == false and tc.state.resources_myself.ore >= 200
                 and tc.state.frame_from_bwapi - spawning_pool > 190 then
                 spawning_pool = tc.state.frame_from_bwapi
-                local _, pos = next(tc:filter_type(tc.state.units_myself, {tc.unittypes.Zerg_Hatchery}))
-                if pos ~= nil then pos = pos.position end
-                if pos ~= nil and not utils.is_in(u.order,
+                local _, unit = next(tc:filter_type(tc.state.units_myself, {tc.unittypes.Zerg_Hatchery}))
+                if unit ~= nil then local position = unit.position else local position = nil end
+                if position ~= nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
                     tc.command(tc.command_unit, id,
                     tc.cmd.Build, -1,
-                    pos[1], pos[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
+                    position[1], position[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
             end
         elseif tc:isbuilding(u.type) then

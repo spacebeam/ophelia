@@ -3,10 +3,13 @@
 -- it needs more than a couple of good'old clean, clean, clean.
 --
 
-local fun = require("moses")
+-- add/remove if needed
 local inspect = require("inspect")
+
+local fun = require("moses")
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
+
 local scouting = require("ophelia.scouting") 
 
 local economy = {}
