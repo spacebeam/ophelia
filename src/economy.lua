@@ -293,17 +293,17 @@ end
 
 
 -- TODO: just after build your third, ger yourself an extractor!
-funtion economy.build_main_extractor(actions, tc)
+function economy.build_main_extractor(id, u, actions, tc)
     --
     -- get gas, get gas, get gas!!!
     --
-    local ?
+    --local ?
     if not utils.is_in(u.order, 
         tc.command2order[tc.unitcommandtypes.Ridht_Click_Position]) then
         --
     end
     return {["actions"]=actions}
-
+end
 
 function economy.take_fourth(hatcheries, id, u, actions, tc)
     --
