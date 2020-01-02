@@ -43,7 +43,7 @@ local late_stage = false
 -- Final, The watcher observes, the fog collapses an event resolves.
 local final_stage = false
 
-function economy.check_workers(units, hatcheries, scouting_drones)
+function economy.check_workers()
     --
     -- check workers
     --
@@ -65,7 +65,7 @@ function economy.check_my_geysers(tc)
     local geysers = {}
     for id, u in pairs(tc.state.units_neutral) do
         if u.type == tc.unittypes.Resource_Vespene_Geyser then
-            table.insert(geysers, id)
+            table.insert(geysers, u.position)
         else
             -- do something else
         end
@@ -73,7 +73,7 @@ function economy.check_my_geysers(tc)
     return geysers
 end
 
-function economy.check_my_units(units, tc)
+function economy.check_my_units(tc)
     --
     -- check my units
     --
@@ -145,7 +145,7 @@ function economy.check_my_units(units, tc)
     return units
 end
 
-function economy.take_natural(hatcheries, id, u, actions, tc)
+function economy.take_natural(id, u, actions, tc)
     --
     -- take natural expansion
     --
@@ -179,7 +179,7 @@ function economy.take_natural(hatcheries, id, u, actions, tc)
     return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.build_natural(hatcheries, id, u, actions, tc)
+function economy.build_natural(id, u, actions, tc)
     --
     -- build natural expansion
     --
@@ -216,7 +216,7 @@ function economy.build_natural(hatcheries, id, u, actions, tc)
     return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.take_third(hatcheries, id, u, actions, tc)
+function economy.take_third(id, u, actions, tc)
     --
     -- NOTE; you can't place this without scouting your enemy's position!
     --
@@ -253,7 +253,7 @@ function economy.take_third(hatcheries, id, u, actions, tc)
     return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
-function economy.build_third(hatcheries, id, u, actions, tc)
+function economy.build_third(id, u, actions, tc)
     --
     -- Water machine build your third base
     --
@@ -298,14 +298,25 @@ function economy.build_main_extractor(id, u, actions, tc)
     -- get gas, get gas, get gas!!!
     --
     --local ?
+    
+    -- check my geysers !?
+    local geysers = economy.check_my_geysers(tc)
+    
     if not utils.is_in(u.order, 
-        tc.command2order[tc.unitcommandtypes.Ridht_Click_Position]) then
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         --
+        -- still need some gas
+        --
+        table.insert(actions,
+        tc.command(tc.command_unit, id,
+        tc.cmd.Build, -1,
+        geysers[1][1], geysers[1][2],
+        tc.unittypes.Zerg_Extractor))
     end
-    return {["actions"]=actions}
+    return actions
 end
 
-function economy.take_fourth(hatcheries, id, u, actions, tc)
+function economy.take_fourth(id, u, actions, tc)
     --
     -- NOTE, location of 4th base depends on 3th.
     --
@@ -326,32 +337,32 @@ function economy.manage_9734_simcity(actions, tc)
             if is_drone_expanding and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id and fun.size(hatcheries) == 1 then
                 print('how are you ' .. id .. '?') 
-                local expansion = economy.take_natural(hatcheries, id, u, actions, tc)
+                local expansion = economy.take_natural(id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
             elseif fun.size(hatcheries) == 1 and hatcheries[1]['id'] == id
                 and tc.state.resources_myself.ore >= 200 then
                 print('how are you ' .. id .. '?') 
-                local expansion = economy.build_natural(hatcheries, id, u, actions, tc)
+                local expansion = economy.build_natural(id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
             elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
                 and fun.size(hatcheries) == 2 then
-                local expansion = economy.take_third(hatcheries, id, u, actions, tc)
+                local expansion = economy.take_third(id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
             elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] == id
                 and tc.state.resources_myself.ore >= 300 then
-                local expansion = economy.build_third(hatcheries, id, u, actions, tc)
+                local expansion = economy.build_third(id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
             -- TODO: clean, clean, clean
             -- TODO: since this is literally the simcity managment function
             elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
-                local extractor = economy.build_main_extractor(id, u, actions, tc)
+                actions = economy.build_main_extractor(id, u, actions, tc)
             else
                 -- ignore, ignore wut? S=
             end
@@ -443,7 +454,7 @@ function economy.manage_9734_workers(actions, tc)
             end
         end
     end
-    units = economy.check_workers(units, hatcheries, scouting_drones)
+    units = economy.check_workers()
     -- First created overlord, second in total.. this is the 'overpool' overlord.
     if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1
         and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
@@ -496,18 +507,18 @@ function economy.manage_9734_economy(actions, tc)
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
     --
-    local units = economy.check_my_units(units, tc)
+    local units = economy.check_my_units(tc)
 
     -- check my geysers !?
     local geysers = economy.check_my_geysers(tc)
-    
+    print(inspect(geysers)) 
     -- Set your units into 3 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
     -- Defense powerful but immobile, offence mobile but weak
     local defence = {}
     -- Scout identify enemy units
-    local enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
+    local enemy = scouting.identify_enemy_units(tc)
     -- And Now For Something Completely Different
     actions = economy.manage_9734_simcity(actions, tc)
     actions = economy.manage_9734_workers(actions, tc)

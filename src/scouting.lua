@@ -109,7 +109,7 @@ function scouting.identify_enemy_race()
      return race
 end
 
-function scouting.identify_enemy_units(enemy_units, tc)
+function scouting.identify_enemy_units(tc)
     --
     -- What you know can't really hurt you!
     --
@@ -175,7 +175,7 @@ function scouting.identify_enemy_units(enemy_units, tc)
     local science_vessels = {}
     local valkyries = {}
     local wraiths = {}
-    for id, u in pairs(enemy_units) do
+    for id, u in pairs(tc.state.units_enemy) do
         if u.type == tc.unittypes.Zerg_Overlord then
             table.insert(overlords, id)
         elseif u.type == tc.unittypes.Zerg_Drone then

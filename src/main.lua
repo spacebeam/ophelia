@@ -99,7 +99,7 @@ while restarts < 0 do
             actions = openings.overpool(actions, tc)
             
             -- computer identify enemy units
-            enemy = scouting.identify_enemy_units(tc.state.units_enemy, tc)
+            enemy = scouting.identify_enemy_units(tc)
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
