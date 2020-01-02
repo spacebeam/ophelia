@@ -1,4 +1,4 @@
-## Gas 9
+## G9
 One base fast mutas with 14 speedlings to survive until the first 3 mutas, spawning 5 mutas to one-shot drones before the natural while keep focus on fast +2 carapace upgrade for a late timing attack.
 
 This appear to work best against greed zergs that open with 12 hatch.
@@ -9,7 +9,7 @@ The build seems like a very nice zerg optimization, 9 overlord, 100 extractor, 9
 
 There are nice timings on this build, for example the initial ling speed and lair upgrades almost at the same time available as soon as the pool complete and at 17 supply zerg buy the 2th overlord, place the spire a make 2 more lings, having a total of 14 speed lings to survive while starting to save larva in the only hatchery for the first 3 mutas, the second hatchery is build only after we got the first 5th mutas, after build the natural continue making mutas and change the rally point to the natural base for defense.
 
-Note: is very important to keep good visibility with overlords across the maps in the oposite direction of your enemy base.
+Note: is very important to keep good visibility with overlords across the maps in opposite direction of the enemy base.
 
 ## 9P
 9 Pool is a very flexible build in Zerg versus Zerg, if played properly.
