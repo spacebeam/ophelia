@@ -369,11 +369,12 @@ function scouting.identify_enemy_units(enemy_units, tc)
     return enemy
 end
 
-function scouting.main_quadrant(position)
+function scouting.main_quadrant(unit)
     --
     -- main quadrant
     --
-    if position ~= nil then position = position.position end
+    local position = nil
+    if unit ~= nil then position = unit.position end
     local quadrant = nil
     if position ~= nil then
         if position[1] > 256 and position[2] <= 256 then
@@ -429,9 +430,9 @@ function scouting.first_overlord(actions, map, tc)
 
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord then
-            local _, pos = next(tc:filter_type(tc.state.units_myself, 
+            local _, unit = next(tc:filter_type(tc.state.units_myself, 
                 {tc.unittypes.Zerg_Hatchery}))
-            quadrant = scouting.main_quadrant(pos)
+            quadrant = scouting.main_quadrant(unit)
             if quadrant == "A" then
                 if not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build]) 
