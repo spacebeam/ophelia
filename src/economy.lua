@@ -288,6 +288,20 @@ function economy.build_third(hatcheries, id, u, actions, tc)
     return {["actions"]=actions,["hatcheries"]=hatcheries}
 end
 
+
+-- TODO: just after build your third, ger yourself an extractor!
+funtion economy.build_main_extractor(actions, tc)
+    --
+    -- get gas, get gas, get gas!!!
+    --
+    local ?
+    if not utils.is_in(u.order, 
+        tc.command2order[tc.unitcommandtypes.Ridht_Click_Position]) then
+        --
+    end
+    return {["actions"]=actions}
+
+
 function economy.take_fourth(hatcheries, id, u, actions, tc)
     --
     -- NOTE, location of 4th base depends on 3th.
@@ -330,6 +344,11 @@ function economy.manage_9734_simcity(actions, tc)
                 local expansion = economy.build_third(hatcheries, id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
+            -- TODO: clean, clean, clean
+            -- TODO: since this is literally the simcity managment function
+            elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] ~= id
+                and tc.state.resources_myself.ore >= 50 then
+                local extractor = economy.build_main_extractor(id, u, actions, tc)
             else
                 -- ignore, ignore wut? S=
             end

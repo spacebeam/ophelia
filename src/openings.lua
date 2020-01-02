@@ -1,5 +1,6 @@
 --
 -- 9 Pool
+-- Gas 9
 -- Overpool
 -- 12 Hatch
 --
@@ -19,6 +20,13 @@ local spawning_pool = 0
 function openings.ninepool(actions, tc)
     --
     -- Standard ZvZ 
+    --
+    return actions
+end
+
+function openings.gasnine(actions, tc)
+    --
+    -- One base ZvZ fast muta opening
     --
     return actions
 end

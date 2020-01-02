@@ -369,20 +369,20 @@ function scouting.identify_enemy_units(enemy_units, tc)
     return enemy
 end
 
-function scouting.main_quadrant(pos)
+function scouting.main_quadrant(position)
     --
     -- main quadrant
     --
-    if pos ~= nil then pos = pos.position end
+    if position ~= nil then position = position.position end
     local quadrant = nil
-    if pos ~= nil then
-        if pos[1] > 256 and pos[2] <= 256 then
+    if position ~= nil then
+        if position[1] > 256 and position[2] <= 256 then
             quadrant = "A"
-        elseif pos[1] <= 256 and pos[2] <= 256 then
+        elseif position[1] <= 256 and position[2] <= 256 then
             quadrant = "B"
-        elseif pos[1] <= 256 and pos[2] > 256 then
+        elseif position[1] <= 256 and position[2] > 256 then
             quadrant = "C"
-        elseif pos[1] > 256 and pos[2] >= 256 then
+        elseif position[1] > 256 and position[2] >= 256 then
             quadrant = "D"
         else
             print("scouting.main_quadrant crash")
@@ -391,23 +391,23 @@ function scouting.main_quadrant(pos)
     return quadrant
 end
 
-function scouting.pos_on_quad(pos)
+function scouting.position_on_quadrant(position)
     --
     -- position on quadrant
     --
-    local quad = nil
-    if pos ~= nil then
-        if pos[1] > 256 and pos[2] <= 256 then
-            quad = "A"
-        elseif pos[1] <= 256 and pos[2] <= 256 then
-            quad = "B"
-        elseif pos[1] <= 256 and pos[2] > 256 then
-            quad = "C"
-        elseif pos[1] > 256 and pos[2] >= 256 then
-            quad = "D"
-        else print("scouting.pos_on_quad crash") end
+    local quadrant = nil
+    if position ~= nil then
+        if position[1] > 256 and position[2] <= 256 then
+            quadrant = "A"
+        elseif position[1] <= 256 and position[2] <= 256 then
+            quadrant = "B"
+        elseif position[1] <= 256 and position[2] > 256 then
+            quadrant = "C"
+        elseif position[1] > 256 and position[2] >= 256 then
+            quadrant = "D"
+        else print("scouting.position_on_quadrant crash") end
     end
-    return quad
+    return quadrant
 end
 
 function scouting.first_overlord(actions, map, tc)
