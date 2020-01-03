@@ -308,6 +308,7 @@ function economy.build_main_extractor(id, u, actions, tc)
         tc.cmd.Build, -1,
         geysers[1][1], geysers[1][2],
         tc.unittypes.Zerg_Extractor))
+        print('after build an extractor')
     end
     return actions
 end

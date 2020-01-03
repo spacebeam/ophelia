@@ -106,7 +106,7 @@ function scouting.identify_enemy_race()
         vs_terran = true
         race = 'Terran'
     end
-     return race
+    return race
 end
 
 function scouting.identify_enemy_units(tc)
@@ -143,6 +143,7 @@ function scouting.identify_enemy_units(tc)
     local robotics_support_bay = {}
     local pylons = {}
     local forge = {}
+    local cannons = {}
     local gateways = {}
     local assimilators = {}
     local cybernetics_core = {}
@@ -155,7 +156,7 @@ function scouting.identify_enemy_units(tc)
     local refineries = {}
     local barracks = {}
     local engineering_bay = {}
-    local missile_turret = {}
+    local missile_turrets = {}
     local academy = {}
     local armory = {}
     local factories = {}
@@ -422,13 +423,8 @@ function scouting.first_overlord(actions, map, tc)
     --
     -- If 12 hatch opening, please scout with this overlord is cross position.
     --
-    if map.bases == 4 then
-        sp = math.random(1,2)
-    else
-        -- do nothing
-        sp = nil
-    end
-
+    local sp = nil
+    if map.bases == 4 then sp = math.random(1,2) end
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord then
             local _, unit = next(tc:filter_type(tc.state.units_myself,
@@ -584,7 +580,7 @@ end
 function scouting.base_quadrant()
     --
     -- return main quadrant
-    -- 
+    --
     return quadrant
 end
 
