@@ -402,7 +402,7 @@ function economy.manage_9734_simcity(actions, tc)
             else
                 -- ignore all things
             end
-        else 
+        else
             -- do nothing
         end
     end

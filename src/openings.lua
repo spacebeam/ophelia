@@ -6,9 +6,9 @@
 --
 
 -- add/remove if needed
-local inspect = require("inspect")
+--local inspect = require("inspect")
 
-local fun = require("moses")
+--local fun = require("moses")
 local utils = require("torchcraft.utils")
 
 local openings = {}

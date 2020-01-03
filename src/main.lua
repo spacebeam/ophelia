@@ -3,20 +3,20 @@
 -- We don't know where she is from, or even what strain she is.
 --
 
-require("sys")
-require("torch")
+local sys = require("sys")
+local torch = require("torch")
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
-local fun = require("moses")
+--local fun = require("moses")
 local tc = require("torchcraft")
-local inspect = require("inspect")
+--local inspect = require("inspect")
 local openings = require("ophelia.openings")
 local scouting = require("ophelia.scouting")
 local economy = require("ophelia.economy")
-local tactics = require("ophelia.tactics")
+--local tactics = require("ophelia.tactics")
 local tools = require("ophelia.tools")
-local zstreams = require("ophelia.zstreams")
+--local zstreams = require("ophelia.zstreams")
 
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
@@ -99,7 +99,7 @@ while restarts < 0 do
             actions = openings.overpool(actions, tc)
 
             -- computer identify enemy units
-            enemy = scouting.identify_enemy_units(tc)
+            local enemy = scouting.identify_enemy_units(tc)
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
