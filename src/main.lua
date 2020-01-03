@@ -1,6 +1,6 @@
 #!/usr/bin/env luajit
 --
--- We don't know where she is from, or even what strain she is. 
+-- We don't know where she is from, or even what strain she is.
 --
 
 require("sys")
@@ -21,7 +21,7 @@ local zstreams = require("ophelia.zstreams")
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
-tc.DEBUG = 0 
+tc.DEBUG = 0
 -- Set random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn session id
@@ -38,7 +38,7 @@ parser:option("-p --port", "Port for TorchCraft", 11111)
 -- Parse your arguments
 local args = parser:parse()
 local hostname = args['hostname']
-local port = args['port'] 
+local port = args['port']
 -- Skip BWAPI frames
 local skip_frames = 7
 local restarts = -1
@@ -57,12 +57,12 @@ while restarts < 0 do
     }
     tc:send({table.concat(setup, ':')})
 
-    -- Good luck, have fun 
+    -- Good luck, have fun
     local ophelia = {}
-    
+
     -- TODO: extract and measure resource data
     local resources = {}
-    
+
     -- Full with fighting spirit, get a map
     local map = tools.check_supported_maps(tc.state.map_name)
     -- Measure execution time
@@ -88,16 +88,16 @@ while restarts < 0 do
         -- Better than dealing with fruits
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
-            
+
             -- TODO: manage more than just a 973 economy.
             actions = economy.manage_9734_economy(actions, tc)
             -- sometimes the first overlord defines our opening!
-            actions = scouting.first_overlord(actions, map, tc) 
+            actions = scouting.first_overlord(actions, map, tc)
             -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
             -- this switch is enable by data scouted by the 1th overlord in cross position, be safe.
             actions = openings.overpool(actions, tc)
-            
+
             -- computer identify enemy units
             enemy = scouting.identify_enemy_units(tc)
             if scouting.identify_enemy_race() then
@@ -110,7 +110,7 @@ while restarts < 0 do
         end
         -- if debug make some noise!
         if tc.DEBUG > 1 then
-            print('Frame ' .. tc.state.battle_frame_count  
+            print('Frame ' .. tc.state.battle_frame_count
             .. ' consume ' .. tm:time().real .. ' seconds')
             print("Sending actions: " .. actions)
         end

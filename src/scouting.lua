@@ -84,7 +84,7 @@ function scouting.identify_enemy_race()
     local race = nil
     local zerg_units = 0
     local protoss_units = 0
-    local terran_units = 0 
+    local terran_units = 0
     for k,v in pairs(enemy["Z"]["units"]) do
         zerg_units = zerg_units + fun.size(enemy["Z"]["units"][k])
     end
@@ -100,7 +100,7 @@ function scouting.identify_enemy_race()
     end
     if protoss_units >= 1 then
         vs_protoss = true
-        race = 'Protoss' 
+        race = 'Protoss'
     end
     if terran_units >= 1 then
         vs_terran = true
@@ -302,13 +302,13 @@ function scouting.identify_enemy_units(tc)
             table.insert(valkyries, id)
         elseif u.type == tc.unittypes.Terran_Wraith then
             table.insert(wraiths, id)
-        else 
+        else
             -- do nothing, ignoring unfiltered unit types..
         end
     end
-    enemy["Z"]["units"]["overlords"] = overlords 
+    enemy["Z"]["units"]["overlords"] = overlords
     enemy["Z"]["units"]["drones"] = drones
-    enemy["Z"]["units"]["lings"] = lings 
+    enemy["Z"]["units"]["lings"] = lings
     enemy["Z"]["units"]["mutas"] = mutas
     enemy["Z"]["units"]["scourges"] = scourges
     enemy["Z"]["units"]["hatcheries"] = hatcheries
@@ -317,7 +317,7 @@ function scouting.identify_enemy_units(tc)
     enemy["Z"]["units"]["evolution_chamber"] = evolution_chamber
     enemy["Z"]["units"]["lair"] = lair
     enemy["Z"]["units"]["spire"] = spire
-    enemy["P"]["units"]["probes"] = probes 
+    enemy["P"]["units"]["probes"] = probes
     enemy["P"]["units"]["zealots"] = zealots
     enemy["P"]["units"]["dragoons"] = dragoons
     enemy["P"]["units"]["archons"] = archons
@@ -344,7 +344,7 @@ function scouting.identify_enemy_units(tc)
     enemy["P"]["units"]["stargates"] = stargates
     enemy["P"]["units"]["templar_archives"] = templar_archives
     enemy["T"]["units"]["scvs"] = scvs
-    enemy["T"]["units"]["command_centers"] = command_centers 
+    enemy["T"]["units"]["command_centers"] = command_centers
     enemy["T"]["units"]["supply_depots"] = supply_depots
     enemy["T"]["units"]["refineries"] = refineries
     enemy["T"]["units"]["barracks"] = barracks
@@ -362,7 +362,7 @@ function scouting.identify_enemy_units(tc)
     enemy["T"]["units"]["medics"] = medics
     enemy["T"]["units"]["siege_tanks"] = siege_tanks
     enemy["T"]["units"]["tanks"] = tanks
-    enemy["T"]["units"]["vultures"] = vultures 
+    enemy["T"]["units"]["vultures"] = vultures
     enemy["T"]["units"]["spider_mines"] = spider_mines
     enemy["T"]["units"]["battlecruisers"] = battlecruisers
     enemy["T"]["units"]["dropships"] = dropships
@@ -419,11 +419,9 @@ function scouting.first_overlord(actions, map, tc)
     -- first overlord goes to ours enemy's base
     -- missing 12 hatch opening things since depends of 1th overlord (!)
     --
-    
     --
     -- If 12 hatch opening, please scout with this overlord is cross position.
     --
-    
     if map.bases == 4 then
         sp = math.random(1,2)
     else
@@ -433,73 +431,73 @@ function scouting.first_overlord(actions, map, tc)
 
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord then
-            local _, unit = next(tc:filter_type(tc.state.units_myself, 
+            local _, unit = next(tc:filter_type(tc.state.units_myself,
                 {tc.unittypes.Zerg_Hatchery}))
             quadrant = scouting.main_quadrant(unit)
             if quadrant == "A" then
                 if not utils.is_in(u.order,
-                    tc.command2order[tc.unitcommandtypes.Build]) 
+                    tc.command2order[tc.unitcommandtypes.Build])
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     if sp == 2 then
                         table.insert(actions,
-                        tc.command(tc.command_unit, id, 
+                        tc.command(tc.command_unit, id,
                         tc.cmd.Move, -1,
                         quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
                     else
                         table.insert(actions,
-                        tc.command(tc.command_unit, id, 
+                        tc.command(tc.command_unit, id,
                         tc.cmd.Move, -1,
                         quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
                     end
                 end
             elseif quadrant == "B" then
                 if not utils.is_in(u.order,
-                    tc.command2order[tc.unitcommandtypes.Build]) 
+                    tc.command2order[tc.unitcommandtypes.Build])
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     if sp == 2 then
                         table.insert(actions,
-                        tc.command(tc.command_unit, id, 
+                        tc.command(tc.command_unit, id,
                         tc.cmd.Move, -1,
                         quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
                     else
                         table.insert(actions,
-                        tc.command(tc.command_unit, id, 
+                        tc.command(tc.command_unit, id,
                         tc.cmd.Move, -1,
                         quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
                     end
                 end
             elseif quadrant == "C" then
                 if not utils.is_in(u.order,
-                    tc.command2order[tc.unitcommandtypes.Build]) 
+                    tc.command2order[tc.unitcommandtypes.Build])
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     if sp == 2 then
                         table.insert(actions,
-                        tc.command(tc.command_unit, id, 
+                        tc.command(tc.command_unit, id,
                         tc.cmd.Move, -1,
                         quadrants['A']['scout']['x'], quadrants['A']['scout']['y']))
                     else
                         table.insert(actions,
-                        tc.command(tc.command_unit, id, 
+                        tc.command(tc.command_unit, id,
                         tc.cmd.Move, -1,
                         quadrants['D']['scout']['x'], quadrants['D']['scout']['y']))
-                    end 
+                    end
                 end
             elseif quadrant == "D" then
                 if not utils.is_in(u.order,
-                    tc.command2order[tc.unitcommandtypes.Build]) 
+                    tc.command2order[tc.unitcommandtypes.Build])
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     if sp == 2 then
                         table.insert(actions,
-                        tc.command(tc.command_unit, id, 
+                        tc.command(tc.command_unit, id,
                         tc.cmd.Move, -1,
                         quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
                     else
                         table.insert(actions,
-                        tc.command(tc.command_unit, id, 
+                        tc.command(tc.command_unit, id,
                         tc.cmd.Move, -1,
                         quadrants['C']['scout']['x'], quadrants['C']['scout']['y']))
                     end
@@ -554,7 +552,7 @@ function scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
     --
     -- twelve drone scout
     --
-    if scouting_drones[2]["id"] == nil and scouting_drones[1] ~= id then 
+    if scouting_drones[2]["id"] == nil and scouting_drones[1] ~= id then
         scouting_drones[2] = {["id"]=id} end
     if scouting_drones[2]["id"] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
@@ -580,7 +578,7 @@ function scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
             quadrants['B']['scout']['x'], quadrants['B']['scout']['y']))
         else print("scouting.twelve_drone_scout crash") end
     end
-    return {["actions"]=actions,["scouting_drones"]=scouting_drones} 
+    return {["actions"]=actions,["scouting_drones"]=scouting_drones}
 end
 
 function scouting.base_quadrant()
@@ -599,20 +597,20 @@ end
 
 function scouting.lings()
     --
-    -- Kill worker scouts and preassure... 
+    -- Kill worker scouts and preassure...
     -- could result in enemy's ore spend on additional defences.
     --
 end
 
 function scouting.overlords()
     --
-    -- Split overlords after speed upgrade 
+    -- Split overlords after speed upgrade
     --
 end
 
 function scouting.overlord_sacrifice()
     --
-    -- How many gates? is there a robotics? 
+    -- How many gates? is there a robotics?
     --
 end
 
@@ -624,7 +622,7 @@ end
 
 function scouting.ling_sacrifice()
     --
-    -- Live for the Swarm! 
+    -- Live for the Swarm!
     --
 end
 
@@ -646,7 +644,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             56, 152))
         end
-
     elseif tc.state.frame_from_bwapi - quadrants["A"][2] > 200 then
         quadrants["A"][2] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -657,7 +654,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             36, 470))
         end
-    
     elseif tc.state.frame_from_bwapi - quadrants["A"][3] > 200 then
         quadrants["A"][3] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -668,7 +664,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             476, 474))
         end
-
     elseif tc.state.frame_from_bwapi - quadrants["A"][4] > 200 then
         quadrants["A"][4] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -679,7 +674,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             476, 34))
         end
-    
     elseif tc.state.frame_from_bwapi - quadrants["B"][5] > 200 then
         quadrants["B"][5] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -690,7 +684,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             156, 460))
         end
-
     elseif tc.state.frame_from_bwapi - quadrants["B"][6] > 200 then
         quadrants["B"][6] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -701,7 +694,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             456, 350))
         end
-
     elseif tc.state.frame_from_bwapi - quadrants["B"][7] > 200 then
         quadrants["B"][7] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -712,7 +704,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             350, 50))
         end
-
     elseif tc.state.frame_from_bwapi - quadrants["B"][8] > 200 then
         quadrants["B"][8] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -723,7 +714,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             35, 35))
         end
-    
     elseif tc.state.frame_from_bwapi - quadrants["C"][9] > 200 then
         quadrants["C"][9] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -734,7 +724,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             216, 20))
         end
-    
     elseif tc.state.frame_from_bwapi - quadrants["C"][10] > 200 then
         quadrants["C"][10] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -745,7 +734,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             30, 290))
         end
-    
     elseif tc.state.frame_from_bwapi - quadrants["C"][11] > 200 then
         quadrants["C"][11] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -756,7 +744,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             490, 220))
         end
-    
     elseif tc.state.frame_from_bwapi - quadrants["C"][12] > 200 then
         quadrants["C"][12] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,
@@ -767,7 +754,6 @@ function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
             tc.command(tc.command_unit, id, tc.cmd.Move, -1,
             256, 256))
         end
-    
     elseif tc.state.frame_from_bwapi - quadrants["D"][13] > 200 then
         quadrants["D"][13] = tc.state.frame_from_bwapi
         if not utils.is_in(u.order,

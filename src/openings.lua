@@ -19,7 +19,7 @@ local spawning_pool = 0
 
 function openings.ninepool(actions, tc)
     --
-    -- Standard ZvZ 
+    -- Standard ZvZ
     --
     return actions
 end
@@ -41,13 +41,12 @@ function openings.overpool(actions, tc)
                 and tc.state.frame_from_bwapi - spawning_pool > 190 then
                 spawning_pool = tc.state.frame_from_bwapi
                 local _, unit = next(tc:filter_type(tc.state.units_myself, {tc.unittypes.Zerg_Hatchery}))
-                if unit ~= nil then local position = unit.position else local position = nil end
-                if position ~= nil and not utils.is_in(u.order,
+                if unit.position ~= nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
                     tc.command(tc.command_unit, id,
                     tc.cmd.Build, -1,
-                    position[1], position[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
+                    unit.position[1], unit.position[2] + 16, tc.unittypes.Zerg_Spawning_Pool))
                 end
             end
         elseif tc:isbuilding(u.type) then

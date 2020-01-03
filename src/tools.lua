@@ -1,5 +1,5 @@
 --
--- Put effort into make a good set of tools which allow to build custom solutions. 
+-- Put effort into make a good set of tools which allow to build custom solutions.
 --
 
 local utils = require("torchcraft.utils")
@@ -29,21 +29,21 @@ function tools.check_supported_maps(name)
         map['bases'] = 4
     elseif string.match(name, "Power Bond") then
         print("Power Bond")
-        map['bases'] = 3 
+        map['bases'] = 3
     elseif string.match(name, "Neo Aztec") then
         print("Neo Aztec")
-        map['bases'] = 3 
+        map['bases'] = 3
     elseif string.match(name, "Gold Rush") then
         print("Gold Rush")
-        map['bases'] = 3 
+        map['bases'] = 3
     elseif string.match(name, "Overwatch") then
         print("Overwatch")
-        map['bases'] = 2 
+        map['bases'] = 2
     elseif string.match(name, "Heartbreak Ridge") then
         print("Heartbreak Ridge")
-        map['bases'] = 2 
+        map['bases'] = 2
     elseif string.match(name, "Blue Storm") then
-        map['bases'] = 2 
+        map['bases'] = 2
     else
         print("crash something else")
     end

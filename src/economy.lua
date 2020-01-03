@@ -10,7 +10,7 @@ local fun = require("moses")
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
 
-local scouting = require("ophelia.scouting") 
+local scouting = require("ophelia.scouting")
 
 local economy = {}
 
@@ -133,7 +133,7 @@ function economy.check_my_units(tc)
     units["drones"] = drones
     units["lings"] = lings
     units["hydras"] = hydras
-    units["mutas"] = mutas 
+    units["mutas"] = mutas
     units["scourges"] = scourges
     units["lurkers"] = lurkers
     units["queens"] = queens
@@ -220,9 +220,8 @@ function economy.take_third(id, u, actions, tc)
     --
     -- NOTE; you can't place this without scouting your enemy's position!
     --
-    
+
     -- Send a drone to the main base opposite to your enemy's expand path.
-    
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
     if hatcheries[2]['id'] == nil then hatcheries[2] = {["id"]=id} end
@@ -297,12 +296,9 @@ function economy.build_main_extractor(id, u, actions, tc)
     --
     -- get gas, get gas, get gas!!!
     --
-    --local ?
-    
     -- check my geysers !?
     local geysers = economy.check_my_geysers(tc)
-    
-    if not utils.is_in(u.order, 
+    if not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         --
         -- still need some gas
@@ -336,14 +332,14 @@ function economy.manage_9734_simcity(actions, tc)
         if tc:isworker(u.type) then
             if is_drone_expanding and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id and fun.size(hatcheries) == 1 then
-                print('how are you ' .. id .. '?') 
+                print('how are you ' .. id .. '?')
                 local expansion = economy.take_natural(id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
                 is_drone_expanding = false
             elseif fun.size(hatcheries) == 1 and hatcheries[1]['id'] == id
                 and tc.state.resources_myself.ore >= 200 then
-                print('how are you ' .. id .. '?') 
+                print('how are you ' .. id .. '?')
                 local expansion = economy.build_natural(id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
@@ -368,7 +364,7 @@ function economy.manage_9734_simcity(actions, tc)
             end
         elseif tc:isbuilding(u.type) then
             if u.type == tc.unittypes.Zerg_Hatchery then
-                -- Spawning ophelia's second overlord 
+                -- Spawning ophelia's second overlord
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 0 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
@@ -460,12 +456,12 @@ function economy.manage_9734_workers(actions, tc)
         and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
         spawning_overlord = true
     end
-    -- Scouting at 11 
+    -- Scouting at 11
     if fun.size(units['drones']) == 11 and scouting_drones[1] == nil then
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-    -- Scouting at 12 
+    -- Scouting at 12
     if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
         scouting_drones[2] = {}
         is_drone_scouting = true
@@ -496,13 +492,13 @@ function economy.manage_9734_workers(actions, tc)
     if fun.size(units['drones']) >= 12 then
         powering = false
     else powering = true end
-    -- gg 
+    -- gg
     return actions
 end
 
 function economy.manage_9734_economy(actions, tc)
     --
-    -- What exactly is macro, anyway? 
+    -- What exactly is macro, anyway?
     -- this interpretation includes 'powering'.
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
@@ -511,7 +507,7 @@ function economy.manage_9734_economy(actions, tc)
 
     -- check my geysers !?
     local geysers = economy.check_my_geysers(tc)
-    print(inspect(geysers)) 
+    print(inspect(geysers))
     -- Set your units into 3 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
