@@ -176,7 +176,7 @@ function economy.take_natural(id, u, actions, tc)
             quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
         else print('economy.take_natural crash') end
     end
-    return {["actions"]=actions,["hatcheries"]=hatcheries}
+    return actions
 end
 
 function economy.build_natural(id, u, actions, tc)
@@ -213,7 +213,7 @@ function economy.build_natural(id, u, actions, tc)
             tc.unittypes.Zerg_Hatchery))
         else print('economy.build_natural crash') end
     end
-    return {["actions"]=actions,["hatcheries"]=hatcheries}
+    return actions
 end
 
 function economy.take_third(id, u, actions, tc)
@@ -249,7 +249,7 @@ function economy.take_third(id, u, actions, tc)
             quadrants["C"]["natural"]["x"], quadrants["C"]["natural"]["y"]))
         else print('economy.take_third crash') end
     end
-    return {["actions"]=actions,["hatcheries"]=hatcheries}
+    return actions
 end
 
 function economy.build_third(id, u, actions, tc)
@@ -287,7 +287,7 @@ function economy.build_third(id, u, actions, tc)
             tc.unittypes.Zerg_Hatchery))
         else print('economy.build_third crash') end
     end
-    return {["actions"]=actions,["hatcheries"]=hatcheries}
+    return actions
 end
 
 
@@ -333,27 +333,19 @@ function economy.manage_9734_simcity(actions, tc)
             if is_drone_expanding and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id and fun.size(hatcheries) == 1 then
                 print('how are you ' .. id .. '?')
-                local expansion = economy.take_natural(id, u, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
+                actions = economy.take_natural(id, u, actions, tc)
                 is_drone_expanding = false
             elseif fun.size(hatcheries) == 1 and hatcheries[1]['id'] == id
                 and tc.state.resources_myself.ore >= 200 then
                 print('how are you ' .. id .. '?')
-                local expansion = economy.build_natural(id, u, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
+                actions = economy.build_natural(id, u, actions, tc)
             elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
                 and fun.size(hatcheries) == 2 then
-                local expansion = economy.take_third(id, u, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
+                actions = economy.take_third(id, u, actions, tc)
                 is_drone_expanding = false
             elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] == id
                 and tc.state.resources_myself.ore >= 300 then
-                local expansion = economy.build_third(id, u, actions, tc)
-                actions = expansion["actions"]
-                hatcheries = expansion["hatcheries"]
+                actions = economy.build_third(id, u, actions, tc)
             -- TODO: clean the simcity managment function
             elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
