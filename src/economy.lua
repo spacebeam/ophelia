@@ -39,7 +39,7 @@ local is_drone_expanding = false
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
 -- Middle, Core units, make/defend pressure & take a base.
-local middle_stage = false
+--local middle_stage = false
 -- Late, Matured core units, multi-pronged tactics & take many bases.
 --local late_stage = false
 
