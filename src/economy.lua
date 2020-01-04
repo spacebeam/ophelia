@@ -41,7 +41,7 @@ local early_stage = true
 -- Middle, Core units, make/defend pressure & take a base.
 local middle_stage = false
 -- Late, Matured core units, multi-pronged tactics & take many bases.
-local late_stage = false
+--local late_stage = false
 
 function economy.check_workers()
     --

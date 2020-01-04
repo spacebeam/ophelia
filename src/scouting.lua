@@ -23,6 +23,7 @@ local vs_protoss = false
 local vs_terran = false
 
 local enemy = {}
+-- TODO: WTF against?
 enemy["P"] = {["units"]={},["race"]="Protoss",["against"]=false}
 enemy["Z"] = {["units"]={},["race"]="Zerg",["against"]=false}
 enemy["T"] = {["units"]={},["race"]="Terran",["against"]=false}
@@ -94,18 +95,12 @@ function scouting.identify_enemy_race()
     for k,v in pairs(enemy["T"]["units"]) do
         terran_units = terran_units + fun.size(enemy["T"]["units"][k])
     end
-    if zerg_units >= 1 then
-        vs_zerg = true
-        race = 'Zerg'
-    end
-    if protoss_units >= 1 then
-        vs_protoss = true
-        race = 'Protoss'
-    end
-    if terran_units >= 1 then
-        vs_terran = true
-        race = 'Terran'
-    end
+    if zerg_units >= 1 then vs_zerg = true end
+    if protoss_units >= 1 then vs_protoss = true end
+    if terran_units >= 1 then vs_terran = true end
+    if vs_zerg then race = 'Zerg' end
+    if vs_protoss then race = 'Protoss' end
+    if vs_terran then race = 'Terran' end
     return race
 end
 
