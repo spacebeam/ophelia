@@ -10,6 +10,11 @@ function tools.this_is()
     print("only a test")
 end
 
+function tools.pass()
+    -- do nothing
+    return 'ok'
+end
+
 function tools.check_supported_maps(name)
     --
     -- A map is not the territory

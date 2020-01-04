@@ -10,6 +10,7 @@
 
 --local fun = require("moses")
 local utils = require("torchcraft.utils")
+local tools = require("ophelia.tools")
 
 local openings = {}
 
@@ -54,7 +55,7 @@ function openings.overpool(actions, tc)
                 if has_spawning_pool == false then has_spawning_pool = true end
             end
         else
-            -- crash or ignore?
+            tools.pass()
         end
     end
     return actions

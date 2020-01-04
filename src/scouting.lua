@@ -10,7 +10,7 @@
 
 local fun = require("moses")
 local utils = require("torchcraft.utils")
---local tools = require("ophelia.tools")
+local tools = require("ophelia.tools")
 
 -- one at 11 drone,
 -- two at 12 drone, 200 mineral.
@@ -305,6 +305,7 @@ function scouting.identify_enemy_units(tc)
             table.insert(wraiths, id)
         else
             -- do nothing, ignoring unfiltered unit types..
+            tools.pass()
         end
     end
     enemy["Z"]["units"]["overlords"] = overlords

@@ -106,7 +106,7 @@ while restarts < 0 do
         elseif tc.state.game_ended then
             break
         else
-            -- skip frame do nothing
+            tools.pass()
         end
         -- if debug make some noise!
         if tc.DEBUG > 1 then

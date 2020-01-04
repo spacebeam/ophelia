@@ -18,7 +18,9 @@ local powering = true
 
 local colonies = {}
 
-local units = {["busy"]={}, ["idle"]={}}
+local units = {["busy"]={}, ["idle"]={},
+               ["scout"]={}, ["offence"]={},
+               ["defence"]={}, ["harass"]={}}
 
 local hatcheries = {}
 
@@ -40,8 +42,6 @@ local early_stage = true
 local middle_stage = false
 -- Late, Matured core units, multi-pronged tactics & take many bases.
 local late_stage = false
--- Final, The watcher observes, the fog collapses an event resolves.
-local final_stage = false
 
 function economy.check_workers()
     --
@@ -67,7 +67,7 @@ function economy.check_my_geysers(tc)
         if u.type == tc.unittypes.Resource_Vespene_Geyser then
             table.insert(geysers, u.position)
         else
-            -- do something else
+            tools.pass()
         end
     end
     return geysers
@@ -124,7 +124,7 @@ function economy.check_my_units(tc)
         elseif u.type == tc.unittypes.Zerg_Infested_Terran and u.flags.completed == true then
             table.insert(infesteds, id)
         else
-            -- do nothing, ignore unit type
+            tools.pass()
         end
     end
     units["overlords"] = overlords
@@ -308,7 +308,6 @@ function economy.build_main_extractor(id, u, actions, tc)
         tc.cmd.Build, -1,
         geysers[1][1], geysers[1][2],
         tc.unittypes.Zerg_Extractor))
-        print('after build an extractor')
     end
     return actions
 end
@@ -355,13 +354,12 @@ function economy.manage_9734_simcity(actions, tc)
                 local expansion = economy.build_third(id, u, actions, tc)
                 actions = expansion["actions"]
                 hatcheries = expansion["hatcheries"]
-            -- TODO: clean, clean, clean
-            -- TODO: since this is literally the simcity managment function
+            -- TODO: clean the simcity managment function
             elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
                 actions = economy.build_main_extractor(id, u, actions, tc)
             else
-                -- ignore, ignore wut? S=
+                tools.pass()
             end
         elseif tc:isbuilding(u.type) then
             if u.type == tc.unittypes.Zerg_Hatchery then
@@ -400,10 +398,10 @@ function economy.manage_9734_simcity(actions, tc)
                     0,0,0,tc.unittypes.Zerg_Drone))
                 end
             else
-                -- ignore all things
+                tools.pass()
             end
         else
-            -- do nothing
+            tools.pass()
         end
     end
     return actions
@@ -512,10 +510,13 @@ function economy.manage_9734_economy(actions, tc)
     -- Set your units into 3 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
+    units['offence'] = offence
     -- Defense powerful but immobile, offence mobile but weak
     local defence = {}
+    units['defence'] = defence
     -- Scout identify enemy units
     local enemy = scouting.identify_enemy_units(tc)
+    units['enemy'] = enemy
     -- And Now For Something Completely Different
     actions = economy.manage_9734_simcity(actions, tc)
     actions = economy.manage_9734_workers(actions, tc)
