@@ -22,10 +22,12 @@ local units = {["busy"]={}, ["idle"]={},
 
 local expansions = {}
 
-local spawning_overlord = false
 
 -- TODO: missing control tuple of scouting overlords
 local scouting_overlords = {}
+
+-- * TODO: repeat the work that worked in the old egg count mechanism context
+local spawning_overlord = false
 
 local scouting_drones = {}
 
@@ -34,6 +36,8 @@ local is_spawning_overlord = {}
 local is_drone_scouting = false
 
 local is_drone_expanding = false
+-- ^ TODO: repeat the work that worked in the old egg count mechanism context
+
 
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
@@ -520,7 +524,7 @@ function economy.manage_9734_economy(actions, resources, tc)
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
     --
-    local units = economy.check_my_units(tc)
+    units = economy.check_my_units(tc)
 
     -- check my geysers !?
     local geysers = economy.check_my_geysers(tc)

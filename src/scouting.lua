@@ -375,7 +375,6 @@ function scouting.main_quadrant(unit)
     --
     local position = nil
     if unit ~= nil then position = unit.position end
-    local quadrant = nil
     if position ~= nil then
         if position[1] > 256 and position[2] <= 256 then
             quadrant = "A"
@@ -396,7 +395,6 @@ function scouting.position_on_quadrant(position)
     --
     -- position on quadrant
     --
-    local quadrant = nil
     if position ~= nil then
         if position[1] > 256 and position[2] <= 256 then
             quadrant = "A"
