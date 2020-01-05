@@ -333,12 +333,10 @@ function economy.manage_9734_simcity(actions, tc)
         if tc:isworker(u.type) then
             if is_drone_expanding and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id and fun.size(expansions) == 1 then
-                print('how are you ' .. id .. '?')
                 actions = economy.take_natural(id, u, actions, tc)
                 is_drone_expanding = false
             elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
                 and tc.state.resources_myself.ore >= 200 then
-                print('how are you ' .. id .. '?')
                 actions = economy.build_natural(id, u, actions, tc)
             elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
                 and fun.size(expansions) == 2 then
@@ -350,11 +348,38 @@ function economy.manage_9734_simcity(actions, tc)
             -- TODO: clean the simcity managment function
             elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
+                print('check your flags!')
                 actions = economy.build_main_extractor(id, u, actions, tc)
             else
                 tools.pass()
             end
         elseif tc:isbuilding(u.type) then
+            -- (!)
+            if u.type == tc.unittypes.Zerg_Spawning_Pool then
+                --
+                print('apparently there is a spawning pool')
+            end
+            if u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
+                --
+                print('this is a completed spawning pool')
+            end
+            if u.type == tc.unittypes.Zerg_Extractor then
+                --
+                print('apparently we are building finally an extractor')
+            end
+            if u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
+                --
+                print('this is a completed extractor')
+            end
+            -- (!!)
+            if u.type == tc.unittypes.Zerg_Hydralisk_Den then
+                --
+                print('apparently we are building a hydralisk den')
+            end
+            if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
+                --
+                print('this is a completed hydralisk den')
+            end
             if u.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning ophelia's second overlord
                 if spawning_overlord == true and fun.size(is_spawning_overlord) == 0 then
