@@ -16,7 +16,6 @@ local tc = require("torchcraft")
 local openings = require("ophelia.openings")
 local scouting = require("ophelia.scouting")
 local economy = require("ophelia.economy")
---local tactics = require("ophelia.tactics")
 local tools = require("ophelia.tools")
 --local zstreams = require("ophelia.zstreams")
 
@@ -89,7 +88,7 @@ while restarts < 0 do
             actions = scouting.first_overlord(actions, map, tc)
             -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
-            -- this switch is enable by data scouted by the 1th overlord in cross position, be safe.
+            -- this switch is enable by scouting with the 1th overlord in cross position, be safe.
             actions = openings.overpool(actions, tc)
             -- computer identify enemy units
             local enemy = scouting.identify_enemy_units(tc)
