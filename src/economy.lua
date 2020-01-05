@@ -16,13 +16,11 @@ local economy = {}
 
 local powering = true
 
--- expansions  = {}
-
 local units = {["busy"]={}, ["idle"]={},
                ["scout"]={}, ["offence"]={},
                ["defence"]={}, ["harass"]={}}
 
-local hatcheries = {}
+local expansions = {}
 
 local spawning_overlord = false
 
@@ -49,7 +47,7 @@ function economy.check_workers()
     -- check workers
     --
     local busy = {}
-    for _, h in ipairs(hatcheries) do
+    for _, h in ipairs(expansions) do
         if h['id'] ~= nil then table.insert(busy, h['id']) end
     end
     for _, h in ipairs(scouting_drones) do
@@ -152,8 +150,10 @@ function economy.take_natural(id, u, actions, tc)
     --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if hatcheries[1]['id'] == nil then hatcheries[1] = {["id"]=id} end
-    if hatcheries[1]['id'] == id and not utils.is_in(u.order,
+
+    if expansions[1]['id'] == nil then expansions[1] = {["id"]=id} end
+
+    if expansions[1]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
@@ -225,8 +225,8 @@ function economy.take_third(id, u, actions, tc)
     -- Send a drone to the main base opposite to your enemy's expand path.
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-    if hatcheries[2]['id'] == nil then hatcheries[2] = {["id"]=id} end
-    if hatcheries[2]['id'] == id and not utils.is_in(u.order,
+    if expansions[2]['id'] == nil then expansions[2] = {["id"]=id} end
+    if expansions[2]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
             table.insert(actions,
@@ -332,23 +332,23 @@ function economy.manage_9734_simcity(actions, tc)
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(u.type) then
             if is_drone_expanding and scouting_drones[1]['id'] ~= id
-                and scouting_drones[2]['id'] ~= id and fun.size(hatcheries) == 1 then
+                and scouting_drones[2]['id'] ~= id and fun.size(expansions) == 1 then
                 print('how are you ' .. id .. '?')
                 actions = economy.take_natural(id, u, actions, tc)
                 is_drone_expanding = false
-            elseif fun.size(hatcheries) == 1 and hatcheries[1]['id'] == id
+            elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
                 and tc.state.resources_myself.ore >= 200 then
                 print('how are you ' .. id .. '?')
                 actions = economy.build_natural(id, u, actions, tc)
             elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
-                and fun.size(hatcheries) == 2 then
+                and fun.size(expansions) == 2 then
                 actions = economy.take_third(id, u, actions, tc)
                 is_drone_expanding = false
-            elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] == id
+            elseif fun.size(expansions) == 2 and expansions[2]['id'] == id
                 and tc.state.resources_myself.ore >= 300 then
                 actions = economy.build_third(id, u, actions, tc)
             -- TODO: clean the simcity managment function
-            elseif fun.size(hatcheries) == 2 and hatcheries[2]['id'] ~= id
+            elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
                 actions = economy.build_main_extractor(id, u, actions, tc)
             else
@@ -460,15 +460,15 @@ function economy.manage_9734_workers(actions, tc)
     end
     -- at 12 taking natural after 'overpool'
     if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil
-        and hatcheries[1] == nil then
+        and expansions[1] == nil then
         -- WTF ?
-        hatcheries[1] = {}
+        expansions[1] = {}
         is_drone_expanding = true
     end
     -- at 13 taking another natural
     if fun.size(units['drones']) == 13 and scouting_drones[2] ~= nil
-        and hatcheries[2] == nil then
-        hatcheries[2] = {}
+        and expansions[2] == nil then
+        expansions[2] = {}
         is_drone_expanding = true
     end
     -- at 16 building the third overlord
