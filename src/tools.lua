@@ -6,18 +6,12 @@ local utils = require("torchcraft.utils")
 
 local tools = {}
 
-function tools.this_is()
-    print("only a test")
-end
-
 function tools.pass()
     -- do nothing
     return 'ok'
 end
 
 function tools.check_supported_maps(name)
-    --
-    -- A map is not the territory
     --
     -- Check here for supported maps only;
     -- also a good place to move/add/return;
@@ -56,6 +50,9 @@ function tools.check_supported_maps(name)
 end
 
 function tools.get_closest(position, units)
+    --
+    -- Wink, wink (;
+    --
     local min_d = 1E30
     local closest_id = nil
     for id, u in pairs(units) do

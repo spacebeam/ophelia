@@ -16,7 +16,7 @@ local economy = {}
 
 local powering = true
 
-local colonies = {}
+-- expansions  = {}
 
 local units = {["busy"]={}, ["idle"]={},
                ["scout"]={}, ["offence"]={},
@@ -26,6 +26,7 @@ local hatcheries = {}
 
 local spawning_overlord = false
 
+-- TODO: missing control tuple of scouting overlords
 local scouting_overlords = {}
 
 local scouting_drones = {}
