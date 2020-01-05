@@ -47,11 +47,11 @@ function economy.check_workers()
     -- check workers
     --
     local busy = {}
-    for _, h in ipairs(expansions) do
-        if h['id'] ~= nil then table.insert(busy, h['id']) end
+    for _, x in ipairs(expansions) do
+        if x['id'] ~= nil then table.insert(busy, x['id']) end
     end
-    for _, h in ipairs(scouting_drones) do
-        if h['id'] ~= nil then table.insert(busy, h['id']) end
+    for _, d in ipairs(scouting_drones) do
+        if d['id'] ~= nil then table.insert(busy, d['id']) end
     end
     units['busy'] = busy
     return units

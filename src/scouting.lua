@@ -23,7 +23,6 @@ local vs_protoss = false
 local vs_terran = false
 
 local enemy = {}
--- TODO: WTF against?
 enemy["P"] = {["units"]={},["race"]="Protoss",["against"]=false}
 enemy["Z"] = {["units"]={},["race"]="Zerg",["against"]=false}
 enemy["T"] = {["units"]={},["race"]="Terran",["against"]=false}
@@ -31,7 +30,8 @@ enemy["T"] = {["units"]={},["race"]="Terran",["against"]=false}
 local quadrant = nil
 -- Map is not territory, but...
 -- since handling 512x512 for all things.
--- Kill the One-Trick Pony! TODO: return all hardcoded location data from tools.check_supported_maps
+-- Kill the One-Trick 973(4) Pony!
+-- TODO: return all hardcoded location data from tools.check_supported_maps
 local quadrants = {}
 quadrants["A"] = {
     ["scout"] = {["x"]=450,["y"]=50},
@@ -95,9 +95,9 @@ function scouting.identify_enemy_race()
     for k,v in pairs(enemy["T"]["units"]) do
         terran_units = terran_units + fun.size(enemy["T"]["units"][k])
     end
-    if zerg_units >= 1 then vs_zerg = true end
-    if protoss_units >= 1 then vs_protoss = true end
-    if terran_units >= 1 then vs_terran = true end
+    if zerg_units >= 1 then enemy["Z"]["against"],vs_zerg = true,true end
+    if protoss_units >= 1 then enemy["P"]["against"],vs_protoss = true,true end
+    if terran_units >= 1 then enemy["T"]["against"],vs_terran = true,true end
     if vs_zerg then race = 'Zerg' end
     if vs_protoss then race = 'Protoss' end
     if vs_terran then race = 'Terran' end
