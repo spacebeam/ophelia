@@ -488,7 +488,7 @@ function economy.manage_9734_workers(actions, tc)
     return actions
 end
 
-function economy.manage_9734_economy(actions, tc)
+function economy.manage_9734_economy(actions, resources, tc)
     --
     -- What exactly is macro, anyway?
     -- this interpretation includes 'powering'.
@@ -529,6 +529,20 @@ function economy.manage_9734_economy(actions, tc)
     print("devourers " .. fun.size(units['devourers']))
     print("infesteds " .. fun.size(units['infesteds']))
     -- So long and thanks for all the fish!
+    return actions
+end
+
+function economy.manage_9734_offense(actions, enemy, tc)
+    --
+    -- manage 9734 offense control units
+    --
+    return actions
+end
+
+function economy.manage_9734_defense(actions, enemy, tc)
+    --
+    -- manage 9734 defense control units
+    --
     return actions
 end
 

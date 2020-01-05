@@ -3,6 +3,8 @@
 -- We don't know where she is from, or even what strain she is.
 --
 
+local inspect = require("inspect")
+
 local sys = require("sys")
 local torch = require("torch")
 local argparse = require("argparse")
@@ -56,13 +58,8 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-
     -- Good luck, have fun
     local ophelia = {}
-
-    -- TODO: extract and measure resource data
-    local resources = {}
-
     -- Full with fighting spirit, get a map
     local map = tools.check_supported_maps(tc.state.map_name)
     -- Measure execution time
@@ -82,27 +79,26 @@ while restarts < 0 do
                 ophelia = v
             end
         end
-        -- resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
-        --print(inspect(resources))
-
+        local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
         -- Better than dealing with fruits
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
-
             -- TODO: manage more than just a 973 economy.
-            actions = economy.manage_9734_economy(actions, tc)
+            actions = economy.manage_9734_economy(actions, resources, tc)
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, map, tc)
             -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
             -- this switch is enable by data scouted by the 1th overlord in cross position, be safe.
             actions = openings.overpool(actions, tc)
-
             -- computer identify enemy units
             local enemy = scouting.identify_enemy_units(tc)
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
+            -- starting init test on offense and defense (!!)
+            actions = economy.manage_9734_offense(actions, enemy, tc)
+            actions = economy.manage_9734_defense(actions, enemy, tc)
         elseif tc.state.game_ended then
             break
         else
@@ -119,6 +115,7 @@ while restarts < 0 do
     tc:close()
     collectgarbage()
     sys.sleep(0.0042)
+    inspect(ophelia)
     print("So Long, and Thanks for All the Lings!")
     collectgarbage()
 end
