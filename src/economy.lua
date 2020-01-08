@@ -22,7 +22,7 @@ local units = {["busy"]={},
                ["offence"]={},
                ["defence"]={},
                ["harass"]={},
-               ["building"]={}}
+               ["buildings"]={}}
 
 local expansions = {}
 
@@ -94,6 +94,10 @@ function economy.check_my_units(tc)
     local guardians = {}
     local devourers = {}
     local infesteds = {}
+    -- init test on buildings
+    local hatcheries = {}
+    local extractors = {}
+
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord and u.flags.completed == true then
             table.insert(overlords, id)
@@ -125,6 +129,10 @@ function economy.check_my_units(tc)
             table.insert(devourers, id)
         elseif u.type == tc.unittypes.Zerg_Infested_Terran and u.flags.completed == true then
             table.insert(infesteds, id)
+        elseif u.type == tc.unittypes.Zerg_Hatchery then
+            table.insert(hatcheries, id)
+        elseif u.type == tc.unittypes.Zerg_Extractor then
+            table.insert(extractors, id)
         else
             tools.pass()
         end
@@ -144,6 +152,8 @@ function economy.check_my_units(tc)
     units["guardians"] = guardians
     units["devourers"] = devourers
     units["infesteds"] = infesteds
+    units["buildings"]["hatcheries"] = hatcheries
+    units["buildings"]["extractors"] = extractors
     return units
 end
 
@@ -435,6 +445,7 @@ function economy.manage_9734_workers(actions, tc)
                 actions = economy.build_natural(id, u, actions, tc)
             elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
                 and fun.size(expansions) == 2 then
+                print('about to try to take third')
                 actions = economy.take_third(id, u, actions, tc)
             elseif fun.size(expansions) == 2 and expansions[2]['id'] == id
                 and tc.state.resources_myself.ore >= 300 then
@@ -495,8 +506,9 @@ function economy.manage_9734_workers(actions, tc)
     end
     -- at 12 expanding the 3th hatch
     if fun.size(units['drones']) == 12
-        and fun.size(units['scout']) == 4
-        and fun.size(expansions) == 1 then
+        and fun.size(scouting_drones) == 2
+        and fun.size(units['buildings']['hatcheries']) == 2
+        and expansions[2] == nil then
         expansions[2] = {}
         is_drone_expanding = true
     end
@@ -510,7 +522,7 @@ function economy.manage_9734_workers(actions, tc)
         powering = false
     else powering = true end
     -- stop drone powering at 12 focus change to 3th expansion and gas
-    if fun.size(units['drones']) == 12 then
+    if fun.size(units['drones']) >= 12 then
         powering = false
     end
     -- gg
