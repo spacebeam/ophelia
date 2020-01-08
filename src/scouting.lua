@@ -2,7 +2,6 @@
 -- Scouting overlords,
 -- scouting drones,
 -- scouting lings,
--- scouting scourges.
 --
 
 -- add/remove if needed
@@ -16,10 +15,9 @@ local tools = require("ophelia.tools")
 -- two at 12 drone, 200 mineral.
 local scouting = {}
 
+-- prepare to fight!
 local vs_zerg = false
-
 local vs_protoss = false
-
 local vs_terran = false
 
 local enemy = {}
@@ -583,19 +581,6 @@ function scouting.all_quadrants()
     -- return current data on all quadrants
     --
     return quadrants
-end
-
-function scouting.lings()
-    --
-    -- Kill worker scouts and preassure...
-    -- could result in enemy's ore spend on additional defences.
-    --
-end
-
-function scouting.overlords()
-    --
-    -- Split overlords after speed upgrade
-    --
 end
 
 function scouting.overlord_sacrifice()

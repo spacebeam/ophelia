@@ -114,7 +114,7 @@ while restarts < 0 do
     tc:close()
     collectgarbage()
     sys.sleep(0.0042)
-    inspect(ophelia)
+    print(inspect(ophelia))
     print("So Long, and Thanks for All the Lings!")
     collectgarbage()
 end
