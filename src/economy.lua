@@ -450,7 +450,6 @@ function economy.manage_9734_workers(actions, tc)
                 and tc.state.resources_myself.ore >= 50 then
                 actions = economy.build_main_extractor(id, u, actions, tc)
             else
-                units = economy.check_workers()
                 -- We Require More Vespene Gas!
                 if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Gather])
@@ -478,6 +477,7 @@ function economy.manage_9734_workers(actions, tc)
             end
         end
     end
+    units = economy.check_workers()
     print(inspect(units['busy']))
     -- First created overlord, second in total.. this is the 'overpool' overlord.
     if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1
