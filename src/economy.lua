@@ -433,8 +433,10 @@ function economy.manage_9734_workers(actions, tc)
                 print(fun.size(scouting_drones))
                 print(fun.size(expansions))
                 actions = economy.take_natural(id, u, actions, tc)
+                is_drone_expanding = false
             elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
-                and tc.state.resources_myself.ore >= 200 then
+                and tc.state.resources_myself.ore >= 300 then
+                print('trying to build natural')
                 actions = economy.build_natural(id, u, actions, tc)
             elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
                 and fun.size(expansions) == 2 then
@@ -444,10 +446,6 @@ function economy.manage_9734_workers(actions, tc)
                 actions = economy.build_third(id, u, actions, tc)
             elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
-                print(inspect(scouting_drones))
-                print(inspect(expansions))
-                print(fun.size(scouting_drones))
-                print(fun.size(expansions))
                 actions = economy.build_main_extractor(id, u, actions, tc)
             else
                 -- We Require More Vespene Gas!
