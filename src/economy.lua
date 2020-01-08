@@ -39,7 +39,7 @@ local is_drone_scouting = false
 local is_drone_expanding = false
 
 -- Early, Make/defend a play & send colonies to one or two bases.
-local early_stage = true
+--local early_stage = true
 -- Middle, Core units, make/defend pressure & take a base.
 --local middle_stage = false
 -- Late, Matured core units, multi-pronged tactics & take many bases.
@@ -155,7 +155,6 @@ function economy.take_natural(id, u, actions, tc)
     local quadrants = scouting.all_quadrants()
 
     if expansions[1]['id'] == nil then expansions[1] = {["id"]=id} end
-
     if expansions[1]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
@@ -422,17 +421,21 @@ function economy.manage_9734_workers(actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
-            elseif is_drone_expanding and scouting_drones[1]['id'] ~= id
-                and scouting_drones[2]['id'] ~= id and fun.size(expansions) == 1 then
-                actions = economy.take_natural(id, u, actions, tc)
-            elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
-                and tc.state.resources_myself.ore >= 200 then
-                actions = economy.build_natural(id, u, actions, tc)
             elseif is_drone_scouting and scouting_drones[1]['id'] ~= id then
                 local twelve = scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = twelve["actions"]
                 scouting_drones = twelve["scouting_drones"]
                 is_drone_scouting = false
+            elseif is_drone_expanding and scouting_drones[1]['id'] ~= id
+                and scouting_drones[2]['id'] ~= id and fun.size(expansions) == 1 then
+                print(inspect(scouting_drones))
+                print(inspect(expansions))
+                print(fun.size(scouting_drones))
+                print(fun.size(expansions))
+                actions = economy.take_natural(id, u, actions, tc)
+            elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
+                and tc.state.resources_myself.ore >= 200 then
+                actions = economy.build_natural(id, u, actions, tc)
             elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
                 and fun.size(expansions) == 2 then
                 actions = economy.take_third(id, u, actions, tc)
@@ -441,6 +444,10 @@ function economy.manage_9734_workers(actions, tc)
                 actions = economy.build_third(id, u, actions, tc)
             elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
+                print(inspect(scouting_drones))
+                print(inspect(expansions))
+                print(fun.size(scouting_drones))
+                print(fun.size(expansions))
                 actions = economy.build_main_extractor(id, u, actions, tc)
             else
                 -- We Require More Vespene Gas!
@@ -463,6 +470,7 @@ function economy.manage_9734_workers(actions, tc)
                     end
                 end
             end
+            units = economy.check_workers()
             -- explore all things!
             if tc.state.resources_myself.ore >= 2000 then
                 -- drones explore all the things!
@@ -470,7 +478,6 @@ function economy.manage_9734_workers(actions, tc)
             end
         end
     end
-    units = economy.check_workers()
     print(inspect(units['busy']))
     -- First created overlord, second in total.. this is the 'overpool' overlord.
     if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1
@@ -488,19 +495,20 @@ function economy.manage_9734_workers(actions, tc)
         is_drone_scouting = true
     end
     -- at 12 taking natural after 'overpool'
-    if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil
+    if fun.size(units['drones']) == 12 and fun.size(scouting_drones) == 2
         and expansions[1] == nil then
         expansions[1] = {}
         is_drone_expanding = true
     end
-    -- at 12 taking another natural
-    if fun.size(units['drones']) == 12 and scouting_drones[2] ~= nil
-        and expansions[1] ~= nil and expansions[2] == nil then
+    -- at 12 expanding the 3th hatch
+    if fun.size(units['drones']) == 12
+        and fun.size(units['scout']) == 4
+        and fun.size(expansions) == 1 then
         expansions[2] = {}
         is_drone_expanding = true
     end
     -- at 16 building the third overlord
-    if fun.size(units['drones']) == 16 and fun.size(units['overlords']) == 2
+    if fun.size(units['drones']) >= 16 and fun.size(units['overlords']) == 2
         and spawning_overlord == false then
         spawning_overlord = true
     end
@@ -509,9 +517,9 @@ function economy.manage_9734_workers(actions, tc)
         powering = false
     else powering = true end
     -- stop drone powering at 12 focus change to 3th expansion and gas
-    if fun.size(units['drones']) >= 12 then
+    if fun.size(units['drones']) == 12 then
         powering = false
-    else powering = true end
+    end
     -- gg
     return actions
 end
