@@ -26,24 +26,17 @@ local units = {["busy"]={},
 
 local expansions = {}
 
-
--- TODO: YO START USING units['buildings'] instead if those crazy variables!
+-- TODO: START USING units['buildings'] INSTEAD OF THOSE CRAZY VARIABLES!!!
 
 local scouting_drones = {}
--- TODO: missing control tuple of scouting overlords
-local scouting_overlords = {}
 
--- * TODO: repeat the work that worked in the old egg count mechanism context
 local spawning_overlord = false
-
 
 local is_spawning_overlord = {}
 
 local is_drone_scouting = false
 
 local is_drone_expanding = false
--- ^ TODO: repeat the work that worked in the old egg count mechanism context
-
 
 -- Early, Make/defend a play & send colonies to one or two bases.
 local early_stage = true
