@@ -377,8 +377,13 @@ function economy.manage_9734_simcity(actions, tc)
                     is_spawning_overlord[2] = true
                 end
 
+                if spawning_lings == false
+                    and fun.size(units['eggs']) < 1
+                    and fun.size(units['lings']) == 0 then
+                    spawning_lings = true
+                end
                 -- Spawning first lings
-                if spawning_lings == true and fun.size(units['lings']) < 2 then
+                if spawning_lings == true and fun.size(units['eggs']) ~= 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Zergling))
@@ -515,11 +520,6 @@ function economy.manage_9734_workers(actions, tc)
         and expansions[2] == nil then
         expansions[2] = {}
         is_drone_expanding = true
-    end
-    if fun.size(units['drones']) == 12
-        and fun.size(units['lings']) ~= 2
-        and spawning_lings == false then
-        spawning_lings = true
     end
     -- at 16 building the third overlord
     if fun.size(units['drones']) >= 16 and fun.size(units['overlords']) == 2
