@@ -26,11 +26,11 @@ local units = {["busy"]={},
 
 local expansions = {}
 
--- TODO: START USING units['buildings'] INSTEAD OF THOSE CRAZY VARIABLES!!!
-
 local scouting_drones = {}
 
 local spawning_overlord = false
+
+local spawning_lings = false
 
 local is_spawning_overlord = {}
 
@@ -94,14 +94,14 @@ function economy.check_my_units(tc)
     local guardians = {}
     local devourers = {}
     local infesteds = {}
-    -- init test on buildings
+    -- init work on buildings
     local hatcheries = {}
     local extractors = {}
 
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord and u.flags.completed == true then
             table.insert(overlords, id)
-        elseif u.type == tc.unittypes.Zerg_Zergling and u.flags.completed == true then
+        elseif u.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, id)
         elseif u.type == tc.unittypes.Zerg_Drone and u.flags.completed == true then
             table.insert(drones, id)
@@ -376,6 +376,15 @@ function economy.manage_9734_simcity(actions, tc)
                     spawning_overlord = false
                     is_spawning_overlord[2] = true
                 end
+
+                -- Spawning first lings
+                if spawning_lings == true and fun.size(units['lings']) < 2 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Zergling))
+                    spawning_lings = false
+                end
+
                 -- Same for third overlord
                 if spawning_overlord == true and fun.size(units['overlords']) == 2 then
                     table.insert(actions,
@@ -419,7 +428,6 @@ function economy.manage_9734_workers(actions, tc)
     --
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(u.type) then
-            --
             if is_drone_scouting and fun.size(scouting_drones) == 1 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = eleven["actions"]
@@ -441,10 +449,11 @@ function economy.manage_9734_workers(actions, tc)
                 and fun.size(expansions) == 2 then
                 actions = economy.take_third(id, u, actions, tc)
                 is_drone_expanding = false
+            -- clean, clean, clean still needed
             elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= nil
                 and tc.state.resources_myself.ore >= 300 then
-                print('building third')
                 actions = economy.build_third(scouting_drones[1]['id'], u, actions, tc)
+            -- about to learn to finally get some gas!
             elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
                 actions = economy.build_main_extractor(id, u, actions, tc)
@@ -506,6 +515,11 @@ function economy.manage_9734_workers(actions, tc)
         and expansions[2] == nil then
         expansions[2] = {}
         is_drone_expanding = true
+    end
+    if fun.size(units['drones']) == 12
+        and fun.size(units['lings']) ~= 2
+        and spawning_lings == false then
+        spawning_lings = true
     end
     -- at 16 building the third overlord
     if fun.size(units['drones']) >= 16 and fun.size(units['overlords']) == 2
