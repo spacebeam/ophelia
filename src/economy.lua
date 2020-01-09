@@ -237,9 +237,7 @@ function economy.take_third(id, u, actions, tc)
     -- Send a drone to the main base opposite to your enemy's expand path.
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-
     if expansions[2]['id'] == nil then expansions[2] = {["id"]=id} end
-
     if expansions[2]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
@@ -269,13 +267,11 @@ end
 
 function economy.build_third(id, u, actions, tc)
     --
-    -- Water machine build your third base
+    -- Machine build your third base
     --
     local quadrant = scouting.base_quadrant()
     local quadrants = scouting.all_quadrants()
-
     -- where is my enemy's start location?
-
     if not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
@@ -309,8 +305,6 @@ end
 
 -- TODO: just after build your third, ger yourself an extractor!
 function economy.build_main_extractor(id, u, actions, tc)
-    --
-    --
     --
     local geysers = economy.check_my_geysers(tc)
     if not utils.is_in(u.order,
@@ -445,11 +439,12 @@ function economy.manage_9734_workers(actions, tc)
                 actions = economy.build_natural(id, u, actions, tc)
             elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
                 and fun.size(expansions) == 2 then
-                print('about to try to take third')
                 actions = economy.take_third(id, u, actions, tc)
-            elseif fun.size(expansions) == 2 and expansions[2]['id'] == id
+                is_drone_expanding = false
+            elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= nil
                 and tc.state.resources_myself.ore >= 300 then
-                actions = economy.build_third(id, u, actions, tc)
+                print('building third')
+                actions = economy.build_third(scouting_drones[1]['id'], u, actions, tc)
             elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
                 actions = economy.build_main_extractor(id, u, actions, tc)
@@ -537,7 +532,6 @@ function economy.manage_9734_economy(actions, resources, tc)
     -- economics, making drones and new extractors.
     --
     units = economy.check_my_units(tc)
-
     -- check my geysers !?
     local geysers = economy.check_my_geysers(tc)
     print(inspect(geysers))
