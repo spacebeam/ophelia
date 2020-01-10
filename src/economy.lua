@@ -54,11 +54,15 @@ function economy.check_workers()
     -- check workers
     --
     local busy = {}
+    -- this is probably all wrong!
     for _, x in ipairs(expansions) do
         if x['id'] ~= nil then table.insert(busy, x['id']) end
     end
     for _, d in ipairs(scouting_drones) do
         if d['id'] ~= nil then table.insert(busy, d['id']) end
+    end
+    for _, e in ipairs(units['buildings']['extractors']) do
+        if e['id'] ~= nil then table.insert(busy, e['id']) end
     end
     units['busy'] = busy
     return units
@@ -301,15 +305,16 @@ function economy.build_main_extractor(id, u, actions, tc)
     -- is probably very stupid to call the geyserys like that
     local geysers = economy.check_my_geysers(tc)
     -- trying something new
-    --if units['buildings']['extractors']
-    if not utils.is_in(u.order,
+    if units['buildings']['extractors'][1] == nil then units['buildings']['extractors'][1] = {["id"]=id} end
+
+    if units['buildings']['extractors'][1]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         -- I still need some gas
+        print('something new with ' .. id)
         table.insert(actions,
         tc.command(tc.command_unit, id,
-        tc.cmd.Build, -1,
-        geysers[1][1], geysers[1][2],
-        tc.unittypes.Zerg_Extractor))
+        tc.cmd.Move, -1,
+        geysers[1][1], geysers[1][2]))
     end
     return actions
 end
