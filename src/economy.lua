@@ -373,6 +373,7 @@ function economy.manage_9734_simcity(actions, tc)
                 end
                 -- Spawn exactly 2 lings (;
                 if spawning_lings == false
+                    and fun.size(units['drones']) == 12
                     and fun.size(units['eggs']) < 1
                     and fun.size(units['lings']) == 0 then
                     spawning_lings = true
@@ -385,7 +386,7 @@ function economy.manage_9734_simcity(actions, tc)
                     spawning_lings = false
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Right_Click_Position,
-                    -1, quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
+                    -1, quadrants[quadrant]["natural"]["x"], quadrants[quadrant]["natural"]["y"]))
                 end
                 -- Same for third overlord
                 if spawning_overlord == true and fun.size(units['overlords']) == 2 then
