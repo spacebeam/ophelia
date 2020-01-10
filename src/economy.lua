@@ -12,6 +12,10 @@ local tools = require("ophelia.tools")
 
 local scouting = require("ophelia.scouting")
 
+local quadrant = false
+
+local quadrants = false
+
 local economy = {}
 
 local powering = true
@@ -97,7 +101,6 @@ function economy.check_my_units(tc)
     -- init work on buildings
     local hatcheries = {}
     local extractors = {}
-
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord and u.flags.completed == true then
             table.insert(overlords, id)
@@ -161,9 +164,6 @@ function economy.take_natural(id, u, actions, tc)
     --
     -- take natural expansion
     --
-    local quadrant = scouting.base_quadrant()
-    local quadrants = scouting.all_quadrants()
-
     if expansions[1]['id'] == nil then expansions[1] = {["id"]=id} end
     if expansions[1]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
@@ -196,8 +196,6 @@ function economy.build_natural(id, u, actions, tc)
     --
     -- build natural expansion
     --
-    local quadrant = scouting.base_quadrant()
-    local quadrants = scouting.all_quadrants()
     if not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
@@ -231,12 +229,9 @@ end
 
 function economy.take_third(id, u, actions, tc)
     --
-    -- NOTE; you can't place this without scouting your enemy's position!
+    -- TODO; you can't place this without scouting your enemy's position!
     --
-
     -- Send a drone to the main base opposite to your enemy's expand path.
-    local quadrant = scouting.base_quadrant()
-    local quadrants = scouting.all_quadrants()
     if expansions[2]['id'] == nil then expansions[2] = {["id"]=id} end
     if expansions[2]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
@@ -269,9 +264,7 @@ function economy.build_third(id, u, actions, tc)
     --
     -- Machine build your third base
     --
-    local quadrant = scouting.base_quadrant()
-    local quadrants = scouting.all_quadrants()
-    -- where is my enemy's start location?
+    -- TODO: where is my enemy's start location?
     if not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         if quadrant == 'A' then
@@ -305,8 +298,10 @@ end
 
 -- TODO: just after build your third, ger yourself an extractor!
 function economy.build_main_extractor(id, u, actions, tc)
-    --
+    -- is probably very stupid to call the geyserys like that
     local geysers = economy.check_my_geysers(tc)
+    -- trying something new
+    --if units['buildings']['extractors']
     if not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         -- I still need some gas
@@ -376,7 +371,7 @@ function economy.manage_9734_simcity(actions, tc)
                     spawning_overlord = false
                     is_spawning_overlord[2] = true
                 end
-
+                -- Spawn exactly 2 lings (;
                 if spawning_lings == false
                     and fun.size(units['eggs']) < 1
                     and fun.size(units['lings']) == 0 then
@@ -388,8 +383,10 @@ function economy.manage_9734_simcity(actions, tc)
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Zergling))
                     spawning_lings = false
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Right_Click_Position,
+                    -1, quadrants["D"]["natural"]["x"], quadrants["D"]["natural"]["y"]))
                 end
-
                 -- Same for third overlord
                 if spawning_overlord == true and fun.size(units['overlords']) == 2 then
                     table.insert(actions,
@@ -459,9 +456,14 @@ function economy.manage_9734_workers(actions, tc)
                 and tc.state.resources_myself.ore >= 300 then
                 actions = economy.build_third(scouting_drones[1]['id'], u, actions, tc)
             -- about to learn to finally get some gas!
-            elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= id
+            elseif fun.size(expansions) == 2
+                and expansions[1]['id'] ~= id
+                and expansions[2]['id'] ~= id
+                and scouting_drones[1]['id'] ~= id
+                and scouting_drones[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 50 then
                 actions = economy.build_main_extractor(id, u, actions, tc)
+                print('after trying to build main extractor with ' .. id)
             else
                 -- We Require More Vespene Gas!
                 if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
@@ -544,6 +546,11 @@ function economy.manage_9734_economy(actions, resources, tc)
     -- this interpretation includes 'powering'.
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
+    --
+    -- TODO: if we start calling quadrant and quadrants here,
+    --       can it be removed from inside the other funcions?
+    quadrant = scouting.base_quadrant()
+    quadrants = scouting.all_quadrants()
     --
     units = economy.check_my_units(tc)
     -- check my geysers !?
