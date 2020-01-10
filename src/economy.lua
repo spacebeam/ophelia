@@ -561,11 +561,13 @@ function economy.manage_9734_economy(actions, resources, tc)
     units = economy.check_my_units(tc)
     -- check my geysers
     local geysers = economy.check_my_geysers(tc)
-    -- geysers are fun
+    -- geysers are fun, we can run with this until middle game!
     if fun.size(geysers) <= 2 and fun.size(units['geysers']) ~= 2 then
         if fun.size(geysers) == 1 then
             units['geysers'][1] = geysers[1]
         else
+            -- this hack only support your main and natural geysers
+            -- backtrack and continue when you MUST place that 3th gas!
             if units['geysers'][1] ~= geysers[1] then
                 units['geysers'][2] = geysers[1]
             else
