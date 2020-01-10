@@ -26,7 +26,8 @@ local units = {["busy"]={},
                ["offence"]={},
                ["defence"]={},
                ["harass"]={},
-               ["buildings"]={}}
+               ["buildings"]={},
+               ["geysers"]={}}
 
 local expansions = {}
 
@@ -302,8 +303,9 @@ end
 
 -- TODO: just after build your third, ger yourself an extractor!
 function economy.build_main_extractor(id, u, actions, tc)
-    -- is probably very stupid to call the geyserys like that
-    local geysers = economy.check_my_geysers(tc)
+    --
+    -- where are my geysers?
+    --
     -- trying something new
     if units['buildings']['extractors'][1] == nil then units['buildings']['extractors'][1] = {["id"]=id} end
 
@@ -314,7 +316,7 @@ function economy.build_main_extractor(id, u, actions, tc)
         table.insert(actions,
         tc.command(tc.command_unit, id,
         tc.cmd.Move, -1,
-        geysers[1][1], geysers[1][2]))
+        units['geysers'][1][1], units['geysers'][1][2]))
     end
     return actions
 end
@@ -553,15 +555,24 @@ function economy.manage_9734_economy(actions, resources, tc)
     -- powering is when computer switch to primarily
     -- economics, making drones and new extractors.
     --
-    -- TODO: if we start calling quadrant and quadrants here,
-    --       can it be removed from inside the other funcions?
     quadrant = scouting.base_quadrant()
     quadrants = scouting.all_quadrants()
-    --
+    -- check my units
     units = economy.check_my_units(tc)
-    -- check my geysers !?
+    -- check my geysers
     local geysers = economy.check_my_geysers(tc)
-    print(inspect(geysers))
+    -- geysers are fun
+    if fun.size(geysers) <= 2 and fun.size(units['geysers']) ~= 2 then
+        if fun.size(geysers) == 1 then
+            units['geysers'][1] = geysers[1]
+        else
+            if units['geysers'][1] ~= geysers[1] then
+                units['geysers'][2] = geysers[1]
+            else
+                units['geysers'][2] = geysers[2]
+            end
+        end
+    end
     -- Set your units into 3 groups, collapse each on
     -- different sides of the enemy for maximum effectiveness.
     local offence = {}
