@@ -1,7 +1,7 @@
 --
 -- Scouting overlords,
 -- scouting drones,
--- scouting lings,
+-- scouting lings.
 --
 
 -- add/remove if needed
@@ -11,8 +11,6 @@ local fun = require("moses")
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
 
--- one at 11 drone,
--- two at 12 drone, 200 mineral.
 local scouting = {}
 
 -- prepare to fight!

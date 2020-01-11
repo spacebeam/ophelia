@@ -27,6 +27,8 @@ local units = {["busy"]={},
                ["defence"]={},
                ["harass"]={},
                ["buildings"]={},
+               -- TODO: stop using the same variables for multiple things!
+               ["spawning"]={["extractors"]={}},
                ["geysers"]={}}
 
 local expansions = {}
@@ -62,7 +64,7 @@ function economy.check_workers()
     for _, d in ipairs(scouting_drones) do
         if d['id'] ~= nil then table.insert(busy, d['id']) end
     end
-    for _, e in ipairs(units['buildings']['extractors']) do
+    for _, e in ipairs(units['spawning']['extractors']) do
         if e['id'] ~= nil then table.insert(busy, e['id']) end
     end
     units['busy'] = busy
@@ -301,22 +303,30 @@ function economy.build_third(id, u, actions, tc)
     return actions
 end
 
--- TODO: just after build your third, ger yourself an extractor!
-function economy.build_main_extractor(id, u, actions, tc)
+function economy.take_main_geyser(id, u, actions, tc)
     --
-    -- where are my geysers?
+    -- Take main geyser
     --
-    -- trying something new
-    if units['buildings']['extractors'][1] == nil then units['buildings']['extractors'][1] = {["id"]=id} end
-
-    if units['buildings']['extractors'][1]['id'] == id and not utils.is_in(u.order,
+    if units['spawning']['extractors'][1] == nil then units['spawning']['extractors'][1] = {["id"]=id} end
+    if units['spawning']['extractors'][1]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-        -- I still need some gas
-        print('something new with ' .. id)
         table.insert(actions,
         tc.command(tc.command_unit, id,
         tc.cmd.Move, -1,
         units['geysers'][1][1], units['geysers'][1][2]))
+    end
+    return actions
+end
+
+function economy.build_main_extractor(id, u, actions, tc)
+    --
+    if units['spawning']['extractors'][1]['id'] == id and not utils.is_in(u.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        table.insert(actions,
+        tc.command(tc.command_unit, id,
+        tc.cmd.Build, -1,
+        units['geysers'][1][1] - 8, units['geysers'][1][2] - 4,
+        tc.unittypes.Zerg_Extractor))
     end
     return actions
 end
@@ -465,13 +475,16 @@ function economy.manage_9734_workers(actions, tc)
                 actions = economy.build_third(scouting_drones[1]['id'], u, actions, tc)
             -- about to learn to finally get some gas!
             elseif fun.size(expansions) == 2
+                and units['spawning']['extractors'][1] == nil
                 and expansions[1]['id'] ~= id
                 and expansions[2]['id'] ~= id
                 and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id
+                and tc.state.resources_myself.ore >= 42 then
+                actions = economy.take_main_geyser(id, u, actions, tc)
+            elseif units['spawning']['extractors'][1] ~= nil and fun.size(units['buildings']['extractors']) ~= 1
                 and tc.state.resources_myself.ore >= 50 then
-                actions = economy.build_main_extractor(id, u, actions, tc)
-                print('after trying to build main extractor with ' .. id)
+                actions = economy.build_main_extractor(units['spawning']['extractors'][1]['id'], u, actions, tc)
             else
                 -- We Require More Vespene Gas!
                 if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
