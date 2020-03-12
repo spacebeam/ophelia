@@ -1,3 +1,27 @@
+## 5HH
+Soon as the 3th overlord came up go up to 8 lings.
+
+With the first lings watch for the first zealot.
+
+We are going fast spire.
+
+Check with your lings where is the second zealot?
+
+You must find the hidden zealot with your spreed lings across the map.
+
+Watch for the forge timing.
+
+Drone to 34 supply and put the 4th hatch and spawn 1 overlord on each base,
+
+Drone to 34 supply and put the 5th hatch,
+
+Drone to 34 supply and put the hydralisk den deffending your simcity,
+
+Drone to 34 supply and put an Evolution chamber deffending your simcity,
+
+Drone to 35 supply get second gas.
+
+get 4 scouting scourges as soon as you can!
 
 ## 973!
 
