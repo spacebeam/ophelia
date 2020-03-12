@@ -25,7 +25,13 @@ Get 4 scouting scourges as soon as you can!
 
 Get 6th hatchery and your 3 gas timing match it with the lurker upgrade.
 
-The 7th hatchery MUST be in another natural or start location, first only as bait.
+note: zerglings are useless now!
+
+note: get some spores!
+
+note: build up to 12 drones in your mineral lines!
+
+The 7th hatchery MUST be in another start location, first only as bait.
 
 ## 973!
 
