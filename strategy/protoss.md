@@ -1,3 +1,7 @@
+
+## 9H
+This is a blind counter for 2 gate that works on 2 base maps with short rush distances.
+
 ## 5HH
 Soon as the 3th overlord came up go up to 8 lings.
 
