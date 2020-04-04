@@ -14,5 +14,11 @@ Note: is very important to keep good visibility with overlords across the maps i
 ## 9P
 9 Pool is a very flexible build in Zerg versus Zerg, if played properly.
 
+## 9H
+9 hatch is a very greedy fast start with nice timings but a thing economy.
+
+## 12P
+12 Pool is a very safe opening in ZvZ that gives a lot of versatility.
+
 ## 12H
 This build is greedy and aims to obtain up an early economic advantage with a significantly faster second Hatchery.
