@@ -331,7 +331,7 @@ function scouting.identify_enemy_units(tc)
     enemy["P"]["units"]["forge"] = forge
     enemy["P"]["units"]["cannons"] = cannons
     enemy["P"]["units"]["gateways"] = gateways
-    enemy["P"]["units"]["assmilators"] = assimilators
+    enemy["P"]["units"]["assimilators"] = assimilators
     enemy["P"]["units"]["cybernetics_core"] = cybernetics_core
     enemy["P"]["units"]["citadel_of_adun"] = citadel_of_adun
     enemy["P"]["units"]["stargates"] = stargates

@@ -45,6 +45,10 @@ local is_drone_scouting = false
 
 local is_drone_expanding = false
 
+local vespene_drones = {}
+
+local drones_to_gas = false
+
 -- Early, Make/defend a play & send colonies to one or two bases.
 --local early_stage = true
 -- Middle, Core units, make/defend pressure & take a base.
@@ -66,6 +70,9 @@ function economy.check_workers()
     end
     for _, e in ipairs(units['spawning']['extractors']) do
         if e['id'] ~= nil then table.insert(busy, e['id']) end
+    end
+    for _, g in ipairs(vespene_drones) do
+        if g['id'] ~= nil then table.insert(busy, g['id']) end
     end
     units['busy'] = busy
     return units
@@ -141,7 +148,7 @@ function economy.check_my_units(tc)
             table.insert(infesteds, id)
         elseif u.type == tc.unittypes.Zerg_Hatchery then
             table.insert(hatcheries, id)
-        elseif u.type == tc.unittypes.Zerg_Extractor then
+        elseif u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
             table.insert(extractors, id)
         else
             tools.pass()
@@ -320,6 +327,8 @@ end
 
 function economy.build_main_extractor(id, u, actions, tc)
     --
+    -- Build main extractor
+    --
     if units['spawning']['extractors'][1]['id'] == id and not utils.is_in(u.order,
         tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
         table.insert(actions,
@@ -362,13 +371,9 @@ function economy.manage_9734_simcity(actions, tc)
                 -- this is a completed spawning pool
                 tools.pass()
             end
-            if u.type == tc.unittypes.Zerg_Extractor then
-                --
-                print('apparently we are building finally an extractor')
-            end
             if u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
                 --
-                print('this is a completed extractor')
+                drones_to_gas = true
             end
             -- (!!)
             if u.type == tc.unittypes.Zerg_Hydralisk_Den then
@@ -473,7 +478,6 @@ function economy.manage_9734_workers(actions, tc)
             elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= nil
                 and tc.state.resources_myself.ore >= 300 then
                 actions = economy.build_third(scouting_drones[1]['id'], u, actions, tc)
-            -- about to learn to finally get some gas!
             elseif fun.size(expansions) == 2
                 and units['spawning']['extractors'][1] == nil
                 and expansions[1]['id'] ~= id
@@ -482,18 +486,42 @@ function economy.manage_9734_workers(actions, tc)
                 and scouting_drones[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 42 then
                 actions = economy.take_main_geyser(id, u, actions, tc)
-            elseif units['spawning']['extractors'][1] ~= nil and fun.size(units['buildings']['extractors']) ~= 1
+            elseif units['spawning']['extractors'][1] ~= nil
+                and fun.size(units['buildings']['extractors']) ~= 1
                 and tc.state.resources_myself.ore >= 50 then
                 actions = economy.build_main_extractor(units['spawning']['extractors'][1]['id'], u, actions, tc)
+            -- Sending drones to extractor
+            elseif drones_to_gas
+                and expansions[1]['id'] ~= id
+                and expansions[2]['id'] ~= id
+                and scouting_drones[1]['id'] ~= id
+                and scouting_drones[2]['id'] ~= id
+                and vespene_drones[3] == nil then
+                if fun.size(vespene_drones) == 0 then
+                    vespene_drones[1] = {["id"]=id}
+                    -- clean and reformat this into its own function
+                    table.insert(actions,
+                    tc.command(tc.command_unit_protected, id,
+                    tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
+                elseif fun.size(vespene_drones) == 1 and vespene_drones[1]["id"] ~= id then
+                    vespene_drones[2] = {["id"]=id}
+                    table.insert(actions,
+                    tc.command(tc.command_unit_protected, id,
+                    tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
+                elseif fun.size(vespene_drones) == 2 and vespene_drones[2]["id"] ~= id then
+                    vespene_drones[3] = {["id"]=id}
+                    table.insert(actions,
+                    tc.command(tc.command_unit_protected, id,
+                    tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
+                end
             else
-                -- We Require More Vespene Gas!
+                units = economy.check_workers()
                 if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Gather])
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build])
                    and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    -- still missing gas!
                     local target = tools.get_closest(u.position,
                         tc:filter_type(tc.state.units_neutral,
                         {tc.unittypes.Resource_Mineral_Field,
@@ -616,6 +644,8 @@ function economy.manage_9734_economy(actions, resources, tc)
     print("guardians " .. fun.size(units['guardians']))
     print("devourers " .. fun.size(units['devourers']))
     print("infesteds " .. fun.size(units['infesteds']))
+    print("hatcheries " .. fun.size(units['buildings']['hatcheries']))
+    print("extractors " .. fun.size(units['buildings']['extractors']))    
     -- So long and thanks for all the fish!
     return actions
 end
