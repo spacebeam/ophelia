@@ -39,6 +39,8 @@ local spawning_overlord = false
 
 local spawning_lings = false
 
+local spawning_hydras = false
+
 local is_spawning_overlord = {}
 
 local is_drone_scouting = false
@@ -377,12 +379,12 @@ function economy.manage_9734_simcity(actions, tc)
             end
             -- (!!)
             if u.type == tc.unittypes.Zerg_Hydralisk_Den then
-                --
-                print('apparently we are building a hydralisk den')
+                -- print('apparently we are building a hydralisk den')
+                tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
-                --
-                print('this is a completed hydralisk den')
+                -- print('this is a completed hydralisk den')
+                tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning second overlord
@@ -410,6 +412,24 @@ function economy.manage_9734_simcity(actions, tc)
                     tc.command(tc.command_unit, id, tc.cmd.Right_Click_Position,
                     -1, quadrants[quadrant]["natural"]["x"], quadrants[quadrant]["natural"]["y"]))
                 end
+                
+                
+                if spawning_hydras == false
+                    and fun.size(units['drones']) == 22
+                    and fun.size(units['eggs']) < 1
+                    and fun.size(units['hydras']) == 0 then
+                    spawning_hydras = true
+                end
+                if spawning_hydras == true and fun.size(units['eggs']) ~= 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Hydralisk))
+                    if fun.size(units['hydras']) >= 12 then
+                        spawning_hydras = false
+                    end
+                end
+                
+                
                 -- Same for third overlord
                 if spawning_overlord == true and fun.size(units['overlords']) == 2 then
                     table.insert(actions,
@@ -578,11 +598,11 @@ function economy.manage_9734_workers(actions, tc)
         spawning_overlord = true
     end
     -- init 9734 test workers
-    if fun.size(units['drones']) >= 19 then
+    if fun.size(units['drones']) >= 22 then
         powering = false
     else powering = true end
     -- stop drone powering at 12 focus change to 3th expansion and gas
-    if fun.size(units['drones']) >= 12 then
+    if fun.size(units['drones']) == 12 then
         powering = false
     end
     -- gg
@@ -645,7 +665,7 @@ function economy.manage_9734_economy(actions, resources, tc)
     print("devourers " .. fun.size(units['devourers']))
     print("infesteds " .. fun.size(units['infesteds']))
     print("hatcheries " .. fun.size(units['buildings']['hatcheries']))
-    print("extractors " .. fun.size(units['buildings']['extractors']))    
+    print("extractors " .. fun.size(units['buildings']['extractors']))
     -- So long and thanks for all the fish!
     return actions
 end
