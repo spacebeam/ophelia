@@ -366,11 +366,9 @@ function economy.manage_9734_simcity(actions, tc)
         if tc:isbuilding(u.type) then
             -- (!)
             if u.type == tc.unittypes.Zerg_Spawning_Pool then
-                -- apparently there is going to be a spawning pool
                 tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
-                -- this is a completed spawning pool
                 tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
@@ -379,11 +377,9 @@ function economy.manage_9734_simcity(actions, tc)
             end
             -- (!!)
             if u.type == tc.unittypes.Zerg_Hydralisk_Den then
-                -- print('apparently we are building a hydralisk den')
                 tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
-                -- print('this is a completed hydralisk den')
                 tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Hatchery then
@@ -408,14 +404,11 @@ function economy.manage_9734_simcity(actions, tc)
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Zergling))
                     spawning_lings = false
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Right_Click_Position,
-                    -1, quadrants[quadrant]["natural"]["x"], quadrants[quadrant]["natural"]["y"]))
                 end
                 
-                
+                -- Spwning first hydras
                 if spawning_hydras == false
-                    and fun.size(units['drones']) == 22
+                    and fun.size(units['drones']) >= 22
                     and fun.size(units['eggs']) < 1
                     and fun.size(units['hydras']) == 0 then
                     spawning_hydras = true
@@ -428,8 +421,6 @@ function economy.manage_9734_simcity(actions, tc)
                         spawning_hydras = false
                     end
                 end
-                
-                
                 -- Same for third overlord
                 if spawning_overlord == true and fun.size(units['overlords']) == 2 then
                     table.insert(actions,
