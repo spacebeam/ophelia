@@ -350,8 +350,37 @@ end
 
 function economy.take_fifth()
     --
-    -- NOTE, wait until you have darkswarm!
+    -- NOTE, wait until you have defiler!
     --
+end
+
+function economy.build_973_den(actions, tc)
+    --
+    -- Build hydralisk den
+    --
+    for id, u in pairs(tc.state.units_myself) do
+        if tc:isworker(u.type) then
+            if has_hydralisk_den == false and tc.state.resources_myself.ore >= 100
+                and tc.state.resources_myself.gas >= 50
+                and tc.state.frame_from_bwapi - hydralisk_den > 150 then
+                hydralisk_den = tc.state.frame_from_bwapi
+                if main.position ~= nil and not utils.is_in(u.order,
+                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id,
+                    tc.cmd.Build, -1,
+                    main.position[1] - 4, main.position[2] + 18, tc.unittypes.Zerg_Hydralisk_Den))
+                end
+            end
+        elseif tc:isbuilding(u.type) then
+            if u.type == tc.unittypes.Zerg_Hydralisk_Den then
+                if has_hydralisk_den == false then has_hydralisk_den = true end
+            end
+        else
+            tools.pass()
+        end
+    end
+    return actions
 end
 
 function economy.manage_9734_simcity(actions, tc)
@@ -376,7 +405,7 @@ function economy.manage_9734_simcity(actions, tc)
                 drones_to_gas = true
             end
             -- (!!)
-            if u.type == tc.unittypes.Zerg_Hydralisk_Den then
+           if u.type == tc.unittypes.Zerg_Hydralisk_Den then
                 tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
