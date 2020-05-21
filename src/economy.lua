@@ -419,7 +419,8 @@ function economy.build_973_den(actions, tc)
                     table.insert(actions,
                     tc.command(tc.command_unit, id,
                     tc.cmd.Build, -1,
-                    main.position[1] - 4, main.position[2] + 18, tc.unittypes.Zerg_Hydralisk_Den))
+                    units['buildings']['hatcheries'][1]['position'][1] - 4,
+                    units['buildings']['hatcheries'][1]['position'][2] + 18, tc.unittypes.Zerg_Hydralisk_Den))
                 end
             end
         end
