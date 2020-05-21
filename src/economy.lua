@@ -1,9 +1,8 @@
 --
--- Ugly 9734 economy hack for now since we are just testing stuff
--- it needs more than a couple of good'old clean, clean, clean.
+-- This is all about economy
 --
 
--- add/remove if needed
+-- inspect add/remove if needed
 local inspect = require("inspect")
 
 local fun = require("moses")
@@ -12,23 +11,26 @@ local tools = require("ophelia.tools")
 
 local scouting = require("ophelia.scouting")
 
+-- This quandrant stuff is relevant only to our implementation
+-- players use the clock to position themselves on the map.
 local quadrant = false
-
 local quadrants = false
 
+-- This is all about
 local economy = {}
-
+-- Powering in this context means focus on economy, make some drones, drone up!
 local powering = true
+
+-- does this works or give u problems?
+local buildings = {["extractors"]={}}
 
 local units = {["busy"]={},
                ["idle"]={},
                ["scout"]={},
                ["offence"]={},
                ["defence"]={},
-               ["harass"]={},
-               ["buildings"]={},
-               -- TODO: stop using the same variables for multiple things!
-               ["spawning"]={["extractors"]={}},
+               ["buildings"]=buildings,
+               ["spawning"]=buildings,
                ["geysers"]={}}
 
 local expansions = {}
@@ -41,6 +43,18 @@ local spawning_lings = false
 
 local spawning_hydras = false
 
+local spawning_mutas = false
+
+local spawning_scourges = false
+
+local spawning_queens = false
+
+local spawing_defilers = false
+
+local spawning_ultras = false
+
+local spawning_infesteds = false
+
 local is_spawning_overlord = {}
 
 local is_drone_scouting = false
@@ -51,12 +65,17 @@ local vespene_drones = {}
 
 local drones_to_gas = false
 
--- Early, Make/defend a play & send colonies to one or two bases.
---local early_stage = true
--- Middle, Core units, make/defend pressure & take a base.
---local middle_stage = false
--- Late, Matured core units, multi-pronged tactics & take many bases.
---local late_stage = false
+
+-- So, what if we divide each phase into 6 minute periods.
+--
+--  0-6 early,
+--  6-12 early-middle,
+--  12-18 middle-middle,
+--  18-24 middle-late,
+--  24-30 early-late,
+--  30-36 middle-late,
+--  36-42 late-late,
+--  42-48 early-final...
 
 function economy.check_workers()
     --
@@ -149,7 +168,7 @@ function economy.check_my_units(tc)
         elseif u.type == tc.unittypes.Zerg_Infested_Terran and u.flags.completed == true then
             table.insert(infesteds, id)
         elseif u.type == tc.unittypes.Zerg_Hatchery then
-            table.insert(hatcheries, id)
+            table.insert(hatcheries, {["id"]=id, ["position"]=u.position})
         elseif u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
             table.insert(extractors, id)
         else
@@ -171,6 +190,7 @@ function economy.check_my_units(tc)
     units["guardians"] = guardians
     units["devourers"] = devourers
     units["infesteds"] = infesteds
+    -- please add the missing position to our hatcheries!
     units["buildings"]["hatcheries"] = hatcheries
     units["buildings"]["extractors"] = extractors
     return units
@@ -360,10 +380,13 @@ function economy.build_973_den(actions, tc)
     --
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(u.type) then
-            if has_hydralisk_den == false and tc.state.resources_myself.ore >= 100
-                and tc.state.resources_myself.gas >= 50
-                and tc.state.frame_from_bwapi - hydralisk_den > 150 then
-                hydralisk_den = tc.state.frame_from_bwapi
+            if units['buildings']['hydralisk_den'] == nil and tc.state.resources_myself.ore >= 100
+                and tc.state.resources_myself.gas >= 50 then
+                
+
+                -- HOW ARE WE HANDLING POSITION ?????
+                if units['buildings']['hatcheries'] 
+                
                 if main.position ~= nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
@@ -434,7 +457,6 @@ function economy.manage_9734_simcity(actions, tc)
                     0,0,0, tc.unittypes.Zerg_Zergling))
                     spawning_lings = false
                 end
-                
                 -- Spwning first hydras
                 if spawning_hydras == false
                     and fun.size(units['drones']) >= 22

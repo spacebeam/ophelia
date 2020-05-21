@@ -13,11 +13,10 @@ local uuid = require("uuid")
 --local fun = require("moses")
 local tc = require("torchcraft")
 --local inspect = require("inspect")
-local openings = require("ophelia.openings")
 local scouting = require("ophelia.scouting")
+local openings = require("ophelia.openings")
 local economy = require("ophelia.economy")
 local tools = require("ophelia.tools")
---local zstreams = require("ophelia.zstreams")
 
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
@@ -57,9 +56,8 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-    -- Good luck, have fun
+    -- Good luck, have fun!
     local ophelia = {}
-    -- Full with fighting spirit, get a map
     local map = tools.check_supported_maps(tc.state.map_name)
     -- Measure execution time
     local tm = torch.Timer()
@@ -69,6 +67,7 @@ while restarts < 0 do
         -- Update received from game engine
         update = tc:receive()
         -- How enable debug in a way that fit this "crafting" style?
+        -- ... Still wondering the same thing.
         if tc.DEBUG > 1 then
             print('Received update: ', update)
         end
@@ -79,7 +78,6 @@ while restarts < 0 do
             end
         end
         local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
-        -- Better than dealing with fruits
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
             -- TODO: manage more than just a 973 economy.
@@ -95,8 +93,16 @@ while restarts < 0 do
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
+
+
+            -- WHAT THE FUCK IS THE HYDRALISK DEN DOING HERE ????
+            -- WHAT THE FUCK IS THE HYDRALISK DEN DOING HERE ????
+            -- WHAT THE FUCK IS THE HYDRALISK DEN DOING HERE ????
             -- init test on hydralisk den
             actions = openings.build_973_den(actions, tc)
+
+            -- old traces of control group planning?
+
             -- starting init test on offense and defense (!!)
             actions = economy.manage_9734_offense(actions, enemy, tc)
             actions = economy.manage_9734_defense(actions, enemy, tc)

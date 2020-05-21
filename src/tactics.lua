@@ -18,8 +18,8 @@
 
 local tactics = {}
 
-function tactics.coffee_and_mocha()
-    -- initial pair of lings
+function tactics.two_lings()
+    -- Coffee and Mocha
 end
 
 function tactics.six_lings_harass()
