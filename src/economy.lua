@@ -145,7 +145,7 @@ function economy.check_my_units(tc)
     local queens_nest = {}
     local defiler_mound = {}
     local ultralisk_cavern = {}
-    local infested_commandcenter = {}
+    local infested_command_center = {}
     local nydus_canals = {}
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord and u.flags.completed == true then
@@ -235,6 +235,7 @@ function economy.check_my_units(tc)
     units["buildings"]["spore_colonies"] = spore_colonies 
     units["buildings"]["spire"] = spire 
     units["buildings"]["queens_nest"] = queens_nest 
+    units["buildings"]["infested_command_center"] = infested_command_center 
     -- missing late game tech for obvious reasons!
     return units
 end
@@ -428,6 +429,7 @@ function economy.build_973_den(actions, tc)
                 
 
                 -- HOW ARE WE HANDLING POSITION ?????
+                -- YOU KNOW HOW, WTF LOLXD 
                 if units['buildings']['hatcheries'] 
                 
                 if main.position ~= nil and not utils.is_in(u.order,
@@ -449,13 +451,28 @@ function economy.build_973_den(actions, tc)
     return actions
 end
 
+function economy.manage_5hh_simcity(actions, tc)
+    --
+    -- Standard ZvP 5HH simcity management
+    --
+end
+
+function economy.manage_5hb2e_simcity(actions, tc)
+    --
+    -- ZvP 5HH gate-first hardcounter variation
+    -- 5 Hatch before 2 extractors
+    --
+end
+
+function economy.manage_2hm_simcity(actions, tc)
+    --
+    -- Standard ZvT 2HM simcity management
+    --
+end
+
 function economy.manage_9734_simcity(actions, tc)
     --
-    -- 9734 simcity management
-    --
-    -- (!)
-    --
-    -- where is the info about your population?
+    -- ZvP 9734 simcity management
     --
     for id, u in pairs(tc.state.units_myself) do
         if tc:isbuilding(u.type) then
@@ -750,7 +767,13 @@ function economy.manage_9734_economy(actions, resources, tc)
     print("devourers " .. fun.size(units['devourers']))
     print("infesteds " .. fun.size(units['infesteds']))
     print("hatcheries " .. fun.size(units['buildings']['hatcheries']))
+    print("spawning_pool" .. fun.size(units['buildings']['spawning_pool']))
     print("extractors " .. fun.size(units['buildings']['extractors']))
+    print("evolution_chambers" .. fun.size(units['buildings']['evolution_chambers']))
+    print("hydralisk_den " .. fun.size(units['buildings']['hydralisk_den']))
+    print("creep_colonies " .. fun.size(units['buildings']['creep_colonies']))
+    print("sunken_colonies " .. fun.size(units['buildings']['sunken_colonies']))
+    print("spore_colonies " .. fun.size(units['buildings']['spore_colonies']))
     -- So long and thanks for all the fish!
     return actions
 end
