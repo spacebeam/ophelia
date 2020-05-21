@@ -43,18 +43,6 @@ local spawning_lings = false
 
 local spawning_hydras = false
 
-local spawning_mutas = false
-
-local spawning_scourges = false
-
-local spawning_queens = false
-
-local spawing_defilers = false
-
-local spawning_ultras = false
-
-local spawning_infesteds = false
-
 local is_spawning_overlord = {}
 
 local is_drone_scouting = false
