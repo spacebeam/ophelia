@@ -422,12 +422,6 @@ function economy.build_973_den(actions, tc)
                     main.position[1] - 4, main.position[2] + 18, tc.unittypes.Zerg_Hydralisk_Den))
                 end
             end
-        elseif tc:isbuilding(u.type) then
-            if u.type == tc.unittypes.Zerg_Hydralisk_Den then
-                if has_hydralisk_den == false then has_hydralisk_den = true end
-            end
-        else
-            tools.pass()
         end
     end
     return actions
