@@ -226,16 +226,16 @@ function economy.check_my_units(tc)
     units["devourers"] = devourers
     units["infesteds"] = infesteds
     units["buildings"]["hatcheries"] = hatcheries
-    units["buildings"]["spawning_pool"] = spawning_pool 
+    units["buildings"]["spawning_pool"] = spawning_pool
     units["buildings"]["extractors"] = extractors
     units["buildings"]["evolution_chambers"] = evolution_chambers
-    units["buildings"]["hydralisk_den"] = hydralisk_den 
-    units["buildings"]["creep_colonies"] = creep_colonies 
-    units["buildings"]["sunken_colonies"] = sunken_colonies 
-    units["buildings"]["spore_colonies"] = spore_colonies 
-    units["buildings"]["spire"] = spire 
-    units["buildings"]["queens_nest"] = queens_nest 
-    units["buildings"]["infested_command_center"] = infested_command_center 
+    units["buildings"]["hydralisk_den"] = hydralisk_den
+    units["buildings"]["creep_colonies"] = creep_colonies
+    units["buildings"]["sunken_colonies"] = sunken_colonies
+    units["buildings"]["spore_colonies"] = spore_colonies
+    units["buildings"]["spire"] = spire
+    units["buildings"]["queens_nest"] = queens_nest
+    units["buildings"]["infested_command_center"] = infested_command_center
     -- missing late game tech for obvious reasons!
     return units
 end
@@ -426,13 +426,7 @@ function economy.build_973_den(actions, tc)
         if tc:isworker(u.type) then
             if units['buildings']['hydralisk_den'] == nil and tc.state.resources_myself.ore >= 100
                 and tc.state.resources_myself.gas >= 50 then
-                
-
-                -- HOW ARE WE HANDLING POSITION ?????
-                -- YOU KNOW HOW, WTF LOLXD 
-                if units['buildings']['hatcheries'] 
-                
-                if main.position ~= nil and not utils.is_in(u.order,
+                if units['buildings']['hatcheries'][1]['position'] ~= nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                     table.insert(actions,
                     tc.command(tc.command_unit, id,
