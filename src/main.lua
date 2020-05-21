@@ -93,16 +93,7 @@ while restarts < 0 do
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
-
-
-            -- WHAT THE FUCK IS THE HYDRALISK DEN DOING HERE ????
-            -- WHAT THE FUCK IS THE HYDRALISK DEN DOING HERE ????
-            -- WHAT THE FUCK IS THE HYDRALISK DEN DOING HERE ????
-            -- init test on hydralisk den
-            actions = openings.build_973_den(actions, tc)
-
             -- old traces of control group planning?
-
             -- starting init test on offense and defense (!!)
             actions = economy.manage_9734_offense(actions, enemy, tc)
             actions = economy.manage_9734_defense(actions, enemy, tc)

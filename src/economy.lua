@@ -133,9 +133,20 @@ function economy.check_my_units(tc)
     local guardians = {}
     local devourers = {}
     local infesteds = {}
-    -- init work on buildings
     local hatcheries = {}
     local extractors = {}
+    local spawning_pool = {}
+    local hydralisk_den = {}
+    local evolution_chambers = {}
+    local creep_colonies = {}
+    local sunken_colonies = {}
+    local spore_colonies = {}
+    local spire = {}
+    local queens_nest = {}
+    local defiler_mound = {}
+    local ultralisk_cavern = {}
+    local infested_commandcenter = {}
+    local nydus_canals = {}
     for id, u in pairs(tc.state.units_myself) do
         if u.type == tc.unittypes.Zerg_Overlord and u.flags.completed == true then
             table.insert(overlords, id)
@@ -171,6 +182,30 @@ function economy.check_my_units(tc)
             table.insert(hatcheries, {["id"]=id, ["position"]=u.position})
         elseif u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
             table.insert(extractors, id)
+        elseif u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
+            table.insert(spawning_pool, id)
+        elseif u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
+            table.insert(hydralisk_den, id)
+        elseif u.type == tc.unittypes.Zerg_Evolution_Chamber and u.flags.completed == true then
+            table.insert(evolution_chambers, id)
+        elseif u.type == tc.unittypes.Zerg_Creep_Colony and u.flags.completed == true then
+            table.insert(creep_colonies, id)
+        elseif u.type == tc.unittypes.Zerg_Sunken_Colony and u.flags.completed == true then
+            table.insert(sunken_colonies, id)
+        elseif u.type == tc.unittypes.Zerg_Spore_Colony and u.flags.completed == true then
+            table.insert(spore_colonies, id)
+        elseif u.type == tc.unittypes.Zerg_Spire and u.flags.completed == true then
+            table.insert(spire, id)
+        elseif u.type == tc.unittypes.Zerg_Queens_Nest and u.flags.completed == true then
+            table.insert(queens_nest, id)
+        elseif u.type == tc.unittypes.Zerg_Defiler_Mound and u.flags.completed == true then
+            table.insert(defiler_mound, id)
+        elseif u.type == tc.unittypes.Zerg_Ultralisk_Cavern and u.flags.completed == true then
+            table.insert(ultralisk_cavern, id)
+        elseif u.type == tc.unittypes.Zerg_Nydus_Canal and u.flags.completed == true then
+            table.insert(nydus_canals, id)
+        elseif u.type == tc.unittypes.Zerg_Infested_Command_Center and u.flags.completed == true then
+            table.insert(infested_command_center, id)
         else
             tools.pass()
         end
@@ -190,9 +225,17 @@ function economy.check_my_units(tc)
     units["guardians"] = guardians
     units["devourers"] = devourers
     units["infesteds"] = infesteds
-    -- please add the missing position to our hatcheries!
     units["buildings"]["hatcheries"] = hatcheries
+    units["buildings"]["spawning_pool"] = spawning_pool 
     units["buildings"]["extractors"] = extractors
+    units["buildings"]["evolution_chambers"] = evolution_chambers
+    units["buildings"]["hydralisk_den"] = hydralisk_den 
+    units["buildings"]["creep_colonies"] = creep_colonies 
+    units["buildings"]["sunken_colonies"] = sunken_colonies 
+    units["buildings"]["spore_colonies"] = spore_colonies 
+    units["buildings"]["spire"] = spire 
+    units["buildings"]["queens_nest"] = queens_nest 
+    -- missing late game tech for obvious reasons!
     return units
 end
 
