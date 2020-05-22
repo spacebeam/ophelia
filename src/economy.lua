@@ -21,7 +21,6 @@ local economy = {}
 -- Powering in this context means focus on economy, make some drones, drone up!
 local powering = true
 
--- does this works or give u problems?
 local buildings = {["extractors"]={}}
 
 local units = {["busy"]={},
@@ -30,7 +29,7 @@ local units = {["busy"]={},
                ["offence"]={},
                ["defence"]={},
                ["buildings"]=buildings,
-               ["spawning"]=buildings,
+               ["spawning"]={["extractors"]={}},
                ["geysers"]={}}
 
 local expansions = {}
@@ -593,7 +592,7 @@ function economy.manage_9734_workers(actions, tc)
                 and expansions[2]['id'] ~= id
                 and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id
-                and tc.state.resources_myself.ore >= 42 then
+                and tc.state.resources_myself.ore >= 50 then
                 actions = economy.take_main_geyser(id, u, actions, tc)
             elseif units['spawning']['extractors'][1] ~= nil
                 and fun.size(units['buildings']['extractors']) ~= 1
