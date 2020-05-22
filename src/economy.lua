@@ -449,8 +449,8 @@ function economy.build_hydralisk_den(id, u, actions, tc)
             tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
             units['buildings']['hatcheries'][1]['position'][1] - 4,
-            units['buildings']['hatcheries'][1]['position'][2] + 18, tc.unittypes.Zerg_Hydralisk_Den))
-            print('wtf')
+            units['buildings']['hatcheries'][1]['position'][2] + 18,
+            tc.unittypes.Zerg_Hydralisk_Den))
         end
     end
     return actions
