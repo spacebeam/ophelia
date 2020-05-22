@@ -394,40 +394,6 @@ function economy.build_main_extractor(id, u, actions, tc)
     return actions
 end
 
-function economy.take_fourth(id, u, actions, tc)
-    --
-    -- NOTE, location of 4th base depends on 3th.
-    --
-end
-
-function economy.take_fifth()
-    --
-    -- NOTE, wait until you have defiler!
-    --
-end
-
-function economy.build_973_den(actions, tc)
-    --
-    -- Build hydralisk den
-    --
-    for id, u in pairs(tc.state.units_myself) do
-        if tc:isworker(u.type) then
-            if units['buildings']['hydralisk_den'] == nil and tc.state.resources_myself.ore >= 100
-                and tc.state.resources_myself.gas >= 50 then
-                if units['buildings']['hatcheries'][1]['position'] ~= nil and not utils.is_in(u.order,
-                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id,
-                    tc.cmd.Build, -1,
-                    units['buildings']['hatcheries'][1]['position'][1] - 4,
-                    units['buildings']['hatcheries'][1]['position'][2] + 18, tc.unittypes.Zerg_Hydralisk_Den))
-                end
-            end
-        end
-    end
-    return actions
-end
-
 function economy.manage_5hh_simcity(actions, tc)
     --
     -- Standard ZvP 5HH simcity management
@@ -445,6 +411,50 @@ function economy.manage_2hm_simcity(actions, tc)
     --
     -- Standard ZvT 2HM simcity management
     --
+end
+
+function economy.take_fourth(id, u, actions, tc)
+    --
+    -- NOTE, location of 4th base depends on 3th.
+    --
+end
+
+function economy.take_fifth()
+    --
+    -- NOTE, wait until you have defiler!
+    --
+end
+
+function economy.build_973_den(id, u, actions, tc)
+    --
+    -- Build hydralisk den
+    --
+    if units['buildings']['hydralisk_den'] == nil and tc.state.resources_myself.ore >= 100
+        and tc.state.resources_myself.gas >= 50 then
+        if units['buildings']['hatcheries'][1]['position'] ~= nil and not utils.is_in(u.order,
+            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+            table.insert(actions,
+            tc.command(tc.command_unit, id,
+            tc.cmd.Build, -1,
+            units['buildings']['hatcheries'][1]['position'][1] - 4,
+            units['buildings']['hatcheries'][1]['position'][2] + 18, tc.unittypes.Zerg_Hydralisk_Den))
+        end
+    end
+    return actions
+end
+
+function economy.manage_9734_offense(actions, enemy, tc)
+    --
+    -- manage 9734 offense control units
+    --
+    return actions
+end
+
+function economy.manage_9734_defense(actions, enemy, tc)
+    --
+    -- manage 9734 defense control units
+    --
+    return actions
 end
 
 function economy.manage_9734_simcity(actions, tc)
@@ -635,11 +645,16 @@ function economy.manage_9734_workers(actions, tc)
             end
             units = economy.check_workers()
             -- init test on 973 hydralisk den
-            actions = economy.build_973_den(actions, tc)
+            --
+            -- Why is id, u and scouting_drones in explore_all_sectors?
+            --
+            -- notice how build_973_den does not have any of that, and it does not work lol
+            --
+            actions = economy.build_973_den(id, u, actions, tc)
             -- explore all things!
             if tc.state.resources_myself.ore >= 2000 then
                 -- drones explore all the things!
-                actions = scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
+                actions = scouting.explore_all_sectors(id, u, actions, tc)
             end
         end
     end
@@ -754,20 +769,6 @@ function economy.manage_9734_economy(actions, resources, tc)
     print("sunken_colonies " .. fun.size(units['buildings']['sunken_colonies']))
     print("spore_colonies " .. fun.size(units['buildings']['spore_colonies']))
     -- So long and thanks for all the fish!
-    return actions
-end
-
-function economy.manage_9734_offense(actions, enemy, tc)
-    --
-    -- manage 9734 offense control units
-    --
-    return actions
-end
-
-function economy.manage_9734_defense(actions, enemy, tc)
-    --
-    -- manage 9734 defense control units
-    --
     return actions
 end
 

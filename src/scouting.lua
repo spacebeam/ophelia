@@ -599,7 +599,7 @@ function scouting.ling_sacrifice()
     --
 end
 
-function scouting.explore_all_sectors(scouting_drones, id, u, actions, tc)
+function scouting.explore_all_sectors(id, u, actions, tc)
     --
     -- this is not really exploring all 16 sectors
     -- it appears to send a drone to all bases on fs.
