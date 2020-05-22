@@ -56,16 +56,17 @@ local vespene_drones = {}
 local drones_to_gas = false
 
 
--- So, what if we divide each phase into 6 minute periods.
+-- Divide each phase into 6 minute periods.
 --
---  0-6 early,
+--  0-6 early game,
 --  6-12 early-middle,
 --  12-18 middle-middle,
 --  18-24 middle-late,
---  24-30 early-late,
---  30-36 middle-late,
+--  24-30 late-early,
+--  30-36 late-middle,
 --  36-42 late-late,
---  42-48 early-final...
+--  42-48 final-early...
+
 
 function economy.check_workers()
     --
@@ -440,9 +441,8 @@ function economy.build_hydralisk_den(id, u, actions, tc)
     if units['spawning']['hydralisk_den'][1] == nil then
         units['spawning']['hydralisk_den'][1] = {["id"]=id}
     end
-    if units['spawning']['hydralisk_den'][1] == id and tc.state.resources_myself.ore >= 100
+    if units['spawning']['hydralisk_den'][1]["id"] == id and tc.state.resources_myself.ore >= 100
         and tc.state.resources_myself.gas >= 50 then
-        print('et')
         if units['buildings']['hatcheries'][1]['position'] ~= nil and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
