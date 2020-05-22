@@ -21,13 +21,18 @@ local economy = {}
 -- Powering in this context means focus on economy, make some drones, drone up!
 local powering = true
 
+local buildings = {["hatcheries"]={},
+                   ["spawning_pool"]={},
+                   ["extractors"]={},
+                   ["hydralisk_den"]={}}
+
 local units = {["busy"]={},
                ["idle"]={},
                ["scout"]={},
                ["offence"]={},
                ["defence"]={},
                ["buildings"]={},
-               ["spawning"]={["extractors"]={}},
+               ["spawning"]=buildings,
                ["geysers"]={}}
 
 local expansions = {}
@@ -422,12 +427,22 @@ function economy.take_fifth()
     --
 end
 
-function economy.build_973_den(id, u, actions, tc)
+function economy.build_spawning_pool(id, u, actions, tc)
+    --
+    -- Build spawning pool
+    --
+end
+
+function economy.build_hydralisk_den(id, u, actions, tc)
     --
     -- Build hydralisk den
     --
-    if units['buildings']['hydralisk_den'] == nil and tc.state.resources_myself.ore >= 100
+    if units['spawning']['hydralisk_den'][1] == nil then
+        units['spawning']['hydralisk_den'][1] = {["id"]=id}
+    end
+    if units['spawning']['hydralisk_den'][1] == id and tc.state.resources_myself.ore >= 100
         and tc.state.resources_myself.gas >= 50 then
+        print('et')
         if units['buildings']['hatcheries'][1]['position'] ~= nil and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
@@ -435,6 +450,7 @@ function economy.build_973_den(id, u, actions, tc)
             tc.cmd.Build, -1,
             units['buildings']['hatcheries'][1]['position'][1] - 4,
             units['buildings']['hatcheries'][1]['position'][2] + 18, tc.unittypes.Zerg_Hydralisk_Den))
+            print('wtf')
         end
     end
     return actions
@@ -580,7 +596,6 @@ function economy.manage_9734_workers(actions, tc)
                 and fun.size(expansions) == 2 then
                 actions = economy.take_third(id, u, actions, tc)
                 is_drone_expanding = false
-            -- clean, clean, clean still needed
             elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= nil
                 and tc.state.resources_myself.ore >= 300 then
                 actions = economy.build_third(scouting_drones[1]['id'], u, actions, tc)
@@ -620,6 +635,7 @@ function economy.manage_9734_workers(actions, tc)
                     tc.command(tc.command_unit_protected, id,
                     tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
                 end
+            -- init test on hydralisk den
             else
                 units = economy.check_workers()
                 if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
@@ -641,13 +657,8 @@ function economy.manage_9734_workers(actions, tc)
                 end
             end
             units = economy.check_workers()
-            -- init test on 973 hydralisk den
-            --
-            -- Why is id, u and scouting_drones in explore_all_sectors?
-            --
-            -- notice how build_973_den does not have any of that, and it does not work lol
-            --
-            actions = economy.build_973_den(id, u, actions, tc)
+            -- this does not belong here!
+            actions = economy.build_hydralisk_den(id, u, actions, tc)
             -- explore all things!
             if tc.state.resources_myself.ore >= 2000 then
                 -- drones explore all the things!
