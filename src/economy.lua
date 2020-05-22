@@ -16,20 +16,24 @@ local scouting = require("ophelia.scouting")
 local quadrant = false
 local quadrants = false
 
--- This is all about
+-- This is all about economy
 local economy = {}
 -- Powering in this context means focus on economy, make some drones, drone up!
 local powering = true
 
-local buildings = {["extractors"]={}}
+local spawning = {
+    ["extractors"]={},
+    --["spawning_pool"]={},
+    ["hydralisk_den"]={},
+}
 
 local units = {["busy"]={},
                ["idle"]={},
                ["scout"]={},
                ["offence"]={},
                ["defence"]={},
-               ["buildings"]=buildings,
-               ["spawning"]={["extractors"]={}},
+               ["buildings"]={},
+               ["spawning"]=spawning,
                ["geysers"]={}}
 
 local expansions = {}
