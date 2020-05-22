@@ -634,6 +634,8 @@ function economy.manage_9734_workers(actions, tc)
                 end
             end
             units = economy.check_workers()
+            -- init test on 973 hydralisk den
+            actions = economy.build_973_den(actions, tc)
             -- explore all things!
             if tc.state.resources_myself.ore >= 2000 then
                 -- drones explore all the things!
@@ -744,9 +746,9 @@ function economy.manage_9734_economy(actions, resources, tc)
     print("devourers " .. fun.size(units['devourers']))
     print("infesteds " .. fun.size(units['infesteds']))
     print("hatcheries " .. fun.size(units['buildings']['hatcheries']))
-    print("spawning_pool" .. fun.size(units['buildings']['spawning_pool']))
+    print("spawning_pool " .. fun.size(units['buildings']['spawning_pool']))
     print("extractors " .. fun.size(units['buildings']['extractors']))
-    print("evolution_chambers" .. fun.size(units['buildings']['evolution_chambers']))
+    print("evolution_chambers " .. fun.size(units['buildings']['evolution_chambers']))
     print("hydralisk_den " .. fun.size(units['buildings']['hydralisk_den']))
     print("creep_colonies " .. fun.size(units['buildings']['creep_colonies']))
     print("sunken_colonies " .. fun.size(units['buildings']['sunken_colonies']))
