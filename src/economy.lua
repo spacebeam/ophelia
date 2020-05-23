@@ -83,6 +83,9 @@ function economy.check_workers()
     for _, e in ipairs(units['spawning']['extractors']) do
         if e['id'] ~= nil then table.insert(busy, e['id']) end
     end
+    for _, h in ipairs(units['spawning']['hydralisk_den']) do
+        if h['id'] ~= nil then table.insert(busy, h['id']) end
+    end
     for _, g in ipairs(vespene_drones) do
         if g['id'] ~= nil then table.insert(busy, g['id']) end
     end
@@ -451,6 +454,7 @@ function economy.build_hydralisk_den(id, u, actions, tc)
             units['buildings']['hatcheries'][1]['position'][1] - 4,
             units['buildings']['hatcheries'][1]['position'][2] + 18,
             tc.unittypes.Zerg_Hydralisk_Den))
+            print('Vex & Siolence')
         end
     end
     return actions
