@@ -454,7 +454,6 @@ function economy.build_hydralisk_den(id, u, actions, tc)
             units['buildings']['hatcheries'][1]['position'][1] - 4,
             units['buildings']['hatcheries'][1]['position'][2] + 18,
             tc.unittypes.Zerg_Hydralisk_Den))
-            print('Vex & Siolence')
         end
     end
     return actions
