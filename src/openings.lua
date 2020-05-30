@@ -1,11 +1,7 @@
 --
--- 7 Pool
--- 9 Pool
 -- 9 Hatch
--- Gas 9
 -- Overpool
 -- 12 Hatch
--- 12 Pool
 --
 
 
@@ -28,30 +24,9 @@ local spawning_pool = 0
 local main = false
 
 
-function openings.seven_pool(actions, tc)
-    --
-    -- A rush with a backup plan
-    --
-    return actions
-end
-
-function openings.nine_pool(actions, tc)
-    --
-    -- Zergling-focus opening
-    --
-    return actions
-end
-
 function openings.nine_hatch(actions, tc)
     --
     -- 9 hatch fast expand
-    --
-    return actions
-end
-
-function openings.gas_nine(actions, tc)
-    --
-    -- One base ZvZ fast muta opening
     --
     return actions
 end
@@ -93,13 +68,6 @@ function openings.twelve_hatch(actions, tc)
     -- Greed economic opening
     --
     -- NOTE: If you are doing 12th hatch, scouting 1th overlord in cross position.
-    --
-    return actions
-end
-
-function openings.twelve_pool(actions, tc)
-    --
-    -- ZvZ opening
     --
     return actions
 end

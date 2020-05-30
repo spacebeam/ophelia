@@ -80,7 +80,6 @@ while restarts < 0 do
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
             actions = economy.manage_early_economy(actions, resources, tc)
-            -- TODO: actions = economy.manage_9734_economy(actions, resources, tc)
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, map, tc)
             -- init test on dynamic openings
