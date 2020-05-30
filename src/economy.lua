@@ -3,17 +3,26 @@
 --
 -- What exactly is macro, anyway?
 -- this interpretation includes 'powering'.
--- powering is when computer switch to primarily
--- economics, making drones and new extractors.
+-- powering is when computer switch to economics.
 --
-
-local fun = require("moses")
-local utils = require("torchcraft.utils")
-local tools = require("ophelia.tools")
+-- Divide each phase into 6 minute periods.
+--
+--  0-6 early game,
+--  6-12 early-middle,
+--  12-18 middle-middle,
+--  18-24 middle-late,
+--  24-30 late-early,
+--  30-36 late-middle,
+--  36-42 late-late,
+--  42-48 final-early...
+--
 
 local inspect = require("inspect")
 
+local fun = require("moses")
+local utils = require("torchcraft.utils")
 local scouting = require("ophelia.scouting")
+local tools = require("ophelia.tools")
 
 -- This quandrant stuff is relevant only to our implementation
 -- players use the clock to position themselves on the map.
@@ -22,6 +31,7 @@ local quadrants = false
 
 -- This is all about economy
 local economy = {}
+
 -- Powering in this context means focus on economy, make some drones, drone up!
 local powering = true
 
@@ -58,18 +68,6 @@ local is_drone_expanding = false
 local vespene_drones = {}
 
 local drones_to_gas = false
-
-
--- Divide each phase into 6 minute periods.
---
---  0-6 early game,
---  6-12 early-middle,
---  12-18 middle-middle,
---  18-24 middle-late,
---  24-30 late-early,
---  30-36 late-middle,
---  36-42 late-late,
---  42-48 final-early...
 
 
 function economy.check_workers()
