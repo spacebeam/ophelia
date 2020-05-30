@@ -59,7 +59,6 @@ while restarts < 0 do
     -- Good luck, have fun!
     local ophelia = {}
     local map = tools.check_supported_maps(tc.state.map_name)
-    -- Measure execution time
     local tm = torch.Timer()
     while not tc.state.game_ended do
         local actions = {}
@@ -80,8 +79,8 @@ while restarts < 0 do
         local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
-            -- TODO: manage more than just a 973 economy.
-            actions = economy.manage_9734_economy(actions, resources, tc)
+            actions = economy.manage_early_economy(actions, resources, tc)
+            -- TODO: actions = economy.manage_9734_economy(actions, resources, tc)
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, map, tc)
             -- init test on dynamic openings
@@ -93,10 +92,8 @@ while restarts < 0 do
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
-            -- old traces of control group planning?
-            -- starting init test on offense and defense (!!)
-            actions = economy.manage_9734_offense(actions, enemy, tc)
-            actions = economy.manage_9734_defense(actions, enemy, tc)
+            -- starting init offense and defense (!!!)
+            inspect(enemy)
         elseif tc.state.game_ended then
             break
         else

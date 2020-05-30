@@ -1,13 +1,17 @@
 --
 -- This is all about economy
 --
-
--- inspect add/remove if needed
-local inspect = require("inspect")
+-- What exactly is macro, anyway?
+-- this interpretation includes 'powering'.
+-- powering is when computer switch to primarily
+-- economics, making drones and new extractors.
+--
 
 local fun = require("moses")
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
+
+local inspect = require("inspect")
 
 local scouting = require("ophelia.scouting")
 
@@ -459,20 +463,6 @@ function economy.build_hydralisk_den(id, u, actions, tc)
     return actions
 end
 
-function economy.manage_9734_offense(actions, enemy, tc)
-    --
-    -- manage 9734 offense control units
-    --
-    return actions
-end
-
-function economy.manage_9734_defense(actions, enemy, tc)
-    --
-    -- manage 9734 defense control units
-    --
-    return actions
-end
-
 function economy.manage_9734_simcity(actions, tc)
     --
     -- ZvP 9734 simcity management
@@ -716,12 +706,9 @@ function economy.manage_9734_workers(actions, tc)
     return actions
 end
 
-function economy.manage_9734_economy(actions, resources, tc)
+function economy.manage_early_economy(actions, resources, tc)
     --
-    -- What exactly is macro, anyway?
-    -- this interpretation includes 'powering'.
-    -- powering is when computer switch to primarily
-    -- economics, making drones and new extractors.
+    --  0-6 early phase
     --
     quadrant = scouting.base_quadrant()
     quadrants = scouting.all_quadrants()
