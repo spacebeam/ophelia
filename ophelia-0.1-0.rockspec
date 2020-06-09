@@ -35,7 +35,6 @@ build = {
     ['ophelia.scouting'] = "src/scouting.lua",
     ['ophelia.tactics'] = "src/tactics.lua",
     ['ophelia.tools'] = "src/tools.lua",
-    ['ophelia.zstreams'] = "src/zstreams.lua"
   },
   install = {
     bin = {
