@@ -1,19 +1,20 @@
 --
+-- 9 Gas
 -- 9 Hatch
--- Overpool
 -- 12 Hatch
+-- 12 Pool
+-- Overpool
 --
 
 
 -- add/remove if needed
 --local inspect = require("inspect")
-
 --local fun = require("moses")
+
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
 
 local openings = {}
-
 
 -- can we just read stuff from the structure on "economy" ?
 -- I guess, still for the future!
@@ -24,9 +25,30 @@ local spawning_pool = 0
 local main = false
 
 
+function openings.nine_gas(actions, tc)
+    --
+    --
+end
+
 function openings.nine_hatch(actions, tc)
     --
     -- 9 hatch fast expand
+    --
+    return actions
+end
+
+function openings.twelve_hatch(actions, tc)
+    --
+    -- Greed economic opening
+    --
+    -- NOTE: If you are doing 12th hatch, scouting 1th overlord in cross position.
+    --
+    return actions
+end
+
+function openings.twelve_pool(actions, tc)
+    --
+    --
     --
     return actions
 end
@@ -60,15 +82,6 @@ function openings.overpool(actions, tc)
             tools.pass()
         end
     end
-    return actions
-end
-
-function openings.twelve_hatch(actions, tc)
-    --
-    -- Greed economic opening
-    --
-    -- NOTE: If you are doing 12th hatch, scouting 1th overlord in cross position.
-    --
     return actions
 end
 

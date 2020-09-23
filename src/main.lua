@@ -10,9 +10,7 @@ local torch = require("torch")
 local argparse = require("argparse")
 local socket = require("socket")
 local uuid = require("uuid")
---local fun = require("moses")
 local tc = require("torchcraft")
---local inspect = require("inspect")
 local scouting = require("ophelia.scouting")
 local openings = require("ophelia.openings")
 local economy = require("ophelia.economy")
@@ -56,12 +54,19 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
+
+
     -- Good luck, have fun!
     local ophelia = {}
     local map = tools.check_supported_maps(tc.state.map_name)
     local tm = torch.Timer()
+    
     while not tc.state.game_ended do
+    
+    
         local actions = {}
+    
+    
         tm:reset()
         -- Update received from game engine
         update = tc:receive()
@@ -79,15 +84,22 @@ while restarts < 0 do
         local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
+
+            -- manage early economy
             actions = economy.manage_early_economy(actions, resources, tc)
+
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, map, tc)
+
             -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
+
             -- this switch is enable by scouting with the 1th overlord in cross position, be safe.
             actions = openings.overpool(actions, tc)
+
             -- computer identify enemy units
             local enemy = scouting.identify_enemy_units(tc)
+
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
