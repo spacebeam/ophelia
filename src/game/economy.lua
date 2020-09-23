@@ -1,5 +1,5 @@
 --
--- This is all about economy
+-- This game is all about information economy
 --
 -- What exactly is macro, anyway?
 -- this interpretation includes 'powering'.
@@ -12,6 +12,7 @@ local inspect = require("inspect")
 local fun = require("moses")
 local utils = require("torchcraft.utils")
 local scouting = require("ophelia.scouting")
+local openings = require("ophelia.openings")
 local tools = require("ophelia.tools")
 
 -- This quandrant stuff is relevant only to our implementation
@@ -22,7 +23,6 @@ local quadrants = false
 -- This is all about economy
 local economy = {}
 
--- Powering in this context means focus on economy, make some drones, drone up!
 local powering = true
 
 local buildings = {["hatcheries"]={},
@@ -749,7 +749,6 @@ function economy.manage_game_economy(actions, resources, tc)
     units['enemy'] = enemy
 
     -- And Now For Something Completely Different
-
     actions = economy.manage_9734_bo(actions, tc)
     actions = economy.manage_9734_macro(actions, tc)
     print("overlords " .. fun.size(units['overlords']))

@@ -95,7 +95,7 @@ while restarts < 0 do
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, map, tc)
 
-            -- init test on dynamic openings
+            -- init test on dynamic openings ???????????????????????????????? WTF ARE U DOING HERE?????? 
             actions = openings.twelve_hatch(actions, tc)
 
             -- this switch is enable by scouting with the 1th overlord in cross position, be safe.
