@@ -392,25 +392,6 @@ function economy.build_main_extractor(id, u, actions, tc)
     return actions
 end
 
-function economy.manage_5hh_simcity(actions, tc)
-    --
-    -- Standard ZvP 5HH simcity management
-    --
-end
-
-function economy.manage_5hb2e_simcity(actions, tc)
-    --
-    -- ZvP 5HH gate-first hardcounter variation
-    -- 5 Hatch before 2 extractors
-    --
-end
-
-function economy.manage_2hm_simcity(actions, tc)
-    --
-    -- Standard ZvT 2HM simcity management
-    --
-end
-
 function economy.take_fourth(id, u, actions, tc)
     --
     -- NOTE, location of 4th base depends on 3th.
@@ -446,105 +427,6 @@ function economy.build_hydralisk_den(id, u, actions, tc)
             units['buildings']['hatcheries'][1]['position'][1] - 4,
             units['buildings']['hatcheries'][1]['position'][2] + 18,
             tc.unittypes.Zerg_Hydralisk_Den))
-        end
-    end
-    return actions
-end
-
-function economy.manage_9734_macro(actions, tc)
-    --
-    -- ZvP 9734 simcity management
-    --
-    for id, u in pairs(tc.state.units_myself) do
-        if tc:isbuilding(u.type) then
-            -- (!)
-            if u.type == tc.unittypes.Zerg_Spawning_Pool then
-                tools.pass()
-            end
-            if u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
-                tools.pass()
-            end
-            if u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
-                --
-                drones_to_gas = true
-            end
-            -- (!!)
-           if u.type == tc.unittypes.Zerg_Hydralisk_Den then
-                tools.pass()
-            end
-            if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
-                tools.pass()
-            end
-            if u.type == tc.unittypes.Zerg_Hatchery then
-                -- Spawning second overlord
-                if spawning_overlord == true and fun.size(units['overlords']) == 1 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Train,
-                    0,0,0, tc.unittypes.Zerg_Overlord))
-                    spawning_overlord = false
-                    is_spawning_overlord[2] = true
-                end
-                -- Spawn exactly 2 lings (;
-                if spawning_lings == false
-                    and fun.size(units['drones']) == 12
-                    and fun.size(units['eggs']) < 1
-                    and fun.size(units['lings']) == 0 then
-                    spawning_lings = true
-                end
-                -- Spawning first lings
-                if spawning_lings == true and fun.size(units['eggs']) ~= 1 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Train,
-                    0,0,0, tc.unittypes.Zerg_Zergling))
-                    spawning_lings = false
-                end
-                -- Spwning first hydras
-                if spawning_hydras == false
-                    and fun.size(units['drones']) >= 22
-                    and fun.size(units['eggs']) < 1
-                    and fun.size(units['hydras']) == 0 then
-                    spawning_hydras = true
-                end
-                if spawning_hydras == true and fun.size(units['eggs']) ~= 1 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Train,
-                    0,0,0, tc.unittypes.Zerg_Hydralisk))
-                    if fun.size(units['hydras']) >= 12 then
-                        spawning_hydras = false
-                    end
-                end
-                -- Same for third overlord
-                if spawning_overlord == true and fun.size(units['overlords']) == 2 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Train,
-                    0,0,0, tc.unittypes.Zerg_Overlord))
-                    spawning_overlord = false
-                    is_spawning_overlord[3] = true
-                end
-                -- it appears that counting eggs was not that bad after all
-                if spawning_overlord == false and fun.size(is_spawning_overlord) == 1 then
-                    if fun.size(units["overlords"]) == 1 and fun.size(units["eggs"]) < 1 then
-                        is_spawning_overlord[2] = nil
-                        spawning_overlord = true
-                    end
-                end
-                -- Old count eggs base style
-                if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
-                    if fun.size(units["eggs"]) < 1 then
-                        is_spawning_overlord[3] = nil
-                    end
-                end
-                -- powering == drone up!
-                if powering == true then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Train,
-                    0,0,0,tc.unittypes.Zerg_Drone))
-                end
-            else
-                tools.pass()
-            end
-        else
-            tools.pass()
         end
     end
     return actions
@@ -694,7 +576,144 @@ function economy.manage_9734_bo(actions, tc)
     return actions
 end
 
-function economy.manage_early_economy(actions, resources, tc)
+function economy.manage_5hh_bo(actions, tc)
+    --
+    -- Standard ZvP 5HH simcity management
+    --
+end
+
+function economy.manage_5hb2e_bo(actions, tc)
+    --
+    -- ZvP 5HH gate-first hardcounter variation
+    -- 5 Hatch before 2 extractors
+    --
+end
+
+function economy.manage_2hm_bo(actions, tc)
+    --
+    -- Standard ZvT 2HM simcity management
+    --
+end
+
+function economy.manage_9734_macro(actions, tc)
+    --
+    -- ZvP 9734 simcity management
+    --
+    for id, u in pairs(tc.state.units_myself) do
+        if tc:isbuilding(u.type) then
+            -- (!)
+            if u.type == tc.unittypes.Zerg_Spawning_Pool then
+                tools.pass()
+            end
+            if u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
+                tools.pass()
+            end
+            if u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
+                --
+                drones_to_gas = true
+            end
+            -- (!!)
+           if u.type == tc.unittypes.Zerg_Hydralisk_Den then
+                tools.pass()
+            end
+            if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
+                tools.pass()
+            end
+            if u.type == tc.unittypes.Zerg_Hatchery then
+                -- Spawning second overlord
+                if spawning_overlord == true and fun.size(units['overlords']) == 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Overlord))
+                    spawning_overlord = false
+                    is_spawning_overlord[2] = true
+                end
+                -- Spawn exactly 2 lings (;
+                if spawning_lings == false
+                    and fun.size(units['drones']) == 12
+                    and fun.size(units['eggs']) < 1
+                    and fun.size(units['lings']) == 0 then
+                    spawning_lings = true
+                end
+                -- Spawning first lings
+                if spawning_lings == true and fun.size(units['eggs']) ~= 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Zergling))
+                    spawning_lings = false
+                end
+                -- Spwning first hydras
+                if spawning_hydras == false
+                    and fun.size(units['drones']) >= 22
+                    and fun.size(units['eggs']) < 1
+                    and fun.size(units['hydras']) == 0 then
+                    spawning_hydras = true
+                end
+                if spawning_hydras == true and fun.size(units['eggs']) ~= 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Hydralisk))
+                    if fun.size(units['hydras']) >= 12 then
+                        spawning_hydras = false
+                    end
+                end
+                -- Same for third overlord
+                if spawning_overlord == true and fun.size(units['overlords']) == 2 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Overlord))
+                    spawning_overlord = false
+                    is_spawning_overlord[3] = true
+                end
+                -- it appears that counting eggs was not that bad after all
+                if spawning_overlord == false and fun.size(is_spawning_overlord) == 1 then
+                    if fun.size(units["overlords"]) == 1 and fun.size(units["eggs"]) < 1 then
+                        is_spawning_overlord[2] = nil
+                        spawning_overlord = true
+                    end
+                end
+                -- Old count eggs base style
+                if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
+                    if fun.size(units["eggs"]) < 1 then
+                        is_spawning_overlord[3] = nil
+                    end
+                end
+                -- powering == drone up!
+                if powering == true then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0,tc.unittypes.Zerg_Drone))
+                end
+            else
+                tools.pass()
+            end
+        else
+            tools.pass()
+        end
+    end
+    return actions
+end
+
+function economy.manage_5hh_macro(actions, tc)
+    --
+    -- Standard ZvP 5HH simcity management
+    --
+end
+
+function economy.manage_5hb2e_macro(actions, tc)
+    --
+    -- ZvP 5HH gate-first hardcounter variation
+    -- 5 Hatch before 2 extractors
+    --
+end
+
+function economy.manage_2hm_macro(actions, tc)
+    --
+    -- Standard ZvT 2HM simcity management
+    --
+end
+
+function economy.manage_game_economy(actions, resources, tc)
     --
     -- WTF
     --

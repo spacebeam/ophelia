@@ -90,7 +90,7 @@ while restarts < 0 do
 
             -- TODO: shit is crazy, from manage_early_economy -> scouting spawning_pool? wtf 
 
-            actions = economy.manage_early_economy(actions, resources, tc)
+            actions = economy.manage_game_economy(actions, resources, tc)
 
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, map, tc)
