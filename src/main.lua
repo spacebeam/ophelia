@@ -57,6 +57,7 @@ while restarts < 0 do
 
 
     -- Good luck, have fun!
+
     local ophelia = {}
     local map = tools.check_supported_maps(tc.state.map_name)
     local tm = torch.Timer()
@@ -86,6 +87,9 @@ while restarts < 0 do
         if tc.state.battle_frame_count % skip_frames == 0 then
 
             -- manage early economy
+
+            -- TODO: shit is crazy, from manage_early_economy -> scouting spawning_pool? wtf 
+
             actions = economy.manage_early_economy(actions, resources, tc)
 
             -- sometimes the first overlord defines our opening!

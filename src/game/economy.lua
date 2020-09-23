@@ -5,17 +5,7 @@
 -- this interpretation includes 'powering'.
 -- powering is when computer switch to economics.
 --
--- Divide each phase into 6 minute periods.
---
---  0-6 early game,
---  6-12 early-middle,
---  12-18 middle-middle,
---  18-24 middle-late,
---  24-30 late-early,
---  30-36 late-middle,
---  36-42 late-late,
---  42-48 final-early...
---
+
 
 local inspect = require("inspect")
 
@@ -461,7 +451,7 @@ function economy.build_hydralisk_den(id, u, actions, tc)
     return actions
 end
 
-function economy.manage_9734_simcity(actions, tc)
+function economy.manage_9734_macro(actions, tc)
     --
     -- ZvP 9734 simcity management
     --
@@ -560,7 +550,7 @@ function economy.manage_9734_simcity(actions, tc)
     return actions
 end
 
-function economy.manage_9734_workers(actions, tc)
+function economy.manage_9734_bo(actions, tc)
     --
     -- 9734 worker management
     --
@@ -706,7 +696,7 @@ end
 
 function economy.manage_early_economy(actions, resources, tc)
     --
-    --  0-6 early phase
+    -- WTF
     --
     quadrant = scouting.base_quadrant()
     quadrants = scouting.all_quadrants()
@@ -738,9 +728,11 @@ function economy.manage_early_economy(actions, resources, tc)
     -- Scout identify enemy units
     local enemy = scouting.identify_enemy_units(tc)
     units['enemy'] = enemy
+
     -- And Now For Something Completely Different
-    actions = economy.manage_9734_workers(actions, tc)
-    actions = economy.manage_9734_simcity(actions, tc)
+
+    actions = economy.manage_9734_bo(actions, tc)
+    actions = economy.manage_9734_macro(actions, tc)
     print("overlords " .. fun.size(units['overlords']))
     print("larvae ".. fun.size(units['larvae']))
     print("eggs " .. fun.size(units['eggs']))
