@@ -86,10 +86,6 @@ while restarts < 0 do
         loops = loops + 1
         if tc.state.battle_frame_count % skip_frames == 0 then
 
-            -- manage early economy
-
-            -- TODO: shit is crazy, from manage_early_economy -> scouting spawning_pool? wtf 
-
             actions = economy.manage_game_economy(actions, resources, tc)
 
             -- sometimes the first overlord defines our opening!
