@@ -582,13 +582,6 @@ function economy.manage_5hh_bo(actions, tc)
     --
 end
 
-function economy.manage_5hb2e_bo(actions, tc)
-    --
-    -- ZvP 5HH gate-first hardcounter variation
-    -- 5 Hatch before 2 extractors
-    --
-end
-
 function economy.manage_2hm_bo(actions, tc)
     --
     -- Standard ZvT 2HM simcity management
@@ -697,13 +690,6 @@ end
 function economy.manage_5hh_macro(actions, tc)
     --
     -- Standard ZvP 5HH simcity management
-    --
-end
-
-function economy.manage_5hb2e_macro(actions, tc)
-    --
-    -- ZvP 5HH gate-first hardcounter variation
-    -- 5 Hatch before 2 extractors
     --
 end
 

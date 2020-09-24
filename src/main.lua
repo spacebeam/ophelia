@@ -25,6 +25,7 @@ uuid.randomseed(socket.gettime()*10000)
 -- Spawn session id
 local spawn_uuid = uuid()
 print("Ophelia's session " .. spawn_uuid)
+
 -- CLI argument parser
 local parser = argparse() {
     name = "Ophelia",
@@ -33,13 +34,16 @@ local parser = argparse() {
 }
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
+
 -- Parse your arguments
 local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port']
+
 -- Skip BWAPI frames
 local skip_frames = 7
 local restarts = -1
+
 while restarts < 0 do
     restarts = restarts + 1
     tc:init(hostname, port)
@@ -71,8 +75,6 @@ while restarts < 0 do
         tm:reset()
         -- Update received from game engine
         update = tc:receive()
-        -- How enable debug in a way that fit this "crafting" style?
-        -- ... Still wondering the same thing.
         if tc.DEBUG > 1 then
             print('Received update: ', update)
         end
@@ -91,10 +93,10 @@ while restarts < 0 do
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, map, tc)
 
-            -- init test on dynamic openings ???????????????????????????????? WTF ARE U DOING HERE?????? 
+            -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
 
-            -- this switch is enable by scouting with the 1th overlord in cross position, be safe.
+            -- this switch is enable by scouting in cross position, be safe.
             actions = openings.overpool(actions, tc)
 
             -- computer identify enemy units
@@ -103,6 +105,7 @@ while restarts < 0 do
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
+
             -- starting init offense and defense (!!!)
             inspect(enemy)
         elseif tc.state.game_ended then
