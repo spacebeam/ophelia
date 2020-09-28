@@ -55,14 +55,12 @@ while restarts < 0 do
     }
     tc:send({table.concat(setup, ':')})
 
-
     -- Good luck, have fun!
 
     local ophelia = {}
     local enemy = nil
     local map = tools.check_supported_maps(tc.state.map_name)
     local tm = torch.Timer()
-
 
     while not tc.state.game_ended do
 
@@ -83,28 +81,22 @@ while restarts < 0 do
                 enemy = v
             end
         end
-
         local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
-
-        -- fruit loops
         loops = loops + 1
 
         if tc.state.battle_frame_count % skip_frames == 0 then
+
             if enemy then
                 print("Ophelia vs "..enemy['name'])
             end
-            
             -- manage game economy
             actions = economy.manage_game_economy(actions, resources, tc)
 
             -- sometimes the first overlord defines our opening!
-            actions = scouting.first_overlord(actions, map, tc)
+            -- actions = scouting.first_overlord(actions, map, tc)
 
             -- this switch is enable by scouting in cross position, be safe.
-            actions = openings.overpool(actions, tc)
-
-            -- init test on dynamic openings
-            actions = openings.twelve_hatch(actions, tc)
+            -- actions = openings.overpool(actions, tc)
 
             -- bot identify enemy units
             local enemy_units = scouting.identify_enemy_units(tc)
