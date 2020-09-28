@@ -38,13 +38,18 @@ local hostname = args['hostname']
 local port = args['port']
 -- Skip BWAPI frames
 local skip_frames = 7
+-- Guarantee a single run
 local restarts = -1
-
+-- Good luck, have fun!
 while restarts < 0 do
     restarts = restarts + 1
     tc:init(hostname, port)
+    local ophelia = {}
+    local enemy = nil
     local loops = 1
     local update = tc:connect(port)
+    local map = tools.check_supported_maps(tc.state.map_name)
+    local tm = torch.Timer()
     if tc.DEBUG > 1 then
         print('Received init: ', update)
     end
@@ -54,21 +59,12 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
-
-    -- Good luck, have fun!
-
-    local ophelia = {}
-    local enemy = nil
-    local map = tools.check_supported_maps(tc.state.map_name)
-    local tm = torch.Timer()
-
     while not tc.state.game_ended do
-
         local actions = {}
-
         tm:reset()
         -- Update received from game engine
         update = tc:receive()
+        loops = loops + 1
         if tc.DEBUG > 1 then
             print('Received update: ', update)
         end
@@ -82,10 +78,7 @@ while restarts < 0 do
             end
         end
         local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
-        loops = loops + 1
-
         if tc.state.battle_frame_count % skip_frames == 0 then
-
             if enemy then
                 print("Ophelia vs "..enemy['name'])
             end
