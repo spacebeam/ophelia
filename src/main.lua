@@ -83,7 +83,7 @@ while restarts < 0 do
                 print("Ophelia vs "..enemy['name'])
             end
             -- manage game economy
-            actions = economy.manage_game_economy(actions, resources, tc)
+            actions = economy.manage_game_economy(actions, enemy['race'], resources, tc)
 
             -- sometimes the first overlord defines our opening!
             -- actions = scouting.first_overlord(actions, map, tc)

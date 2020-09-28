@@ -699,10 +699,13 @@ function economy.manage_2hm_macro(actions, tc)
     --
 end
 
-function economy.manage_game_economy(actions, resources, tc)
+function economy.manage_game_economy(actions, enemy_race, resources, tc)
     --
     -- WTF
     --
+
+    print(enemy_race)
+
     quadrant = scouting.base_quadrant()
     quadrants = scouting.all_quadrants()
     -- check my units
