@@ -80,6 +80,10 @@ while restarts < 0 do
         for k, v in pairs(tc.state.player_info) do
             if v['name'] == "Ophelia" then
                 ophelia = v
+            else
+                -- indentify enemy race
+                -- zerg 0, terran 1, protoss 2, random 8
+                print(inspect(v))
             end
         end
 
