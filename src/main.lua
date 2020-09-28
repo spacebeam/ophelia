@@ -24,7 +24,6 @@ uuid.randomseed(socket.gettime()*10000)
 -- Spawn session id
 local spawn_uuid = uuid()
 print("Ophelia's session " .. spawn_uuid)
-
 -- CLI argument parser
 local parser = argparse() {
     name = "Ophelia",
@@ -33,12 +32,10 @@ local parser = argparse() {
 }
 parser:option("-t --hostname", "Give hostname/ip to VM", "127.0.0.1")
 parser:option("-p --port", "Port for TorchCraft", 11111)
-
 -- Parse your arguments
 local args = parser:parse()
 local hostname = args['hostname']
 local port = args['port']
-
 -- Skip BWAPI frames
 local skip_frames = 7
 local restarts = -1
@@ -62,6 +59,7 @@ while restarts < 0 do
     -- Good luck, have fun!
 
     local ophelia = {}
+    local enemy = nil
     local map = tools.check_supported_maps(tc.state.map_name)
     local tm = torch.Timer()
 
@@ -80,10 +78,9 @@ while restarts < 0 do
         for k, v in pairs(tc.state.player_info) do
             if v['name'] == "Ophelia" then
                 ophelia = v
-            else
-                -- indentify enemy race
-                -- zerg 0, terran 1, protoss 2, random 8
-                print(inspect(v))
+            end
+            if v['is_enemy'] == true then
+                enemy = v
             end
         end
 
@@ -93,7 +90,10 @@ while restarts < 0 do
         loops = loops + 1
 
         if tc.state.battle_frame_count % skip_frames == 0 then
-
+            if enemy then
+                print("Ophelia vs "..enemy['name'])
+            end
+            
             -- manage game economy
             actions = economy.manage_game_economy(actions, resources, tc)
 
@@ -106,16 +106,18 @@ while restarts < 0 do
             -- init test on dynamic openings
             actions = openings.twelve_hatch(actions, tc)
 
-            -- computer identify enemy units
-            local enemy = scouting.identify_enemy_units(tc)
-
+            -- bot identify enemy units
+            local enemy_units = scouting.identify_enemy_units(tc)
+            -- note how this seem to be backwards ?
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
-
             -- starting init offense and defense (!!!)
-            inspect(enemy)
+            inspect(enemy_units)
+
         elseif tc.state.game_ended then
+            -- wp
+            print("gg")
             break
         else
             tools.pass()
@@ -131,7 +133,6 @@ while restarts < 0 do
     tc:close()
     collectgarbage()
     sys.sleep(0.0042)
-    print(inspect(ophelia))
     print("So Long, and Thanks for All the Lings!")
     collectgarbage()
 end
