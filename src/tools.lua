@@ -1,5 +1,5 @@
 --
--- Put effort into make a good set of tools which allow to build custom solutions.
+-- A good set of tools allow to build custom solutions.
 --
 
 local utils = require("torchcraft.utils")

@@ -1,5 +1,6 @@
 --
 -- 9 Gas
+-- 10 Pool
 -- 9 Hatch
 -- 12 Hatch
 -- 12 Pool
@@ -17,7 +18,6 @@ local tools = require("ophelia.tools")
 local openings = {}
 
 -- can we just read stuff from the structure on "economy" ?
--- I guess, still for the future!
 local has_spawning_pool = false
 
 local spawning_pool = 0
@@ -26,6 +26,11 @@ local main = false
 
 
 function openings.nine_gas(actions, tc)
+    --
+    --
+end
+
+function openings.ten_pool(actions, tc)
     --
     --
 end

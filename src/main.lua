@@ -4,7 +4,6 @@
 --
 
 local inspect = require("inspect")
-
 local sys = require("sys")
 local torch = require("torch")
 local argparse = require("argparse")
@@ -65,13 +64,12 @@ while restarts < 0 do
     local ophelia = {}
     local map = tools.check_supported_maps(tc.state.map_name)
     local tm = torch.Timer()
-    
+
+
     while not tc.state.game_ended do
-    
-    
+
         local actions = {}
-    
-    
+
         tm:reset()
         -- Update received from game engine
         update = tc:receive()
@@ -84,20 +82,25 @@ while restarts < 0 do
                 ophelia = v
             end
         end
+
         local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
+
+        -- fruit loops
         loops = loops + 1
+
         if tc.state.battle_frame_count % skip_frames == 0 then
 
+            -- manage game economy
             actions = economy.manage_game_economy(actions, resources, tc)
 
             -- sometimes the first overlord defines our opening!
             actions = scouting.first_overlord(actions, map, tc)
 
-            -- init test on dynamic openings
-            actions = openings.twelve_hatch(actions, tc)
-
             -- this switch is enable by scouting in cross position, be safe.
             actions = openings.overpool(actions, tc)
+
+            -- init test on dynamic openings
+            actions = openings.twelve_hatch(actions, tc)
 
             -- computer identify enemy units
             local enemy = scouting.identify_enemy_units(tc)
