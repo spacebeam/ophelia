@@ -66,7 +66,7 @@ end
 
 function openings.overpool(actions, tc)
     --
-    -- Safe standard opening
+    -- Safe standard opening vs Protoss FFE
     --
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(u.type) then

@@ -610,6 +610,10 @@ function economy.manage_12p_bo(actions, tc)
     --
     -- 12p worker management
     --
+    local map = tools.check_supported_maps(tc.state.map_name)
+
+    actions = scouting.first_overlord(actions, map, tc)
+
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(u.type) then
             if is_drone_scouting and fun.size(scouting_drones) == 1 then
@@ -629,17 +633,9 @@ function economy.manage_12p_bo(actions, tc)
             elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
                 and tc.state.resources_myself.ore >= 300 then
                 actions = economy.build_natural(id, u, actions, tc)
-            elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
-                and fun.size(expansions) == 2 then
-                actions = economy.take_third(id, u, actions, tc)
-                is_drone_expanding = false
-            elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= nil
-                and tc.state.resources_myself.ore >= 300 then
-                actions = economy.build_third(scouting_drones[1]['id'], u, actions, tc)
-            elseif fun.size(expansions) == 2
+            elseif fun.size(expansions) == 1
                 and units['spawning']['extractors'][1] == nil
                 and expansions[1]['id'] ~= id
-                and expansions[2]['id'] ~= id
                 and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 42 then
@@ -651,7 +647,6 @@ function economy.manage_12p_bo(actions, tc)
             -- Sending drones to extractor
             elseif drones_to_gas
                 and expansions[1]['id'] ~= id
-                and expansions[2]['id'] ~= id
                 and scouting_drones[1]['id'] ~= id
                 and scouting_drones[2]['id'] ~= id
                 and vespene_drones[3] == nil then
@@ -672,7 +667,6 @@ function economy.manage_12p_bo(actions, tc)
                     tc.command(tc.command_unit_protected, id,
                     tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
                 end
-            -- init test on hydralisk den
             else
                 units = economy.check_workers()
                 if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
@@ -718,23 +712,11 @@ function economy.manage_12p_bo(actions, tc)
         expansions[1] = {}
         is_drone_expanding = true
     end
-    -- at 12 expanding the 3th hatch
-    if fun.size(units['drones']) == 12
-        and fun.size(scouting_drones) == 2
-        and fun.size(units['buildings']['hatcheries']) == 2
-        and expansions[2] == nil then
-        expansions[2] = {}
-        is_drone_expanding = true
-    end
     -- at 16 building the third overlord
     if fun.size(units['drones']) >= 16 and fun.size(units['overlords']) == 2
         and spawning_overlord == false then
         spawning_overlord = true
     end
-    -- init 9734 test workers
-    if fun.size(units['drones']) >= 22 then
-        powering = false
-    else powering = true end
     -- stop drone powering at 12 focus change to 3th expansion and gas
     if fun.size(units['drones']) == 12 then
         powering = false
