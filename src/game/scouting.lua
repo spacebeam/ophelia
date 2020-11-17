@@ -1,10 +1,7 @@
 --
--- Scouting overlords,
--- scouting drones,
--- scouting lings.
+-- Scouting is all you need
 --
 
--- add/remove if needed
 --local inspect = require("inspect")
 
 local fun = require("moses")
@@ -13,7 +10,7 @@ local tools = require("ophelia.tools")
 
 local scouting = {}
 
--- prepare to fight!
+-- Ophelia!!! Prepare to fight!
 local vs_zerg = false
 local vs_protoss = false
 local vs_terran = false
@@ -26,7 +23,6 @@ enemy["T"] = {["units"]={},["race"]="Terran",["against"]=false}
 local quadrant = nil
 -- Map is not territory, but...
 -- since handling 512x512 for all things.
--- Kill the One-Trick 973(4) Pony!
 -- TODO: return all hardcoded location data from tools.check_supported_maps
 local quadrants = {}
 quadrants["A"] = {

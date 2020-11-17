@@ -6,6 +6,9 @@
 -- powering is when computer switch to economics.
 --
 
+-- zvz mirror: how are we going to approach this? 
+-- zvp mindset: have enough drones with 6 hatches and 3 gas mining
+-- zvp mindset: lets learn to survive and use mutalisks for now!
 
 local inspect = require("inspect")
 
@@ -436,6 +439,12 @@ function economy.manage_9734_bo(actions, tc)
     --
     -- 9734 worker management
     --
+    local map = tools.check_supported_maps(tc.state.map_name)
+
+    actions = scouting.first_overlord(actions, map, tc)
+
+    actions = openings.overpool(actions, tc)
+
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(u.type) then
             if is_drone_scouting and fun.size(scouting_drones) == 1 then
@@ -578,14 +587,160 @@ end
 
 function economy.manage_5hh_bo(actions, tc)
     --
-    -- Standard ZvP 5HH simcity management
+    -- 5HH worker management
     --
+    return actions
 end
 
 function economy.manage_2hm_bo(actions, tc)
     --
-    -- Standard ZvT 2HM simcity management
+    -- 2HM worker management
     --
+    return actions
+end
+
+function economy.manage_10p_bo(actions, tc)
+    --
+    -- 10P worker management
+    --
+    return actions
+end
+
+function economy.manage_12p_bo(actions, tc)
+    --
+    -- 12p worker management
+    --
+    for id, u in pairs(tc.state.units_myself) do
+        if tc:isworker(u.type) then
+            if is_drone_scouting and fun.size(scouting_drones) == 1 then
+                local eleven = scouting.eleven_drone_scout(scouting_drones, id, u, actions, tc)
+                actions = eleven["actions"]
+                scouting_drones = eleven["scouting_drones"]
+                is_drone_scouting = false
+            elseif is_drone_scouting and scouting_drones[1]['id'] ~= id then
+                local twelve = scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
+                actions = twelve["actions"]
+                scouting_drones = twelve["scouting_drones"]
+                is_drone_scouting = false
+            elseif is_drone_expanding and scouting_drones[1]['id'] ~= id
+                and scouting_drones[2]['id'] ~= id and fun.size(expansions) == 1 then
+                actions = economy.take_natural(id, u, actions, tc)
+                is_drone_expanding = false
+            elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
+                and tc.state.resources_myself.ore >= 300 then
+                actions = economy.build_natural(id, u, actions, tc)
+            elseif is_drone_expanding and scouting_drones[2]['id'] ~= id
+                and fun.size(expansions) == 2 then
+                actions = economy.take_third(id, u, actions, tc)
+                is_drone_expanding = false
+            elseif fun.size(expansions) == 2 and expansions[2]['id'] ~= nil
+                and tc.state.resources_myself.ore >= 300 then
+                actions = economy.build_third(scouting_drones[1]['id'], u, actions, tc)
+            elseif fun.size(expansions) == 2
+                and units['spawning']['extractors'][1] == nil
+                and expansions[1]['id'] ~= id
+                and expansions[2]['id'] ~= id
+                and scouting_drones[1]['id'] ~= id
+                and scouting_drones[2]['id'] ~= id
+                and tc.state.resources_myself.ore >= 42 then
+                actions = economy.take_main_geyser(id, u, actions, tc)
+            elseif units['spawning']['extractors'][1] ~= nil
+                and fun.size(units['buildings']['extractors']) ~= 1
+                and tc.state.resources_myself.ore >= 50 then
+                actions = economy.build_main_extractor(units['spawning']['extractors'][1]['id'], u, actions, tc)
+            -- Sending drones to extractor
+            elseif drones_to_gas
+                and expansions[1]['id'] ~= id
+                and expansions[2]['id'] ~= id
+                and scouting_drones[1]['id'] ~= id
+                and scouting_drones[2]['id'] ~= id
+                and vespene_drones[3] == nil then
+                if fun.size(vespene_drones) == 0 then
+                    vespene_drones[1] = {["id"]=id}
+                    -- clean and reformat this into its own function
+                    table.insert(actions,
+                    tc.command(tc.command_unit_protected, id,
+                    tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
+                elseif fun.size(vespene_drones) == 1 and vespene_drones[1]["id"] ~= id then
+                    vespene_drones[2] = {["id"]=id}
+                    table.insert(actions,
+                    tc.command(tc.command_unit_protected, id,
+                    tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
+                elseif fun.size(vespene_drones) == 2 and vespene_drones[2]["id"] ~= id then
+                    vespene_drones[3] = {["id"]=id}
+                    table.insert(actions,
+                    tc.command(tc.command_unit_protected, id,
+                    tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
+                end
+            -- init test on hydralisk den
+            else
+                units = economy.check_workers()
+                if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
+                    tc.command2order[tc.unitcommandtypes.Gather])
+                    and not utils.is_in(u.order,
+                    tc.command2order[tc.unitcommandtypes.Build])
+                   and not utils.is_in(u.order,
+                    tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+                    local target = tools.get_closest(u.position,
+                        tc:filter_type(tc.state.units_neutral,
+                        {tc.unittypes.Resource_Mineral_Field,
+                         tc.unittypes.Resource_Mineral_Field_Type_2,
+                         tc.unittypes.Resource_Mineral_Field_Type_3}))
+                    if target ~= nil then
+                        table.insert(actions,
+                        tc.command(tc.command_unit_protected, id,
+                        tc.cmd.Right_Click_Unit, target))
+                    end
+                end
+            end
+            units = economy.check_workers()
+        end
+    end
+    print(inspect(units['busy']))
+    -- First created overlord, second in total.. this is the 'overpool' overlord.
+    if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1
+        and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
+        spawning_overlord = true
+    end
+    -- Scouting at 11
+    if fun.size(units['drones']) == 11 and scouting_drones[1] == nil then
+        scouting_drones[1] = {}
+        is_drone_scouting = true
+    end
+    -- Scouting at 12
+    if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
+        scouting_drones[2] = {}
+        is_drone_scouting = true
+    end
+    -- at 12 taking natural after 'overpool'
+    if fun.size(units['drones']) == 12 and fun.size(scouting_drones) == 2
+        and expansions[1] == nil then
+        expansions[1] = {}
+        is_drone_expanding = true
+    end
+    -- at 12 expanding the 3th hatch
+    if fun.size(units['drones']) == 12
+        and fun.size(scouting_drones) == 2
+        and fun.size(units['buildings']['hatcheries']) == 2
+        and expansions[2] == nil then
+        expansions[2] = {}
+        is_drone_expanding = true
+    end
+    -- at 16 building the third overlord
+    if fun.size(units['drones']) >= 16 and fun.size(units['overlords']) == 2
+        and spawning_overlord == false then
+        spawning_overlord = true
+    end
+    -- init 9734 test workers
+    if fun.size(units['drones']) >= 22 then
+        powering = false
+    else powering = true end
+    -- stop drone powering at 12 focus change to 3th expansion and gas
+    if fun.size(units['drones']) == 12 then
+        powering = false
+    end
+    -- gg
+    return actions
 end
 
 function economy.manage_9734_macro(actions, tc)
@@ -691,21 +846,126 @@ function economy.manage_5hh_macro(actions, tc)
     --
     -- Standard ZvP 5HH simcity management
     --
+    return actions
 end
 
 function economy.manage_2hm_macro(actions, tc)
     --
     -- Standard ZvT 2HM simcity management
     --
+    return actions
 end
 
-function economy.manage_game_economy(actions, enemy_race, resources, tc)
+function economy.manage_10p_macro(actions, tc)
     --
-    -- WTF
+    -- ZvZ 10P simcity management
     --
+    return actions
+end
 
-    print(enemy_race)
+function economy.manage_12p_macro(actions, tc)
+    --
+    -- 12P simcity management
+    --
+    for id, u in pairs(tc.state.units_myself) do
+        if tc:isbuilding(u.type) then
+            -- (!)
+            if u.type == tc.unittypes.Zerg_Spawning_Pool then
+                tools.pass()
+            end
+            if u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
+                tools.pass()
+            end
+            if u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
+                --
+                drones_to_gas = true
+            end
+            -- (!!)
+           if u.type == tc.unittypes.Zerg_Hydralisk_Den then
+                tools.pass()
+            end
+            if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
+                tools.pass()
+            end
+            if u.type == tc.unittypes.Zerg_Hatchery then
+                -- Spawning second overlord
+                if spawning_overlord == true and fun.size(units['overlords']) == 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Overlord))
+                    spawning_overlord = false
+                    is_spawning_overlord[2] = true
+                end
+                -- Spawn exactly 2 lings (;
+                if spawning_lings == false
+                    and fun.size(units['drones']) == 12
+                    and fun.size(units['eggs']) < 1
+                    and fun.size(units['lings']) == 0 then
+                    spawning_lings = true
+                end
+                -- Spawning first lings
+                if spawning_lings == true and fun.size(units['eggs']) ~= 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Zergling))
+                    spawning_lings = false
+                end
+                -- Spwning first hydras
+                if spawning_hydras == false
+                    and fun.size(units['drones']) >= 22
+                    and fun.size(units['eggs']) < 1
+                    and fun.size(units['hydras']) == 0 then
+                    spawning_hydras = true
+                end
+                if spawning_hydras == true and fun.size(units['eggs']) ~= 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Hydralisk))
+                    if fun.size(units['hydras']) >= 12 then
+                        spawning_hydras = false
+                    end
+                end
+                -- Same for third overlord
+                if spawning_overlord == true and fun.size(units['overlords']) == 2 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Overlord))
+                    spawning_overlord = false
+                    is_spawning_overlord[3] = true
+                end
+                -- it appears that counting eggs was not that bad after all
+                if spawning_overlord == false and fun.size(is_spawning_overlord) == 1 then
+                    if fun.size(units["overlords"]) == 1 and fun.size(units["eggs"]) < 1 then
+                        is_spawning_overlord[2] = nil
+                        spawning_overlord = true
+                    end
+                end
+                -- Old count eggs base style
+                if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
+                    if fun.size(units["eggs"]) < 1 then
+                        is_spawning_overlord[3] = nil
+                    end
+                end
+                -- powering == drone up!
+                if powering == true then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0,tc.unittypes.Zerg_Drone))
+                end
+            else
+                tools.pass()
+            end
+        else
+            tools.pass()
+        end
+    end
+    return actions
+end
 
+function economy.manage_game_economy(actions, enemy, resources, tc)
+    --
+    -- computer manage game economy
+    --
     quadrant = scouting.base_quadrant()
     quadrants = scouting.all_quadrants()
     -- check my units
@@ -734,12 +994,45 @@ function economy.manage_game_economy(actions, enemy_race, resources, tc)
     local defence = {}
     units['defence'] = defence
     -- Scout identify enemy units
-    local enemy = scouting.identify_enemy_units(tc)
-    units['enemy'] = enemy
-
+    local enemy_units = scouting.identify_enemy_units(tc)
+    units['enemy'] = enemy_units
     -- And Now For Something Completely Different
-    actions = economy.manage_9734_bo(actions, tc)
-    actions = economy.manage_9734_macro(actions, tc)
+    if enemy['race'] == 0 then
+        -- Ophelia vs Zerg: one way could be start with 12p
+        -- 1. it's the build that soft counters early 9p preassure.
+        -- 2. it's a zerg vs zerg bo but we could open like that vs random players
+        -- 3. the work on the build is also usefull on the terran match up.
+        actions = economy.manage_12p_bo(actions, tc)
+        actions = economy.manage_12p_macro(actions, tc)
+        
+        -- NOTE: Yo, do not start working on multiple builds untill 
+        -- testing results of the first ones against other bots.
+
+        --actions = economy.manage_12h_bo(actions, tc)
+        --actions = economy.manage_12h_macro(actions, tc)
+        --actions = economy.manage_9p_bo(actions, tc)
+        --actions = economy.manage_9p_macro(actions, tc)
+        --actions = economy.manage_9g_bo(actions, tc)
+        --actions = economy.manage_9g_macro(actions, tc)
+        --actions = economy.manage_10p_bo(actions, tc)
+        --actions = economy.manage_10p_macro(actions, tc)
+    elseif enemy['race'] == 1 then
+        -- Ophelia vs Terran: start trying to not die vs bio and learning to use mutalisk
+        -- the MU later branch into 3 main terran plays: bio, 1:1:1, or mech.
+        actions = economy.manage_2hm_bo(actions, tc)
+        actions = economy.manage_2hm_macro(actions, tc)
+    elseif enemy['race'] == 2 then
+        -- Ophelia Vs Protoss: Have enough drones with 6 hatches and 3 gas mining!
+        actions = economy.manage_9734_bo(actions, tc)
+        actions = economy.manage_9734_macro(actions, tc)
+        -- since the original 9734 pony is not 'standard'
+        --actions = economy.manage_5hh_bo(actions, tc)
+        --actions = economy.manage_5hh_macro(actions, tc)
+    else
+        -- random
+        actions = economy.manage_12p_bo(actions, tc)
+        actions = economy.manage_12p_macro(actions, tc)
+    end
     print("overlords " .. fun.size(units['overlords']))
     print("larvae ".. fun.size(units['larvae']))
     print("eggs " .. fun.size(units['eggs']))

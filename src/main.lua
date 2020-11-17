@@ -83,14 +83,8 @@ while restarts < 0 do
                 print("Ophelia vs "..enemy['name'])
             end
             -- manage game economy
-            actions = economy.manage_game_economy(actions, enemy['race'], resources, tc)
-
-            -- sometimes the first overlord defines our opening!
-            -- actions = scouting.first_overlord(actions, map, tc)
-
-            -- this switch is enable by scouting in cross position, be safe.
-            -- actions = openings.overpool(actions, tc)
-
+            actions = economy.manage_game_economy(actions, enemy, resources, tc)        
+            
             -- bot identify enemy units
             local enemy_units = scouting.identify_enemy_units(tc)
             -- note how this seem to be backwards ?

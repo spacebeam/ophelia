@@ -1,7 +1,8 @@
 --
+-- 9 Pool
 -- 9 Gas
 -- 10 Pool
--- 9 Hatch
+-- 9 Hatch ?
 -- 12 Hatch
 -- 12 Pool
 -- Overpool
@@ -24,6 +25,11 @@ local spawning_pool = 0
 
 local main = false
 
+
+function openings.nine_pool(actions, tc)
+    --
+    --
+end
 
 function openings.nine_gas(actions, tc)
     --
