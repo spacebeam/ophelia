@@ -2,14 +2,11 @@
 -- 9 Pool
 -- 9 Gas
 -- 10 Pool
--- 9 Hatch ?
 -- 12 Hatch
 -- 12 Pool
 -- Overpool
 --
 
-
--- add/remove if needed
 --local inspect = require("inspect")
 --local fun = require("moses")
 
@@ -39,13 +36,6 @@ end
 function openings.ten_pool(actions, tc)
     --
     --
-end
-
-function openings.nine_hatch(actions, tc)
-    --
-    -- 9 hatch fast expand
-    --
-    return actions
 end
 
 function openings.twelve_hatch(actions, tc)

@@ -7,7 +7,7 @@
 --
 
 -- zvp mindset: have enough drones with 6 hatches and 3 gas mining
--- zvp mindset: lets learn to survive and use mutalisks for now!
+-- zvt mindset: lets learn to survive and use mutalisks for now!
 
 local inspect = require("inspect")
 
@@ -72,6 +72,9 @@ local vespene_drones = {}
 
 local drones_to_gas = false
 
+local is_on_lair_tier = false
+
+local is_on_hive_tier = false
 
 function economy.check_workers()
     --
@@ -242,7 +245,6 @@ function economy.check_my_units(tc)
     units["buildings"]["spire"] = spire
     units["buildings"]["queens_nest"] = queens_nest
     units["buildings"]["infested_command_center"] = infested_command_center
-    -- missing late game tech for obvious reasons!
     return units
 end
 
@@ -903,7 +905,13 @@ function economy.manage_12p_macro(actions, tc)
                     quadrants[quadrant]["natural"]["y"]))
                 end
                 -- Upgrade to lair
-                
+                if buildings['spawning_pool'] and tc.state.resources_myself.ore >= 150 and tc.state.resources_myself.gas >= 100 and is_on_lair_tier == false then
+                    print('trying to get lair')
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Morph,
+                    0,0,0, tc.unittypes.Zerg_Lair))
+                    is_on_lair_tier = true
+                end
                 -- powering == drone up!
                 if powering == true then
                     table.insert(actions,
