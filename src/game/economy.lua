@@ -640,7 +640,8 @@ function economy.manage_12p_bo(actions, tc)
                 actions = economy.take_natural(id, u, actions, tc)
                 is_drone_expanding = false
             elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
-                and tc.state.resources_myself.ore >= 300 then
+                and tc.state.resources_myself.ore >= 300 
+                and buildings['spawning_pool'] ~= nil then
                 actions = economy.build_natural(id, u, actions, tc)
             elseif fun.size(expansions) == 1
                 and units['spawning']['extractors'][1] == nil
