@@ -1,8 +1,9 @@
 #!/usr/bin/env luajit
 --
+-- Make it work then make it beutiful then if you really, really have to make it fast!
 -- We don't know where she is from, or even what strain she is.
+-- Do not break the laws of physics.
 --
-
 local inspect = require("inspect")
 local sys = require("sys")
 local torch = require("torch")
@@ -11,10 +12,8 @@ local socket = require("socket")
 local uuid = require("uuid")
 local tc = require("torchcraft")
 local scouting = require("ophelia.scouting")
-local openings = require("ophelia.openings")
 local economy = require("ophelia.economy")
 local tools = require("ophelia.tools")
-
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
@@ -48,7 +47,6 @@ while restarts < 0 do
     local enemy = nil
     local loops = 1
     local update = tc:connect(port)
-    local map = tools.check_supported_maps(tc.state.map_name)
     local tm = torch.Timer()
     if tc.DEBUG > 1 then
         print('Received init: ', update)
@@ -82,9 +80,7 @@ while restarts < 0 do
             if enemy then
                 print("Ophelia vs "..enemy['name'])
             end
-            -- manage game economy
-            actions = economy.manage_game_economy(actions, enemy, resources, tc)        
-            
+            actions = economy.manage_game_economy(actions, enemy, resources, tc)
             -- bot identify enemy units
             local enemy_units = scouting.identify_enemy_units(tc)
             -- note how this seem to be backwards ?
@@ -93,7 +89,6 @@ while restarts < 0 do
             end
             -- starting init offense and defense (!!!)
             inspect(enemy_units)
-
         elseif tc.state.game_ended then
             -- wp
             print("gg")

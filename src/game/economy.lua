@@ -412,12 +412,6 @@ function economy.take_fifth()
     --
 end
 
-function economy.build_spawning_pool(id, u, actions, tc)
-    --
-    -- Build spawning pool
-    --
-end
-
 function economy.build_hydralisk_den(id, u, actions, tc)
     --
     -- Build hydralisk den
@@ -625,15 +619,10 @@ function economy.manage_12p_bo(actions, tc)
                 local eleven = scouting.eleven_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
-                is_drone_scouting = false
-            
-            -- YOU ARE HERE
-            
+                is_drone_scouting = false           
             elseif is_drone_scouting and scouting_drones[1]['id'] ~= id then
-
                 actions = openings.twelve_pool(id, u, actions, tc)
                 is_drone_scouting = false
-
             elseif is_drone_expanding and scouting_drones[1]['id'] ~= id
                 and fun.size(expansions) == 1 then
                 actions = economy.take_natural(id, u, actions, tc)
@@ -707,18 +696,12 @@ function economy.manage_12p_bo(actions, tc)
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-
-
-    
     -- Spawning at 12 <---------------------- YOU ARE HERE
     if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
         scouting_drones[2] = {}
         is_drone_scouting = true
     end
-    
-    
-
-    -- at 11 taking natural after 'overpool'
+    -- at 11 taking natural after '12pool'
     if fun.size(units['drones']) == 12 and fun.size(scouting_drones) == 2
         and expansions[1] == nil then
         expansions[1] = {}
