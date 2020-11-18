@@ -72,7 +72,7 @@ local vespene_drones = {}
 
 local drones_to_gas = false
 
-local is_on_lair_tier = false
+local morphing_lair = false
 
 local is_on_hive_tier = false
 
@@ -198,7 +198,7 @@ function economy.check_my_units(tc)
             table.insert(sunken_colonies, id)
         elseif u.type == tc.unittypes.Zerg_Spore_Colony and u.flags.completed == true then
             table.insert(spore_colonies, id)
-        elseif u.type == tc.unittypes.Zerg_Lair and u.flags.completed == true then
+        elseif u.type == tc.unittypes.Zerg_Lair then
             table.insert(lair, id)
         elseif u.type == tc.unittypes.Zerg_Spire and u.flags.completed == true then
             table.insert(spire, id)
@@ -905,12 +905,10 @@ function economy.manage_12p_macro(actions, tc)
                     quadrants[quadrant]["natural"]["y"]))
                 end
                 -- Upgrade to lair
-                if buildings['spawning_pool'] and tc.state.resources_myself.ore >= 150 and tc.state.resources_myself.gas >= 100 and is_on_lair_tier == false then
-                    print('trying to get lair')
+                if fun.size(units['buildings']['spawning_pool']) == 1 and tc.state.resources_myself.ore >= 150 and tc.state.resources_myself.gas >= 100 and fun.size(units['buildings']['lair']) == 0 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
-                    is_on_lair_tier = true
                 end
                 -- powering == drone up!
                 if powering == true then
