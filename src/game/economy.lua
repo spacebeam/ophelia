@@ -902,6 +902,8 @@ function economy.manage_12p_macro(actions, tc)
                     -1, quadrants[quadrant]["natural"]["x"],
                     quadrants[quadrant]["natural"]["y"]))
                 end
+                -- Upgrade to lair
+                
                 -- powering == drone up!
                 if powering == true then
                     table.insert(actions,
