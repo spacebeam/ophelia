@@ -6,7 +6,6 @@
 -- powering is when computer switch to economics.
 --
 
--- zvz mirror: how are we going to approach this? 
 -- zvp mindset: have enough drones with 6 hatches and 3 gas mining
 -- zvp mindset: lets learn to survive and use mutalisks for now!
 
@@ -17,6 +16,12 @@ local utils = require("torchcraft.utils")
 local scouting = require("ophelia.scouting")
 local openings = require("ophelia.openings")
 local tools = require("ophelia.tools")
+
+-- old opening stuff have has_spawning_pool, spawning_pool as bool
+-- old opening got main hatchery position from list of buildings
+
+-- here we don't need a main variable in reference to the first hatch
+-- here we got a list of all our buildings and units.
 
 -- This quandrant stuff is relevant only to our implementation
 -- players use the clock to position themselves on the map.
@@ -621,13 +626,16 @@ function economy.manage_12p_bo(actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
                 is_drone_scouting = false
+            
+            -- YOU ARE HERE
+            
             elseif is_drone_scouting and scouting_drones[1]['id'] ~= id then
-                local twelve = scouting.twelve_drone_scout(scouting_drones, id, u, actions, tc)
-                actions = twelve["actions"]
-                scouting_drones = twelve["scouting_drones"]
+
+                actions = openings.twelve_pool(id, u, actions, tc)
                 is_drone_scouting = false
+
             elseif is_drone_expanding and scouting_drones[1]['id'] ~= id
-                and scouting_drones[2]['id'] ~= id and fun.size(expansions) == 1 then
+                and fun.size(expansions) == 1 then
                 actions = economy.take_natural(id, u, actions, tc)
                 is_drone_expanding = false
             elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
@@ -637,7 +645,6 @@ function economy.manage_12p_bo(actions, tc)
                 and units['spawning']['extractors'][1] == nil
                 and expansions[1]['id'] ~= id
                 and scouting_drones[1]['id'] ~= id
-                and scouting_drones[2]['id'] ~= id
                 and tc.state.resources_myself.ore >= 42 then
                 actions = economy.take_main_geyser(id, u, actions, tc)
             elseif units['spawning']['extractors'][1] ~= nil
@@ -648,7 +655,6 @@ function economy.manage_12p_bo(actions, tc)
             elseif drones_to_gas
                 and expansions[1]['id'] ~= id
                 and scouting_drones[1]['id'] ~= id
-                and scouting_drones[2]['id'] ~= id
                 and vespene_drones[3] == nil then
                 if fun.size(vespene_drones) == 0 then
                     vespene_drones[1] = {["id"]=id}
@@ -697,16 +703,22 @@ function economy.manage_12p_bo(actions, tc)
         spawning_overlord = true
     end
     -- Scouting at 11
-    if fun.size(units['drones']) == 11 and scouting_drones[1] == nil then
+    if fun.size(units['drones']) == 10 and scouting_drones[1] == nil then
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-    -- Scouting at 12
+
+
+    
+    -- Spawning at 12 <---------------------- YOU ARE HERE
     if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
         scouting_drones[2] = {}
         is_drone_scouting = true
     end
-    -- at 12 taking natural after 'overpool'
+    
+    
+
+    -- at 11 taking natural after 'overpool'
     if fun.size(units['drones']) == 12 and fun.size(scouting_drones) == 2
         and expansions[1] == nil then
         expansions[1] = {}
