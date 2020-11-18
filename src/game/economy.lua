@@ -36,7 +36,12 @@ local powering = true
 local buildings = {["hatcheries"]={},
                    ["spawning_pool"]={},
                    ["extractors"]={},
-                   ["hydralisk_den"]={}}
+                   ["evolution_chambers"]={},
+                   ["hydralisk_den"]={},
+                   ["lair"]={},
+                   ["hive"]={},
+                   ["queen_nest"]={},
+                   ["spire"]={}}
 
 local units = {["busy"]={},
                ["idle"]={},
@@ -135,8 +140,10 @@ function economy.check_my_units(tc)
     local creep_colonies = {}
     local sunken_colonies = {}
     local spore_colonies = {}
+    local lair = {}
     local spire = {}
     local queens_nest = {}
+    local hive = {}
     local defiler_mound = {}
     local ultralisk_cavern = {}
     local infested_command_center = {}
@@ -188,10 +195,14 @@ function economy.check_my_units(tc)
             table.insert(sunken_colonies, id)
         elseif u.type == tc.unittypes.Zerg_Spore_Colony and u.flags.completed == true then
             table.insert(spore_colonies, id)
+        elseif u.type == tc.unittypes.Zerg_Lair and u.flags.completed == true then
+            table.insert(lair, id)
         elseif u.type == tc.unittypes.Zerg_Spire and u.flags.completed == true then
             table.insert(spire, id)
         elseif u.type == tc.unittypes.Zerg_Queens_Nest and u.flags.completed == true then
             table.insert(queens_nest, id)
+        elseif u.type == tc.unittypes.Zerg_Hive and u.flags.completed == true then
+            table.insert(hive, id)
         elseif u.type == tc.unittypes.Zerg_Defiler_Mound and u.flags.completed == true then
             table.insert(defiler_mound, id)
         elseif u.type == tc.unittypes.Zerg_Ultralisk_Cavern and u.flags.completed == true then
@@ -227,6 +238,7 @@ function economy.check_my_units(tc)
     units["buildings"]["creep_colonies"] = creep_colonies
     units["buildings"]["sunken_colonies"] = sunken_colonies
     units["buildings"]["spore_colonies"] = spore_colonies
+    units["buildings"]["lair"] = lair
     units["buildings"]["spire"] = spire
     units["buildings"]["queens_nest"] = queens_nest
     units["buildings"]["infested_command_center"] = infested_command_center
@@ -715,6 +727,8 @@ function economy.manage_12p_bo(actions, tc)
     -- stop drone powering at 12 focus change to 3th expansion and gas
     if fun.size(units['drones']) == 12 then
         powering = false
+    elseif fun.size(units['drones']) < 12 then
+        powering = true
     end
     -- gg
     return actions
@@ -857,16 +871,11 @@ function economy.manage_12p_macro(actions, tc)
                 --
                 drones_to_gas = true
             end
-            -- (!!)
-           if u.type == tc.unittypes.Zerg_Hydralisk_Den then
-                tools.pass()
-            end
-            if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
-                tools.pass()
-            end
             if u.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning second overlord
-                if spawning_overlord == true and fun.size(units['overlords']) == 1 then
+                if spawning_overlord == true 
+                    and fun.size(units['overlords']) == 1 
+                    and fun.size(units['eggs']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Overlord))
@@ -886,42 +895,6 @@ function economy.manage_12p_macro(actions, tc)
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Zergling))
                     spawning_lings = false
-                end
-                -- Spwning first hydras
-                if spawning_hydras == false
-                    and fun.size(units['drones']) >= 22
-                    and fun.size(units['eggs']) < 1
-                    and fun.size(units['hydras']) == 0 then
-                    spawning_hydras = true
-                end
-                if spawning_hydras == true and fun.size(units['eggs']) ~= 1 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Train,
-                    0,0,0, tc.unittypes.Zerg_Hydralisk))
-                    if fun.size(units['hydras']) >= 12 then
-                        spawning_hydras = false
-                    end
-                end
-                -- Same for third overlord
-                if spawning_overlord == true and fun.size(units['overlords']) == 2 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Train,
-                    0,0,0, tc.unittypes.Zerg_Overlord))
-                    spawning_overlord = false
-                    is_spawning_overlord[3] = true
-                end
-                -- it appears that counting eggs was not that bad after all
-                if spawning_overlord == false and fun.size(is_spawning_overlord) == 1 then
-                    if fun.size(units["overlords"]) == 1 and fun.size(units["eggs"]) < 1 then
-                        is_spawning_overlord[2] = nil
-                        spawning_overlord = true
-                    end
-                end
-                -- Old count eggs base style
-                if spawning_overlord == true and fun.size(is_spawning_overlord) == 2 then
-                    if fun.size(units["eggs"]) < 1 then
-                        is_spawning_overlord[3] = nil
-                    end
                 end
                 -- powering == drone up!
                 if powering == true then
@@ -985,6 +958,9 @@ function economy.manage_game_economy(actions, enemy, resources, tc)
         -- NOTE: Yo, do not start working on multiple builds untill 
         -- testing results of the first ones against other bots.
 
+        -- NOTE: are you sure you are ready know?
+        -- call random BO, watch the results and make a future.
+
         --actions = economy.manage_12h_bo(actions, tc)
         --actions = economy.manage_12h_macro(actions, tc)
         --actions = economy.manage_9p_bo(actions, tc)
@@ -1030,6 +1006,8 @@ function economy.manage_game_economy(actions, enemy, resources, tc)
     print("extractors " .. fun.size(units['buildings']['extractors']))
     print("evolution_chambers " .. fun.size(units['buildings']['evolution_chambers']))
     print("hydralisk_den " .. fun.size(units['buildings']['hydralisk_den']))
+    print("lair " .. fun.size(units['buildings']['lair']))
+    print("spire " .. fun.size(units['buildings']['spire']))
     print("creep_colonies " .. fun.size(units['buildings']['creep_colonies']))
     print("sunken_colonies " .. fun.size(units['buildings']['sunken_colonies']))
     print("spore_colonies " .. fun.size(units['buildings']['spore_colonies']))
