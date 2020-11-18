@@ -904,8 +904,11 @@ function economy.manage_12p_macro(actions, tc)
                     -1, quadrants[quadrant]["natural"]["x"],
                     quadrants[quadrant]["natural"]["y"]))
                 end
-                -- Upgrade to lair
-                if fun.size(units['buildings']['spawning_pool']) == 1 and tc.state.resources_myself.ore >= 150 and tc.state.resources_myself.gas >= 100 and fun.size(units['buildings']['lair']) == 0 then
+                -- Upgrade main hatchery into lair
+                if fun.size(units['buildings']['spawning_pool']) == 1 
+                    and tc.state.resources_myself.ore >= 150
+                    and tc.state.resources_myself.gas >= 100
+                    and fun.size(units['buildings']['lair']) == 0 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
