@@ -882,11 +882,11 @@ function economy.manage_12p_macro(actions, tc)
                     spawning_overlord = false
                     is_spawning_overlord[2] = true
                 end
-                -- Spawn exactly 2 lings (;
+                -- Spawn exactly 12 lings (;
                 if spawning_lings == false
                     and fun.size(units['drones']) == 12
                     and fun.size(units['eggs']) < 1
-                    and fun.size(units['lings']) == 0 then
+                    and fun.size(units['lings']) < 12 then
                     spawning_lings = true
                 end
                 -- Spawning first lings
@@ -895,6 +895,11 @@ function economy.manage_12p_macro(actions, tc)
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Zergling))
                     spawning_lings = false
+                    -- the following command change the rally point
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Right_Click_Position,
+                    -1, quadrants[quadrant]["natural"]["x"],
+                    quadrants[quadrant]["natural"]["y"]))
                 end
                 -- powering == drone up!
                 if powering == true then
