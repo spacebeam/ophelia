@@ -56,7 +56,7 @@ local units = {["busy"]={},
 -- hopefully this solve or problems and clean is_spawning_overlord
 units['spawning']['overlords'] = {}
 
-local is_spawning_overlord = {}
+local is_spawning_overlord = {} -- <--------------------------------------------- clean, this pp!
 
 local expansions = {}
 
@@ -168,7 +168,7 @@ function economy.check_my_units(tc)
             else table.insert(units['spawning']['overlords'], id) end
             --
             -- YOU ARE HERE
-            -- we start to experience some "issues" spawning overlords and the spawning pool xD
+            -- we start to experience some "issues" spawning overlords and spawning pool..
             -- our ultimate goal is get a spire!
             -- 
         elseif u.type == tc.unittypes.Zerg_Zergling then
@@ -217,16 +217,20 @@ function economy.check_my_units(tc)
             table.insert(spore_colonies, id)
         elseif u.type == tc.unittypes.Zerg_Lair then
             if u.flags.completed == true then
-                table.insert(lair, id)
-            else 
+                table.insert(lair, {["id"]=id, ["position"]=u.position})
+            else
                 table.insert(units['spawning']['lair'], id)
+            end
+        elseif u.type == tc.unittypes.Zerg_Hive then
+            if u.flags.completed == true then
+                table.insert(hive, id)
+            else
+                table.insert(units['spawning']['hive'], id)
             end
         elseif u.type == tc.unittypes.Zerg_Spire and u.flags.completed == true then
             table.insert(spire, id)
         elseif u.type == tc.unittypes.Zerg_Queens_Nest and u.flags.completed == true then
             table.insert(queens_nest, id)
-        elseif u.type == tc.unittypes.Zerg_Hive and u.flags.completed == true then
-            table.insert(hive, id)
         elseif u.type == tc.unittypes.Zerg_Defiler_Mound and u.flags.completed == true then
             table.insert(defiler_mound, id)
         elseif u.type == tc.unittypes.Zerg_Ultralisk_Cavern and u.flags.completed == true then
@@ -265,6 +269,7 @@ function economy.check_my_units(tc)
     units["buildings"]["lair"] = lair
     units["buildings"]["spire"] = spire
     units["buildings"]["queens_nest"] = queens_nest
+    units["buildings"]["hive"] = hive
     units["buildings"]["infested_command_center"] = infested_command_center
     return units
 end
@@ -479,15 +484,14 @@ function economy.build_spire(id, u, actions, tc)
     if units['spawning']['spire'][1]["id"] == id
         and fun.size(units['buildings']['lair']) == 1
         and tc.state.resources_myself.ore >= 200
-        and tc.state.resources_myself.gas >= 100 then
-        print('trying to build a spire')
-        if units['buildings']['hatcheries'][1]['position'] ~= nil and not utils.is_in(u.order,
+        and tc.state.resources_myself.gas >= 150 then
+        if units['buildings']['lair'][1]['position'] ~= nil and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
             table.insert(actions,
             tc.command(tc.command_unit, id,
             tc.cmd.Build, -1,
-            units['buildings']['hatcheries'][1]['position'][1] - 4,
-            units['buildings']['hatcheries'][1]['position'][2] + 18,
+            units['buildings']['lair'][1]['position'][1] - 4,
+            units['buildings']['lair'][1]['position'][2] + 18,
             tc.unittypes.Zerg_Spire))
         end
     end
@@ -667,7 +671,7 @@ end
 
 function economy.manage_12p_bo(actions, tc)
     --
-    -- 12p worker management
+    -- 12P worker management
     --
     local map = tools.check_supported_maps(tc.state.map_name)
 
@@ -688,7 +692,7 @@ function economy.manage_12p_bo(actions, tc)
                 actions = economy.take_natural(id, u, actions, tc)
                 is_drone_expanding = false
             elseif fun.size(expansions) == 1 and expansions[1]['id'] == id
-                and tc.state.resources_myself.ore >= 300 
+                and tc.state.resources_myself.ore >= 300
                 and buildings['spawning_pool'] ~= nil then
                 actions = economy.build_natural(id, u, actions, tc)
             elseif fun.size(expansions) == 1
@@ -723,7 +727,8 @@ function economy.manage_12p_bo(actions, tc)
                     tc.command(tc.command_unit_protected, id,
                     tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
                 end
-            elseif units['spawning']['spire'][1] == nil and fun.size(units['buildings']['spire']) == 0 then
+            elseif units['spawning']['spire'][1] == nil and fun.size(units['buildings']['lair']) == 1 and fun.size(units['buildings']['spire']) == 0 then
+                print('trying to build a spire')
                 actions = economy.build_spire(id, u, actions, tc)
             else
                 units = economy.check_workers()
@@ -801,7 +806,7 @@ function economy.manage_9734_macro(actions, tc)
                 drones_to_gas = true
             end
             -- (!!)
-           if u.type == tc.unittypes.Zerg_Hydralisk_Den then
+            if u.type == tc.unittypes.Zerg_Hydralisk_Den then
                 tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
@@ -1080,6 +1085,9 @@ function economy.manage_game_economy(actions, enemy, resources, tc)
     print("hydralisk_den " .. fun.size(units['buildings']['hydralisk_den']))
     print("lair " .. fun.size(units['buildings']['lair']))
     print("spire " .. fun.size(units['buildings']['spire']))
+    print("queen_nest " .. fun.size(units['buildings']['queens_nest']))
+    print("hive " .. fun.size(units['buildings']['hive']))
+    -- missing hive tech buildings
     print("creep_colonies " .. fun.size(units['buildings']['creep_colonies']))
     print("sunken_colonies " .. fun.size(units['buildings']['sunken_colonies']))
     print("spore_colonies " .. fun.size(units['buildings']['spore_colonies']))

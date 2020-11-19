@@ -10,7 +10,6 @@ local tools = require("ophelia.tools")
 
 local scouting = {}
 
--- Ophelia!!! Prepare to fight!
 local vs_zerg = false
 local vs_protoss = false
 local vs_terran = false
@@ -404,10 +403,9 @@ end
 function scouting.first_overlord(actions, map, tc)
     --
     -- first overlord goes to ours enemy's base
-    -- missing 12 hatch opening things since depends of 1th overlord (!)
+    
     --
-    --
-    -- If 12 hatch opening, please scout with this overlord is cross position.
+    -- I don't know why but sp is for cross position wtf?, please confirm.
     --
     local sp = nil
     if map.bases == 4 then sp = math.random(1,2) end
