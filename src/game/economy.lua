@@ -53,6 +53,14 @@ local units = {["busy"]={},
                ["spawning"]=buildings,
                ["geysers"]={}}
 
+
+-- hopefully this solve or problems and clean is_spawning_overlord
+units['spawning']['overlords'] = {}
+
+local is_spawning_overlord = {}
+
+
+
 local expansions = {}
 
 local scouting_drones = {}
@@ -66,8 +74,6 @@ local spawning_hydras = false
 local spawning_mutas = false
 
 local spawning_scourges = false
-
-local is_spawning_overlord = {}
 
 local is_drone_scouting = false
 
@@ -160,8 +166,10 @@ function economy.check_my_units(tc)
     local infested_command_center = {}
     local nydus_canals = {}
     for id, u in pairs(tc.state.units_myself) do
-        if u.type == tc.unittypes.Zerg_Overlord and u.flags.completed == true then
-            table.insert(overlords, id)
+        if u.type == tc.unittypes.Zerg_Overlord then
+            if u.flags.completed == true then
+                table.insert(overlords, id)
+            else table.insert(units['spawning']['overlords'], id) end
         elseif u.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, id)
         elseif u.type == tc.unittypes.Zerg_Drone and u.flags.completed == true then
