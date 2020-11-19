@@ -92,6 +92,9 @@ function economy.check_workers()
     for _, d in ipairs(scouting_drones) do
         if d['id'] ~= nil then table.insert(busy, d['id']) end
     end
+    for _, e in ipairs(units['spawning']['spawning_pool']) do
+        if e['id'] ~= nil then table.insert(busy, e['id']) end
+    end
     for _, e in ipairs(units['spawning']['extractors']) do
         if e['id'] ~= nil then table.insert(busy, e['id']) end
     end
@@ -99,6 +102,9 @@ function economy.check_workers()
         if h['id'] ~= nil then table.insert(busy, h['id']) end
     end
     for _, h in ipairs(units['spawning']['spire']) do
+        if h['id'] ~= nil then table.insert(busy, h['id']) end
+    end
+    for _, h in ipairs(units['spawning']['queen_nest']) do
         if h['id'] ~= nil then table.insert(busy, h['id']) end
     end
     for _, h in ipairs(units['spawning']['creep_colony']) do
@@ -169,7 +175,6 @@ function economy.check_my_units(tc)
             --
             -- YOU ARE HERE
             -- we start to experience some "issues" spawning overlords and spawning pool..
-            -- our ultimate goal is get a spire!
             -- 
         elseif u.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, id)
@@ -727,8 +732,9 @@ function economy.manage_12p_bo(actions, tc)
                     tc.command(tc.command_unit_protected, id,
                     tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
                 end
-            elseif units['spawning']['spire'][1] == nil and fun.size(units['buildings']['lair']) == 1 and fun.size(units['buildings']['spire']) == 0 then
-                print('trying to build a spire')
+            elseif units['spawning']['spire'][1] == nil
+                and fun.size(units['buildings']['lair']) == 1
+                and fun.size(units['buildings']['spire']) == 0 then
                 actions = economy.build_spire(id, u, actions, tc)
             else
                 units = economy.check_workers()
@@ -753,10 +759,11 @@ function economy.manage_12p_bo(actions, tc)
             units = economy.check_workers()
         end
     end
-    print(inspect(units['busy']))
-    -- First created overlord, second in total.. this is the 'overpool' overlord.
-    if fun.size(units['drones']) == 9 and fun.size(units['overlords']) == 1
-        and fun.size(is_spawning_overlord) == 0 and spawning_overlord == false then
+    -- First created overlord, second in total..
+    if fun.size(units['drones']) == 9
+        and fun.size(units['overlords']) == 1
+        and fun.size(units['spawning']['overlords']) == 0
+        and spawning_overlord == false then
         spawning_overlord = true
     end
     -- Scouting at 11
@@ -929,6 +936,7 @@ function economy.manage_12p_macro(actions, tc)
                 -- Spawning second overlord
                 if spawning_overlord == true
                     and fun.size(units['overlords']) == 1
+                    and fun.size(units['spawning']['overlords']) <= 1
                     and fun.size(units['eggs']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
@@ -936,11 +944,11 @@ function economy.manage_12p_macro(actions, tc)
                     spawning_overlord = false
                     is_spawning_overlord[2] = true
                 end
-                -- Spawn exactly 12 lings (;
+                -- Spawn exactly 24 lings (;
                 if spawning_lings == false
                     and fun.size(units['drones']) == 12
                     and fun.size(units['eggs']) < 1
-                    and fun.size(units['lings']) ~= 12 then
+                    and fun.size(units['lings']) ~= 24 then
                     spawning_lings = true
                 end
                 -- Spawning first lings
@@ -961,17 +969,10 @@ function economy.manage_12p_macro(actions, tc)
                 if fun.size(units['buildings']['spawning_pool']) == 1
                     and tc.state.resources_myself.ore >= 150
                     and tc.state.resources_myself.gas >= 100
-                    and fun.size(units['buildings']['lair']) == 0 then
+                    and fun.size(units['buildings']['lair']) < 1 and fun.size(units['spawning']['lair']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
-                end
-                -- it appears that counting eggs was not that bad after all
-                if spawning_overlord == false and fun.size(is_spawning_overlord) == 1 then
-                    if fun.size(units["overlords"]) == 1 and fun.size(units["eggs"]) < 1 then
-                        is_spawning_overlord[2] = nil
-                        spawning_overlord = true
-                    end
                 end
                 -- powering == drone up!
                 if powering == true then
