@@ -782,11 +782,6 @@ function economy.manage_12p_bo(actions, tc)
         expansions[1] = {}
         is_drone_expanding = true
     end
-    -- at 16 building the third overlord
-    if fun.size(units['drones']) >= 16 and fun.size(units['overlords']) == 2
-        and spawning_overlord == false then
-        spawning_overlord = true
-    end
     -- stop drone powering at 12
     if fun.size(units['drones']) >= 12 then
         powering = false
@@ -946,7 +941,7 @@ function economy.manage_12p_macro(actions, tc)
                 end
                 -- Spawn exactly 24 lings (;
                 if spawning_lings == false
-                    and fun.size(units['drones']) == 12
+                    and fun.size(units['drones']) >= 12
                     and fun.size(units['eggs']) < 1
                     and fun.size(units['lings']) ~= 24 then
                     spawning_lings = true
