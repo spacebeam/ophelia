@@ -170,6 +170,11 @@ function economy.check_my_units(tc)
             if u.flags.completed == true then
                 table.insert(overlords, id)
             else table.insert(units['spawning']['overlords'], id) end
+            --
+            -- YOU ARE HERE
+            -- we start to experience some "issues" spawning overlords and the spawning pool xD
+            -- our ultimate goal is get a spire!
+            -- 
         elseif u.type == tc.unittypes.Zerg_Zergling then
             table.insert(lings, id)
         elseif u.type == tc.unittypes.Zerg_Drone and u.flags.completed == true then

@@ -25,24 +25,28 @@ local main = false
 
 function openings.nine_pool(actions, tc)
     --
+    -- Be aggressive, be, be, aggressive!
     --
+    return actions
 end
 
 function openings.nine_gas(actions, tc)
     --
+    -- Queen's ZvZ 1 hatch fast muta optimization
     --
+    return actions
 end
 
 function openings.ten_pool(actions, tc)
     --
+    -- The classic ZvZ 2 hatch muta inside main
     --
+    return actions
 end
 
 function openings.twelve_hatch(actions, tc)
     --
-    -- Greed economic opening
-    --
-    -- NOTE: If you are doing 12th hatch, scouting 1th overlord in cross position.
+    -- Standard ZvT opening
     --
     return actions
 end
