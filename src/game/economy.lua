@@ -53,13 +53,10 @@ local units = {["busy"]={},
                ["spawning"]=buildings,
                ["geysers"]={}}
 
-
 -- hopefully this solve or problems and clean is_spawning_overlord
 units['spawning']['overlords'] = {}
 
 local is_spawning_overlord = {}
-
-
 
 local expansions = {}
 
@@ -82,7 +79,6 @@ local is_drone_expanding = false
 local vespene_drones = {}
 
 local drones_to_gas = false
-
 
 function economy.check_workers()
     --
