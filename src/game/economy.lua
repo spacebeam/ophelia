@@ -38,6 +38,7 @@ local buildings = {["hatcheries"]={},
                    ["extractors"]={},
                    ["evolution_chambers"]={},
                    ["hydralisk_den"]={},
+                   ["creep_colony"]={},
                    ["lair"]={},
                    ["hive"]={},
                    ["queen_nest"]={},
@@ -62,6 +63,10 @@ local spawning_lings = false
 
 local spawning_hydras = false
 
+local spawning_mutas = false
+
+local spawning_scourges = false
+
 local is_spawning_overlord = {}
 
 local is_drone_scouting = false
@@ -72,9 +77,6 @@ local vespene_drones = {}
 
 local drones_to_gas = false
 
-local morphing_lair = false
-
-local is_on_hive_tier = false
 
 function economy.check_workers()
     --
@@ -92,6 +94,12 @@ function economy.check_workers()
         if e['id'] ~= nil then table.insert(busy, e['id']) end
     end
     for _, h in ipairs(units['spawning']['hydralisk_den']) do
+        if h['id'] ~= nil then table.insert(busy, h['id']) end
+    end
+    for _, h in ipairs(units['spawning']['spire']) do
+        if h['id'] ~= nil then table.insert(busy, h['id']) end
+    end
+    for _, h in ipairs(units['spawning']['creep_colony']) do
         if h['id'] ~= nil then table.insert(busy, h['id']) end
     end
     for _, g in ipairs(vespene_drones) do
@@ -199,7 +207,11 @@ function economy.check_my_units(tc)
         elseif u.type == tc.unittypes.Zerg_Spore_Colony and u.flags.completed == true then
             table.insert(spore_colonies, id)
         elseif u.type == tc.unittypes.Zerg_Lair then
-            table.insert(lair, id)
+            if u.flags.completed == true then
+                table.insert(lair, id)
+            else 
+                table.insert(units['spawning']['lair'], id)
+            end
         elseif u.type == tc.unittypes.Zerg_Spire and u.flags.completed == true then
             table.insert(spire, id)
         elseif u.type == tc.unittypes.Zerg_Queens_Nest and u.flags.completed == true then
@@ -448,6 +460,31 @@ function economy.build_hydralisk_den(id, u, actions, tc)
     return actions
 end
 
+function economy.build_spire(id, u, actions, tc)
+    --
+    -- Build spire
+    --
+    if units['spawning']['spire'][1] == nil then
+        units['spawning']['spire'][1] = {["id"]=id}
+    end
+    if units['spawning']['spire'][1]["id"] == id
+        and fun.size(units['buildings']['lair']) == 1
+        and tc.state.resources_myself.ore >= 200
+        and tc.state.resources_myself.gas >= 100 then
+        print('trying to build a spire')
+        if units['buildings']['hatcheries'][1]['position'] ~= nil and not utils.is_in(u.order,
+            tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+            table.insert(actions,
+            tc.command(tc.command_unit, id,
+            tc.cmd.Build, -1,
+            units['buildings']['hatcheries'][1]['position'][1] - 4,
+            units['buildings']['hatcheries'][1]['position'][2] + 18,
+            tc.unittypes.Zerg_Spire))
+        end
+    end
+    return actions
+end
+
 function economy.manage_9734_bo(actions, tc)
     --
     -- 9734 worker management
@@ -677,6 +714,8 @@ function economy.manage_12p_bo(actions, tc)
                     tc.command(tc.command_unit_protected, id,
                     tc.cmd.Right_Click_Unit, units['buildings']['extractors'][1]))
                 end
+            elseif units['spawning']['spire'][1] == nil and fun.size(units['buildings']['spire']) == 0 then
+                actions = economy.build_spire(id, u, actions, tc)
             else
                 units = economy.check_workers()
                 if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
@@ -727,12 +766,10 @@ function economy.manage_12p_bo(actions, tc)
         and spawning_overlord == false then
         spawning_overlord = true
     end
-    -- stop drone powering at 12 focus change to 3th expansion and gas
-    if fun.size(units['drones']) == 12 then
+    -- stop drone powering at 12
+    if fun.size(units['drones']) >= 12 then
         powering = false
-    elseif fun.size(units['drones']) < 12 then
-        powering = true
-    end
+    else powering = true end
     -- gg
     return actions
 end
@@ -876,8 +913,8 @@ function economy.manage_12p_macro(actions, tc)
             end
             if u.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning second overlord
-                if spawning_overlord == true 
-                    and fun.size(units['overlords']) == 1 
+                if spawning_overlord == true
+                    and fun.size(units['overlords']) == 1
                     and fun.size(units['eggs']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
@@ -889,11 +926,13 @@ function economy.manage_12p_macro(actions, tc)
                 if spawning_lings == false
                     and fun.size(units['drones']) == 12
                     and fun.size(units['eggs']) < 1
-                    and fun.size(units['lings']) < 12 then
+                    and fun.size(units['lings']) ~= 12 then
                     spawning_lings = true
                 end
                 -- Spawning first lings
-                if spawning_lings == true and fun.size(units['eggs']) ~= 1 then
+                if fun.size(units['buildings']['spawning_pool']) == 1
+                    and spawning_lings == true
+                    and fun.size(units['eggs']) ~= 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Zergling))
@@ -905,13 +944,20 @@ function economy.manage_12p_macro(actions, tc)
                     quadrants[quadrant]["natural"]["y"]))
                 end
                 -- Upgrade main hatchery into lair
-                if fun.size(units['buildings']['spawning_pool']) == 1 
+                if fun.size(units['buildings']['spawning_pool']) == 1
                     and tc.state.resources_myself.ore >= 150
                     and tc.state.resources_myself.gas >= 100
                     and fun.size(units['buildings']['lair']) == 0 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
+                end
+                -- it appears that counting eggs was not that bad after all
+                if spawning_overlord == false and fun.size(is_spawning_overlord) == 1 then
+                    if fun.size(units["overlords"]) == 1 and fun.size(units["eggs"]) < 1 then
+                        is_spawning_overlord[2] = nil
+                        spawning_overlord = true
+                    end
                 end
                 -- powering == drone up!
                 if powering == true then
