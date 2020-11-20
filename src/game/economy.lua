@@ -955,8 +955,7 @@ function economy.manage_12p_macro(actions, tc)
                 -- Spawn exactly 24 lings (;
                 if spawning_lings == false
                     and fun.size(units['drones']) >= 12
-                    and fun.size(units['eggs']) < 1
-                    and fun.size(units['lings']) ~= 24 then
+                    and fun.size(units['lings']) <= 23 then
                     spawning_lings = true
                 end
                 -- Spawning first lings
@@ -981,6 +980,20 @@ function economy.manage_12p_macro(actions, tc)
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
+                end
+                -- Spawning first mutas
+                if spawning_mutas == false
+                    and fun.size(units['drones']) >= 12
+                    and fun.size(units['mutas']) < 5 then
+                    spawning_mutas = true
+                end
+                if spawning_mutas == true and fun.size(units['eggs']) ~= 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Mutalisk))
+                    if fun.size(units['mutas']) >= 5 then
+                        spawning_mutas = false
+                    end
                 end
                 -- powering == drone up!
                 if powering == true then
