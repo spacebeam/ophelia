@@ -792,6 +792,11 @@ function economy.manage_12p_bo(actions, tc)
         and spawning_overlord == false then
         spawning_overlord = true
     end
+    -- at 23 building the fourth overlord
+    if fun.size(units['drones']) + fun.size(units['lings']) / 2 + fun.size(units['mutas']) * 2 >= 23 and fun.size(units['overlords']) <= 4
+        and spawning_overlord == false then
+        spawning_overlord = true
+    end
     -- gg
     return actions
 end
