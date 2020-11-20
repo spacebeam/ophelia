@@ -786,6 +786,11 @@ function economy.manage_12p_bo(actions, tc)
     if fun.size(units['drones']) >= 12 then
         powering = false
     else powering = true end
+    -- at 16 building the third overlord
+    if fun.size(units['drones']) >= 12 and fun.size(units['lings']) / 2 >= 4
+        and spawning_overlord == false then
+        spawning_overlord = true
+    end
     -- gg
     return actions
 end
@@ -938,6 +943,14 @@ function economy.manage_12p_macro(actions, tc)
                     0,0,0, tc.unittypes.Zerg_Overlord))
                     spawning_overlord = false
                     is_spawning_overlord[2] = true
+                end
+                -- Same for third overlord
+                if spawning_overlord == true and fun.size(units['overlords']) == 2 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Overlord))
+                    spawning_overlord = false
+                    is_spawning_overlord[3] = true
                 end
                 -- Spawn exactly 24 lings (;
                 if spawning_lings == false
