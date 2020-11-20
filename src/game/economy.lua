@@ -931,7 +931,7 @@ function economy.manage_12p_macro(actions, tc)
                 -- Spawning second overlord
                 if spawning_overlord == true
                     and fun.size(units['overlords']) == 1
-                    and fun.size(units['spawning']['overlords']) <= 1
+                    and fun.size(units['spawning']['overlords']) < 1
                     and fun.size(units['eggs']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
