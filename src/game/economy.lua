@@ -787,25 +787,20 @@ function economy.manage_12p_bo(actions, tc)
     if fun.size(units['drones']) >= 12 then
         powering = false
     else powering = true end
-    
-
-    print(fun.size(units['drones']) + fun.size(units['lings']) / 2)
-    print(fun.size(units['spawning']['overlords']))
-    
     -- at 16 building the third overlord
-    if fun.size(units['drones']) + fun.size(units['lings']) / 2 >= 16 and fun.size(units['overlords']) == 2
+    if fun.size(units['drones']) + fun.size(units['lings']) / 2 >= 16
+        and fun.size(units['overlords']) == 2
         and fun.size(units['spawning']['overlords']) == 0
         and spawning_overlord == false then
         spawning_overlord = true
     end
-
     -- at 23 building the fourth overlord
-    if fun.size(units['drones']) + fun.size(units['lings']) / 2 + fun.size(units['mutas']) * 2 >= 23 and fun.size(units['overlords']) == 3
+    if fun.size(units['drones']) + fun.size(units['lings']) / 2 + fun.size(units['mutas']) * 2 >= 23
+        and fun.size(units['overlords']) == 3
         and fun.size(units['spawning']['overlords']) == 0
         and spawning_overlord == false then
         spawning_overlord = true
     end
-
     -- gg
     return actions
 end
@@ -1025,7 +1020,7 @@ function economy.manage_12p_macro(actions, tc)
                 -- Same for third overlord
                 if spawning_overlord == true
                     and fun.size(units['overlords']) == 2
-                    and fun.size(units['spawning']['overlords']) < 3
+                    and fun.size(units['spawning']['overlords']) < 1
                     and fun.size(units['eggs']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
