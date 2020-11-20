@@ -70,8 +70,6 @@ local spawning_hydras = false
 
 local spawning_mutas = false
 
-local spawning_scourges = false
-
 local is_drone_scouting = false
 
 local is_drone_expanding = false
@@ -139,6 +137,7 @@ function economy.check_my_units(tc)
     local larvae = {}
     local eggs = {}
     local overlords = {}
+    local spawning_overlords = {}
     local drones = {}
     local lings = {}
     local hydras = {}
@@ -171,7 +170,7 @@ function economy.check_my_units(tc)
         if u.type == tc.unittypes.Zerg_Overlord then
             if u.flags.completed == true then
                 table.insert(overlords, id)
-            else table.insert(units['spawning']['overlords'], id) end
+            else table.insert(spawning_overlords, id) end
             --
             -- YOU ARE HERE
             -- we start to experience some "issues" spawning overlords and spawning pool..
@@ -276,6 +275,7 @@ function economy.check_my_units(tc)
     units["buildings"]["queens_nest"] = queens_nest
     units["buildings"]["hive"] = hive
     units["buildings"]["infested_command_center"] = infested_command_center
+    units['spawning']['overlords'] = spawning_overlords
     return units
 end
 
@@ -787,16 +787,25 @@ function economy.manage_12p_bo(actions, tc)
     if fun.size(units['drones']) >= 12 then
         powering = false
     else powering = true end
+    
+
+    print(fun.size(units['drones']) + fun.size(units['lings']) / 2)
+    print(fun.size(units['spawning']['overlords']))
+    
     -- at 16 building the third overlord
-    if fun.size(units['drones']) + fun.size(units['lings']) / 2 + fun.size(units['mutas']) * 2 >= 16 and fun.size(units['overlords']) == 2
+    if fun.size(units['drones']) + fun.size(units['lings']) / 2 >= 16 and fun.size(units['overlords']) == 2
+        and fun.size(units['spawning']['overlords']) == 0
         and spawning_overlord == false then
         spawning_overlord = true
     end
+
     -- at 23 building the fourth overlord
-    if fun.size(units['drones']) + fun.size(units['lings']) / 2 + fun.size(units['mutas']) * 2 >= 23 and fun.size(units['overlords']) <= 4
+    if fun.size(units['drones']) + fun.size(units['lings']) / 2 + fun.size(units['mutas']) * 2 >= 23 and fun.size(units['overlords']) == 3
+        and fun.size(units['spawning']['overlords']) == 0
         and spawning_overlord == false then
         spawning_overlord = true
     end
+
     -- gg
     return actions
 end
@@ -926,9 +935,22 @@ function economy.manage_12p_macro(actions, tc)
     -- 12P simcity management
     --
     for id, u in pairs(tc.state.units_myself) do
+
         if tc:isbuilding(u.type) then
-            -- (!)
+            -- Spawn exactly 24 lings (;
+            if spawning_lings == false
+                and fun.size(units['drones']) >= 12
+                and fun.size(units['lings']) <= 18 then
+                spawning_lings = true
+            end
+            -- Spawning mutalisks
+            if spawning_mutas == false
+                and fun.size(units['drones']) >= 12
+                and fun.size(units['mutas']) < 5 then
+                spawning_mutas = true
+            end
             if u.type == tc.unittypes.Zerg_Spawning_Pool then
+                -- get some speed!
                 tools.pass()
             end
             if u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
@@ -938,14 +960,19 @@ function economy.manage_12p_macro(actions, tc)
                 --
                 drones_to_gas = true
             end
-
-
             if u.type == tc.unittypes.Zerg_Lair then
-                -- Spawning mutalisks
-                if spawning_mutas == false
-                    and fun.size(units['drones']) >= 12
-                    and fun.size(units['mutas']) < 5 then
-                    spawning_mutas = true
+                -- Spawning lings
+                if fun.size(units['buildings']['spawning_pool']) == 1
+                    and spawning_lings == true then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Zergling))
+                    spawning_lings = false
+                    -- the following command change the rally point
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Right_Click_Position,
+                    -1, quadrants[quadrant]["natural"]["x"],
+                    quadrants[quadrant]["natural"]["y"]))
                 end
                 if spawning_mutas == true then
                     table.insert(actions,
@@ -961,8 +988,6 @@ function economy.manage_12p_macro(actions, tc)
                     quadrants[quadrant]["natural"]["y"]))
                 end
             end
-
-
             if u.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning second overlord
                 if spawning_overlord == true
@@ -975,24 +1000,9 @@ function economy.manage_12p_macro(actions, tc)
                     spawning_overlord = false
                     is_spawning_overlord[2] = true
                 end
-                -- Same for third overlord
-                if spawning_overlord == true and fun.size(units['overlords']) == 2 then
-                    table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Train,
-                    0,0,0, tc.unittypes.Zerg_Overlord))
-                    spawning_overlord = false
-                    is_spawning_overlord[3] = true
-                end
-                -- Spawn exactly 24 lings (;
-                if spawning_lings == false
-                    and fun.size(units['drones']) >= 12
-                    and fun.size(units['lings']) <= 23 then
-                    spawning_lings = true
-                end
-                -- Spawning first lings
+                -- Spawning lings
                 if fun.size(units['buildings']['spawning_pool']) == 1
-                    and spawning_lings == true
-                    and fun.size(units['eggs']) ~= 1 then
+                    and spawning_lings == true then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Zergling))
@@ -1012,11 +1022,16 @@ function economy.manage_12p_macro(actions, tc)
                     tc.command(tc.command_unit, id, tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
                 end
-                -- Spawning first mutas
-                if spawning_mutas == false
-                    and fun.size(units['drones']) >= 12
-                    and fun.size(units['mutas']) < 5 then
-                    spawning_mutas = true
+                -- Same for third overlord
+                if spawning_overlord == true
+                    and fun.size(units['overlords']) == 2
+                    and fun.size(units['spawning']['overlords']) < 3
+                    and fun.size(units['eggs']) < 1 then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Overlord))
+                    spawning_overlord = false
+                    is_spawning_overlord[3] = true
                 end
                 if spawning_mutas == true and fun.size(units['eggs']) ~= 1 then
                     table.insert(actions,
