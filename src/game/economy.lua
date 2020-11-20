@@ -734,7 +734,8 @@ function economy.manage_12p_bo(actions, tc)
                 end
             elseif units['spawning']['spire'][1] == nil
                 and fun.size(units['buildings']['lair']) == 1
-                and fun.size(units['buildings']['spire']) == 0 then
+                and fun.size(units['buildings']['spire']) == 0 
+                and fun.find(units['busy'], id) == nil then
                 actions = economy.build_spire(id, u, actions, tc)
             else
                 units = economy.check_workers()
@@ -771,7 +772,7 @@ function economy.manage_12p_bo(actions, tc)
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-    -- Spawning at 12 <---------------------- YOU ARE HERE
+    -- Spawning pool at 12
     if fun.size(units['drones']) == 12 and scouting_drones[2] == nil then
         scouting_drones[2] = {}
         is_drone_scouting = true
@@ -787,7 +788,7 @@ function economy.manage_12p_bo(actions, tc)
         powering = false
     else powering = true end
     -- at 16 building the third overlord
-    if fun.size(units['drones']) >= 12 and fun.size(units['lings']) / 2 >= 4
+    if fun.size(units['drones']) + fun.size(units['lings']) / 2 + fun.size(units['mutas']) * 2 >= 16 and fun.size(units['overlords']) == 2
         and spawning_overlord == false then
         spawning_overlord = true
     end
@@ -932,6 +933,31 @@ function economy.manage_12p_macro(actions, tc)
                 --
                 drones_to_gas = true
             end
+
+
+            if u.type == tc.unittypes.Zerg_Lair then
+                -- Spawning mutalisks
+                if spawning_mutas == false
+                    and fun.size(units['drones']) >= 12
+                    and fun.size(units['mutas']) < 5 then
+                    spawning_mutas = true
+                end
+                if spawning_mutas == true then
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Train,
+                    0,0,0, tc.unittypes.Zerg_Mutalisk))
+                    if fun.size(units['mutas']) >= 5 then
+                        spawning_mutas = false
+                    end
+                    -- the following command change the rally point
+                    table.insert(actions,
+                    tc.command(tc.command_unit, id, tc.cmd.Right_Click_Position,
+                    -1, quadrants[quadrant]["natural"]["x"],
+                    quadrants[quadrant]["natural"]["y"]))
+                end
+            end
+
+
             if u.type == tc.unittypes.Zerg_Hatchery then
                 -- Spawning second overlord
                 if spawning_overlord == true
