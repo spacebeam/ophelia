@@ -696,6 +696,7 @@ function economy.manage_2hm_bo(actions, tc)
                 actions = economy.build_natural(id, u, actions, tc)
             elseif fun.size(expansions) == 1
                 and units['spawning']['extractors'][1] == nil
+                and units['spawning']['spawning_pool'][1] ~= nil
                 and expansions[1]['id'] ~= id
                 and scouting_drones[1]['id'] ~= id
                 and tc.state.resources_myself.ore >= 42 then
