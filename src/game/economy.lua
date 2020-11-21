@@ -958,7 +958,7 @@ function economy.manage_12p_macro(actions, tc)
             if u.type == tc.unittypes.Zerg_Lair then
                 -- Spawning lings
                 if fun.size(units['buildings']['spawning_pool']) == 1
-                    and spawning_lings == true then
+                    and spawning_lings == true and fun.size(units['eggs']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Zergling))
@@ -997,6 +997,7 @@ function economy.manage_12p_macro(actions, tc)
                 end
                 -- Spawning lings
                 if fun.size(units['buildings']['spawning_pool']) == 1
+                    and fun.size(units['buildings']['hatcheries']) == 1
                     and spawning_lings == true then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Train,
