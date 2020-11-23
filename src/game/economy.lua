@@ -139,6 +139,10 @@ function economy.check_my_units(tc)
     local eggs = {}
     local overlords = {}
     local spawning_overlords = {}
+    local spawning_spawning_pool = {}
+    local spawning_hydralisk_den = {}
+    local spawning_spire = {}
+    -- YO!
     local drones = {}
     local lings = {}
     local hydras = {}
@@ -208,8 +212,10 @@ function economy.check_my_units(tc)
             table.insert(hatcheries, {["id"]=id, ["position"]=u.position, ["completed"]=u.flags.completed})
         elseif u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
             table.insert(extractors, id)
-        elseif u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
-            table.insert(spawning_pool, id)
+        elseif u.type == tc.unittypes.Zerg_Spawning_Pool then
+            if u.flags.completed == true then
+                table.insert(spawning_pool, {["id"]=id, ["position"]=u.position})
+            else table.insert(spawning_spawning_pool, {["id"]=id}) end
         elseif u.type == tc.unittypes.Zerg_Hydralisk_Den and u.flags.completed == true then
             table.insert(hydralisk_den, id)
         elseif u.type == tc.unittypes.Zerg_Evolution_Chamber and u.flags.completed == true then
@@ -276,6 +282,7 @@ function economy.check_my_units(tc)
     units["buildings"]["queens_nest"] = queens_nest
     units["buildings"]["hive"] = hive
     units["buildings"]["infested_command_center"] = infested_command_center
+    units['spawning']['spawning_pool'] = spawning_spawning_pool
     units['spawning']['overlords'] = spawning_overlords
     return units
 end
@@ -485,24 +492,27 @@ function economy.build_pool(id, u, actions, tc)
     --
     -- Build Spawning Pool
     --
+    if units['spawning']['spawning_pool'][1] == nil then
+        units['spawning']['spawning_pool'][1] = {["id"]=id}
+    end
 
-    for _, x in ipairs(units['buildings']['hatcheries']) do
-        if x['completed'] == true then
-            
-            if tc:isworker(u.type)
-                and not utils.is_in(u.order, tc.command2order[tc.unitcommandtypes.Right_Click_Position])
-                and units['buildings']['spawning_pool'] == nil
-                and tc.state.resources_myself.ore >= 200 then
-                
+    local spawning = false
+
+    if units['spawning']['spawning_pool'][1]["id"] == id
+        and tc.state.resources_myself.ore >= 200 then
+        for _, x in ipairs(units['buildings']['hatcheries']) do
+            if spawning == false and x['completed'] == true and not utils.is_in(u.order,
+                tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
                 table.insert(actions,
                 tc.command(tc.command_unit, id,
                 tc.cmd.Build, -1,
-                x.position[1] - 4, x.position[2] + 12, tc.unittypes.Zerg_Spawning_Pool))
-                
+                x['position'][1] - 4, x['position'][2] + 12, tc.unittypes.Zerg_Spawning_Pool))
+                spawning = true
+                print('inside build pool after insert actions')
             end
         end
+        
     end
-
     return actions
 end
 
@@ -705,6 +715,10 @@ function economy.manage_2hm_bo(actions, tc)
 
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(u.type) then
+            
+            --
+            local workers = economy.check_workers()
+            
             if is_drone_scouting and fun.size(scouting_drones) == 1 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = eleven["actions"]
@@ -718,12 +732,16 @@ function economy.manage_2hm_bo(actions, tc)
                 and tc.state.resources_myself.ore >= 300
                 and buildings['spawning_pool'] ~= nil then
                 actions = economy.build_natural(id, u, actions, tc)
-            elseif fun.find(units['busy'], id) == nil and fun.size(units['hatcheries']) == 2 and fun.size(units['drones']) == 11 then
-
-                print('about to try to build my pool')
-                -- of course this does not works since we are starting to have multiple hatcheries!
+            
+            
+            elseif fun.size(units['buildings']['hatcheries']) == 2
+                and fun.size(units['buildings']['spawning_pool']) == 0
+                and units['spawning']['spawning_pool'][1] == nil
+                and fun.find(workers['busy'], id) == nil
+                and tc.state.resources_myself.ore >= 200 then
                 actions = economy.build_pool(id, u, actions, tc)
-
+                print('after finaly yes?')
+            
             elseif fun.size(expansions) == 1
                 and units['spawning']['extractors'][1] == nil
                 and units['spawning']['spawning_pool'][1] ~= nil
@@ -731,6 +749,8 @@ function economy.manage_2hm_bo(actions, tc)
                 and scouting_drones[1]['id'] ~= id
                 and tc.state.resources_myself.ore >= 42 then
                 actions = economy.take_main_geyser(id, u, actions, tc)
+            
+            
             elseif units['spawning']['extractors'][1] ~= nil
                 and fun.size(units['buildings']['extractors']) ~= 1
                 and tc.state.resources_myself.ore >= 50 then
@@ -763,8 +783,8 @@ function economy.manage_2hm_bo(actions, tc)
                 and fun.find(units['busy'], id) == nil then
                 actions = economy.build_spire(id, u, actions, tc)
             else
-                units = economy.check_workers()
-                if fun.find(units['busy'], id) == nil and not utils.is_in(u.order,
+                workers = economy.check_workers()
+                if fun.find(workers['busy'], id) == nil and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Gather])
                     and not utils.is_in(u.order,
                     tc.command2order[tc.unitcommandtypes.Build])
@@ -782,7 +802,6 @@ function economy.manage_2hm_bo(actions, tc)
                     end
                 end
             end
-            units = economy.check_workers()
         end
     end
     -- First created overlord, second in total..
@@ -797,12 +816,14 @@ function economy.manage_2hm_bo(actions, tc)
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-    -- at 12 taking natural after '12pool'
+    
+    -- at 12 taking natural
     if fun.size(units['drones']) == 12 and fun.size(scouting_drones) == 1
         and expansions[1] == nil then
         expansions[1] = {}
         is_drone_expanding = true
     end
+
     -- stop drone powering at 12
     if fun.size(units['drones']) >= 12 then
         powering = false
