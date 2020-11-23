@@ -27,38 +27,17 @@ function tools.check_supported_maps(name)
         map['bases'] = 4
     elseif string.match(name, "EmpireoftheSun") then
         map['bases'] = 4
-    elseif string.match(name, "Dante'sPeak2.0") then
-        map['bases'] = 4
-    elseif string.match(name, "Sparkle") then
-        map['bases'] = 4
     elseif string.match(name, "Power Bond") then
         print("Power Bond")
         map['bases'] = 3
-    elseif string.match(name, "Neo Aztec") then
-        print("Neo Aztec")
-        map['bases'] = 3
-    elseif string.match(name, "Gold Rush") then
-        print("Gold Rush")
-        map['bases'] = 3
     elseif string.match(name, "Neo Sylphid") then
         print("Neo Sylphid")
-        map['bases'] = 3
-    elseif string.match(name, "Core Breach") then
-        print("Core Breach")
         map['bases'] = 3
     elseif string.match(name, "Overwatch") then
         print("Overwatch")
         map['bases'] = 2
     elseif string.match(name, "Benzene") then
         print("Benzene")
-        map['bases'] = 2
-    elseif string.match(name, "MatchPoint") then
-        print("Match Point")
-        map['bases'] = 2
-    elseif string.match(name, "Heartbreak Ridge") then
-        print("Heartbreak Ridge")
-        map['bases'] = 2
-    elseif string.match(name, "Blue Storm") then
         map['bases'] = 2
     else
         print("crash something else")

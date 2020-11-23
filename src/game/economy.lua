@@ -205,7 +205,7 @@ function economy.check_my_units(tc)
         elseif u.type == tc.unittypes.Zerg_Infested_Terran and u.flags.completed == true then
             table.insert(infesteds, id)
         elseif u.type == tc.unittypes.Zerg_Hatchery then
-            table.insert(hatcheries, {["id"]=id, ["position"]=u.position})
+            table.insert(hatcheries, {["id"]=id, ["position"]=u.position, ["completed"]=u.flags.completed})
         elseif u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
             table.insert(extractors, id)
         elseif u.type == tc.unittypes.Zerg_Spawning_Pool and u.flags.completed == true then
@@ -480,6 +480,33 @@ function economy.build_hydralisk_den(id, u, actions, tc)
     return actions
 end
 
+
+function economy.build_pool(id, u, actions, tc)
+    --
+    -- Build Spawning Pool
+    --
+
+    for _, x in ipairs(units['buildings']['hatcheries']) do
+        if x['completed'] == true then
+            
+            if tc:isworker(u.type)
+                and not utils.is_in(u.order, tc.command2order[tc.unitcommandtypes.Right_Click_Position])
+                and units['buildings']['spawning_pool'] == nil
+                and tc.state.resources_myself.ore >= 200 then
+                
+                table.insert(actions,
+                tc.command(tc.command_unit, id,
+                tc.cmd.Build, -1,
+                x.position[1] - 4, x.position[2] + 12, tc.unittypes.Zerg_Spawning_Pool))
+                
+            end
+        end
+    end
+
+    return actions
+end
+
+
 function economy.build_spire(id, u, actions, tc)
     --
     -- Build spire
@@ -682,10 +709,7 @@ function economy.manage_2hm_bo(actions, tc)
                 local eleven = scouting.eleven_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = eleven["actions"]
                 scouting_drones = eleven["scouting_drones"]
-                is_drone_scouting = false           
-            --elseif is_drone_scouting and scouting_drones[1]['id'] ~= id then
-            --    actions = openings.twelve_pool(id, u, actions, tc)
-            --    is_drone_scouting = false
+                is_drone_scouting = false 
             elseif is_drone_expanding and scouting_drones[1]['id'] ~= id
                 and fun.size(expansions) == 1 then
                 actions = economy.take_natural(id, u, actions, tc)
@@ -694,6 +718,12 @@ function economy.manage_2hm_bo(actions, tc)
                 and tc.state.resources_myself.ore >= 300
                 and buildings['spawning_pool'] ~= nil then
                 actions = economy.build_natural(id, u, actions, tc)
+            elseif fun.find(units['busy'], id) == nil and fun.size(units['hatcheries']) == 2 and fun.size(units['drones']) == 11 then
+
+                print('about to try to build my pool')
+                -- of course this does not works since we are starting to have multiple hatcheries!
+                actions = economy.build_pool(id, u, actions, tc)
+
             elseif fun.size(expansions) == 1
                 and units['spawning']['extractors'][1] == nil
                 and units['spawning']['spawning_pool'][1] ~= nil
@@ -775,6 +805,8 @@ function economy.manage_2hm_bo(actions, tc)
     end
     -- stop drone powering at 12
     if fun.size(units['drones']) >= 12 then
+        powering = false
+    elseif fun.size(units['drones']) == 11 and fun.size(units['buildings']['spawning_pool']) ~= 1 then
         powering = false
     else powering = true end
     -- at 16 building the third overlord
@@ -1176,7 +1208,6 @@ function economy.manage_12p_macro(actions, tc)
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Overlord))
                     spawning_overlord = false
-                    is_spawning_overlord[3] = true
                 end
                 -- Same for fourth overlord
                 if spawning_overlord == true
@@ -1213,7 +1244,6 @@ function economy.manage_12p_macro(actions, tc)
                     tc.command(tc.command_unit, id, tc.cmd.Train,
                     0,0,0, tc.unittypes.Zerg_Overlord))
                     spawning_overlord = false
-                    is_spawning_overlord[2] = true
                 end
                 -- Spawning lings
                 if fun.size(units['buildings']['spawning_pool']) == 1
