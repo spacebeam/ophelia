@@ -793,7 +793,6 @@ function economy.manage_2hm_bo(actions, tc)
         scouting_drones[1] = {}
         is_drone_scouting = true
     end
-    
     -- at 12 taking natural
     if fun.size(units['drones']) == 12 and fun.size(scouting_drones) == 1
         and expansions[1] == nil then
@@ -810,16 +809,12 @@ function economy.manage_2hm_bo(actions, tc)
     elseif fun.size(units['drones']) == 10 and fun.size(units['buildings']['hatcheries']) == 2 then
         powering = false
     else powering = true end
-
-    -- stop drone powering at 25
+    -- stop drone powering at 23
     if fun.size(units['drones']) >= 21 and fun.size(units['buildings']['lair']) == 1 then
         powering = false
     elseif fun.size(units['drones']) >= 12 and fun.size(units['buildings']['lair']) == 1 then
         powering = true
     else tools.pass() end
-
-    print(powering)
-
     -- at 16 building the third overlord
     if fun.size(units['drones']) + fun.size(units['lings']) / 2 >= 16
         and fun.size(units['overlords']) == 2
