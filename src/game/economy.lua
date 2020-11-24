@@ -472,7 +472,8 @@ function economy.build_hydralisk_den(id, u, actions, tc)
     if units['spawning']['hydralisk_den'][1] == nil then
         units['spawning']['hydralisk_den'][1] = {["id"]=id}
     end
-    if units['spawning']['hydralisk_den'][1]["id"] == id and tc.state.resources_myself.ore >= 100
+    if units['spawning']['hydralisk_den'][1]["id"] == id
+        and tc.state.resources_myself.ore >= 100
         and tc.state.resources_myself.gas >= 50 then
         if units['buildings']['hatcheries'][1]['position'] ~= nil and not utils.is_in(u.order,
             tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
@@ -715,10 +716,7 @@ function economy.manage_2hm_bo(actions, tc)
 
     for id, u in pairs(tc.state.units_myself) do
         if tc:isworker(u.type) then
-            
-            --
             local workers = economy.check_workers()
-            
             if is_drone_scouting and fun.size(scouting_drones) == 1 then
                 local eleven = scouting.eleven_drone_scout(scouting_drones, id, u, actions, tc)
                 actions = eleven["actions"]
@@ -732,16 +730,12 @@ function economy.manage_2hm_bo(actions, tc)
                 and tc.state.resources_myself.ore >= 300
                 and buildings['spawning_pool'] ~= nil then
                 actions = economy.build_natural(id, u, actions, tc)
-            
-            
             elseif fun.size(units['buildings']['hatcheries']) == 2
                 and fun.size(units['buildings']['spawning_pool']) == 0
                 and units['spawning']['spawning_pool'][1] == nil
                 and fun.find(workers['busy'], id) == nil
                 and tc.state.resources_myself.ore >= 200 then
                 actions = economy.build_pool(id, u, actions, tc)
-                print('after finaly yes?')
-            
             elseif fun.size(expansions) == 1
                 and units['spawning']['extractors'][1] == nil
                 and units['spawning']['spawning_pool'][1] ~= nil
@@ -749,8 +743,6 @@ function economy.manage_2hm_bo(actions, tc)
                 and scouting_drones[1]['id'] ~= id
                 and tc.state.resources_myself.ore >= 42 then
                 actions = economy.take_main_geyser(id, u, actions, tc)
-            
-            
             elseif units['spawning']['extractors'][1] ~= nil
                 and fun.size(units['buildings']['extractors']) ~= 1
                 and tc.state.resources_myself.ore >= 50 then
@@ -827,7 +819,8 @@ function economy.manage_2hm_bo(actions, tc)
     -- stop drone powering at 12
     if fun.size(units['drones']) >= 12 then
         powering = false
-    elseif fun.size(units['drones']) == 11 and fun.size(units['buildings']['spawning_pool']) ~= 1 then
+    elseif fun.size(units['drones']) == 11
+        and fun.size(units['buildings']['spawning_pool']) ~= 1 then
         powering = false
     else powering = true end
     -- at 16 building the third overlord
@@ -984,7 +977,8 @@ function economy.manage_2hm_macro(actions, tc)
                 if fun.size(units['buildings']['spawning_pool']) == 1
                     and tc.state.resources_myself.ore >= 150
                     and tc.state.resources_myself.gas >= 100
-                    and fun.size(units['buildings']['lair']) < 1 and fun.size(units['spawning']['lair']) < 1 then
+                    and fun.size(units['buildings']['lair']) < 1
+                    and fun.size(units['spawning']['lair']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
@@ -1286,7 +1280,8 @@ function economy.manage_12p_macro(actions, tc)
                 if fun.size(units['buildings']['spawning_pool']) == 1
                     and tc.state.resources_myself.ore >= 150
                     and tc.state.resources_myself.gas >= 100
-                    and fun.size(units['buildings']['lair']) < 1 and fun.size(units['spawning']['lair']) < 1 then
+                    and fun.size(units['buildings']['lair']) < 1
+                    and fun.size(units['spawning']['lair']) < 1 then
                     table.insert(actions,
                     tc.command(tc.command_unit, id, tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
@@ -1477,13 +1472,10 @@ function economy.manage_game_economy(actions, enemy, resources, tc)
         -- 3. the work on the build is also usefull on the terran match up.
         actions = economy.manage_12p_bo(actions, tc)
         actions = economy.manage_12p_macro(actions, tc)
-        
         -- NOTE: Yo, do not start working on multiple builds untill 
         -- testing results of the first ones against other bots.
-
         -- NOTE: are you sure you are ready know?
         -- call random BO, watch the results and make a future.
-
         --actions = economy.manage_12h_bo(actions, tc)
         --actions = economy.manage_12h_macro(actions, tc)
         --actions = economy.manage_9p_bo(actions, tc)
