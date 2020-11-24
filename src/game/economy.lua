@@ -429,6 +429,36 @@ function economy.take_main_geyser(id, u, actions, tc)
     return actions
 end
 
+function economy.build_nat_extractor(id, u, actions, tc)
+    --
+    -- Build nat extractor
+    --
+    if units['spawning']['extractors'][2]['id'] == id and not utils.is_in(u.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        table.insert(actions,
+        tc.command(tc.command_unit, id,
+        tc.cmd.Build, -1,
+        units['geysers'][2][1] - 8, units['geysers'][2][2] - 4,
+        tc.unittypes.Zerg_Extractor))
+    end
+    return actions
+end
+
+function economy.take_nat_geyser(id, u, actions, tc)
+    --
+    -- Take nat geyser
+    --
+    if units['spawning']['extractors'][2] == nil then units['spawning']['extractors'][2] = {["id"]=id} end
+    if units['spawning']['extractors'][2]['id'] == id and not utils.is_in(u.order,
+        tc.command2order[tc.unitcommandtypes.Right_Click_Position]) then
+        table.insert(actions,
+        tc.command(tc.command_unit, id,
+        tc.cmd.Move, -1,
+        units['geysers'][2][1], units['geysers'][2][2]))
+    end
+    return actions
+end
+
 function economy.build_main_extractor(id, u, actions, tc)
     --
     -- Build main extractor
@@ -759,6 +789,19 @@ function economy.manage_2hm_bo(actions, tc)
                 and fun.size(units['buildings']['spire']) == 0 
                 and fun.find(units['busy'], id) == nil then
                 actions = economy.build_spire(id, u, actions, tc)
+            
+            
+            elseif fun.size(units['drones']) == 23
+                and units['spawning']['extractors'][2] == nil
+                and fun.find(units['busy'], id) == nil
+                and tc.state.resources_myself.ore >= 42 then
+                actions = economy.take_nat_geyser(id, u, actions, tc)
+            elseif units['spawning']['extractors'][2] ~= nil
+                and fun.size(units['buildings']['extractors']) ~= 2
+                and tc.state.resources_myself.ore >= 50 then
+                actions = economy.build_nat_extractor(units['spawning']['extractors'][2]['id'], u, actions, tc)
+
+
             else
                 workers = economy.check_workers()
                 if fun.find(workers['busy'], id) == nil and not utils.is_in(u.order,
@@ -810,7 +853,7 @@ function economy.manage_2hm_bo(actions, tc)
         powering = false
     else powering = true end
     -- stop drone powering at 23
-    if fun.size(units['drones']) >= 23 and fun.size(units['buildings']['lair']) == 1 then
+    if fun.size(units['drones']) >= 21 and fun.size(units['buildings']['lair']) == 1 then
         powering = false
     elseif fun.size(units['drones']) >= 12 and fun.size(units['buildings']['lair']) == 1 then
         powering = true
