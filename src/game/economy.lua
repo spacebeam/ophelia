@@ -136,8 +136,6 @@ function economy.check_my_units(tc)
     local overlords = {}
     local spawning_overlords = {}
     local spawning_spawning_pool = {}
-    local spawning_hydralisk_den = {}
-    local spawning_spire = {}
     -- YO!
     local drones = {}
     local lings = {}
@@ -201,13 +199,8 @@ function economy.check_my_units(tc)
         elseif u.type == tc.unittypes.Zerg_Infested_Terran and u.flags.completed == true then
             table.insert(infesteds, id)
         elseif u.type == tc.unittypes.Zerg_Hatchery then
-
             table.insert(hatcheries, {["id"]=id, ["position"]=u.position, ["completed"]=u.flags.completed})
-            
-            if main_hatch == nil then
-                main_hatch = {["id"]=id, ["position"]=u.position}
-            end
-        
+            if main_hatch == nil then main_hatch = {["id"]=id, ["position"]=u.position} end
         elseif u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
             table.insert(extractors, id)
         elseif u.type == tc.unittypes.Zerg_Spawning_Pool then
@@ -486,7 +479,6 @@ function economy.build_hydralisk_den(id, u, actions, tc)
     return actions
 end
 
-
 function economy.build_pool(id, u, actions, tc)
     --
     -- Build Spawning Pool
@@ -494,9 +486,7 @@ function economy.build_pool(id, u, actions, tc)
     if units['spawning']['spawning_pool'][1] == nil then
         units['spawning']['spawning_pool'][1] = {["id"]=id}
     end
-
     local spawning = false
-
     if units['spawning']['spawning_pool'][1]["id"] == id
         and tc.state.resources_myself.ore >= 200 then
         for _, x in ipairs(units['buildings']['hatcheries']) do
@@ -507,14 +497,11 @@ function economy.build_pool(id, u, actions, tc)
                 tc.cmd.Build, -1,
                 x['position'][1] - 4, x['position'][2] + 12, tc.unittypes.Zerg_Spawning_Pool))
                 spawning = true
-                print('inside build pool after insert actions')
             end
-        end
-        
+        end 
     end
     return actions
 end
-
 
 function economy.build_spire(id, u, actions, tc)
     --
@@ -813,14 +800,26 @@ function economy.manage_2hm_bo(actions, tc)
         expansions[1] = {}
         is_drone_expanding = true
     end
-
     -- stop drone powering at 12
-    if fun.size(units['drones']) >= 12 then
+    if fun.size(units['drones']) >= 12 and fun.size(units['buildings']['hatcheries']) == 1 then
         powering = false
-    elseif fun.size(units['drones']) == 11
-        and fun.size(units['buildings']['spawning_pool']) ~= 1 then
+    elseif fun.size(units['drones']) == 11 and fun.size(units['buildings']['hatcheries']) == 1 then
+        powering = false
+    elseif fun.size(units['drones']) == 11 and fun.size(units['buildings']['hatcheries']) == 2 then
+        powering = false
+    elseif fun.size(units['drones']) == 10 and fun.size(units['buildings']['hatcheries']) == 2 then
         powering = false
     else powering = true end
+
+    -- stop drone powering at 25
+    if fun.size(units['drones']) >= 21 and fun.size(units['buildings']['lair']) == 1 then
+        powering = false
+    elseif fun.size(units['drones']) >= 12 and fun.size(units['buildings']['lair']) == 1 then
+        powering = true
+    else tools.pass() end
+
+    print(powering)
+
     -- at 16 building the third overlord
     if fun.size(units['drones']) + fun.size(units['lings']) / 2 >= 16
         and fun.size(units['overlords']) == 2
