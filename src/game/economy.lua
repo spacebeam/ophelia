@@ -810,7 +810,7 @@ function economy.manage_2hm_bo(actions, tc)
         powering = false
     else powering = true end
     -- stop drone powering at 23
-    if fun.size(units['drones']) >= 21 and fun.size(units['buildings']['lair']) == 1 then
+    if fun.size(units['drones']) >= 23 and fun.size(units['buildings']['lair']) == 1 then
         powering = false
     elseif fun.size(units['drones']) >= 12 and fun.size(units['buildings']['lair']) == 1 then
         powering = true
