@@ -17,14 +17,8 @@ local scouting = require("ophelia.scouting")
 local openings = require("ophelia.openings")
 local tools = require("ophelia.tools")
 
--- old opening stuff have has_spawning_pool, spawning_pool as bool
--- old opening got main hatchery position from list of buildings
-
--- here we don't need a main variable in reference to the first hatch
--- here we got a list of all our buildings and units.
-
 -- This quandrant stuff is relevant only to our implementation
--- players use the clock to position themselves on the map.
+-- human players use the clock to position themselves on the map.
 local quadrant = false
 local quadrants = false
 
@@ -32,6 +26,8 @@ local quadrants = false
 local economy = {}
 
 local powering = true
+
+local main_hatch = nil
 
 local buildings = {["hatcheries"]={},
                    ["spawning_pool"]={},
@@ -205,7 +201,13 @@ function economy.check_my_units(tc)
         elseif u.type == tc.unittypes.Zerg_Infested_Terran and u.flags.completed == true then
             table.insert(infesteds, id)
         elseif u.type == tc.unittypes.Zerg_Hatchery then
+
             table.insert(hatcheries, {["id"]=id, ["position"]=u.position, ["completed"]=u.flags.completed})
+            
+            if main_hatch == nil then
+                main_hatch = {["id"]=id, ["position"]=u.position}
+            end
+        
         elseif u.type == tc.unittypes.Zerg_Extractor and u.flags.completed == true then
             table.insert(extractors, id)
         elseif u.type == tc.unittypes.Zerg_Spawning_Pool then
@@ -854,13 +856,13 @@ function economy.manage_2hm_macro(actions, tc)
             -- Spawn exactly 6 lings (;
             if spawning_lings == false
                 and fun.size(units['drones']) >= 12
-                and fun.size(units['lings']) <= 6 then
+                and fun.size(units['lings']) <= 3 then
                 spawning_lings = true
             end
             -- Spawning mutalisks
             if spawning_mutas == false
                 and fun.size(units['drones']) >= 12
-                and fun.size(units['mutas']) < 5 then
+                and fun.size(units['mutas']) < 9 then
                 spawning_mutas = true
             end
             if u.type == tc.unittypes.Zerg_Spawning_Pool then
@@ -976,7 +978,7 @@ function economy.manage_2hm_macro(actions, tc)
                     and fun.size(units['buildings']['lair']) < 1
                     and fun.size(units['spawning']['lair']) < 1 then
                     table.insert(actions,
-                    tc.command(tc.command_unit, id, tc.cmd.Morph,
+                    tc.command(tc.command_unit, main_hatch['id'], tc.cmd.Morph,
                     0,0,0, tc.unittypes.Zerg_Lair))
                 end
                 if spawning_mutas == true and fun.size(units['eggs']) ~= 1 then
@@ -1428,7 +1430,7 @@ function economy.manage_10p_macro(actions, tc)
 end
 function economy.manage_game_economy(actions, enemy, resources, tc)
     --
-    -- computer manage game economy
+    -- Computer manage game economy (!resources?)
     --
     quadrant = scouting.base_quadrant()
     quadrants = scouting.all_quadrants()
