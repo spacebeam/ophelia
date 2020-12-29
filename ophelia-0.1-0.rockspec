@@ -1,5 +1,3 @@
--- I hear thunder but there's no rain
-
 package = "ophelia"
 version = "0.1-0"
 source = {
@@ -19,16 +17,18 @@ dependencies = {
   "argparse",
   "luasocket",
   "lzmq-ffi",
-  "moses",
+  "middleclass",
+  "tiny-ecs",
   "inspect",
-  "uuid"
+  "uuid",
+  "fun",
 }
 
 build = {
   type = 'builtin',
   modules = {
-    ['ophelia.lib.json'] = "src/lib/json.lua",
-    ['ophelia.lib.star'] = "src/lib/lua-star.lua",
+    ['ophelia.lib.json'] = "src/lib/JSON.lua",
+    ['ophelia.lib.vector'] = "src/lib/vector.lua",
     ['ophelia.lib.yaml'] = "src/lib/YAMLParserLite.lua",
     ['ophelia.economy'] = "src/game/economy.lua",
     ['ophelia.openings'] = "src/game/openings.lua",

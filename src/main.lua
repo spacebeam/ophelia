@@ -1,10 +1,9 @@
 #!/usr/bin/env luajit
 --
--- Make it work then make it beutiful then if you really, really have to make it fast!
 -- We don't know where she is from, or even what strain she is.
 -- Do not break the laws of physics.
 --
-local inspect = require("inspect")
+--local inspect = require("inspect")
 local sys = require("sys")
 local torch = require("torch")
 local argparse = require("argparse")
@@ -88,7 +87,7 @@ while restarts < 0 do
                 print("Ophelia vs " .. scouting.identify_enemy_race())
             end
             -- starting init offense and defense (!!!)
-            inspect(enemy_units)
+            --inspect(enemy_units)
         elseif tc.state.game_ended then
             -- wp
             print("gg")

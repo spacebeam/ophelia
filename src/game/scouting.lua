@@ -4,7 +4,7 @@
 
 --local inspect = require("inspect")
 
-local fun = require("moses")
+--local fun = require("fun")
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
 
@@ -78,13 +78,13 @@ function scouting.identify_enemy_race()
     local protoss_units = 0
     local terran_units = 0
     for k,v in pairs(enemy["Z"]["units"]) do
-        zerg_units = zerg_units + fun.size(enemy["Z"]["units"][k])
+        zerg_units = zerg_units + tools.size(enemy["Z"]["units"][k])
     end
     for k,v in pairs(enemy["P"]["units"]) do
-        protoss_units = protoss_units + fun.size(enemy["P"]["units"][k])
+        protoss_units = protoss_units + tools.size(enemy["P"]["units"][k])
     end
     for k,v in pairs(enemy["T"]["units"]) do
-        terran_units = terran_units + fun.size(enemy["T"]["units"][k])
+        terran_units = terran_units + tools.size(enemy["T"]["units"][k])
     end
     if zerg_units >= 1 then enemy["Z"]["against"],vs_zerg = true,true end
     if protoss_units >= 1 then enemy["P"]["against"],vs_protoss = true,true end

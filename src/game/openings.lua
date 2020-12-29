@@ -7,9 +7,6 @@
 -- Overpool
 --
 
---local inspect = require("inspect")
---local fun = require("moses")
-
 local utils = require("torchcraft.utils")
 local tools = require("ophelia.tools")
 
