@@ -6,9 +6,6 @@
 -- powering is when computer switch to economics.
 --
 
--- zvp mindset: have enough drones with 6 hatches and 3 gas mining
--- zvt mindset: lets learn to survive and use mutalisks for now!
-
 --local inspect = require("inspect")
 
 local fun = require("fun")
@@ -53,7 +50,6 @@ local units = {["busy"]={},
 units['spawning']['overlords'] = {}
 
 local is_spawning_overlord = {} -- <--------------------------------------------- clean, this pp!
--- <----------------------------------------------------------------------------- clean, this pp!
 
 local expansions = {}
 
@@ -718,20 +714,6 @@ function economy.manage_9734_bo(actions, tc)
         powering = false
     end
     -- gg
-    return actions
-end
-
-function economy.manage_5hh_bo(actions, tc)
-    --
-    -- 5HH worker management
-    --
-    return actions
-end
-
-function economy.manage_10p_bo(actions, tc)
-    --
-    -- 10P worker management
-    --
     return actions
 end
 
@@ -1473,12 +1455,6 @@ function economy.manage_5hh_macro(actions, tc)
     return actions
 end
 
-function economy.manage_10p_macro(actions, tc)
-    --
-    -- ZvZ 10P simcity management
-    --
-    return actions
-end
 function economy.manage_game_economy(actions, enemy, resources, tc)
     --
     -- Computer manage game economy (!resources?)
