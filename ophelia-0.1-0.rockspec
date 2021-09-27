@@ -9,7 +9,7 @@ description = {
   summary = "I am so tired of her schemes. And now, this ridiculous plan.",
   detailed = "We don't know where she is from, or even what strain she is.",
   homepage = "https://spacebeam.org",
-  license = "AGPL 3"
+  license = "APACHE 2"
 }
 
 dependencies = {
@@ -29,12 +29,13 @@ build = {
   modules = {
     ['ophelia.lib.json'] = "src/lib/JSON.lua",
     ['ophelia.lib.vector'] = "src/lib/vector.lua",
-    ['ophelia.lib.yaml'] = "src/lib/YAMLParserLite.lua",
     ['ophelia.economy'] = "src/game/economy.lua",
     ['ophelia.openings'] = "src/game/openings.lua",
     ['ophelia.scouting'] = "src/game/scouting.lua",
     ['ophelia.tactics'] = "src/game/tactics.lua",
     ['ophelia.tools'] = "src/tools.lua",
+    ['ophelia.options'] = "src/options.lua",
+  
   },
   install = {
     bin = {
