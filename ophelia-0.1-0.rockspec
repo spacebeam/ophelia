@@ -28,6 +28,7 @@ build = {
   type = 'builtin',
   modules = {
     ['ophelia.lib.json'] = "src/lib/JSON.lua",
+    ['ophelia.lib.yaml'] = "src/lib/YAMLParserLite.lua",
     ['ophelia.lib.vector'] = "src/lib/vector.lua",
     ['ophelia.economy'] = "src/game/economy.lua",
     ['ophelia.openings'] = "src/game/openings.lua",
@@ -35,7 +36,7 @@ build = {
     ['ophelia.tactics'] = "src/game/tactics.lua",
     ['ophelia.tools'] = "src/tools.lua",
     ['ophelia.options'] = "src/options.lua",
-  
+
   },
   install = {
     bin = {

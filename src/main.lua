@@ -82,6 +82,7 @@ while restarts < 0 do
             actions = economy.manage_game_economy(actions, enemy, resources, tc)
             -- bot identify enemy units
             local enemy_units = scouting.identify_enemy_units(tc)
+            tools.pass(enemy_units)
             -- note how this seem to be backwards ?
             if scouting.identify_enemy_race() then
                 print("Ophelia vs " .. scouting.identify_enemy_race())

@@ -23,9 +23,9 @@ function tools.size(...)
     return (type(arg1) == 'table') and count(args[1]) or count(args)
 end
 
---- Performs a deep comparison test between two objects. Can compare strings, functions 
--- (by reference), nil, booleans. Compares tables by reference or by values. If `useMt` 
--- is passed, the equality operator `==` will be used if one of the given objects has a 
+--- Performs a deep comparison test between two objects. Can compare strings, functions
+-- (by reference), nil, booleans. Compares tables by reference or by values. If `useMt`
+-- is passed, the equality operator `==` will be used if one of the given objects has a
 -- metatable implementing `__eq`.
 -- <br/><em>Aliased as `compare`, `matches`</em>
 -- @name isEqual
@@ -91,27 +91,20 @@ function tools.check_supported_maps(name)
     -- also a good place to move/add/return;
     -- start_locations, previous map analysis, etc.
     --
-
     local map = {}
     if string.match(name, "Fighting Spirit") then
         map['bases'] = 4
     elseif string.match(name, "CircuitBreakers") then
         map['bases'] = 4
-    elseif string.match(name, "Gladiator") then
-        map['bases'] = 4
     elseif string.match(name, "EmpireoftheSun") then
         map['bases'] = 4
     elseif string.match(name, "Power Bond") then
-        print("Power Bond")
         map['bases'] = 3
     elseif string.match(name, "Neo Sylphid") then
-        print("Neo Sylphid")
         map['bases'] = 3
     elseif string.match(name, "Overwatch") then
-        print("Overwatch")
         map['bases'] = 2
     elseif string.match(name, "Benzene") then
-        print("Benzene")
         map['bases'] = 2
     else
         print("crash something else")

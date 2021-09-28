@@ -403,7 +403,7 @@ end
 function scouting.first_overlord(actions, map, tc)
     --
     -- first overlord goes to ours enemy's base
-    
+
     --
     -- I don't know why but sp is for cross position wtf?, please confirm.
     --
