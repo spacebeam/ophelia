@@ -1,7 +1,4 @@
 --
--- 9 Pool
--- 9 Gas
--- 10 Pool
 -- 12 Hatch
 -- 12 Pool
 -- Overpool
@@ -19,27 +16,6 @@ local spawning_pool = 0
 
 local main = false
 
-
-function openings.nine_pool(actions, tc)
-    --
-    -- Be aggressive, be, be, aggressive!
-    --
-    return actions
-end
-
-function openings.nine_gas(actions, tc)
-    --
-    -- Queen's ZvZ 1 hatch fast muta optimization
-    --
-    return actions
-end
-
-function openings.ten_pool(actions, tc)
-    --
-    -- The classic ZvZ 2 hatch muta inside main
-    --
-    return actions
-end
 
 function openings.twelve_hatch(actions, tc)
     --
