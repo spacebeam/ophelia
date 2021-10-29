@@ -17,8 +17,6 @@ dependencies = {
   "argparse",
   "luasocket",
   "lzmq-ffi",
-  "middleclass",
-  "tiny-ecs",
   "inspect",
   "uuid",
   "fun",
@@ -33,7 +31,6 @@ build = {
     ['ophelia.economy'] = "src/game/economy.lua",
     ['ophelia.openings'] = "src/game/openings.lua",
     ['ophelia.scouting'] = "src/game/scouting.lua",
-    ['ophelia.tactics'] = "src/game/tactics.lua",
     ['ophelia.tools'] = "src/tools.lua",
     ['ophelia.options'] = "src/options.lua",
 

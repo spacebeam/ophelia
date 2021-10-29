@@ -1,8 +1,8 @@
 #!/usr/bin/env luajit
 --
 -- We don't know where she is from, or even what strain she is.
--- Do not break the laws of physics.
 --
+
 --local inspect = require("inspect")
 local sys = require("sys")
 local torch = require("torch")
@@ -21,6 +21,9 @@ tc.DEBUG = 0
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn session id
 local spawn_uuid = uuid()
+
+-- Do not break the laws of physics.
+
 print("Ophelia's session " .. spawn_uuid)
 -- CLI argument parser
 local parser = argparse() {

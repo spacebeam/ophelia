@@ -1,6 +1,6 @@
 #!/usr/bin/env luajit
 
-local inspect = require("inspect")
+--local inspect = require("inspect")
 local ini = require("inifile")
 local lfs = require("lfs")
 local yaml = require("ophelia.lib.yaml")
