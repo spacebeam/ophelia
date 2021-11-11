@@ -40,7 +40,7 @@ function Sim:load()
 		require ("src.systems.UpdateSystem")(),
 		self.aiSystem, -- it appears that this is why we are here.
 		require("src.systems.AtlasSystem")(map, tileMap),
-		require("src.systems.LifetimeSystem")(),
+		require("src.systems.TimingSystem")(),
 		require("src.systems.SpawnSystem")(self)
 	)
 
