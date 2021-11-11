@@ -222,7 +222,7 @@ local things = {}
 
 local conf = options.get_options("/opt/bw/include/bw.yml")
 
-things['map'] = "maps/BroodWar/torchup/\\(4\\)Polypoid.scx"
+things['map'] = "maps/TorchUp/\\(4\\)Polypoid1.65.scx"
 things['directory'] = "/opt/StarCraft"
 
 local session = options.get_session_conf(things['directory'])
