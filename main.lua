@@ -63,7 +63,7 @@ function love.load()
     bw_thread = love.thread.newThread( "src/TorchCraft.lua" )
     bw_thread:start()
 
-    turbo_thread = love.thread.newThread( "src/HttpServer.lua" )
+    turbo_thread = love.thread.newThread( "src/HTTPServer.lua" )
     turbo_thread:start()
 
 	gamestate.registerEvents()
