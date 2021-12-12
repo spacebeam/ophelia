@@ -3,31 +3,9 @@
 -- Do not break the laws of physics.
 --
 
-
--- A slightly improved classic way
-
--- + Slightly better parallelism
--- + Complete control over the system
--- - Problems with execution time
--- - Only limited parallelism
-
--- Need Messages to communicate and synchronise
-
--- MUST have QA, things like continuous integration and testing
--- we learned a lot of those lessons and they're very important
--- we will do them sooner rather than later...
-
-
--- Go fully parallel, everything in processes.
-
--- Communicate/synchronise with messages
-
--- Reduce all central state to a minimum
-
--- Processes can be implemented in different languages, interface through messages.
-
-
-local bw_thread -- Our BW thread
+local bw_thread -- Our threads
+local http_thread
+local netcode_thread
 
 -- Global variables
 class = require("lib.30log.30log")
@@ -63,8 +41,11 @@ function love.load()
     bw_thread = love.thread.newThread( "src/TorchCraft.lua" )
     bw_thread:start()
 
-    turbo_thread = love.thread.newThread( "src/HTTPServer.lua" )
-    turbo_thread:start()
+    http_thread = love.thread.newThread( "src/HTTPServer.lua" )
+    http_thread:start()
+
+    netcode_thread = love.thread.newThread( "src/NetCode.lua" )
+    netcode_thread:start()
 
 	gamestate.registerEvents()
 	gamestate.switch(Sim("maps/Polypoid.lua"))
