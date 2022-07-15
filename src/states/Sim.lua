@@ -1,6 +1,7 @@
+-- hej
 
 local inspect = require("inspect")
--- 
+
 local sti = require("lib.sti.sti")
 
 local TimerEvent = require("src.entities.TimerEvent")
@@ -10,11 +11,6 @@ local Sim = class("Sim")
 function Sim:init(mappath)
 	self.mappath = mappath
 end
-
--- Data-Oriented Design Paradigm (?)
--- No hierarchy to remember
--- Systems have many of the advantages of microservices
--- Systems have many of the advantages of functional programming (?)
 
 function Sim:load()
 
@@ -27,12 +23,13 @@ function Sim:load()
 	-- still we are in the process of assimilation and acomodation (?)
 	
 	local resources = love.thread.getChannel('resources'):pop()
-
+	
+	-- as in we got resources now wut?
 	local actions = {} 
 
 	local map = nil
 
-	self.aiSystem = require("src.systems.AISystem")()
+	self.aiSystem = require("src.systems.AISystem")() -- why not just ai?
 
 	self.time = 0
 
@@ -40,7 +37,7 @@ function Sim:load()
 		require ("src.systems.UpdateSystem")(),
 		self.aiSystem, -- it appears that this is why we are here.
 		require("src.systems.AtlasSystem")(map, tileMap),
-		require("src.systems.TimingSystem")(),
+		require("src.systems.TimeSystem")(),
 		require("src.systems.SpawnSystem")(self)
 	)
 
