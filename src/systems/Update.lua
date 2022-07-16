@@ -1,9 +1,9 @@
-local UpdateSystem = tiny.processingSystem(class("UpdateSystem"))
+local Update = tiny.processingSystem(class("Update"))
 
-UpdateSystem.filter = tiny.requireAll("update")
+Update.filter = tiny.requireAll("update")
 
-function UpdateSystem:process(e, dt)
+function Update:process(e, dt)
 	e:update(dt)
 end
 
-return UpdateSystem
+return Update

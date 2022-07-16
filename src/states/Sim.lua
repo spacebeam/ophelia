@@ -1,11 +1,10 @@
--- hej
+-- bw simulator of all things 
 
 local inspect = require("inspect")
-
 local sti = require("lib.sti.sti")
-
 local TimerEvent = require("src.entities.TimerEvent")
 
+-- oop? kek
 local Sim = class("Sim")
 
 function Sim:init(mappath)
@@ -13,15 +12,11 @@ function Sim:init(mappath)
 end
 
 function Sim:load()
-
 	-- tile map setup
 	local tileMap = sti(self.mappath)
     local w, h = tileMap.tilewidth * tileMap.width, tileMap.tileheight * tileMap.height
 
-	-- cool it aopears that we have bw integration but...
-
-	-- still we are in the process of assimilation and acomodation (?)
-	
+	-- multi-threaded channel magics!
 	local resources = love.thread.getChannel('resources'):pop()
 	
 	-- as in we got resources now wut?
@@ -29,18 +24,18 @@ function Sim:load()
 
 	local map = nil
 
-	self.aiSystem = require("src.systems.AISystem")() -- why not just ai?
+	self.aiSystem = require("src.systems.AI")() 
 
 	self.time = 0
 
 	self.world = tiny.world(
-		require ("src.systems.UpdateSystem")(),
+		require ("src.systems.Update")(),
 		self.aiSystem, -- it appears that this is why we are here.
-		require("src.systems.AtlasSystem")(map, tileMap),
-		require("src.systems.TimeSystem")(),
-		require("src.systems.SpawnSystem")(self)
+		require("src.systems.Atlas")(map, tileMap),
+		require("src.systems.Time")(),
+		require("src.systems.Spawn")(self)
 	)
-
+	-- tile map entities
 	for index, layer in ipairs(tileMap.layers) do
 		if layer.type == "objects" then
 			for _, object in ipairs(layer.objects) do
@@ -50,9 +45,7 @@ function Sim:load()
 			end
 			tileMap:removeLayer(index)
 		end
-
 	end
-
 	-- globals
 	_G.world = self.world
 end

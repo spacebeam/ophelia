@@ -1,15 +1,8 @@
---
--- Do not break the laws of physics.
---
-
+-- this thread run in parallel with love2d
 
 local sys = require("sys")
 local torch = require("torch")
 local tc = require("torchcraft")
-
-
--- this thread run in parallel with love2d
-
 
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
@@ -60,6 +53,9 @@ while restarts < 0 do
         end
         if tc.state.battle_frame_count % skip_frames == 0 then
             local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
+
+            -- channel, channel, channel, channel
+
             love.thread.getChannel( 'resources' ):push( resources )
             if  enemy and tc.DEBUG > 1 then
                 print("Ophelia vs "..enemy['name'])
