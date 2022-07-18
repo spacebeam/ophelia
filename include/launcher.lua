@@ -176,7 +176,7 @@ function tools.start_game(bot, map, session)
                 .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
                 .. bot['name'] .. " --game " .. bot['name'] .. " --race "
                 .. string.sub(bot['race'], 1, 1) .. " --map " .. map
-                .. "& ophelia& wine Chaoslauncher/Chaoslauncher.exe"
+                .. "& wine Chaoslauncher/Chaoslauncher.exe"
         else
             cmd = "wine bwheadless.exe -e /opt/StarCraft/StarCraft.exe "
                 .. "-l /opt/StarCraft/bwapi-data/BWAPI.dll --host --name "
@@ -218,16 +218,22 @@ uuid.randomseed(socket.gettime()*10000)
 
 local session_uuid = uuid()
 
+print(session_uuid)
+
 local things = {}
 
 local conf = options.get_options("/opt/bw/include/bw.yml")
 
-things['map'] = "maps/TorchUp/\\(4\\)Polypoid1.65.scx"
+--things['map'] = "maps/TorchUp/\\(4\\)Polypoid1.65.scx"
+things['map'] = "maps/TorchUp/\\(4\\)FightingSpirit1.3.scx"
 things['directory'] = "/opt/StarCraft"
 
 local session = options.get_session_conf(things['directory'])
 
+print(session)
+
 if lfs.chdir(session['bots']) then
+    print('entra')
     ophelia = bots.get_bot('Ophelia', session['bots'])
     tools.update_registry()
     tools.prepare_bwapi(
@@ -237,6 +243,7 @@ if lfs.chdir(session['bots']) then
         conf,
         session
     )
+    print('q')
     tools.prepare_tm(ophelia, session)
     tools.prepare_ai(ophelia, session)
     tools.start_game(
