@@ -1,26 +1,21 @@
-#!/usr/bin/env luajit
---
 -- Do not break the laws of physics.
---
 
--- Our bw thread
-local bw_thread 
-
--- Global variables
+-- globals
 class = require("lib.30log.30log")
 tiny = require("lib.tiny-ecs.tiny")
-
--- slightly modified to play nice with 30log
+-- gamestate slightly modified to play nice with 30log
 gamestate = require("lib.hump.gamestate")
-
 local socket = require("socket")
 local uuid = require("uuid")
+-- Replace beholder with lib.hump.signal (!)
 local observer = require("lib.beholder.beholder")
-
+-- Simulator (?)
 local Sim = require("src.states.Sim")
 
+-- Our bw thread
+local bw_thread = love.thread.newThread("src/TorchCraft.lua")
+-- filter update
 local updateFilter = tiny.rejectAny('isDrawSystem')
-
 -- Set random seed
 uuid.randomseed(socket.gettime()*10000)
 -- Spawn session id
@@ -37,13 +32,10 @@ function love.keyreleased(k)
 end
 
 function love.load()
-    bw_thread = love.thread.newThread("src/TorchCraft.lua")
     bw_thread:start()
-    
-	gamestate.registerEvents()
-    
-    -- todo: dynamic map selection
-	gamestate.switch(Sim("maps/Polypoid.lua"))
+    gamestate.registerEvents()
+    -- todo: dynamic map selection (?)
+    gamestate.switch(Sim("maps/Polypoid.lua"))
 end
 
 function love.update(dt)

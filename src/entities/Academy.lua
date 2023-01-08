@@ -1,17 +1,17 @@
-local name = "Terran_Armory"
+local name = "Terran_Academy"
 -- Our BWAPI unit type           
-local type = 123
--- The standard local variables 
+local type = 112
+-- The standard local variables
 local label = "medium_structure"
 local armor = 1
-local hitpoints,shield = 750,0
-local ground_damage,air_damage = 0
-local ground_cooldown,air_cooldown = 0
-local ground_range,air_range = 0
+local hitpoints,shield = 600,0
+local ground_damage,air_damage = 0,0
+local ground_cooldown,air_cooldown = 0,0
+local ground_range,air_range = 0,0
 local sight = 8
 local supply = 0
 local cooldown = 80
-local mineral = 100
-local gas = 50
+local mineral = 150
+local gas = 0
 local holdkey = "a"
-local hash = "a8dc7e1b45955da238d449cf1fb6f908"
+local hash = "82edcde3377b1650d94033fc092042fd"

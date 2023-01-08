@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="8" tileheight="8" infinite="0" backgroundcolor="#242848" nextlayerid="2" nextobjectid="1">
- <tileset firstgid="1" source="../assets/tsx/metroid_tiles.tsx"/>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="8" tileheight="8" infinite="0" backgroundcolor="#242848" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="../tsx/metroid_tiles.tsx"/>
  <layer id="1" name="Tile Layer 1" width="128" height="128">
   <data encoding="csv">
 10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,8,10,8,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,9,9,11,11,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,

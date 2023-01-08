@@ -8,7 +8,6 @@ local type = 146
 local label = "zerg_structure"
 -- Our category
 local category = "basic_building"
-
 -- The standard local variables
 local armor = 2
 local hitpoints,shield = 300,0
