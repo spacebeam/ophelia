@@ -1,49 +1,45 @@
 -- bw simulator of all things 
 
 local inspect = require("inspect")
-local sti = require("lib.sti.sti")
-local TimerEvent = require("src.entities.TimerEvent")
 
+local sti = require("lib.sti.sti")
 
 local Sim = class("Sim")
 
-function Sim:init(mappath)
-	self.mappath = mappath
+function Sim:init(path)
+	self.path = path
 end
 
 function Sim:load()
-	local map = nil
-	-- tile map setup
-	local tileMap = sti(self.mappath)
-    local w, h = tileMap.tilewidth * tileMap.width, tileMap.tileheight * tileMap.height
+	local map = sti(self.path)
+    local w, h = map.tilewidth * map.width, map.tileheight * map.height
 
-	-- multi-threaded channel magics!
-	local resources = love.thread.getChannel('resources'):pop()
-	
-	-- as in we got resources now wut?
+	-- now wut?
 	local actions = {} 
 	
-	-- it appears that this is why we are here.
-	self.aiSystem = require("src.systems.AI")() 
 	self.time = 0
 	self.world = tiny.world(
-		require ("src.systems.Update")(),
-		self.aiSystem, 
-		require("src.systems.Atlas")(map, tileMap),
-		require("src.systems.Time")(),
-		require("src.systems.Spawn")(self)
+
+		require ("src.systems.Update")()
+
+		--require ("src.systems.Opening")(),
+		--require ("src.systems.Scouting")(),
+		--require ("src.systems.Economy")(),
+		
 	)
+	
 	-- tile map object layer entities
-	for index, layer in ipairs(tileMap.layers) do
+	for index, layer in ipairs(map.layers) do
 		if layer.type == "objects" then
 			for _, object in ipairs(layer.objects) do
 				local actor = require("src.entities." .. object.type)
 				local e = actor(object)
 				self.world:add(e)
 			end
-			tileMap:removeLayer(index)
+			map:removeLayer(index)
 		end
 	end
+	
 	-- Muda Muda Muda!
 	_G.world = self.world
 end
@@ -51,9 +47,15 @@ end
 function Sim:update(dt)
 	self.time = self.time + dt
 	local resources = love.thread.getChannel('resources'):pop()
-	if resources then
-		print(inspect.inspect(resources))
-	end
+	--if resources then
+	--	print(inspect.inspect(resources))
+	--end
+
+	local enemy = love.thread.getChannel('enemy'):pop()
+	--if enemy then
+	--	print(inspect.inspect(enemy))
+	--end
+
 end
 
 return Sim

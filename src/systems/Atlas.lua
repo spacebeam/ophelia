@@ -1,4 +1,7 @@
 local beholder = require 'lib.beholder.beholder'
+
+-- replace beholder with signal maybe?
+
 local AtlasSystem = tiny.system(class("AtlasSystem"))
 AtlasSystem.isDrawSystem = false 
 

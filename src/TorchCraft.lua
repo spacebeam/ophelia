@@ -1,4 +1,4 @@
--- this thread run in parallel with love2d
+-- this is the bw thread run in parallel with love2d
 
 local sys = require("sys")
 local torch = require("torch")
@@ -57,9 +57,19 @@ while restarts < 0 do
             -- channel, channel, channel, channel
 
             love.thread.getChannel( 'resources' ):push( resources )
+            love.thread.getChannel( 'enemy' ):push( enemy )
             if  enemy and tc.DEBUG > 1 then
                 print("Ophelia vs "..enemy['name'])
             end
+            
+            -- I need "actions" channel linked on BW thread
+            actions = love.thread.getChannel('actions'):pop()
+            if not actions then
+                actions = {}
+            end
+            
+            -- go action, missing actions
+
         elseif tc.state.game_ended then
             -- wp
             print('gg')
