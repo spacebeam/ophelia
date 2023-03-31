@@ -134,118 +134,118 @@
 </data>
  </layer>
  <objectgroup id="2" name="Object Layer 1">
-  <object id="1" x="456.424" y="32.3636" width="31.0909" height="14.9091"/>
-  <object id="2" x="48.0133" y="536.031" width="31.9659" height="16.0085"/>
-  <object id="3" x="432.083" y="16.0625" width="15.9583" height="7.74306"/>
-  <object id="4" x="424.083" y="8.00347" width="15.9583" height="7.74306"/>
-  <object id="5" x="407.833" y="8.00347" width="15.9583" height="7.74306"/>
-  <object id="6" x="400.208" y="16.0035" width="15.9583" height="7.74306"/>
-  <object id="7" x="391.896" y="8.12847" width="15.9583" height="7.74306"/>
-  <object id="8" x="368.208" y="16.0035" width="15.9583" height="7.74306"/>
-  <object id="9" x="359.833" y="24.0035" width="15.9583" height="7.74306"/>
-  <object id="10" x="359.833" y="32.0035" width="15.9583" height="7.74306"/>
-  <object id="11" x="456.424" y="32.3636" width="31.0909" height="14.9091"/>
-  <object id="12" x="16.3845" y="31.7648" width="15.9583" height="7.74306"/>
-  <object id="13" x="7.83903" y="40.1285" width="15.9583" height="7.74306"/>
-  <object id="14" x="16.3845" y="47.7648" width="15.9583" height="7.74306"/>
-  <object id="15" x="7.65721" y="55.7648" width="15.9583" height="7.74306"/>
-  <object id="16" x="7.65721" y="72.1285" width="15.9583" height="7.74306"/>
-  <object id="17" x="16.7481" y="63.7648" width="15.9583" height="7.74306"/>
-  <object id="18" x="16.0208" y="79.9467" width="15.9583" height="7.74306"/>
-  <object id="19" x="15.839" y="88.1285" width="15.9583" height="7.74306"/>
-  <object id="20" x="23.839" y="96.1285" width="15.9583" height="7.74306"/>
-  <object id="21" x="56.0208" y="7.94665" width="31.7765" height="15.9249"/>
-  <object id="22" x="71.9792" y="296.17" width="15.9583" height="7.74306"/>
-  <object id="23" x="71.8958" y="304.128" width="15.9583" height="7.74306"/>
-  <object id="24" x="63.8958" y="312.003" width="15.9583" height="7.74306"/>
-  <object id="25" x="72.0208" y="320.128" width="15.9583" height="7.74306"/>
-  <object id="26" x="64.0208" y="328.003" width="15.9583" height="7.74306"/>
-  <object id="27" x="72.0208" y="335.878" width="15.9583" height="7.74306"/>
-  <object id="28" x="80.0208" y="351.878" width="15.9583" height="7.74306"/>
-  <object id="29" x="104.021" y="352.003" width="32.3333" height="15.7431"/>
-  <object id="30" x="23.839" y="543.947" width="15.9583" height="7.74306"/>
-  <object id="31" x="16.1118" y="552.038" width="15.9583" height="7.74306"/>
-  <object id="32" x="7.83903" y="568.128" width="15.9583" height="7.74306"/>
-  <object id="33" x="15.9299" y="576.128" width="15.9583" height="7.74306"/>
-  <object id="34" x="7.83903" y="584.128" width="15.9583" height="7.74306"/>
-  <object id="35" x="8.14585" y="600.128" width="15.9583" height="7.74306"/>
-  <object id="36" x="16.0208" y="608.128" width="15.9583" height="7.74306"/>
-  <object id="37" x="15.8958" y="616.128" width="15.9583" height="7.74306"/>
-  <object id="38" x="432.01" y="504.042" width="32.0453" height="15.9605"/>
-  <object id="39" x="559.75" y="504.065" width="32.0453" height="15.9605"/>
-  <object id="40" x="455.896" y="472.128" width="15.9583" height="7.74306"/>
-  <object id="41" x="447.771" y="480.003" width="15.9583" height="7.74306"/>
-  <object id="42" x="439.771" y="495.878" width="15.9583" height="7.74306"/>
-  <object id="43" x="448.021" y="528.128" width="15.9583" height="7.74306"/>
-  <object id="44" x="447.93" y="544.128" width="15.9583" height="7.74306"/>
-  <object id="45" x="455.93" y="552.038" width="15.9583" height="7.74306"/>
-  <object id="46" x="560.009" y="552.072" width="15.9583" height="7.74306"/>
-  <object id="47" x="575.958" y="536.066" width="15.9583" height="7.74306"/>
-  <object id="48" x="567.958" y="528.066" width="15.9583" height="7.74306"/>
-  <object id="49" x="560.021" y="496.003" width="15.9583" height="7.74306"/>
-  <object id="50" x="567.958" y="480.066" width="15.9583" height="7.74306"/>
-  <object id="51" x="559.896" y="472.066" width="15.9583" height="7.74306"/>
-  <object id="52" x="696.5" y="64.8636" width="31.0909" height="14.9091"/>
-  <object id="53" x="671.896" y="72.1285" width="15.9583" height="7.74306"/>
-  <object id="54" x="663.934" y="79.998" width="15.9583" height="7.74306"/>
-  <object id="55" x="663.89" y="87.9111" width="15.9583" height="7.74306"/>
-  <object id="56" x="655.977" y="96.1719" width="15.9583" height="7.74306"/>
-  <object id="57" x="664.021" y="128.128" width="15.9583" height="7.74306"/>
-  <object id="58" x="656.238" y="111.824" width="15.9583" height="7.74306"/>
-  <object id="59" x="663.934" y="120.085" width="15.9583" height="7.74306"/>
-  <object id="60" name="geyser" type="geyser" x="935.896" y="16.0489" width="32.0833" height="15.9306"/>
-  <object id="61" name="mineral" type="mineral" x="992.021" y="40.1285" width="15.9583" height="7.74306"/>
-  <object id="62" name="mineral" type="mineral" x="1000.15" y="48.0035" width="15.9583" height="7.74306"/>
-  <object id="63" name="mineral" type="mineral" x="991.771" y="56.0035" width="15.9583" height="7.74306"/>
-  <object id="64" name="mineral" type="mineral" x="999.896" y="63.7535" width="15.9583" height="7.74306"/>
-  <object id="65" name="mineral" type="mineral" x="991.771" y="72.1285" width="15.9583" height="7.74306"/>
-  <object id="66" name="mineral" type="mineral" x="999.771" y="80.1285" width="15.9583" height="7.74306"/>
-  <object id="67" name="mineral" type="mineral" x="984.146" y="104.503" width="15.9583" height="7.74306"/>
-  <object id="68" name="mineral" type="mineral" x="991.771" y="88.3785" width="15.9583" height="7.74306"/>
-  <object id="69" name="mineral" type="mineral" x="991.771" y="96.5035" width="15.9583" height="7.74306"/>
-  <object id="70" name="mineral" type="mineral" x="15.9299" y="912.341" width="15.9583" height="7.74306"/>
-  <object id="71" name="mineral" type="mineral" x="8.02085" y="920.31" width="15.9583" height="7.74306"/>
-  <object id="72" name="mineral" type="mineral" x="15.839" y="928.128" width="15.9583" height="7.74306"/>
-  <object id="73" name="mineral" type="mineral" x="8.02085" y="935.947" width="15.9583" height="7.74306"/>
-  <object id="74" name="mineral" type="mineral" x="16.0208" y="944.128" width="15.9583" height="7.74306"/>
-  <object id="75" name="mineral" type="mineral" x="7.83903" y="952.31" width="15.9583" height="7.74306"/>
-  <object id="76" name="mineral" type="mineral" x="16.2027" y="960.31" width="15.9583" height="7.74306"/>
-  <object id="77" name="mineral" type="mineral" x="16.2027" y="968.128" width="15.9583" height="7.74306"/>
-  <object id="78" name="mineral" type="mineral" x="23.839" y="976.31" width="15.9583" height="7.74306"/>
-  <object id="79" name="geyser" type="geyser" x="56.0209" y="887.947" width="31.9583" height="16.2885"/>
-  <object id="80" x="352.021" y="896.462" width="15.9583" height="7.74306"/>
-  <object id="81" x="344.021" y="887.128" width="15.9583" height="7.74306"/>
-  <object id="82" x="352" y="912.17" width="15.9583" height="7.74306"/>
-  <object id="83" x="344.021" y="920.066" width="15.9583" height="7.74306"/>
-  <object id="84" x="351.958" y="928.066" width="15.9583" height="7.74306"/>
-  <object id="85" x="344.021" y="936.003" width="15.9583" height="7.74306"/>
-  <object id="86" x="335.958" y="944.191" width="15.9583" height="7.74306"/>
-  <object id="87" x="296.021" y="944.003" width="32.2083" height="15.9931"/>
-  <object id="88" x="560.021" y="983.947" width="15.9583" height="7.74306"/>
-  <object id="89" x="567.839" y="991.947" width="15.9583" height="7.74306"/>
-  <object id="90" x="639.839" y="991.947" width="15.9583" height="7.74306"/>
-  <object id="91" x="575.839" y="1000.13" width="15.9583" height="7.74306"/>
-  <object id="92" x="592.021" y="1000.13" width="15.9583" height="7.74306"/>
-  <object id="93" x="608.021" y="1000.13" width="15.9583" height="7.74306"/>
-  <object id="94" x="600.203" y="991.947" width="15.9583" height="7.74306"/>
-  <object id="95" x="631.839" y="1000.31" width="15.9583" height="7.74306"/>
-  <object id="96" x="655.839" y="967.947" width="32.6856" height="16.6522"/>
-  <object id="97" x="975.839" y="384.098" width="15.9583" height="7.74306"/>
-  <object id="98" x="992.021" y="392.31" width="15.9583" height="7.74306"/>
-  <object id="99" x="1000.02" y="399.947" width="15.9583" height="7.74306"/>
-  <object id="100" x="999.657" y="415.765" width="15.9583" height="7.74306"/>
-  <object id="101" x="991.839" y="423.765" width="15.9583" height="7.74306"/>
-  <object id="102" x="991.657" y="432.128" width="15.9583" height="7.74306"/>
-  <object id="103" x="1000.02" y="439.947" width="15.9583" height="7.74306"/>
-  <object id="104" x="992.021" y="447.038" width="15.9583" height="7.74306"/>
-  <object id="105" x="959.839" y="463.947" width="31.9583" height="16.1067"/>
-  <object id="106" x="928.384" y="672.128" width="15.9583" height="7.74306"/>
-  <object id="107" x="936.203" y="680.128" width="15.9583" height="7.74306"/>
-  <object id="108" x="944.021" y="688.128" width="15.9583" height="7.74306"/>
-  <object id="109" x="943.839" y="704.128" width="15.9583" height="7.74306"/>
-  <object id="110" x="936.021" y="711.947" width="15.9583" height="7.74306"/>
-  <object id="111" x="944.021" y="720.128" width="15.9583" height="7.74306"/>
-  <object id="112" x="935.839" y="736.128" width="15.9583" height="7.74306"/>
+  <object id="1" name="geyser" type="Geyser" x="456.424" y="32.3636" width="31.0909" height="14.9091"/>
+  <object id="2" name="geyser" type="Geyser" x="48.0133" y="536.031" width="31.9659" height="16.0085"/>
+  <object id="3" name="mineral" type="Mineral" x="432.083" y="16.0625" width="15.9583" height="7.74306"/>
+  <object id="4" name="mineral" type="Mineral" x="424.083" y="8.00347" width="15.9583" height="7.74306"/>
+  <object id="5" name="mineral" type="Mineral" x="407.833" y="8.00347" width="15.9583" height="7.74306"/>
+  <object id="6" name="mineral" type="Mineral" x="400.208" y="16.0035" width="15.9583" height="7.74306"/>
+  <object id="7" name="mineral" type="Mineral" x="391.896" y="8.12847" width="15.9583" height="7.74306"/>
+  <object id="8" name="mineral" type="Mineral" x="368.208" y="16.0035" width="15.9583" height="7.74306"/>
+  <object id="9" name="mineral" type="Mineral" x="359.833" y="24.0035" width="15.9583" height="7.74306"/>
+  <object id="10" name="mineral" type="Mineral" x="359.833" y="32.0035" width="15.9583" height="7.74306"/>
+  <object id="11" name="geyser" type="Geyser" x="456.424" y="32.3636" width="31.0909" height="14.9091"/>
+  <object id="12" name="mineral" type="Mineral" x="16.3845" y="31.7648" width="15.9583" height="7.74306"/>
+  <object id="13" name="mineral" type="Mineral" x="7.83903" y="40.1285" width="15.9583" height="7.74306"/>
+  <object id="14" name="mineral" type="Mineral" x="16.3845" y="47.7648" width="15.9583" height="7.74306"/>
+  <object id="15" name="mineral" type="Mineral" x="7.65721" y="55.7648" width="15.9583" height="7.74306"/>
+  <object id="16" name="mineral" type="Mineral" x="7.65721" y="72.1285" width="15.9583" height="7.74306"/>
+  <object id="17" name="mineral" type="Mineral" x="16.7481" y="63.7648" width="15.9583" height="7.74306"/>
+  <object id="18" name="mineral" type="Mineral" x="16.0208" y="79.9467" width="15.9583" height="7.74306"/>
+  <object id="19" name="mineral" type="Mineral" x="15.839" y="88.1285" width="15.9583" height="7.74306"/>
+  <object id="20" name="mineral" type="Mineral" x="23.839" y="96.1285" width="15.9583" height="7.74306"/>
+  <object id="21" name="geyser" type="Geyser" x="56.0208" y="7.94665" width="31.7765" height="15.9249"/>
+  <object id="22" name="mineral" type="Mineral" x="71.9792" y="296.17" width="15.9583" height="7.74306"/>
+  <object id="23" name="mineral" type="Mineral" x="71.8958" y="304.128" width="15.9583" height="7.74306"/>
+  <object id="24" name="mineral" type="Mineral" x="63.8958" y="312.003" width="15.9583" height="7.74306"/>
+  <object id="25" name="mineral" type="Mineral" x="72.0208" y="320.128" width="15.9583" height="7.74306"/>
+  <object id="26" name="mineral" type="Mineral" x="64.0208" y="328.003" width="15.9583" height="7.74306"/>
+  <object id="27" name="mineral" type="Mineral" x="72.0208" y="335.878" width="15.9583" height="7.74306"/>
+  <object id="28" name="mineral" type="Mineral" x="80.0208" y="351.878" width="15.9583" height="7.74306"/>
+  <object id="29" name="geyser" type="Geyser" x="104.021" y="352.003" width="32.3333" height="15.7431"/>
+  <object id="30" name="mineral" type="Mineral" x="23.839" y="543.947" width="15.9583" height="7.74306"/>
+  <object id="31" name="mineral" type="Mineral" x="16.1118" y="552.038" width="15.9583" height="7.74306"/>
+  <object id="32" name="mineral" type="Mineral" x="7.83903" y="568.128" width="15.9583" height="7.74306"/>
+  <object id="33" name="mineral" type="Mineral" x="15.9299" y="576.128" width="15.9583" height="7.74306"/>
+  <object id="34" name="mineral" type="Mineral" x="7.83903" y="584.128" width="15.9583" height="7.74306"/>
+  <object id="35" name="mineral" type="Mineral" x="8.14585" y="600.128" width="15.9583" height="7.74306"/>
+  <object id="36" name="mineral" type="Mineral" x="16.0208" y="608.128" width="15.9583" height="7.74306"/>
+  <object id="37" name="mineral" type="Mineral" x="15.8958" y="616.128" width="15.9583" height="7.74306"/>
+  <object id="38" name="geyser" type="Geyser" x="432.01" y="504.042" width="32.0453" height="15.9605"/>
+  <object id="39" name="geyser" type="Geyser" x="559.75" y="504.065" width="32.0453" height="15.9605"/>
+  <object id="40" name="mineral" type="Mineral" x="455.896" y="472.128" width="15.9583" height="7.74306"/>
+  <object id="41" name="mineral" type="Mineral" x="447.771" y="480.003" width="15.9583" height="7.74306"/>
+  <object id="42" name="mineral" type="Mineral" x="439.771" y="495.878" width="15.9583" height="7.74306"/>
+  <object id="43" name="mineral" type="Mineral" x="448.021" y="528.128" width="15.9583" height="7.74306"/>
+  <object id="44" name="mineral" type="Mineral" x="447.93" y="544.128" width="15.9583" height="7.74306"/>
+  <object id="45" name="mineral" type="Mineral" x="455.93" y="552.038" width="15.9583" height="7.74306"/>
+  <object id="46" name="mineral" type="Mineral" x="560.009" y="552.072" width="15.9583" height="7.74306"/>
+  <object id="47" name="mineral" type="Mineral" x="575.958" y="536.066" width="15.9583" height="7.74306"/>
+  <object id="48" name="mineral" type="Mineral" x="567.958" y="528.066" width="15.9583" height="7.74306"/>
+  <object id="49" name="mineral" type="Mineral" x="560.021" y="496.003" width="15.9583" height="7.74306"/>
+  <object id="50" name="mineral" type="Mineral" x="567.958" y="480.066" width="15.9583" height="7.74306"/>
+  <object id="51" name="mineral" type="Mineral" x="559.896" y="472.066" width="15.9583" height="7.74306"/>
+  <object id="52" name="geyser" type="Geyser" x="696.5" y="64.8636" width="31.0909" height="14.9091"/>
+  <object id="53" name="mineral" type="Mineral" x="671.896" y="72.1285" width="15.9583" height="7.74306"/>
+  <object id="54" name="mineral" type="Mineral" x="663.934" y="79.998" width="15.9583" height="7.74306"/>
+  <object id="55" name="mineral" type="Mineral" x="663.89" y="87.9111" width="15.9583" height="7.74306"/>
+  <object id="56" name="mineral" type="Mineral" x="655.977" y="96.1719" width="15.9583" height="7.74306"/>
+  <object id="57" name="mineral" type="Mineral" x="664.021" y="128.128" width="15.9583" height="7.74306"/>
+  <object id="58" name="mineral" type="Mineral" x="656.238" y="111.824" width="15.9583" height="7.74306"/>
+  <object id="59" name="mineral" type="Mineral" x="663.934" y="120.085" width="15.9583" height="7.74306"/>
+  <object id="60" name="geyser" type="Geyser" x="935.896" y="16.0489" width="32.0833" height="15.9306"/>
+  <object id="61" name="mineral" type="Mineral" x="992.021" y="40.1285" width="15.9583" height="7.74306"/>
+  <object id="62" name="mineral" type="Mineral" x="1000.15" y="48.0035" width="15.9583" height="7.74306"/>
+  <object id="63" name="mineral" type="Mineral" x="991.771" y="56.0035" width="15.9583" height="7.74306"/>
+  <object id="64" name="mineral" type="Mineral" x="999.896" y="63.7535" width="15.9583" height="7.74306"/>
+  <object id="65" name="mineral" type="Mineral" x="991.771" y="72.1285" width="15.9583" height="7.74306"/>
+  <object id="66" name="mineral" type="Mineral" x="999.771" y="80.1285" width="15.9583" height="7.74306"/>
+  <object id="67" name="mineral" type="Mineral" x="984.146" y="104.503" width="15.9583" height="7.74306"/>
+  <object id="68" name="mineral" type="Mineral" x="991.771" y="88.3785" width="15.9583" height="7.74306"/>
+  <object id="69" name="mineral" type="Mineral" x="991.771" y="96.5035" width="15.9583" height="7.74306"/>
+  <object id="70" name="mineral" type="Mineral" x="15.9299" y="912.341" width="15.9583" height="7.74306"/>
+  <object id="71" name="mineral" type="Mineral" x="8.02085" y="920.31" width="15.9583" height="7.74306"/>
+  <object id="72" name="mineral" type="Mineral" x="15.839" y="928.128" width="15.9583" height="7.74306"/>
+  <object id="73" name="mineral" type="Mineral" x="8.02085" y="935.947" width="15.9583" height="7.74306"/>
+  <object id="74" name="mineral" type="Mineral" x="16.0208" y="944.128" width="15.9583" height="7.74306"/>
+  <object id="75" name="mineral" type="Mineral" x="7.83903" y="952.31" width="15.9583" height="7.74306"/>
+  <object id="76" name="mineral" type="Mineral" x="16.2027" y="960.31" width="15.9583" height="7.74306"/>
+  <object id="77" name="mineral" type="Mineral" x="16.2027" y="968.128" width="15.9583" height="7.74306"/>
+  <object id="78" name="mineral" type="Mineral" x="23.839" y="976.31" width="15.9583" height="7.74306"/>
+  <object id="79" name="geyser" type="Geyser" x="56.0209" y="887.947" width="31.9583" height="16.2885"/>
+  <object id="80" name="mineral" type="Mineral" x="352.021" y="896.462" width="15.9583" height="7.74306"/>
+  <object id="81" name="mineral" type="Mineral" x="344.021" y="887.128" width="15.9583" height="7.74306"/>
+  <object id="82" name="mineral" type="Mineral" x="352" y="912.17" width="15.9583" height="7.74306"/>
+  <object id="83" name="mineral" type="Mineral" x="344.021" y="920.066" width="15.9583" height="7.74306"/>
+  <object id="84" name="mineral" type="Mineral" x="351.958" y="928.066" width="15.9583" height="7.74306"/>
+  <object id="85" name="mineral" type="Mineral" x="344.021" y="936.003" width="15.9583" height="7.74306"/>
+  <object id="86" name="mineral" type="Mineral" x="335.958" y="944.191" width="15.9583" height="7.74306"/>
+  <object id="87" name="geyser" type="Geyser" x="296.021" y="944.003" width="32.2083" height="15.9931"/>
+  <object id="88" name="mineral" type="Mineral" x="560.021" y="983.947" width="15.9583" height="7.74306"/>
+  <object id="89" name="mineral" type="Mineral" x="567.839" y="991.947" width="15.9583" height="7.74306"/>
+  <object id="90" name="mineral" type="Mineral" x="639.839" y="991.947" width="15.9583" height="7.74306"/>
+  <object id="91" name="mineral" type="Mineral" x="575.839" y="1000.13" width="15.9583" height="7.74306"/>
+  <object id="92" name="mineral" type="Mineral" x="592.021" y="1000.13" width="15.9583" height="7.74306"/>
+  <object id="93" name="mineral" type="Mineral" x="608.021" y="1000.13" width="15.9583" height="7.74306"/>
+  <object id="94" name="mineral" type="Mineral" x="600.203" y="991.947" width="15.9583" height="7.74306"/>
+  <object id="95" name="mineral" type="Mineral" x="631.839" y="1000.31" width="15.9583" height="7.74306"/>
+  <object id="96" name="geyser" type="Geyser" x="655.839" y="967.947" width="32.6856" height="16.6522"/>
+  <object id="97" name="mineral" type="Mineral" x="975.839" y="384.098" width="15.9583" height="7.74306"/>
+  <object id="98" name="mineral" type="Mineral" x="992.021" y="392.31" width="15.9583" height="7.74306"/>
+  <object id="99" name="mineral" type="Mineral" x="1000.02" y="399.947" width="15.9583" height="7.74306"/>
+  <object id="100" name="mineral" type="Mineral" x="999.657" y="415.765" width="15.9583" height="7.74306"/>
+  <object id="101" name="mineral" type="Mineral" x="991.839" y="423.765" width="15.9583" height="7.74306"/>
+  <object id="102" name="mineral" type="Mineral" x="991.657" y="432.128" width="15.9583" height="7.74306"/>
+  <object id="103" name="mineral" type="Mineral" x="1000.02" y="439.947" width="15.9583" height="7.74306"/>
+  <object id="104" name="mineral" type="Mineral" x="992.021" y="447.038" width="15.9583" height="7.74306"/>
+  <object id="105" name="geyser" type="Geyser" x="959.839" y="463.947" width="31.9583" height="16.1067"/>
+  <object id="106" name="mineral" type="Mineral" x="928.384" y="672.128" width="15.9583" height="7.74306"/>
+  <object id="107" name="mineral" type="Mineral" x="936.203" y="680.128" width="15.9583" height="7.74306"/>
+  <object id="108" name="mineral" type="Mineral" x="944.021" y="688.128" width="15.9583" height="7.74306"/>
+  <object id="109" name="mineral" type="Mineral" x="943.839" y="704.128" width="15.9583" height="7.74306"/>
+  <object id="110" name="mineral" type="Mineral" x="936.021" y="711.947" width="15.9583" height="7.74306"/>
+  <object id="111" name="mineral" type="Mineral" x="944.021" y="720.128" width="15.9583" height="7.74306"/>
+  <object id="112" name="mineral" type="Mineral" x="935.839" y="736.128" width="15.9583" height="7.74306"/>
   <object id="113" name="geyser" type="Geyser" x="887.839" y="663.947" width="32.1401" height="16.1067"/>
   <object id="114" name="geyser" type="Geyser" x="935.979" y="896.045" width="32.0208" height="15.9931"/>
   <object id="115" name="mineral" type="Mineral" x="991.913" y="920.066" width="15.9583" height="7.74306"/>

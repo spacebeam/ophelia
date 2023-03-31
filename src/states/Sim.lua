@@ -1,7 +1,6 @@
--- bw simulator of all things 
+-- bw zimulator of all things
 
 local inspect = require("inspect")
-
 local sti = require("lib.sti.sti")
 
 local Sim = class("Sim")
@@ -14,18 +13,15 @@ function Sim:load()
 	local map = sti(self.path)
     local w, h = map.tilewidth * map.width, map.tileheight * map.height
 
-	-- now wut?
+	-- bruh
 	local actions = {} 
 	
 	self.time = 0
 	self.world = tiny.world(
-
 		require ("src.systems.Update")()
-
 		--require ("src.systems.Opening")(),
 		--require ("src.systems.Scouting")(),
 		--require ("src.systems.Economy")(),
-		
 	)
 	
 	-- tile map object layer entities
@@ -40,7 +36,6 @@ function Sim:load()
 		end
 	end
 	
-	-- Muda Muda Muda!
 	_G.world = self.world
 end
 

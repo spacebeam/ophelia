@@ -9,17 +9,14 @@ gamestate = require("lib.hump.gamestate")
 local socket = require("socket")
 local uuid = require("uuid")
 
-
 -- Replace beholder with lib.hump.signal (!)
 local observer = require("lib.beholder.beholder")
-
 
 -- BW Simulator of all things!
 local Sim = require("src.states.Sim")
 
 -- Our bw thread
 local bw_thread = love.thread.newThread("src/TorchCraft.lua")
-
 
 -- filter update
 local updateFilter = tiny.rejectAny('isDrawSystem')
