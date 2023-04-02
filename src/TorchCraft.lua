@@ -1,4 +1,4 @@
--- this is the bw thread run in parallel with love2d
+-- bw thread run in parallel with love2d
 
 local sys = require("sys")
 local torch = require("torch")
@@ -6,9 +6,11 @@ local tc = require("torchcraft")
 
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
+
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
 tc.DEBUG = 0
 
+local ophelia = {}
 local hostname = '127.0.0.1'
 local port = 11111
 local skip_frames = 7
@@ -19,7 +21,6 @@ while restarts < 0 do
     restarts = restarts + 1
     -- init connection to bw engine
     tc:init(hostname, port)
-    local ophelia = {}
     local enemy = nil
     local loops = 1
     local update = tc:connect(port)
@@ -53,21 +54,18 @@ while restarts < 0 do
         end
         if tc.state.battle_frame_count % skip_frames == 0 then
             local resources = tc.state.frame["getResources"](tc.state.frame, ophelia['id'])
-
-            -- channel, channel, channel, channel
-
-            love.thread.getChannel( 'resources' ):push( resources )
-            love.thread.getChannel( 'enemy' ):push( enemy )
+            love.thread.getChannel('resources'):push(resources)
+            love.thread.getChannel('enemy'):push(enemy)
             if  enemy and tc.DEBUG > 1 then
                 print("Ophelia vs "..enemy['name'])
             end
-            
+ 
             -- I need "actions" channel linked on BW thread
             actions = love.thread.getChannel('actions'):pop()
             if not actions then
                 actions = {}
             end
-            
+
             -- go action, missing actions
 
         elseif tc.state.game_ended then
