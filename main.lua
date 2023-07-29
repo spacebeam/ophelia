@@ -1,4 +1,4 @@
--- Do not break the laws of physics.
+-- We don't know where she is from, or even what strain she is.
 
 class = require("lib.30log.30log")
 tiny = require("lib.tiny-ecs.tiny")
@@ -9,10 +9,8 @@ local uuid = require("uuid")
 
 -- Replace beholder with lib.hump.signal (!)
 local observer = require("lib.beholder.beholder")
--- BW Simulator of all things!
 local Sim = require("src.states.Sim")
-
-local bw_thread = love.thread.newThread("src/TorchCraft.lua")
+local tc = love.thread.newThread("src/TorchCraft.lua")
 
 local updateFilter = tiny.rejectAny('isDrawSystem')
 uuid.randomseed(socket.gettime()*10000)
@@ -29,11 +27,9 @@ function love.keyreleased(k)
 end
 
 function love.load()
-    bw_thread:start()
+    tc:start()
     gamestate.registerEvents()
-
-    -- todo: dynamic map selection (?)
-    
+    -- todo: dynamic map selection (!)
     gamestate.switch(Sim("maps/FightingSpirit.lua"))
 end
 

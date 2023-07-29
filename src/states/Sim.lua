@@ -1,6 +1,7 @@
--- bw zimulator of all things
+-- Do not break the laws of physics!
 
 local inspect = require("inspect")
+
 local sti = require("lib.sti.sti")
 
 local Sim = class("Sim")
@@ -13,17 +14,18 @@ function Sim:load()
 	local map = sti(self.path)
     local w, h = map.tilewidth * map.width, map.tileheight * map.height
 
-	-- bruh
+	-- go !
 	local actions = {} 
 	
 	self.time = 0
 	self.world = tiny.world(
-		require ("src.systems.Update")()
-		--require ("src.systems.Opening")(),
-		--require ("src.systems.Scouting")(),
-		--require ("src.systems.Economy")(),
+		require("src.systems.Maps"),
+		require("src.systems.Mining")(),
+		require("src.systems.Opening")(),
+		require("src.systems.Scouting")(),
+		require("src.systems.Economy")(),
+		require("src.systems.Update")()
 	)
-	
 	-- tile map object layer entities
 	for index, layer in ipairs(map.layers) do
 		if layer.type == "objects" then
@@ -50,7 +52,6 @@ function Sim:update(dt)
 	--if enemy then
 	--	print(inspect.inspect(enemy))
 	--end
-
 end
 
 return Sim
