@@ -10,7 +10,7 @@ local scouting = {}
 local enemy = {}
 enemy["P"] = {["units"]={},["race"]="Protoss",["against"]=false}
 enemy["Z"] = {["units"]={},["race"]="Zerg",["against"]=false}
-enemy["T"] = {["units"]={},["race"]="Terran",["against"]=false
+enemy["T"] = {["units"]={},["race"]="Terran",["against"]=false}
 
 
 function scouting.identify_enemy_race()
