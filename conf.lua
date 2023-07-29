@@ -2,7 +2,7 @@ function love.conf(t)
     t.identity = nil
     t.version = "11.1"
     t.console = false 
-    t.window.title = "Torch Up Engine"
+    t.window.title = "School for Zergs"
     t.window.icon = nil
     t.window.width = 1280 
     t.window.height = 720 
