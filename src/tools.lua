@@ -94,20 +94,16 @@ function tools.check_supported_maps(name)
     local map = {}
     if string.match(name, "Fighting Spirit") then
         map['bases'] = 4
-    elseif string.match(name, "CircuitBreakers") then
+    elseif string.match(name, "Vermeer") then
         map['bases'] = 4
-    elseif string.match(name, "EmpireoftheSun") then
+    elseif string.match(name, "Polypoid") then
         map['bases'] = 4
-    elseif string.match(name, "Power Bond") then
-        map['bases'] = 3
     elseif string.match(name, "Neo Sylphid") then
         map['bases'] = 3
-    elseif string.match(name, "Overwatch") then
-        map['bases'] = 2
-    elseif string.match(name, "Benzene") then
+    elseif string.match(name, "Eclipse") then
         map['bases'] = 2
     else
-        print("crash something else")
+        print("Crash something else")
     end
     return map
 end
