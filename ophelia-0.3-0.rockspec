@@ -1,8 +1,8 @@
 package = "ophelia"
-version = "0.2-0"
+version = "0.3-0"
 source = {
   url = "git://github.com/spacebeam/ophelia",
-  tag = "0.2.0",
+  tag = "0.3.0",
 }
 
 description = {
@@ -17,18 +17,7 @@ dependencies = {
   "luasocket",
   "lzmq-ffi",
   "inspect",
-  "lsqlite3",
   "luasec",
   "turbo",
   "uuid",
-}
-
-build = {
-  type = 'builtin',
-  modules = {
-    ['ophelia.economy'] = "include/proto/economy.lua",
-    ['ophelia.openings'] = "include/proto/openings.lua",
-    ['ophelia.scouting'] = "include/proto/scouting.lua",
-
-  }
 }

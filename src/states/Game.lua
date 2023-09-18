@@ -1,22 +1,18 @@
 -- Do not break the laws of physics!
 
 local inspect = require("inspect")
-
 local sti = require("lib.sti.sti")
+local Game = class("Game")
 
-local Sim = class("Sim")
-
-function Sim:init(path)
+function Game:init(path)
 	self.path = path
 end
 
-function Sim:load()
+function Game:load()
 	local map = sti(self.path)
-    local w, h = map.tilewidth * map.width, map.tileheight * map.height
-
-	-- go !
+    local w, h = map.tilewidth * map.width, map.tileheight * map.height	
+	-- the enchiridion!
 	local actions = {} 
-	
 	self.time = 0
 	self.world = tiny.world(
 		require("src.systems.Maps"),
@@ -37,12 +33,12 @@ function Sim:load()
 			map:removeLayer(index)
 		end
 	end
-	
 	_G.world = self.world
 end
 
-function Sim:update(dt)
+function Game:update(dt)
 	self.time = self.time + dt
+	
 	local resources = love.thread.getChannel('resources'):pop()
 	--if resources then
 	--	print(inspect.inspect(resources))
@@ -52,6 +48,8 @@ function Sim:update(dt)
 	--if enemy then
 	--	print(inspect.inspect(enemy))
 	--end
+
+	--print(seconds)
 end
 
-return Sim
+return Game

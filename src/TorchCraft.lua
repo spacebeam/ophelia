@@ -4,11 +4,14 @@ local sys = require("sys")
 local torch = require("torch")
 local tc = require("torchcraft")
 
+-- maybe use inspect instead
+local tools = require('src/tools')
+
 -- Set default float tensor type
 torch.setdefaulttensortype('torch.FloatTensor')
 
 -- Debug can take values 0, 1, 2 (from no output to most verbose)
-tc.DEBUG = 0
+tc.DEBUG = 0 
 
 local ophelia = {}
 local hostname = '127.0.0.1'
@@ -26,7 +29,7 @@ while restarts < 0 do
     local update = tc:connect(port)
     local timer = torch.Timer()
     if tc.DEBUG > 1 then
-        print('Received init: ', update)
+        print('Received init: ', tools.print_table(update))
     end
     assert(tc.state.replay == false)
     local setup = {
@@ -34,15 +37,23 @@ while restarts < 0 do
         tc.command(tc.set_cmd_optim, 1),
     }
     tc:send({table.concat(setup, ':')})
+   
+    love.thread.getChannel('time'):push(0)
+    
     while not tc.state.game_ended do
+        
         local actions = {}
+        
         timer:reset()
+        
         -- Update received from game engine
         update = tc:receive()
+        
         loops = loops + 1
         if tc.DEBUG > 1 then
-            print('Received update: ', update)
+            print('Received update: ', tools.print_table(update))
         end
+
         -- Ophelia's player info
         for k, v in pairs(tc.state.player_info) do
             if v['name'] == "Ophelia" then
@@ -59,14 +70,10 @@ while restarts < 0 do
             if  enemy and tc.DEBUG > 1 then
                 print("Ophelia vs "..enemy['name'])
             end
- 
-            -- I need "actions" channel linked on BW thread
+            -- the enchiridion!
             actions = love.thread.getChannel('actions'):pop()
-            if not actions then
-                actions = {}
-            end
-
-            -- go action, missing actions
+            -- missing actions
+            actions = {}
 
         elseif tc.state.game_ended then
             -- wp
@@ -76,7 +83,12 @@ while restarts < 0 do
         if tc.DEBUG > 1 then
             print('Frame ' .. tc.state.battle_frame_count
             .. ' consume ' .. timer:time().real .. ' seconds')
-            print("Sending actions: " .. actions)
+            if actions then
+                tools.print_table(actions)
+            else
+                actions = {}
+            end
+            --print("Sending actions: " .. tools.print_table(actions))
         end
         tc:send({table.concat(actions, ':')})
     end

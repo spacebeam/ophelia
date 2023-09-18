@@ -1,10 +1,9 @@
--- overgas, overpool, 9 pool, 11 hatch
+-- overpool, overgas, 11 hatch
 local Opening = tiny.processingSystem(class("Opening"))
 --
--- 11 Hatch
--- 9 Pool
--- Overgas
 -- Overpool
+-- Overgas
+-- 11 Hatch
 --
 
 local utils = require("torchcraft.utils")
@@ -19,10 +18,9 @@ local spawning_pool = 0
 
 local main = false
 
-
-function openings.twelve_hatch(actions, tc)
+function openings.eleven_hatch(actions, tc)
     --
-    -- Standard ZvT opening
+    -- 11 hatch
     --
     return actions
 end
@@ -86,6 +84,12 @@ function openings.overpool(actions, tc)
         end
     end
     return actions
+end
+
+function openings.overgas(actions, tc)
+    --
+    -- Over gas
+    --
 end
 
 Opening.filter = tiny.requireAll("opening")
