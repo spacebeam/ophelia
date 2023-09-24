@@ -50,6 +50,7 @@ function Game:update(dt)
 	--end
 
 	--print(seconds)
+	-- blocking outside assistance
 end
 
 return Game

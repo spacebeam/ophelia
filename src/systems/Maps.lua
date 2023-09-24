@@ -8,9 +8,11 @@ MapsSystem.isDrawSystem = false
 local lgw, lgh, stale
 
 local quadrant = nil
--- Map is not territory, but...
--- since handling 512x512 for all things.
+
+-- Divide the plane into four quadrants, which are numbered in the counter-clockwise direction from the upper right-hand one.
+-- We are handling 512x512 for all things.
 -- TODO: return all hardcoded location data from tools.check_supported_maps
+
 local quadrants = {}
 quadrants["A"] = {
     ["scout"] = {["x"]=450,["y"]=50},
@@ -66,6 +68,9 @@ end)
 function MapsSystem:init(camera, tileMap)
 	self.camera = camera
 	self.tileMap = tileMap
+    -- lets go
+    self.quadrant = quadrant
+    self.quadrants = quadrants
 end
 
 function MapsSystem:update(dt)
